@@ -40,14 +40,14 @@ const LoginPage = () => {
 
                         <TextField label='Enter your password' variant='outlined' type='password' style={{width:'80%', margin:'10px 0px'}} color='secondary' required></TextField>
 
-                        <Button id='login-button' variant='contained' type='submit' sx={{width:'80%', height:'50px', boxShadow:'none', fontWeight:'bold', fontSize:'1rem', margin:'10px 0px', backgroundColor:'#4a4096'}}>Login Now</Button>
+                        <Button id='login-button' variant='contained' type='submit' sx={{width:'80%', height:'50px', boxShadow:'none', fontWeight:'bold', fontSize:'1rem', margin:'10px 0px', backgroundColor:'buttonColor'}}>Login Now</Button>
                     </form>
 
                     <p>Forgot password?</p>
 
                     <div style={{display:'flex', justifyContent:'flex-start', alignItems:'flex-start', margin:'10px 0px'}}>
                         <p style={{marginRight:'10px'}}>Don't have an account?</p>
-                        <Link to="">Register Here</Link>
+                        <Link to="/createaccount">Register Here</Link>
                     </div>
                 </div>
             </Grid>
