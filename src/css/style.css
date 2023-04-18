@@ -21,9 +21,10 @@ body{
 #login-button:hover{
     background: transparent;
     box-shadow: none;
-    color: #1976d2;
-    border: 2px solid #1976d2;
+    color: #4a4096;
+    border: 2px solid #4a4096;
 }
+
 
 /* Hiding image from medium devices */
 @media screen and (max-width: 900px){

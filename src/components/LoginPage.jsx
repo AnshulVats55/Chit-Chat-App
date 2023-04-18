@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { FormControl, InputLabel, Input, FormHelperText, Button } from '@mui/material';
 import { TextField }from '@mui/material';
-import LoginPageImage from '../assets/login-page-image.jpg';
+import LoginPageImage from '../assets/login-image.jpg';
 import BrandLogo from '../assets/fiftyfive-logo.png';
 import { useForm } from 'react-hook-form';
 
@@ -33,14 +33,14 @@ const LoginPage = () => {
                         <h3 style={{textAlign:'center', margin:'10px 0px'}}>Sign into your account</h3>
                     </div>
                           
-                <div style={{width:'100%',display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
+                <div className="user-form-div" style={{width:'100%',display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
 
                     <form style={{width:'90%', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', margin:'10px 0px'}}>
                         <TextField label='Enter your email' variant='outlined' type='email' style={{width:'80%'}} required></TextField>
 
-                        <TextField label='Enter your password' variant='outlined' type='password' style={{width:'80%', margin:'10px 0px'}} required></TextField>
+                        <TextField label='Enter your password' variant='outlined' type='password' style={{width:'80%', margin:'10px 0px'}} color='secondary' required></TextField>
 
-                        <Button id='login-button' variant='contained' type='submit' sx={{width:'80%', height:'50px', boxShadow:'none', fontWeight:'bold', fontSize:'1rem', margin:'10px 0px'}}>Login Now</Button>
+                        <Button id='login-button' variant='contained' type='submit' sx={{width:'80%', height:'50px', boxShadow:'none', fontWeight:'bold', fontSize:'1rem', margin:'10px 0px', backgroundColor:'#4a4096'}}>Login Now</Button>
                     </form>
 
                     <p>Forgot password?</p>
