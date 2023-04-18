@@ -25,10 +25,56 @@ body{
     border: 2px solid #4a4096;
 }
 
+/* Navbar CSS */
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.left,.left-main{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    /* font-size: 4rem; */
+    
+}
+  .img-container{
+    width:15%;
+    margin-right: 10px;
+    /* height: 100%; */
+    
+}
+  .img-container img{
+    width: 100%;  
+}
+.left-main{
+    display: none;
+
+}
+
+
+
+
+
+
+
 
 /* Hiding image from medium devices */
 @media screen and (max-width: 900px){
     #loginPageImage{
         display: none;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .left{
+        display: none;
+    }
+    .left-main{
+        display: flex;
+        font-size: 1rem ;
+
     }
 }
