@@ -1,19 +1,33 @@
 import React from "react";
-import { Post } from "./Post";
-import { Box } from "@mui/material";
-
-
-
+import { Post } from "./post-comp/Post";
+import { Box, Grid } from "@mui/material";
 
 const Feed = () => {
   return (
-    <Box  flex={4} p={2}>
-        <Post/>
-        <Post/>
-        <Post/>
-    </Box>
+    <Grid container justifyContent='flex-center' spacing={2} >
+      <Grid item  >
+        <Post />  
+      </Grid>
+      <Grid item>
+        <Post />
+      </Grid>
+      <Grid item>
+        <Post />
+      </Grid><Grid item>
+        <Post />
+      </Grid><Grid item>
+        <Post />
+      </Grid><Grid item>
+        <Post />
+      </Grid><Grid item>
+        <Post />
+      </Grid><Grid item>
+        <Post />
+      </Grid><Grid item>
+        <Post />
+      </Grid>
+    </Grid>
   );
 };
-
 
 export default Feed;
