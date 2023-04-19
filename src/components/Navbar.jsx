@@ -17,10 +17,50 @@ import AdbIcon from '@mui/icons-material/Adb';
 import HomeIcon from '@mui/icons-material/Home';
 import Logo from '../assets/fiftyfive-logo-1.png';
 import ChatIcon from '@mui/icons-material/Chat';
+import GroupsIcon from '@mui/icons-material/Groups';
+import {Link} from 'react-router-dom';
 
-const pages = [ <HomeIcon></HomeIcon>, <ChatIcon></ChatIcon>, <ChatIcon></ChatIcon>];
-const pagesScroll = [ "Home" , "Chat"];
-const settings = ['Profile', 'Logout'];
+const pages = [
+    {
+        to: '/',
+        icon: <HomeIcon fontSize="large" ></HomeIcon>
+    },
+
+    {
+            to: '/chat',
+            icon: <ChatIcon fontSize="large"></ChatIcon>
+    },
+
+    {
+
+            to: '/groups',
+            icon: <GroupsIcon fontSize="large"></GroupsIcon>
+    }
+];
+const pagesScroll = [ {
+    to: '/',
+    data: "Home"
+},
+
+{
+        to: '/chat',
+        data: "Chat"
+},
+
+{
+
+        to: '/groups',
+        data: "Groups"
+}];
+const settings = [{
+    to: '/userprofile',
+    data: "Profile"
+},
+
+{
+        to: '/userlogin',
+        data: "Logout"
+}];
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -45,7 +85,7 @@ function ResponsiveAppBar() {
         
         <AppBar position="static" sx={{background:'transparent'}}>
             <Container maxWidth="xl">
-                <Box sx={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+                <Box sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
 
                 <Box sx={{ flexGrow:1, display: { sm: 'flex', md:'none', lg:'none' } }}>
                         <IconButton
@@ -78,29 +118,30 @@ function ResponsiveAppBar() {
                         >
                             {pagesScroll.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                                    <Link to={page.to} style={{textAlign:"center",textDecoration:"none", color:"blue"}}>{page.data}</Link>
                                 </MenuItem>
                             ))}
                         </Menu>
                 </Box>
 
                     {/* medium devices */}
-                    <Box className="left" sx={{}}>
+                    <Box className="left" sx={{flexGrow:1}}>
                         <div className="img-container">
                             <img src={Logo} alt="logo" />
                         </div>
-                        <h3 style={{color:'blue'}}>Chit-Chat</h3>
+                        <h2 style={{color:'blue'}}>Chit-Chat</h2>
                     </Box>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', lg:'flex' }, justifyContent:'flex-start'}}>
+                    <Box sx={{ flexGrow: 1.2, display: { xs: 'none', md: 'flex', lg:'flex' }, justifyContent:'flex-start'}}>
                         {pages.map((page) => (
-                            <Button
+                            <Link
+                            to={page.to}
                                 key={page}
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block', color:'blue', margin:'0px 50px'}}
+                                style={{ my: 2, color: 'white', display: 'block', color:'blue', margin:'0px 50px'}}
                             >
-                                {page}
-                            </Button>
+                                {page.icon}
+                            </Link>
                         ))}
                     </Box>
 
@@ -115,7 +156,7 @@ function ResponsiveAppBar() {
                     </Box>
                    
 
-                    <Box sx={{ flexGrow: 0 }}>
+                    <Box sx={{ flexGrow: 0.2 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" sx={{backgroundColor:'blue'}}/>
@@ -139,7 +180,7 @@ function ResponsiveAppBar() {
                         >
                             {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                                    <Link to={setting.to} style={{textAlign:"center",textDecoration:"none", color:"blue"}}>{setting.data}</Link>
                                 </MenuItem>
                             ))}
                         </Menu>
