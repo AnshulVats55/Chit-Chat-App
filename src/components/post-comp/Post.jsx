@@ -12,7 +12,7 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-
+import MyButton from '../button/MyButton'
 import CommentIcon from "@mui/icons-material/Comment";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
@@ -60,6 +60,7 @@ export const Post = ({avatarLetter,title,postDate,image,content}) => {
           <CommentIcon />
         </IconButton>
       </CardActions>
+      <MyButton>Click Me</MyButton>
     </Card>
   );
 };

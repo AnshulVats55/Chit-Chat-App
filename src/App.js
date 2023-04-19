@@ -5,6 +5,7 @@ import LoginPage from './components/LoginPage';
 import { sidebar } from './components/SideBar';
 
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import UserProfilePage from './components/UserProfilePage/UserProfilePage';
 
 import { DashBoard } from './components/DashBoard';
 import Feed from './components/Feed';
@@ -14,8 +15,10 @@ function App() {
         <Router>
           {/* <Navbar /> */}
           <Routes>
+            <Route exact path="/createaccount" element={<CreateAccount />} />
             <Route exact path="/userlogin" element={<LoginPage />} />
-            <Route exact path="/feed" element={<Feed/>} />
+            <Route exact path="/userProfile" element={<UserProfilePage />} />
+            
           </Routes>
         </Router>
     );
