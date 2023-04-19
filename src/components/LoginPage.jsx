@@ -38,7 +38,7 @@ const LoginPage = () => {
                     <form style={{width:'90%', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', margin:'10px 0px'}}>
                         <TextField label='Enter your email' variant='outlined' type='email' style={{width:'80%'}} required></TextField>
 
-                        <TextField label='Enter your password' variant='outlined' type='password' style={{width:'80%', margin:'10px 0px'}} color='secondary' required></TextField>
+                        <TextField label='Enter your password' variant='outlined' type='password' style={{width:'80%', margin:'10px 0px'}} required></TextField>
 
                         <Button id='login-button' variant='contained' type='submit' sx={{width:'80%', height:'50px', boxShadow:'none', fontWeight:'bold', fontSize:'1rem', margin:'10px 0px', backgroundColor:'buttonColor'}}>Login Now</Button>
                     </form>
