@@ -3,17 +3,16 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+
 import HomeIcon from '@mui/icons-material/Home';
 import Logo from '../assets/fiftyfive-logo-1.png';
 import ChatIcon from '@mui/icons-material/Chat';
@@ -83,9 +82,9 @@ function ResponsiveAppBar() {
 
     return (
         
-        <AppBar position="static" sx={{background:'transparent'}}>
+        <AppBar  className="container" position="static" sx={{background:'transparent',height:"60px"}}>
             <Container maxWidth="xl">
-                <Box sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+                <Box  sx={{display:'flex', justifyContent:'space-between', alignItems:'center', padding:"5px 50px", }}>
 
                 <Box sx={{ flexGrow:1, display: { sm: 'flex', md:'none', lg:'none' } }}>
                         <IconButton
@@ -125,20 +124,20 @@ function ResponsiveAppBar() {
                 </Box>
 
                     {/* medium devices */}
-                    <Box className="left" sx={{flexGrow:1}}>
+                    <Box className="left" sx={{flexFlow:0}} >
                         <div className="img-container">
                             <img src={Logo} alt="logo" />
                         </div>
                         <h2 style={{color:'blue'}}>Chit-Chat</h2>
                     </Box>
 
-                    <Box sx={{ flexGrow: 1.2, display: { xs: 'none', md: 'flex', lg:'flex' }, justifyContent:'flex-start'}}>
+                    <Box sx={{ flexGrow: 0.3, display: { xs: 'none', md: 'flex', lg:'flex' }, justifyContent:'flex-start'}}>
                         {pages.map((page) => (
                             <Link
                             to={page.to}
                                 key={page}
                                 onClick={handleCloseNavMenu}
-                                style={{ my: 2, color: 'white', display: 'block', color:'blue', margin:'0px 50px'}}
+                                style={{ my: 2,  display: 'block', color:'blue', padding:'0px 40px'}}
                             >
                                 {page.icon}
                             </Link>
@@ -146,7 +145,7 @@ function ResponsiveAppBar() {
                     </Box>
 
                     {/* small devices */}
-                    <Box sx={{flexGrow:1, display: { xs: 'flex', md: 'none', lg:'none' }}}>
+                    <Box sx={{flexGrow:0.5, display: { xs: 'flex', md: 'none', lg:'none' }}}>
                         <Box className="left-main">
                             <div className="img-container">
                                 <img src={Logo} alt="" />
@@ -156,7 +155,7 @@ function ResponsiveAppBar() {
                     </Box>
                    
 
-                    <Box sx={{ flexGrow: 0.2 }}>
+                    <Box sx={{ flexGrow: 0}}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" sx={{backgroundColor:'blue'}}/>
