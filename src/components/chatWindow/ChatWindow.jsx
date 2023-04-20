@@ -2,10 +2,73 @@ import React from 'react';
 import { IconButton, Avatar } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useState } from "react";
+import "./chatWindow.css"
 
-const ChatWindow = ({messageList},userName) => {
+const ChatWindow = (userName) => {
   const [currentMessage, setCurrentMessage] = useState("");
-  const { author}= messageList;
+  
+  const messageList = [
+    {
+      message:
+        "hi ",
+      time: "12:53",
+      author: "mohammed ishaq",
+    },
+    {
+      message:
+        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+      time: "12:53",
+      author: "mohammed ishaq qqqqqq2222",
+    },
+    {
+      message:
+        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+      time: "12:53",
+      author: "mohammed ishaq qqqqqq2222",
+    },
+    {
+      message:
+        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+      time: "12:53",
+      author: "mohammed ishaq qqqqqq2222",
+    },
+    {
+      message:
+        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+      time: "12:53",
+      author: "mohammed ishaq qqqqqq2222",
+    },
+    {
+      message:
+        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+      time: "12:53",
+      author: "mohammed ishaq qqqqqq2222",
+    },
+    {
+      message:
+        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+      time: "12:53",
+      author: "mohammed ishaq qqqqqq2222",
+    },
+    {
+      message:
+        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+      time: "12:53",
+      author: "mohammed ishaq qqqqqq2222",
+    },
+    {
+      message:
+        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+      time: "12:53",
+      author: "mohammed ishaq qqqqqq2222",
+    },
+    {
+      message:
+        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+      time: "12:53",
+      author: "mohammed ishaq qqqqqq2222",
+    },
+  ];
 
   const sendMessage = () => {
     console.log(currentMessage);
@@ -26,7 +89,7 @@ const ChatWindow = ({messageList},userName) => {
         >
           B
         </Avatar>
-        <h3>{author}</h3>
+        <h3>author</h3>
       </div>
     </div>
 
