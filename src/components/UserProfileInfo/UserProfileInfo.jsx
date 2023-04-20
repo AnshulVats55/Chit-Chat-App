@@ -10,11 +10,11 @@ const UserProfileInfo = () => {
     return (
         <Grid container className={classes.userProfileInfoGrid}>
 
-            <Grid item lg={3} md={3} sm={12} xs={12} style={{backgroundColor:'red'}} className={classes.userProfileInfoGridItem}>
+            <Grid item lg={3} md={3} sm={12} xs={12} style={{backgroundColor:'transparent'}} className={classes.userProfileInfoGridItem}>
                 <ProfilePicture src={BrandLogo} picStyles={{boxShadow:'0 3px 10px rgb(0 0 0 / 0.2)', margin:'50px 100px'}}/>
             </Grid>
 
-            <Grid item lg={9} md={9} sm={12} xs={12} style={{backgroundColor:'wheat'}} className={classes.userSocialInfoCon}>
+            <Grid item lg={9} md={9} sm={12} xs={12} style={{backgroundColor:'transparent'}} className={classes.userSocialInfoCon}>
                 <Box className={classes.userSocialInfo}>
                     <Typography variant="h5" className={classes.userName}>User Name</Typography>
 

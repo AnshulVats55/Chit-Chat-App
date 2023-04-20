@@ -4,7 +4,7 @@ export const getUserProfileInfoBoxStyles = makeStyles()(()=>{
     return({
         userProfileInfoGrid: {
             width:'100%',
-            backgroundColor:'pink',
+            backgroundColor:'transparent',
             marginTop:'50px'
         },
 
@@ -28,7 +28,7 @@ export const getUserProfileInfoBoxStyles = makeStyles()(()=>{
             display:'flex',
             flexDirection:'column',
             justifyContent:'center',
-            backgroundColor:'grey'
+            backgroundColor:'transparent'
         },
 
         userName: {

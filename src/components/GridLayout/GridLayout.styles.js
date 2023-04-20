@@ -12,7 +12,7 @@ export const getGridLayoutStyles = makeStyles()((theme)=>{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            background: 'red',
+            background: 'transparent',
             border:'1px solid black',
         },
     });
