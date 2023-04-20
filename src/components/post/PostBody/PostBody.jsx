@@ -6,7 +6,7 @@ export const PostBody = ({content,styles}) => {
     const {classes}= PostBodyStyles(styles);
   return (
     <CardContent>
-        <Typography variant="body1">{content}</Typography>
+        <Typography variant="body1" p={2}>{content}</Typography>
     </CardContent>
   )
 }

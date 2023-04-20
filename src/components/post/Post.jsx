@@ -20,8 +20,17 @@ export const Post = ({
   const { classes } = PostStyles(cardStyles);
 
   return (
-    <Stack >
-      <Card className={classes.flexContain}>
+    <Stack className={classes.flexContain}>
+      <Card >
+        <PostHeader />
+        <Box className={classes.container}>
+          <PostMedia />
+        </Box>
+
+        <PostBody />
+        <PostAction />
+      </Card>
+      <Card >
         <PostHeader />
         <Box className={classes.container}>
           <PostMedia />
