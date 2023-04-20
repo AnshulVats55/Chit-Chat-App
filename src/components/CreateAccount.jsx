@@ -8,7 +8,6 @@ import { FormControl, InputLabel, Input, FormHelperText, Button } from '@mui/mat
 import { TextField }from '@mui/material';
 import CreateAccountImage from '../assets/create-account.jpg';
 import BrandLogo from '../assets/fiftyfive-logo.png';
-import UserProfilePic from './UserProfilePicture/UserProfilePic';
 import MyButton from './button/MyButton';
 
 const CreateAccount = () => {
@@ -67,6 +66,8 @@ const CreateAccount = () => {
                         </Grid>
 
                             <Button id='login-button' variant='contained' type='submit' sx={{width:'80%', height:'50px', boxShadow:'none', fontWeight:'bold', fontSize:'1rem', margin:'35px 0px 10px 0px', backgroundColor:'buttonColor'}}>Create Account</Button>
+
+                            <MyButton width="200px" height="40px" color="white" fontWeight="bold" children={"Create Post"}/>
                     </form>
 
                     <div id="account-info" style={{display:'flex', justifyContent:'flex-start', justifyContent:'center', alignItems:'center', margin:'10px 0px'}}>
@@ -74,10 +75,6 @@ const CreateAccount = () => {
                         <Link to="/userlogin">Login Here</Link>
                     </div>
                 </div>
-
-                {/* <UserProfilePic backgroundColor="red" width="100px" children="Hello user"></UserProfilePic> */}
-                <MyButton width="200px" height="50px" color="white"/>
-                <MyButton width="400px" height="30px" color="white" marginBottom="20px"/>
             </Grid>
 
         </Grid>
