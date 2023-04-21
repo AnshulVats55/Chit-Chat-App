@@ -7,8 +7,17 @@ import { ThemeProvider } from '@emotion/react';
 
 const theme = createTheme({
   palette:{
-    buttonColor: '#3b8df3'
-  }
+    primary:{
+      main: '#363a91'
+    },
+    secondary:{
+      main:'#f1f0fa'
+    }
+  },
+
+  typography: {
+    fontFamily: ['Roboto','sans-serif',]
+  },
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

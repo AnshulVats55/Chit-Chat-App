@@ -13,8 +13,9 @@ function App() {
         <Router>
           {/* <Navbar /> */}
           <Routes>
-            <Route exact path="/createaccount" element={<CreateAccount />} />
-            <Route exact path="/userlogin" element={<LoginPage />} />
+            <Route exact path="/" element={<LoginPage />} />
+            <Route exact path="signup" element={<CreateAccount />} />
+            <Route exact path="/login" element={<LoginPage />} />
             <Route exact path="/profile" element={<ProfilePage />} />
           </Routes>
         </Router>

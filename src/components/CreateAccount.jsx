@@ -1,84 +1,73 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Grid from "@mui/material/Grid";
-import { Box, MenuItem, Typography } from "@mui/material";
-import Container from "@mui/material/Container";
-import {
-  FormControl,
-  InputLabel,
-  Input,
-  FormHelperText,
-  Button,
-  Select,
-} from "@mui/material";
-import { TextField } from "@mui/material";
-import CreateAccountImage from "../assets/create-account.jpg";
-import BrandLogo from "../assets/fiftyfive-logo.png";
-import MyButton from "../components/Button/MyButton";
 import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import {Container,
+        TextField,
+        Box,
+        MenuItem,
+        Typography,
+        Grid,
+        FormControl,
+        InputLabel,
+        Input,
+        FormHelperText,
+        Button,
+        Select} from "@mui/material";
+
+import FileBase64 from 'react-file-base64';
+
+import MyButton from "../components/Button/MyButton";
 import { createAccountPageStyles } from "../CreateAccount.styles.js";
-import { useToast } from '@chakra-ui/react'
+
+import BrandLogo from "../assets/fiftyfive-logo.png";
+import CreateAccountImage from "../assets/create-account.jpg";
+import LoginPageImage from '../assets//loginPageImage1.gif';
 
 const CreateAccount = () => {
   const { classes } = createAccountPageStyles();
-  
-  const [userAccountData, setUserAccountData] = useState({});
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const [profilePic, setProfilePic] = useState("");
 
-  const navigate = useNavigate();
+  const { register, handleSubmit, formState: { errors }, } = useForm();
+  const navigate = useNavigate();//to redirect user to login page after successfull signup
 
+  const axios = require("axios");
+
+  //method to create user account
   const onSubmit = async (data) => {
+    data.profilePic = profilePic;
     console.log(data);
 
     let config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: "http://192.168.1.34:8484/v1/signup",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "no-mode",
-        referrerPolicy: "no-referrer",
-        data: data,
-      };
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "http://192.168.1.34:8484/v1/signup",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "no-mode",
+      referrerPolicy: "no-referrer",
+      data: data,
+    };
 
     await axios
-    .request(config)
-    .then((response) => {
-      console.log(response);
-      let accStatus = window.confirm("Account Created Successfully !");
-      if(accStatus){
-          navigate("/userlogin");
-      }
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
+      .request(config)
+      .then((response) => {
+        console.log(response);
+        let accStatus = window.confirm("Account Created Successfully !");
+        if (accStatus) {
+          navigate("/login");
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
-
-  const axios = require("axios");
-  //   let data = JSON.stringify(userAccountData);
-  let data = JSON.stringify({
-    firstName: "sameerbhsdsaiya123",
-    lastName: "sexybsdsdoy",
-    gender: "male",
-    email: "samees1211198r.srivastava@fiftyfivetech.in",
-    password: "1660128226",
-  });
-
-  
-
-  
 
   return (
     <Container
-      maxWidth="lg"
+      maxWidth="xl"
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -107,9 +96,9 @@ const CreateAccount = () => {
             }}
           >
             <img
-              src={CreateAccountImage}
+              src={LoginPageImage}
               alt="signup"
-              width={"120%"}
+              width={"100%"}
               id="loginPageImage"
             />
           </div>
@@ -128,9 +117,10 @@ const CreateAccount = () => {
             alignItems: "center",
           }}
         >
+          <Box className={classes.signupFormContStyles}>
           <div
             style={{
-              width: "80%",
+              width: "100%",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -161,35 +151,23 @@ const CreateAccount = () => {
               alignItems: "center",
             }}
           >
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              style={{
-                width: "90%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                margin: "10px 0px",
-              }}
-            >
-              <Grid container columnSpacing={1} rowSpacing={4}>
+            
+            <form onSubmit={handleSubmit(onSubmit)} className={classes.formStyles}>
+              <Grid container columnSpacing={1} rowSpacing={2}>
                 <Grid item lg={6} md={6} sm={12} xs={12}>
                   <Box>
                     <TextField
                       label="Enter first name"
                       variant="outlined"
                       type="text"
-                      style={{ width: "100%", height: "35px" }}
+                      required
+                      className={classes.root}
+                      InputProps={{className: classes.input}}
                       {...register("firstName", {
                         required: true,
                         maxLength: 15,
                       })}
                     ></TextField>
-                    {errors.firstName && (
-                      <Typography variant="body2">
-                        Firstname should be less than 15 characters long
-                      </Typography>
-                    )}
                   </Box>
                 </Grid>
 
@@ -206,13 +184,14 @@ const CreateAccount = () => {
                     variant="outlined"
                     type="text"
                     required
-                    style={{ width: "100%", height: "35px" }}
-                    {...register("lastName", {required: true, maxLength: 15})}
+                    className={classes.root}
+                      InputProps={{className: classes.input}}
+                    {...register("lastName", { required: true, maxLength: 15 })}
                   ></TextField>
                 </Grid>
 
-                <Grid item lg={12} md={12} sm={12} xs={12}>
-                  <FormControl fullWidth style={{ marginBottom: "-20px" }}>
+                <Grid item lg={6} md={6} sm={12} xs={12}>
+                  <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">
                       Select your gender
                     </InputLabel>
@@ -220,7 +199,9 @@ const CreateAccount = () => {
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       label="Select your gender"
-                      style={{ width: "100%", height: "55px" }}
+                      className={classes.root}
+                      required
+                      inputProps={{className: classes.input}}
                       {...register("gender")}
                     >
                       <MenuItem value={"male"}>Male</MenuItem>
@@ -229,13 +210,33 @@ const CreateAccount = () => {
                   </FormControl>
                 </Grid>
 
+                <Grid
+                  item
+                  lg={6}
+                  md={6}
+                  sm={12}
+                  xs={12}
+                  sx={{ display: "flex", justifyContent: "flex-end" }}
+                >
+
+                  <FileBase64
+                    multiple={false}
+                    className={classes.imageSelectorStyle}
+                    {...register("profilePic")}
+                    onDone={({base64})=>{console.log(base64); setProfilePic(base64)}}
+
+                  />
+                </Grid>
+
                 <Grid item lg={12} md={12} sm={12} xs={12}>
                   <TextField
                     label="Enter your email"
                     variant="outlined"
                     type="email"
-                    style={{ width: "100%", height: "35px" }}
-                    {...register("email", {required: true})}
+                    className={classes.root}
+                    required
+                    InputProps={{className: classes.input}}
+                    {...register("email", { required: true })}
                   ></TextField>
                 </Grid>
 
@@ -245,39 +246,36 @@ const CreateAccount = () => {
                     variant="outlined"
                     type="password"
                     required
-                    style={{ width: "100%", height: "35px" }}
-                    {...register("password", {required: true, minLength: 8, maxLength: 20})}
+                    className={classes.root}
+                    InputProps={{className: classes.input}}
+                    {...register("password", {
+                      required: true,
+                      minLength: 8,
+                      maxLength: 20,
+                    })}
                   ></TextField>
                 </Grid>
               </Grid>
 
               <MyButton
                 type="submit"
-                children={"Create Account"}
+                children={"Sign up"}
                 buttonStyles={{
-                  width: "100%",
-                  height: "50px",
-                  boxShadow: "0.5px 0.5px 5px 0.5px grey",
-                  borderRadius: "5px",
-                  marginTop: "35px",
+                  width: "30%",
+                  height: "40px",
+                  borderRadius: "25px",
+                  marginTop: "20px",
                 }}
+                className={classes.loginButtonStyles}
               />
             </form>
 
-            <div
-              id="account-info"
-              style={{
-                display: "flex",
-                justifyContent: "flex-start",
-                justifyContent: "center",
-                alignItems: "center",
-                margin: "10px 0px",
-              }}
-            >
-              <p style={{ marginRight: "10px" }}>Already have an account?</p>
-              <Link to="/userlogin">Login Here</Link>
+            <div id="account-info" className={classes.alreadyHaveAnAccountBox}>
+              <p className={classes.paraStyles}>Already have an account?</p>
+              <Link to="/" className={classes.linkStyles}>Login Here</Link>
             </div>
           </div>
+          </Box>
         </Grid>
       </Grid>
     </Container>
