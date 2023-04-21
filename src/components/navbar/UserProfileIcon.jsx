@@ -1,5 +1,7 @@
 import React,{useState} from "react";
 import { Link } from 'react-router-dom';
+import { NavbarStyles } from './Navbar.styles';
+
 
 import {
 
@@ -20,11 +22,11 @@ const settings = [{
     to: '/userlogin',
     data: "Logout"
 }];
-
-const UserProfileIcon = (classes) => {
+ 
+const UserProfileIcon = () => {
 
     const [anchorElUser, setAnchorElUser] = useState(null);
-
+    const {classes} = NavbarStyles()
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };

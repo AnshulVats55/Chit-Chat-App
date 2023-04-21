@@ -11,7 +11,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route exact path="/userlogin" element={<LoginPage />} />
-            {/* <Route exact path="/chat" element={<Chat />} /> */}
+            <Route exact path="/feed" element={<Navbar />} />
           </Routes>
         </Router>
     );
