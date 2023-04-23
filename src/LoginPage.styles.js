@@ -20,16 +20,28 @@ export const getLoginPageStyles = makeStyles()((theme)=>{
             }
         },
 
+        loginPageContStyles: {
+            width:'100%',
+            display: "flex",
+            flexDirection:'column',
+            justifyContent: "center",
+            alignItems: "center",
+        },
+
         loginFormContStyles: {
-            width:'75%',
+            width:'60%',
             display: 'flex',
             flexDirection:'column',
             justifyContent: 'center',
             alignItems:'center',
             backgroundColor:'#FFF',
             padding:'20px 0px',
-            '@media screen and (max-width: 900px)': {
-                width: "85%",
+            '@media screen and (max-width: 986px)': {
+                width: "70%",
+                margin:'20px 0px',
+            },
+            '@media screen and (max-width: 899px)': {
+                width: "70%",
                 margin:'20px 0px',
             },
             '@media screen and (max-width: 600px)': {
@@ -44,14 +56,14 @@ export const getLoginPageStyles = makeStyles()((theme)=>{
         },
 
         formStyles: {
-            width: "60%",
+            width: "80%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             margin: "10px 0px",
             '@media screen and (max-width: 900px)': {
-                width: "75%",
+                width: "80%",
             },
             '@media screen and (max-width: 600px)': {
                 width: "85%",
@@ -66,18 +78,21 @@ export const getLoginPageStyles = makeStyles()((theme)=>{
             height:'3.25rem',
             display:'flex',
             justifyContent:'center',
-            borderRadius:'25px'
+            borderRadius:'25px',
+            margin:'10px 0px'
         },
 
         input: {
             height:'50%',
             padding:'25px 0px',
-            borderRadius:'25px'
+            borderRadius:'25px',
+            fontSize:'1rem',
         },
 
         paraStyles: {
             marginRight:'10px',
             fontSize:'0.9rem',
+            fontWeight:'bold',
         },
 
         linkStyles: {
@@ -88,6 +103,7 @@ export const getLoginPageStyles = makeStyles()((theme)=>{
             border:'none',
             borderRadius:'20px',
             fontSize:'0.9rem',
+            fontWeight:'bold',
             transition:'0.2s ease-in-out',
             '&:hover': {
                 transform:'scale(1.025)',

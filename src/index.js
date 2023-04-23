@@ -3,26 +3,29 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { createTheme } from "@mui/material";
+import { ChakraProvider } from '@chakra-ui/react'
 import { ThemeProvider } from '@emotion/react';
 
 const theme = createTheme({
-  palette:{
-    primary:{
-      main: '#363a91'
+    palette:{
+        primary:{
+            main: '#363a91'
+        },
+        secondary:{
+            main:'#f1f0fa'
+        }
     },
-    secondary:{
-      main:'#f1f0fa'
-    }
-  },
 
-  typography: {
-    fontFamily: ['Roboto','sans-serif',]
-  },
+    typography: {
+        fontFamily: ['Roboto','sans-serif',]
+    },
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider> 
+    <ChakraProvider>
+        <ThemeProvider theme={theme}>
+            <App />  
+        </ThemeProvider> 
+    </ChakraProvider>
 );

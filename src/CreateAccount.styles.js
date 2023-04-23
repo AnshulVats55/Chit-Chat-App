@@ -2,12 +2,16 @@ import { makeStyles } from 'tss-react/mui';
 
 export const createAccountPageStyles = makeStyles()((theme)=>{
     return({
-        errorMsgStyle: {
-            marginTop: '10px'
+        signupPageContStyles: {
+            width:'100%',
+            display: "flex",
+            flexDirection:'column',
+            justifyContent: "center",
+            alignItems: "center",
         },
 
         signupFormContStyles: {
-            width:'75%',
+            width:'65%',
             display: 'flex',
             flexDirection:'column',
             justifyContent: 'center',
@@ -29,7 +33,7 @@ export const createAccountPageStyles = makeStyles()((theme)=>{
         },
 
         formStyles: {
-            width: "75%",
+            width: "80%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -45,17 +49,10 @@ export const createAccountPageStyles = makeStyles()((theme)=>{
 
         root: {
             width:'100%',
-            height:'3rem',
+            height:'3.25rem',
             display:'flex',
             justifyContent:'center',
             borderRadius:'5px',
-            '&:hover': {
-                outline:'none',
-                border:'none',
-            },
-            '&::placeholder': {
-                fontSize:'10px',
-            }
         },
 
         input: {
@@ -63,22 +60,36 @@ export const createAccountPageStyles = makeStyles()((theme)=>{
             padding:'20px 0px',
             borderRadius:'7px',
             fontSize:'1rem',
+        },
+
+        selectGenderRoot: {
+            width:'100%',
+            height:'2rem',
+            display:'flex',
+            background:'transparent',
+            justifyContent:'center',
             '&:hover': {
-                outline:'none',
-                border:'none',
+                background:'transparent',
             },
-            '&::placeholder': {
-                fontSize:'10px',
-            }
+            '&:focus': {
+                background:'transparent',
+            },
+        },
+
+        selectGenderInput: {
+            padding:'15px 0px',
+            borderRadius:'7px',
+            fontSize:'1rem',
         },
 
         imageSelectorStyle: {
             width: "100%",
-            '&::file-selector-button': {    
-                height: "55px",
+            '&::file-selector-button': {
+                height: "40px",
                 border: 'none',
-                background: '#3c8df3',
-                padding: '0px 28px',
+                background: theme.palette.primary.main,
+                padding: '0px 20px',
+                margin: '10px 0px 0px 0px',
                 borderRadius: '30px',
                 color: '#fff',
                 cursor: 'pointer',
@@ -89,14 +100,17 @@ export const createAccountPageStyles = makeStyles()((theme)=>{
             },
             '&::file-selector-button:hover': {
                 background: 'transparent',
-                border: '2px solid #3c8df3',
-                color: '#3c8df3',
-            }
+                borderWidth: '2px',
+                borderStyle: 'solid',
+                borderColor: theme.palette.primary.main,
+                color: theme.palette.primary.main,
+            },
         },
 
         paraStyles: {
             marginRight:'10px',
             fontSize:'0.9rem',
+            fontWeight:'bold',
         },
 
         linkStyles: {
@@ -107,6 +121,7 @@ export const createAccountPageStyles = makeStyles()((theme)=>{
             border:'none',
             borderRadius:'20px',
             fontSize:'0.9rem',
+            fontWeight:'bold',
             transition:'0.2s ease-in-out',
             '&:hover': {
                 transform:'scale(1.025)',

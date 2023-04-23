@@ -2,10 +2,12 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-import { Container, Box, Grid, TextField }from '@mui/material';
+import { Container, Box, Grid, TextField, Typography }from '@mui/material';
+import { useToast } from '@chakra-ui/react';
 
-import MyButton from '../components/Button/MyButton';
+import CommonButton from '../components/Button/CommonButton';
 import { getLoginPageStyles } from '../LoginPage.styles';
+import BrandIdentity from '../components/BrandIdentity/BrandIdentity';
 
 import BrandLogo from '../assets/fiftyfive-logo.png';
 import LoginPageImage from '../assets//loginPageImage1.gif';
@@ -23,10 +25,11 @@ const LoginPage = () => {
     }
 
     const navigate = useNavigate();//redirecting user to profile page after successfull login
+    const toast = useToast();
 
     const axios = require("axios");
 
-    const handleLogin = async (event) => {
+    const handleLogin = (event) => {
         event.preventDefault();
 
         let request = {
@@ -41,13 +44,22 @@ const LoginPage = () => {
             data: userDetails,
           };
 
-          await axios
+        axios
             .request(request)
                 .then((response) => {
                 if(response.data.status === "success"){
-                    alert("You're successfully logged in !")
+                    toast({
+                        title: "You're successfully logged in !",
+                        position:'top',
+                        description: "",
+                        status: 'success',
+                        duration: 2000,
+                        isClosable: true,
+                    });
                     localStorage.setItem("token", response.data.data);
-                    navigate("/profile");
+                    setTimeout(()=>{
+                        navigate("/profile");
+                    }, 2500);
                 }
             })
             .catch((error) => {
@@ -56,50 +68,53 @@ const LoginPage = () => {
         }
 
     return (
-        <Container maxWidth="xl" sx={{display:'flex', justifyContent:'center', alignItems:'center', height:'100vh'}}>
-        <Grid container>
-            <Grid item lg={5} md={5} sm={0} xs={0} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-                <Box style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-                    <img src={LoginPageImage} alt="login image" width={'100%'}id='loginPageImage'/>
-                </Box>
-            </Grid>
+        <Container
+        maxWidth="xl"
+        sx={{
+            display: "flex",
+            
+            flexDirection:'column',
+            alignItems: "center",
+            height: "100vh",}}
+        >
+            <Box sx={{width:'100%', display:'flex', justifyContent:'flex-start', alignItems:'center', margin:'30px 0px'}}>
+                <BrandIdentity />
+            </Box>
 
-            <Grid item lg={7} md={7} sm={12} xs={12} style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
-                <Box className={classes.loginFormContStyles}>
-                    <Box style={{width:'80%', display:'flex',justifyContent:'center', alignItems:'center'}}>
-                        <Box style={{width:'35px', height:'35px', margin:'0px 10px', display:'flex',justifyContent:'center', alignItems:'center'}}>
-                            <img
-                                src={BrandLogo}
-                                alt="55 Technologies"
-                                style={{width:'100%', height:'100%'}}
-                            />
-                        </Box>
-                        <h1>Chit-Chat</h1>
+            <Box className={classes.loginPageContStyles}>
+            <Grid container>
+                <Grid item lg={5} md={5} sm={0} xs={0} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+                    <Box style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+                        <img src={LoginPageImage} alt="login image" width={'100%'} id='loginPageImage'/>
                     </Box>
+                </Grid>
+
+                <Grid item lg={7} md={7} sm={12} xs={12} style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
+                <Box className={classes.loginFormContStyles}>
                     <Box>
-                        <h3 style={{textAlign:'center', margin:'10px 0px'}}>Sign into your account</h3>
+                        <Typography variant="h6" sx={{textAlign:'center', fontWeight:'bold'}}>
+                            Log into your account
+                        </Typography>
                     </Box>
                           
-                    <Box className="user-form-div" style={{width:'100%',display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
-
+                    <Box className="user-form-div" style={{width:'100%', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
                     <form onSubmit={handleLogin} className={classes.formStyles}>
                         <TextField
                             label='Enter your email'
-                            variant='outlined'
+                            variant='standard'
                             type='email'
-                            style={{width:'80%'}}
-                            required name="email"
-                            value={email}
-                            onChange={(e)=>{setEmail(e.target.value)}}
                             className={classes.root}
-                            InputProps={{className: classes.input}}>
+                            InputProps={{className: classes.input}}
+                            required
+                            name="email"
+                            value={email}
+                            onChange={(e)=>{setEmail(e.target.value)}}>
                         </TextField>
 
                         <TextField
                             label='Enter your password'
-                            variant='outlined'
+                            variant='standard'
                             type='password'
-                            style={{width:'80%', margin:'10px 0px'}}
                             required
                             name="password"
                             value={password}
@@ -108,13 +123,12 @@ const LoginPage = () => {
                             InputProps={{className: classes.input}}>
                         </TextField>
 
-                        <MyButton
+                        <CommonButton
                             type="submit"
                             children={'Login'}
                             buttonStyles={{width:'40%', height: "40px", borderRadius: "25px", marginTop: "10px"}}
                         />
                     </form>
-
 
                         <Box className={classes.dontHaveAnAccountBox}>
                             <p className={classes.paraStyles}>Don't have an account?</p>
@@ -123,8 +137,8 @@ const LoginPage = () => {
                     </Box>
                 </Box>
             </Grid>
-
         </Grid>
+        </Box>
         </Container>
     );
 }

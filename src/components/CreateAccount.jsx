@@ -15,66 +15,103 @@ import {Container,
         Button,
         Select} from "@mui/material";
 
-import FileBase64 from 'react-file-base64';
+import { useToast } from '@chakra-ui/react';
 
-import MyButton from "../components/Button/MyButton";
+import CommonButton from "./Button/CommonButton";
+import BrandIdentity from '../components/BrandIdentity/BrandIdentity';
 import { createAccountPageStyles } from "../CreateAccount.styles.js";
 
-import BrandLogo from "../assets/fiftyfive-logo.png";
-import CreateAccountImage from "../assets/create-account.jpg";
 import LoginPageImage from '../assets//loginPageImage1.gif';
 
 const CreateAccount = () => {
+
   const { classes } = createAccountPageStyles();
 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [gender, setGender] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [profilePic, setProfilePic] = useState("");
-
   const { register, handleSubmit, formState: { errors }, } = useForm();
-  const navigate = useNavigate();//to redirect user to login page after successfull signup
-
+  const navigate = useNavigate();
   const axios = require("axios");
+  const toast = useToast();
 
   //method to create user account
-  const onSubmit = async (data) => {
-    data.profilePic = profilePic;
-    console.log(data);
+  const onSubmit = (data) => {
+      data.profilePic = profilePic;
 
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: "http://192.168.1.34:8484/v1/signup",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "no-mode",
-      referrerPolicy: "no-referrer",
-      data: data,
-    };
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: "http://192.168.1.34:8484/v1/signup",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "no-mode",
+        referrerPolicy: "no-referrer",
+        data: data,
+      };
 
-    await axios
-      .request(config)
-      .then((response) => {
-        console.log(response);
-        let accStatus = window.confirm("Account Created Successfully !");
-        if (accStatus) {
-          navigate("/login");
-        }
-      })
-      .catch((error) => {
-        console.log(error.message);
+      axios
+        .request(config)
+        .then((response) => {
+          toast({
+            title: 'Account created successfully !',
+            position:'top',
+            description: "",
+            status: 'success',
+            duration: 2000,
+            isClosable: true,
+          });
+
+          setTimeout(()=>{
+            navigate("/");
+          }, 2500);
+        })
+        .catch((error) => {
+          toast({
+            title: 'Error Creating Account !',
+            position:'top',
+            description: "",
+            status: 'error',
+            duration: 2000,
+            isClosable: true,
+        });
       });
   };
+
+
+  function getBase64(file) {
+    let reader = new FileReader();
+    let encodedFile = "";
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      encodedFile = reader.result;
+      setProfilePic(encodedFile);
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  }
 
   return (
     <Container
       maxWidth="xl"
       sx={{
         display: "flex",
-        justifyContent: "center",
+        flexDirection:'column',
         alignItems: "center",
         height: "100vh",
       }}
     >
+
+    <Box sx={{width:'100%', display:'flex', justifyContent:'flex-start', alignItems:'center', margin:'30px 0px'}}>
+        <BrandIdentity />
+    </Box>
+
+    <Box className={classes.signupPageContStyles}>
       <Grid container>
         <Grid
           item
@@ -97,7 +134,7 @@ const CreateAccount = () => {
           >
             <img
               src={LoginPageImage}
-              alt="signup"
+              alt="signup image"
               width={"100%"}
               id="loginPageImage"
             />
@@ -118,27 +155,10 @@ const CreateAccount = () => {
           }}
         >
           <Box className={classes.signupFormContStyles}>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <div style={{ width: "35px", height: "35px", margin: "0px 10px" }}>
-              <img
-                src={BrandLogo}
-                alt="55 Technologies"
-                style={{ width: "100%", height: "100%" }}
-              />
-            </div>
-            <h1>Chit-Chat</h1>
-          </div>
           <div>
-            <h3 style={{ textAlign: "center", margin: "10px 0px" }}>
+            <Typography variant="h6" sx={{textAlign:'center', fontWeight:'bold'}}>
               Create a new account
-            </h3>
+            </Typography>
           </div>
 
           <div
@@ -158,7 +178,7 @@ const CreateAccount = () => {
                   <Box>
                     <TextField
                       label="Enter first name"
-                      variant="outlined"
+                      variant="standard"
                       type="text"
                       required
                       className={classes.root}
@@ -167,6 +187,7 @@ const CreateAccount = () => {
                         required: true,
                         maxLength: 15,
                       })}
+                      onChange={(e)=>{setFirstName(e.target.value)}}
                     ></TextField>
                   </Box>
                 </Grid>
@@ -181,12 +202,13 @@ const CreateAccount = () => {
                 >
                   <TextField
                     label="Enter last name"
-                    variant="outlined"
+                    variant="standard"
                     type="text"
                     required
                     className={classes.root}
-                      InputProps={{className: classes.input}}
+                    InputProps={{className: classes.input}}
                     {...register("lastName", { required: true, maxLength: 15 })}
+                    onChange={(e)=>{setLastName(e.target.value)}}
                   ></TextField>
                 </Grid>
 
@@ -196,13 +218,13 @@ const CreateAccount = () => {
                       Select your gender
                     </InputLabel>
                     <Select
+                      variant="standard"
                       labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      label="Select your gender"
-                      className={classes.root}
+                      className={classes.selectGenderRoot}
                       required
-                      inputProps={{className: classes.input}}
+                      InputProps={{className: classes.selectGenderInput}}
                       {...register("gender")}
+                      onChange={(e)=>{setGender(e.target.value)}}
                     >
                       <MenuItem value={"male"}>Male</MenuItem>
                       <MenuItem value={"female"}>Female</MenuItem>
@@ -219,31 +241,33 @@ const CreateAccount = () => {
                   sx={{ display: "flex", justifyContent: "flex-end" }}
                 >
 
-                  <FileBase64
-                    multiple={false}
+                  <input
+                    type="file"
                     className={classes.imageSelectorStyle}
                     {...register("profilePic")}
-                    onDone={({base64})=>{console.log(base64); setProfilePic(base64)}}
-
+                    onChange={(event)=>{
+                      getBase64(event.target.files[0]);
+                    }}
                   />
                 </Grid>
 
                 <Grid item lg={12} md={12} sm={12} xs={12}>
                   <TextField
                     label="Enter your email"
-                    variant="outlined"
+                    variant="standard"
                     type="email"
                     className={classes.root}
                     required
                     InputProps={{className: classes.input}}
                     {...register("email", { required: true })}
+                    onChange={(e)=>{setEmail(e.target.value)}}
                   ></TextField>
                 </Grid>
 
                 <Grid item lg={12} md={12} sm={12} xs={12}>
                   <TextField
                     label="Create password"
-                    variant="outlined"
+                    variant="standard"
                     type="password"
                     required
                     className={classes.root}
@@ -253,15 +277,16 @@ const CreateAccount = () => {
                       minLength: 8,
                       maxLength: 20,
                     })}
+                    onChange={(e)=>{setPassword(e.target.value)}}
                   ></TextField>
                 </Grid>
               </Grid>
 
-              <MyButton
+              <CommonButton
                 type="submit"
                 children={"Sign up"}
                 buttonStyles={{
-                  width: "30%",
+                  width: "40%",
                   height: "40px",
                   borderRadius: "25px",
                   marginTop: "20px",
@@ -278,6 +303,7 @@ const CreateAccount = () => {
           </Box>
         </Grid>
       </Grid>
+    </Box>
     </Container>
   );
 };
