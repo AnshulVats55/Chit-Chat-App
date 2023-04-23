@@ -4,17 +4,31 @@ export const getButtonStyles = makeStyles()((theme, buttonStyles)=>{
     return(
         {
             allButtonStyles: {
-                backgroundColor: '#3c8df3',
+                backgroundColor: theme.palette.primary.main,
                 color: '#fff',
                 fontWeight: 'bold',
+                transition: 'background 0.3s ease-in-out',
                 '&:hover': {
                     background: 'transparent',
-                    boxShadow: 'none',
-                    color: '#3b8df3',
-                    border: '2px solid #3b8df3'
+                    borderWidth: `2px`,
+                    borderStyle:'solid',
+                    borderColor:  theme.palette.primary.main,
+                    color: theme.palette.primary.main,
                 },
+                animation:'$floatImage 3s infinite',
                 ...buttonStyles
             },
+            '@keyframes floatImage': {
+                '0%':{
+                    transform: 'translateY(0px)',
+                },
+                '50%':{
+                    transform: 'translateY(50px)',
+                },
+                '100%':{
+                    transform: 'translateY(0px)',
+                },
+            }
         }
     );
 });

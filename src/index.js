@@ -3,17 +3,32 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { createTheme } from "@mui/material";
+import { ChakraProvider } from '@chakra-ui/react'
 import { ThemeProvider } from '@emotion/react';
 
 const theme = createTheme({
-  palette:{
-    buttonColor: '#3b8df3'
-  }
+    palette:{
+        primary:{
+            main: '#363a91',
+        },
+        secondary:{
+            main:'#f1f0fa',
+        },
+        accent:{
+            main:'#F7F7F7',
+        }
+    },
+
+    typography: {
+        fontFamily: ['Poppins','sans-serif',]
+    },
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider> 
+    <ChakraProvider>
+        <ThemeProvider theme={theme}>
+            <App />  
+        </ThemeProvider> 
+    </ChakraProvider>
 );

@@ -1,42 +1,49 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Grid from "@mui/material/Grid";
-import { Box, MenuItem, Typography } from "@mui/material";
-import Container from "@mui/material/Container";
-import {
-  FormControl,
-  InputLabel,
-  Input,
-  FormHelperText,
-  Button,
-  Select,
-} from "@mui/material";
-import { TextField } from "@mui/material";
-import CreateAccountImage from "../assets/create-account.jpg";
-import BrandLogo from "../assets/fiftyfive-logo.png";
-import MyButton from "../components/Button/MyButton";
 import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import {Container,
+        TextField,
+        Box,
+        MenuItem,
+        Typography,
+        Grid,
+        FormControl,
+        InputLabel,
+        Input,
+        FormHelperText,
+        Button,
+        Select} from "@mui/material";
+
+import { useToast } from '@chakra-ui/react';
+
+import CommonButton from "./Button/CommonButton";
+import BrandIdentity from '../components/BrandIdentity/BrandIdentity';
 import { createAccountPageStyles } from "../CreateAccount.styles.js";
-import { useToast } from '@chakra-ui/react'
+
+import LoginPageImage from '../assets//loginPageImage1.gif';
 
 const CreateAccount = () => {
+
   const { classes } = createAccountPageStyles();
-  
-  const [userAccountData, setUserAccountData] = useState({});
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [gender, setGender] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [profilePic, setProfilePic] = useState("");
+  const { register, handleSubmit, formState: { errors }, } = useForm();
   const navigate = useNavigate();
+  const axios = require("axios");
+  const toast = useToast();
 
-  const onSubmit = async (data) => {
-    console.log(data);
+  //method to create user account
+  const onSubmit = (data) => {
+      data.profilePic = profilePic;
+      console.log(data);
 
-    let config = {
+      let config = {
         method: "post",
         maxBodyLength: Infinity,
         url: "http://192.168.1.34:8484/v1/signup",
@@ -48,44 +55,64 @@ const CreateAccount = () => {
         data: data,
       };
 
-    await axios
-    .request(config)
-    .then((response) => {
-      console.log(response);
-      let accStatus = window.confirm("Account Created Successfully !");
-      if(accStatus){
-          navigate("/userlogin");
-      }
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
+      axios
+        .request(config)
+        .then((response) => {
+          toast({
+            title: 'Account created successfully !',
+            position:'top',
+            description: "",
+            status: 'success',
+            duration: 2000,
+            isClosable: true,
+          });
+
+          setTimeout(()=>{
+            navigate("/");
+          }, 2500);
+        })
+        .catch((error) => {
+          toast({
+            title: 'Error Creating Account !',
+            position:'top',
+            description: "",
+            status: 'error',
+            duration: 2000,
+            isClosable: true,
+        });
+      });
   };
 
-  const axios = require("axios");
-  //   let data = JSON.stringify(userAccountData);
-  let data = JSON.stringify({
-    firstName: "sameerbhsdsaiya123",
-    lastName: "sexybsdsdoy",
-    gender: "male",
-    email: "samees1211198r.srivastava@fiftyfivetech.in",
-    password: "1660128226",
-  });
 
-  
-
-  
+  function getBase64(file) {
+    let reader = new FileReader();
+    let encodedFile = "";
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      encodedFile = reader.result;
+      setProfilePic(encodedFile);
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  }
 
   return (
     <Container
-      maxWidth="lg"
+      maxWidth="xl"
       sx={{
         display: "flex",
-        justifyContent: "center",
+        flexDirection:'column',
         alignItems: "center",
         height: "100vh",
       }}
     >
+
+    <Box sx={{width:'100%', display:'flex', justifyContent:'flex-start', alignItems:'center', margin:'30px 0px'}}>
+        <BrandIdentity />
+    </Box>
+
+    <Box className={classes.signupPageContStyles}>
       <Grid container>
         <Grid
           item
@@ -107,9 +134,9 @@ const CreateAccount = () => {
             }}
           >
             <img
-              src={CreateAccountImage}
-              alt="signup"
-              width={"120%"}
+              src={LoginPageImage}
+              alt="signup image"
+              width={"100%"}
               id="loginPageImage"
             />
           </div>
@@ -128,27 +155,11 @@ const CreateAccount = () => {
             alignItems: "center",
           }}
         >
-          <div
-            style={{
-              width: "80%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <div style={{ width: "35px", height: "35px", margin: "0px 10px" }}>
-              <img
-                src={BrandLogo}
-                alt="55 Technologies"
-                style={{ width: "100%", height: "100%" }}
-              />
-            </div>
-            <h1>Chit-Chat</h1>
-          </div>
+          <Box className={classes.signupFormContStyles}>
           <div>
-            <h3 style={{ textAlign: "center", margin: "10px 0px" }}>
+            <Typography variant="h6" sx={{textAlign:'center', fontWeight:'bold'}}>
               Create a new account
-            </h3>
+            </Typography>
           </div>
 
           <div
@@ -161,35 +172,24 @@ const CreateAccount = () => {
               alignItems: "center",
             }}
           >
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              style={{
-                width: "90%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                margin: "10px 0px",
-              }}
-            >
-              <Grid container columnSpacing={1} rowSpacing={4}>
+            
+            <form onSubmit={handleSubmit(onSubmit)} className={classes.formStyles}>
+              <Grid container columnSpacing={1} rowSpacing={2}>
                 <Grid item lg={6} md={6} sm={12} xs={12}>
                   <Box>
                     <TextField
                       label="Enter first name"
-                      variant="outlined"
+                      variant="standard"
                       type="text"
-                      style={{ width: "100%", height: "35px" }}
+                      required
+                      className={classes.root}
+                      InputProps={{className: classes.input}}
                       {...register("firstName", {
                         required: true,
                         maxLength: 15,
                       })}
+                      onChange={(e)=>{setFirstName(e.target.value)}}
                     ></TextField>
-                    {errors.firstName && (
-                      <Typography variant="body2">
-                        Firstname should be less than 15 characters long
-                      </Typography>
-                    )}
                   </Box>
                 </Grid>
 
@@ -203,25 +203,29 @@ const CreateAccount = () => {
                 >
                   <TextField
                     label="Enter last name"
-                    variant="outlined"
+                    variant="standard"
                     type="text"
                     required
-                    style={{ width: "100%", height: "35px" }}
-                    {...register("lastName", {required: true, maxLength: 15})}
+                    className={classes.root}
+                    InputProps={{className: classes.input}}
+                    {...register("lastName", { required: true, maxLength: 15 })}
+                    onChange={(e)=>{setLastName(e.target.value)}}
                   ></TextField>
                 </Grid>
 
-                <Grid item lg={12} md={12} sm={12} xs={12}>
-                  <FormControl fullWidth style={{ marginBottom: "-20px" }}>
+                <Grid item lg={6} md={6} sm={12} xs={12}>
+                  <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">
                       Select your gender
                     </InputLabel>
                     <Select
+                      variant="standard"
                       labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      label="Select your gender"
-                      style={{ width: "100%", height: "55px" }}
+                      className={classes.selectGenderRoot}
+                      required
+                      InputProps={{className: classes.selectGenderInput}}
                       {...register("gender")}
+                      onChange={(e)=>{setGender(e.target.value)}}
                     >
                       <MenuItem value={"male"}>Male</MenuItem>
                       <MenuItem value={"female"}>Female</MenuItem>
@@ -229,57 +233,78 @@ const CreateAccount = () => {
                   </FormControl>
                 </Grid>
 
+                <Grid
+                  item
+                  lg={6}
+                  md={6}
+                  sm={12}
+                  xs={12}
+                  sx={{ display: "flex", justifyContent: "flex-end" }}
+                >
+
+                  <input
+                    type="file"
+                    className={classes.imageSelectorStyle}
+                    {...register("profilePic")}
+                    onChange={(event)=>{
+                      getBase64(event.target.files[0]);
+                    }}
+                  />
+                </Grid>
+
                 <Grid item lg={12} md={12} sm={12} xs={12}>
                   <TextField
                     label="Enter your email"
-                    variant="outlined"
+                    variant="standard"
                     type="email"
-                    style={{ width: "100%", height: "35px" }}
-                    {...register("email", {required: true})}
+                    className={classes.root}
+                    required
+                    InputProps={{className: classes.input}}
+                    {...register("email", { required: true })}
+                    onChange={(e)=>{setEmail(e.target.value)}}
                   ></TextField>
                 </Grid>
 
                 <Grid item lg={12} md={12} sm={12} xs={12}>
                   <TextField
                     label="Create password"
-                    variant="outlined"
+                    variant="standard"
                     type="password"
                     required
-                    style={{ width: "100%", height: "35px" }}
-                    {...register("password", {required: true, minLength: 8, maxLength: 20})}
+                    className={classes.root}
+                    InputProps={{className: classes.input}}
+                    {...register("password", {
+                      required: true,
+                      minLength: 8,
+                      maxLength: 20,
+                    })}
+                    onChange={(e)=>{setPassword(e.target.value)}}
                   ></TextField>
                 </Grid>
               </Grid>
 
-              <MyButton
+              <CommonButton
                 type="submit"
-                children={"Create Account"}
+                children={"Sign up"}
                 buttonStyles={{
-                  width: "100%",
-                  height: "50px",
-                  boxShadow: "0.5px 0.5px 5px 0.5px grey",
-                  borderRadius: "5px",
-                  marginTop: "35px",
+                  width: "40%",
+                  height: "40px",
+                  borderRadius: "25px",
+                  marginTop: "20px",
                 }}
+                className={classes.loginButtonStyles}
               />
             </form>
 
-            <div
-              id="account-info"
-              style={{
-                display: "flex",
-                justifyContent: "flex-start",
-                justifyContent: "center",
-                alignItems: "center",
-                margin: "10px 0px",
-              }}
-            >
-              <p style={{ marginRight: "10px" }}>Already have an account?</p>
-              <Link to="/userlogin">Login Here</Link>
+            <div id="account-info" className={classes.alreadyHaveAnAccountBox}>
+              <p className={classes.paraStyles}>Already have an account?</p>
+              <Link to="/" className={classes.linkStyles}>Login Here</Link>
             </div>
           </div>
+          </Box>
         </Grid>
       </Grid>
+    </Box>
     </Container>
   );
 };

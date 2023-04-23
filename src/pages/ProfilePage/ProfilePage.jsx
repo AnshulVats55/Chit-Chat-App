@@ -8,7 +8,7 @@ const ProfilePage = ({ children }) => {
     const { classes } = getProfilePageStyles();
 
     return (
-        <Container className={classes.profilePageContStyles} maxWidth="lg" >
+        <Container className={classes.profilePageContStyles} maxWidth="xl" >
             <UserProfileInfo />
             <GridLayout></GridLayout>
         </Container>

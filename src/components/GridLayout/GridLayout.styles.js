@@ -5,7 +5,9 @@ export const getGridLayoutStyles = makeStyles()((theme)=>{
 
         gridContainerStyles:{
             margin:'50px 0px',
-            background:'transparent'
+            background: theme.palette.accent.main,
+            padding:'20px',
+            borderRadius:'10px',
         },
 
         gridItemStyles: {
@@ -14,6 +16,9 @@ export const getGridLayoutStyles = makeStyles()((theme)=>{
             alignItems: 'center',
             background: 'transparent',
             border:'1px solid black',
+            borderRadius:'5px',
+            textAlign:'center',
+            margin:'5px 0px',
         },
     });
 });
