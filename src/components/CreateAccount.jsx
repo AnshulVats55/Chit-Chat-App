@@ -41,6 +41,7 @@ const CreateAccount = () => {
   //method to create user account
   const onSubmit = (data) => {
       data.profilePic = profilePic;
+      console.log(data);
 
       let config = {
         method: "post",

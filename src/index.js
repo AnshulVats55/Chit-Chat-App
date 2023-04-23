@@ -9,15 +9,18 @@ import { ThemeProvider } from '@emotion/react';
 const theme = createTheme({
     palette:{
         primary:{
-            main: '#363a91'
+            main: '#363a91',
         },
         secondary:{
-            main:'#f1f0fa'
+            main:'#f1f0fa',
+        },
+        accent:{
+            main:'#F7F7F7',
         }
     },
 
     typography: {
-        fontFamily: ['Roboto','sans-serif',]
+        fontFamily: ['Poppins','sans-serif',]
     },
 });
 
