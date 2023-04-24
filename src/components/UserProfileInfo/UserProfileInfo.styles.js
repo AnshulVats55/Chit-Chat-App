@@ -4,8 +4,8 @@ export const getUserProfileInfoBoxStyles = makeStyles()((theme)=>{
     return({
         userProfileInfoGrid: {
             width:'100%',
-            backgroundColor:theme.palette.accent.main,
-            marginTop:'25px',
+            backgroundColor:theme.palette.accent.light,
+            marginTop:'100px',
             border:'none',
             borderRadius:'10px',
         },

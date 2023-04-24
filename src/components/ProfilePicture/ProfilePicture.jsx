@@ -8,7 +8,7 @@ const ProfilePicture = ({ src, picStyles }) => {
     return (
         <img 
             src={src}
-            className={classes.userProfilePicStyles} 
+            className={classes.userProfilePicStyles}
             alt="user profile picture"
         />
     );

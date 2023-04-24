@@ -6,7 +6,7 @@ export const getProfilePictuteStyles = makeStyles()((theme, picStyles)=>{
             width:'150px',
             height:'150px',
             borderRadius: '50%',
-            boxShadow:'0 3px 10px rgb(0 0 0 / 0.2)',
+            boxShadow: 'rgba(0, 0, 0, 0.4) 0px 30px 90px',
             margin:'50px 0px',
             '@media screen and (max-width: 899px)': {
                 margin:'25px 0px',

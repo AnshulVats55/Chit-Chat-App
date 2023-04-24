@@ -8,20 +8,26 @@ import { ThemeProvider } from '@emotion/react';
 
 const theme = createTheme({
     palette:{
-        primary:{
+        primary: {
             main: '#363a91',
         },
-        secondary:{
+        secondary: {
             main:'#f1f0fa',
         },
-        accent:{
+        accent: {
             main:'#F0F7FF',
+            light:'#f3f9ff',
         }
     },
 
     typography: {
         fontFamily: ['Poppins','sans-serif',]
     },
+
+    borderRadius: {
+        primary: '20px',
+        secondary:'10px'
+    }
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
