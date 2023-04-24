@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from  './components/navbar/Navbar'
+import Navbar from './components/navbar';
 import LoginPage from './components/LoginPage';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 // import Chat from './components/chat/Chat';

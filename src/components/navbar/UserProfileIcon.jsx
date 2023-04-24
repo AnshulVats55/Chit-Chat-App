@@ -1,10 +1,8 @@
-import React,{useState} from "react";
-import { Link } from 'react-router-dom';
-import { NavbarStyles } from './Navbar.styles';
-
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { NavbarStyles } from "./Navbar.styles";
 
 import {
-
   MenuItem,
   Tooltip,
   Avatar,
@@ -13,27 +11,27 @@ import {
   Box,
 } from "@mui/material";
 
-const settings = [{
-    to: '/userprofile',
-    data: "Profile"
-},
+const settings = [
+  {
+    to: "/userprofile",
+    data: "Profile",
+  },
 
-{
-    to: '/userlogin',
-    data: "Logout"
-}];
- 
+  {
+    to: "/userlogin",
+    data: "Logout",
+  },
+];
+
 const UserProfileIcon = () => {
-
-    const [anchorElUser, setAnchorElUser] = useState(null);
-    const {classes} = NavbarStyles()
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
-
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const { classes } = NavbarStyles();
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   return (
     <Box>
@@ -42,12 +40,12 @@ const UserProfileIcon = () => {
           <Avatar
             alt="Remy Sharp"
             src="/static/images/avatar/2.jpg"
-            sx={{ backgroundColor: "blue" }}
+            className={classes.avatar}
           />
         </IconButton>
       </Tooltip>
       <Menu
-        sx={{ mt: "45px" }}
+        className={classes.menu}
         id="menu-appbar"
         anchorEl={anchorElUser}
         anchorOrigin={{
