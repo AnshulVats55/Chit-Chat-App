@@ -1,15 +1,19 @@
 import React from 'react';
 import '../src/css/style.css';
-import Navbar from './pages/Navbar';
+import Navbar from  './components/Navbar';
 import LoginPage from './components/LoginPage';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import ChatWindow from './components/chatWindow/ChatWindow';
+
+
 
 function App() {
     return (
         <Router>
-          {/* <Navbar /> */}
+          <Navbar />
           <Routes>
             <Route exact path="/userlogin" element={<LoginPage />} />
+            <Route exact path="/chat" element={<ChatWindow />} />
           </Routes>
         </Router>
     );
