@@ -17,7 +17,6 @@ export default function Sidebar() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   
   return (
     <Box className={classes.styleBox}>
