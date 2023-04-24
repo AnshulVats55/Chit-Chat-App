@@ -1,20 +1,21 @@
-import { useState, useRef, useEffect } from "react";
-import Action from "./Action";
-import { ReactComponent as DownArrow } from "../assets/down-arrow.svg";
-import { ReactComponent as UpArrow } from "../assets/up-arrow.svg";
-
-const Comment = ({
+import React, { useEffect, useState } from "react";
+import { ReactComponent as UpArrow } from "./assets/up-arrow.svg";
+import { ReactComponent as DownArrow } from "./assets/down-arrow.svg";
+import { Action } from "./Action";
+import { useRef } from "react";
+import  {commentStyle} from './comment.styles'
+export const Comment = ({
+  comment,
   handleInsertNode,
   handleEditNode,
   handleDeleteNode,
-  comment,
 }) => {
   const [input, setInput] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [showInput, setShowInput] = useState(false);
-  const [expand, setExpand] = useState(false);
+  const [expand, setExpand] = useState(true);
   const inputRef = useRef(null);
-
+  const {classes} = commentStyle();
   useEffect(() => {
     inputRef?.current?.focus();
   }, [editMode]);
@@ -23,7 +24,6 @@ const Comment = ({
     setExpand(!expand);
     setShowInput(true);
   };
-
   const onAddComment = () => {
     if (editMode) {
       handleEditNode(comment.id, inputRef?.current?.innerText);
@@ -33,22 +33,16 @@ const Comment = ({
       setShowInput(false);
       setInput("");
     }
-
     if (editMode) setEditMode(false);
   };
-
-  const handleDelete = () => {
-    handleDeleteNode(comment.id);
-  };
-
   return (
     <div>
       <div className={comment.id === 1 ? "inputContainer" : "commentContainer"}>
-        {comment.id === 1 ? (
+        {comment.id == 1 ? (
           <>
             <input
               type="text"
-              className="inputContainer__input first_input"
+              className={classes.inputContainerFirstInput}
               autoFocus
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -64,24 +58,24 @@ const Comment = ({
         ) : (
           <>
             <span
+               className={classes.commentContainerSpan}
+              ref={inputRef}
               contentEditable={editMode}
               suppressContentEditableWarning={editMode}
-              ref={inputRef}
-              style={{ wordWrap: "break-word" }}
+              style={{ wordBreak: "break-word" }}
             >
               {comment.name}
             </span>
-
             <div style={{ display: "flex", marginTop: "5px" }}>
               {editMode ? (
                 <>
                   <Action
-                    className="reply"
+                    className={classes.reply}
                     type="SAVE"
                     handleClick={onAddComment}
                   />
                   <Action
-                    className="reply"
+                    className={classes.reply}
                     type="CANCEL"
                     handleClick={() => {
                       if (inputRef.current)
@@ -93,7 +87,7 @@ const Comment = ({
               ) : (
                 <>
                   <Action
-                    className="reply"
+                    className={classes.reply}
                     type={
                       <>
                         {expand ? (
@@ -107,16 +101,14 @@ const Comment = ({
                     handleClick={handleNewComment}
                   />
                   <Action
-                    className="reply"
+                    className={classes.reply}
                     type="EDIT"
-                    handleClick={() => {
-                      setEditMode(true);
-                    }}
+                    handleClick={() => setEditMode(true)}
                   />
                   <Action
-                    className="reply"
+                    className={classes.reply}
                     type="DELETE"
-                    handleClick={handleDelete}
+                    handleClick ={()=>{handleDeleteNode(comment.id)}}
                   />
                 </>
               )}
@@ -124,28 +116,27 @@ const Comment = ({
           </>
         )}
       </div>
-
       <div style={{ display: expand ? "block" : "none", paddingLeft: 25 }}>
         {showInput && (
-          <div className="inputContainer">
+          <div className={classes.inputContainer}>
             <input
               type="text"
-              className="inputContainer__input"
+              className={classes.inputContainerInput}
               autoFocus
               onChange={(e) => setInput(e.target.value)}
             />
-            <Action className="reply" type="REPLY" handleClick={onAddComment} />
+
+            <Action className={classes.reply} type="REPLY" handleClick={onAddComment} />
             <Action
-              className="reply"
+              className={classes.reply}
               type="CANCEL"
               handleClick={() => {
                 setShowInput(false);
-                if (!comment?.items?.length) setExpand(false);
+                if (!comment?.item.length>0) setExpand(false);
               }}
             />
           </div>
         )}
-
         {comment?.items?.map((cmnt) => {
           return (
             <Comment
@@ -161,5 +152,3 @@ const Comment = ({
     </div>
   );
 };
-
-export default Comment;

@@ -3,7 +3,7 @@ import { makeStyles } from "tss-react/mui";
 export const NavbarStyles =makeStyles()((theme =>{
 return  { 
   container: {
-    background: "transparent",
+    background: "#fff",
     height: "60px",
   },
   mainContainer: {

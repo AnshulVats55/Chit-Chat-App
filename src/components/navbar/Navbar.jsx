@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavbarStyles } from './Navbar.styles';
 import { Typography, MenuItem,  Container, Menu, IconButton, Box, AppBar } from '@mui/material';
-import Logo from '../../assets/fiftyfive-logo-1.png';
+import Logo from '../../assets/fiftyfive-logo.png';
 import { Link } from 'react-router-dom';
 import MenuIcon  from '@mui/icons-material/Menu';
 import  HomeIcon  from '@mui/icons-material/Home';
