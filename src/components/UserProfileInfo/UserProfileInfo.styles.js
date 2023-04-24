@@ -1,11 +1,10 @@
-import { Scale } from '@mui/icons-material';
 import { makeStyles } from 'tss-react/mui';
 
 export const getUserProfileInfoBoxStyles = makeStyles()((theme)=>{
     return({
         userProfileInfoGrid: {
             width:'100%',
-            backgroundColor:'#F7F7F7',
+            backgroundColor:theme.palette.accent.main,
             marginTop:'25px',
             border:'none',
             borderRadius:'10px',
@@ -15,14 +14,11 @@ export const getUserProfileInfoBoxStyles = makeStyles()((theme)=>{
             display:'flex',
             justifyContent:'center',
             alignItems:'center',
-            // backgroundColor:'red',
-            // borderRadius:'10px 0px 0px 10px',
         },
 
         followerInfo: {
             display:'flex',
             justifyContent:'space-between',
-            // background:'green',
             margin:'0px 20px',
             '@media screen and (max-width: 545px)': {
                 flexDirection:'column',
@@ -33,8 +29,6 @@ export const getUserProfileInfoBoxStyles = makeStyles()((theme)=>{
         userSocialInfoCon: {
             display:'flex',
             alignItems:'center',
-            // backgroundColor:'wheat',
-            // borderRadius:'0px 10px 10px 0px',
             '@media screen and (max-width: 899px)': {
                 justifyContent:'center',
             },
@@ -45,7 +39,6 @@ export const getUserProfileInfoBoxStyles = makeStyles()((theme)=>{
             display:'flex',
             flexDirection:'column',
             justifyContent:'center',
-            // backgroundColor:'grey',
             '@media screen and (max-width: 899px)': {
                 width:'80%',
             },

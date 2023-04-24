@@ -6,7 +6,6 @@ export const getProfilePageStyles = makeStyles()((theme)=>{
             display:'flex',
             flexDirection:'column',
             alignItems:'center',
-            // backgroundColor:'blue',
             height:'100vh',
         }
     });

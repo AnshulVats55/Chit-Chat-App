@@ -6,13 +6,10 @@ export const getProfilePictuteStyles = makeStyles()((theme, picStyles)=>{
             width:'150px',
             height:'150px',
             borderRadius: '50%',
+            boxShadow:'0 3px 10px rgb(0 0 0 / 0.2)',
+            margin:'50px 0px',
             '@media screen and (max-width: 899px)': {
-                width:'130px',
-                height:'130px',
-            },
-            '@media screen and (max-width: 599px)': {
-                width:'100px',
-                height:'100px',
+                margin:'25px 0px',
             },
             ...picStyles
         }

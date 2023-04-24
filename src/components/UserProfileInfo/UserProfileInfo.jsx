@@ -3,7 +3,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import ProfilePicture from '../../components/ProfilePicture/ProfilePicture';
 import { getUserProfileInfoBoxStyles } from './UserProfileInfo.styles';
 
-import BrandLogo from '../../assets/fiftyfive-logo.png';
+import UserProfilePicture from '../../assets/login-page-image.jpg';
 
 const UserProfileInfo = () => {
     const { classes } = getUserProfileInfoBoxStyles();
@@ -12,7 +12,7 @@ const UserProfileInfo = () => {
         <Grid container className={classes.userProfileInfoGrid}>
 
             <Grid item lg={3} md={3} sm={12} xs={12} className={classes.userProfileInfoGridItem}>
-                <ProfilePicture src={BrandLogo} picStyles={{boxShadow:'0 3px 10px rgb(0 0 0 / 0.2)', margin:'50px 100px'}}/>
+                <ProfilePicture src={UserProfilePicture} picStyles={{}} />
             </Grid>
 
             <Grid item lg={9} md={9} sm={12} xs={12} className={classes.userSocialInfoCon}>

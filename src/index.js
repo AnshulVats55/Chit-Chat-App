@@ -15,7 +15,7 @@ const theme = createTheme({
             main:'#f1f0fa',
         },
         accent:{
-            main:'#F7F7F7',
+            main:'#F0F7FF',
         }
     },
 

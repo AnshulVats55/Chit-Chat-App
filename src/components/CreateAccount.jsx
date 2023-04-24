@@ -16,10 +16,13 @@ import {Container,
         Select} from "@mui/material";
 
 import { useToast } from '@chakra-ui/react';
+import FileBase64 from 'react-file-base64';
 
 import CommonButton from "./Button/CommonButton";
 import BrandIdentity from '../components/BrandIdentity/BrandIdentity';
 import { createAccountPageStyles } from "../CreateAccount.styles.js";
+import { emailValidator } from '../validators/emailValidator';
+import { passwordCheck } from '../validators/passwordValidtor';
 
 import LoginPageImage from '../assets//loginPageImage1.gif';
 
@@ -33,6 +36,8 @@ const CreateAccount = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [profilePic, setProfilePic] = useState("");
+  const [emailErrorMsg, setEmailErrorMsg] = useState({});
+  const [passwordErrorMsg, setPasswordErrorMsg] = useState({});
   const { register, handleSubmit, formState: { errors }, } = useForm();
   const navigate = useNavigate();
   const axios = require("axios");
@@ -41,7 +46,6 @@ const CreateAccount = () => {
   //method to create user account
   const onSubmit = (data) => {
       data.profilePic = profilePic;
-      console.log(data);
 
       let config = {
         method: "post",
@@ -91,9 +95,24 @@ const CreateAccount = () => {
     reader.onload = function () {
       encodedFile = reader.result;
       setProfilePic(encodedFile);
+      toast({
+        title: 'Profile Picture attached successfully !',
+        position:'top',
+        description: "",
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      });
     };
     reader.onerror = function (error) {
-      console.log('Error: ', error);
+      toast({
+        title: 'Please try again !',
+        position:'top',
+        description: "",
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      });
     };
   }
 
@@ -244,10 +263,11 @@ const CreateAccount = () => {
 
                   <input
                     type="file"
+                    multiple={false}
                     className={classes.imageSelectorStyle}
                     {...register("profilePic")}
-                    onChange={(event)=>{
-                      getBase64(event.target.files[0]);
+                    onChange={(e)=>{
+                      getBase64(e.target.files[0]);
                     }}
                   />
                 </Grid>
@@ -261,8 +281,26 @@ const CreateAccount = () => {
                     required
                     InputProps={{className: classes.input}}
                     {...register("email", { required: true })}
-                    onChange={(e)=>{setEmail(e.target.value)}}
+                    onChange={(e)=>{
+                      setEmail(e.target.value);
+                      setEmailErrorMsg(emailValidator(e.target.value));
+                    }}
                   ></TextField>
+                  {
+                    emailErrorMsg.status === "true"
+                    ?
+                    toast({
+                      title: 'Email Id is correct !',
+                      position:'top',
+                      description: "",
+                      status: 'success',
+                      duration: 2000,
+                      isClosable: true,
+                    })
+                    :
+                    <p>{emailErrorMsg.text}</p>
+                  }
+                  
                 </Grid>
 
                 <Grid item lg={12} md={12} sm={12} xs={12}>
@@ -278,8 +316,25 @@ const CreateAccount = () => {
                       minLength: 8,
                       maxLength: 20,
                     })}
-                    onChange={(e)=>{setPassword(e.target.value)}}
+                    onChange={(e)=>{
+                      setPassword(e.target.value);
+                      setPasswordErrorMsg(passwordCheck(e.target.value));
+                    }}
                   ></TextField>
+                  {
+                    passwordErrorMsg.status === "true"
+                    ?
+                    toast({
+                      title: 'Email Id is correct !',
+                      position:'top',
+                      description: "",
+                      status: 'success',
+                      duration: 2000,
+                      isClosable: true,
+                    })
+                    :
+                    <p>{passwordErrorMsg.text}</p>
+                  }
                 </Grid>
               </Grid>
 

@@ -1,22 +1,19 @@
-const emailValidator = (email)=>{
-    let message ={
+export const emailValidator = (email)=>{
+    let message = { 
         text:"",
-        status:false
+        status:false,
     }
-    const checkAtTheRate =()=> /@/.test(email)
-    const regex = /^[A-za-z]{3,}@[A-Za-z]{3,}[.][A-Za-z.]{2,9}$/ 
+    
+    const checkAtTheRate = ()=> /@/.test(email)
+    const regex = /^[A-za-z0-9]{3,}@[A-Za-z0-9]{3,}[.][A-Za-z.0-9]{2,9}$/
     if(regex.test(email)){
-        message.status = true
+        message.text ="Email Id is correct";
+        message.status = true;
     }
-    else{
-        
+    else{     
         message.text ="Email Id is invalid"
-        if(!checkAtTheRate()) message.text ="Email Id must contain @"
-
+        if(!checkAtTheRate()) message.text = "Email Id must contain @"
         message.status ="false"
-       
     }
-    return message
+    return message;
 }
-
-console.log(emailValidator('piyush.gov.co.in'))
