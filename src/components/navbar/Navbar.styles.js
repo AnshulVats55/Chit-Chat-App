@@ -3,11 +3,11 @@ import { makeStyles } from "tss-react/mui";
 export const NavbarStyles = makeStyles()((theme) => {
   return {
     container: {
-      background: "transparent",
-      height: "60px",
+      background: "#fff",
+      padding: "7px 0",
     },
     container1: {
-      flexGrow: 1,
+      // flexGrow: 1,
       display: "none",
       "@media screen and (max-width: 900px)": {
         display: "flex",
@@ -17,13 +17,7 @@ export const NavbarStyles = makeStyles()((theme) => {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      padding: "5px 50px",
-      "@media screen and (max-width: 900px)": {
-        padding: "5px 20px",
-      },
-      "@media screen and (max-width: 600px)": {
-        padding: "0",
-      },
+      width: "100%",
     },
 
     link: {
@@ -40,30 +34,39 @@ export const NavbarStyles = makeStyles()((theme) => {
       },
     },
     leftMain: {
+      // width: "90%",
       display: "none",
       alignItems: "center",
-      justifyContent: "flex-start",
-      flexGrow: "0.5",
+      justifyContent: "center",
       "@media screen and (max-width: 900px)": {
         display: "flex",
       },
-      "@media screen and (max-width: 600px)": {
-        marginLeft: "2rem",
+      "@media screen and (max-width:350px)": {
+        width: "80%",
       },
     },
     iconsContainer: {
+      position: "absolute",
+      left: "30%",
+      width: "40%",
       display: "flex",
-      flexGrow: 0.3,
-      justifyContent: "flex-start",
+      justifyContent: "space-between",
+      alignItems: "center",
       "@media screen and (max-width: 900px)": {
         display: "none",
       },
     },
     icons: {
-      my: 2,
-      display: "block",
       color: "#363a91",
-      padding: "0px 40px",
+      margin: "0px 50px",
+      padding:"5px 10px",
+      '&:hover': {
+
+                        background:theme.palette.secondary.main,
+        
+                        borderRadius:'25px'
+        
+                    },
     },
     imgContainer: {
       width: "16%",
@@ -75,12 +78,21 @@ export const NavbarStyles = makeStyles()((theme) => {
     h5: {
       color: "#363a91",
       fontWeight: "bold",
+      fontSize:"1.25rem",
+      "@media screen and (max-width: 350px)": {
+        fontSize: "1rem",
+      },
     },
     menu: {
       marginTop: "3rem",
     },
     avatar: {
       backgroundColor: "#363a91",
+      "@media screen and (max-width: 350px)": {
+        width: "30px",
+        height: "30px",
+        fontSize: "1rem",
+      },
     },
   };
 });
