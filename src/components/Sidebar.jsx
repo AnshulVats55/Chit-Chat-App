@@ -8,38 +8,34 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Box, Typography } from '@mui/material';
 import { sidebarStyle } from "./Sidebar.style";
 
+
 export default function Sidebar() {
+
   const { classes } = sidebarStyle();
   const [value, setValue] = React.useState(0);
-  const handleChange = (e) => {
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
-
+  
+  
   return (
-    <Box sx={{
-      width: 200,
-      height: "100vh",
-      backgroundColor: '',
-      boxShadow: '1px 2px 9px blue',
-    }}>
+    <Box className={classes.styleBox}>
 
-      <Tabs orientation="vertical" value={value} onChange={handleChange} aria-label="icon tabs example">
+      <Tabs orientation="vertical" value={value} onChange={handleChange} aria-label="icon tabs" sx={{height:"100vh"}}>
         <Tab icon={<HomeIcon fontSize="large" />} iconPosition="start" label="Home" />
-        <Tab icon={<ChatBubbleIcon fontSize="large" />} iconPosition="start" label="Chat" />
-        <Tab icon={<GroupsIcon fontSize="large" />} iconPosition="start" label="Spaces" />
+        <Tab icon={<ChatBubbleIcon fontSize="medium" />} iconPosition="start" label=" Chat" />
+        <Tab icon={<GroupsIcon fontSize="large" />} iconPosition="start" label=" Spaces" />
+        <Tab className={classes.styleTab} icon={<LogoutIcon />} iconPosition="start" label="Log Out"  />
+      </Tabs>
+     </Box>
+  );
+}
 
-        <Tab icon="">
+// sx={{ position: "absolute", bottom: "20px" ,left:"30px"}}
+ {/* <Tab icon="">
           <Box className={classes.sidebarLabel}>
             <Tab icon={<HomeIcon fontSize="large" />} iconPosition="start" />
             <Typography variant="h5" >Home</Typography>
           </Box>
-        </Tab>
-
-      </Tabs>
-
-     
-        <Tab icon={<LogoutIcon />} iconPosition="start" label="Log Out" sx={{ position: "absolute", bottom: "20px" }} />
-      
-    </Box>
-  );
-}
+        </Tab> */}
