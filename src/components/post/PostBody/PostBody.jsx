@@ -13,5 +13,4 @@ export const PostBody = ({content,styles}) => {
 
 PostBody.defaultProps ={
     content:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!'
-
 }
