@@ -1,67 +1,86 @@
 import { makeStyles } from "tss-react/mui";
 
-export const NavbarStyles =makeStyles()((theme =>{
-return  { 
-  container: {
-    background: "transparent",
-    height: "60px",
-  },
-  mainContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "5px 50px",
-    "@media screen and (max-width: 900px)":{
-        padding:"5px 20px"
-},
-"@media screen and (max-width: 600px)":{
-    padding:"0"
-},
-    
-  },
-
-  link:{
-    textAlign:"center",textDecoration:"none", color:"blue"
-  },
-  left:{
-    display: "flex",
-    alignItems: "center",
-    justifyContent:"flex-start",
-    "@media screen and (max-width: 900px)":{
-            display: "none",
-    }
-    
-  },
-  leftMain:{
-    display: "none",
-    alignItems: "center",
-    justifyContent:"flex-start",
-    "@media screen and (max-width: 900px)":{
+export const NavbarStyles =makeStyles()((theme)=>{
+    return({
+        container: {
+            background:'#FFF',
+            padding:'7px 0px',
+            boxShadow: 'rgba(0, 0, 0, 0.2) 0px 0px 25px',
+        },
+        
+          mainContainer: {
             display: "flex",
-            // marginRight:"1rem"
-    },
-    "@media screen and (max-width: 600px)":{
-        marginLeft:"3rem"
-},
-    
-  },
-  iconsContainer:{
+            justifyContent: "space-between",
+            alignItems: "center",
+            width:'100%'
+          },
+        
+          link:{
+            textAlign:"center",
+            textDecoration:"none",
+            color:theme.palette.primary.main,
+          },
+        
+          left:{
+            display: "flex",
+            alignItems: "center",
+            justifyContent:"flex-start",
+            "@media screen and (max-width: 900px)":{
+                display: "none",
+            }
+          },
 
-    flexGrow: 0.3, justifyContent:'flex-start'
+          leftMain:{
+            width:'90%',
+            display: "none",
+            alignItems: "center",
+            justifyContent:"center",
+            "@media screen and (max-width: 900px)":{
+                display: "flex",    
+            }, 
+            '@media screen and (max-width: 350px)': {
+                width:'80%',
+            },
+        },
 
-  },
-  icons:{
-    my: 2,  display: 'block', color:'blue', padding:'0px 40px'
-  },
-  imgContainer:{
-    width:"16%",
-    marginRight: "10px",
-  },
-  img:{
-    width:"100%",
-  },
-  h5:{
-    color:"blue",
-    fontWeight:"bold",
-  }
-}}));
+        iconsContainer:{
+            position:'absolute',
+            left:'30%',
+            width:'40%',
+            display:'flex',
+            justifyContent:'space-between',
+            alignItems:'center',
+            '@media screen and (max-width: 900px)': {
+                display:'none',
+            },
+        },
+
+        icons:{
+            color:theme.palette.primary.main,
+            margin:'0px 50px',
+            padding:'5px 10px',
+            '&:hover': {
+                background:theme.palette.secondary.main,
+                borderRadius:'25px'
+            },
+        },
+        
+        imgContainer:{
+            width:"16%",
+            marginRight: "10px",
+        },
+
+        img:{
+            width:"100%",
+        },
+
+        h5:{
+            color:theme.palette.primary.main,
+            fontWeight:"bold",
+            fontSize:'1.25rem',
+            '@media screen and (max-width: 350px)': {
+                fontSize:'1rem',
+            },
+        }
+    });
+});

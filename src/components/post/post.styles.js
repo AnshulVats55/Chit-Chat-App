@@ -6,7 +6,7 @@ export const PostStyles =makeStyles()((theme,styles)=>{
        flexContain:{
           flexDirection:'column',
           gap:'50px',
-          backgroundColor:'#eee',
+          backgroundColor:'pink',
           
          '@media screen and (max-width:599px)':{
           justifyContent:'center',
@@ -19,7 +19,7 @@ export const PostStyles =makeStyles()((theme,styles)=>{
           position:'absolute',
           right:'10vw'
          }
-       }
-  })
+      }
+  });
 })
 

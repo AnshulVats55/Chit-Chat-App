@@ -1,21 +1,21 @@
 import React from 'react';
-import '../src/css/style.css';
-// import Navbar from './pages/Navbar';
-import LoginPage from './components/LoginPage';
+import LoginPage from '../src/pages/LoginPage/LoginPage';
+import CreateAccount from '../src/pages/SignupPage/CreateAccount';
+import ProfilePage from '../src/pages/ProfilePage/ProfilePage';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import FeedLayout from './components/Layout/FeedLayout'
 import Bar from './components/SidebarNew/Bar';
 
-
 function App() {
-    return (
+    return (     
         <Router>
-          {/* <Navbar /> */}
           <Routes>
-            <Route exact path="/userlogin" element={<LoginPage />} />
-           
-            <Route exact path="/dashboard" element={<FeedLayout />}/>
+            <Route exact path="/" element={<LoginPage />} />
+            <Route exact path="/feed" element={<FeedLayout />}/>
             <Route exact path="/bar" element={<Bar />}/>
+            <Route exact path="/signup" element={<CreateAccount />} />
+            <Route exact path="/profile" element={<ProfilePage />} />
+            {/* <Route exact path="/comments" element={<Comments />} /> */}
           </Routes>
         </Router>
     );

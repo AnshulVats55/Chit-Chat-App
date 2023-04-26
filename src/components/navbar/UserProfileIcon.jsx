@@ -42,7 +42,14 @@ const UserProfileIcon = () => {
           <Avatar
             alt="Remy Sharp"
             src="/static/images/avatar/2.jpg"
-            sx={{ backgroundColor: "blue" }}
+            sx={{
+              backgroundColor: "#363a91",
+              '@media screen and (max-width: 350px)': {
+                width:'30px',
+                height:'30px',
+                fontSize:'1rem',
+              },
+            }}
           />
         </IconButton>
       </Tooltip>
