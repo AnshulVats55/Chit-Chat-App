@@ -5,6 +5,7 @@ import ProfilePage from '../src/pages/ProfilePage/ProfilePage';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import FeedLayout from './components/Layout/FeedLayout'
 import Bar from './components/SidebarNew/Bar';
+import ChatLayout from './components/Layout/ChatLayout'
 
 function App() {
     return (     
