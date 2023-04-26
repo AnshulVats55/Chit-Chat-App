@@ -16,15 +16,14 @@ import {Container,
         Select} from "@mui/material";
 
 import { useToast } from '@chakra-ui/react';
-import FileBase64 from 'react-file-base64';
 
-import CommonButton from "./Button/CommonButton";
-import BrandIdentity from '../components/BrandIdentity/BrandIdentity';
-import { createAccountPageStyles } from "../CreateAccount.styles.js";
-import { emailValidator } from '../validators/emailValidator';
-import { passwordCheck } from '../validators/passwordValidtor';
+import CommonButton from "../../components/Button/CommonButton";
+import BrandIdentity from '../../components/BrandIdentity/BrandIdentity';
+import { createAccountPageStyles } from "./CreateAccount.styles";
+import { emailValidator } from '../../validators/emailValidator';
+import { passwordCheck } from '../../validators/passwordValidtor';
 
-import LoginPageImage from '../assets//loginPageImage1.gif';
+import LoginPageImage from '../../assets/loginPageImage1.gif';
 
 const CreateAccount = () => {
 

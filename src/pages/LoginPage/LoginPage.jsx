@@ -5,12 +5,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Container, Box, Grid, TextField, Typography }from '@mui/material';
 import { useToast } from '@chakra-ui/react';
 
-import CommonButton from '../components/Button/CommonButton';
-import { getLoginPageStyles } from '../LoginPage.styles';
-import BrandIdentity from '../components/BrandIdentity/BrandIdentity';
+import CommonButton from '../../components/Button/CommonButton';
+import { getLoginPageStyles } from './LoginPage.styles';
+import BrandIdentity from '../../components/BrandIdentity/BrandIdentity';
 
-import BrandLogo from '../assets/fiftyfive-logo.png';
-import LoginPageImage from '../assets//loginPageImage1.gif';
+import LoginPageImage from '../../assets/loginPageImage1.gif';
 
 const LoginPage = () => {
 

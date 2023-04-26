@@ -2,7 +2,6 @@ import React from 'react'
 import {Box,Typography} from '@mui/material'
 import {feedStyle} from './FeedStyle'
 import Navbar from './navbar/Navbar';
-
 import Sidebar from './Sidebar';
 import {Posts} from './post/Posts';
 
@@ -21,8 +20,7 @@ const FeedLayout = () => {
           <Box className={classes.box3}>
                <Posts/>
           </Box>
-  
-  </Box>
+    </Box>
   )
 }
 
