@@ -9,6 +9,8 @@ import LoginPage from './components/LoginPage';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import ChatWindow from './components/chatWindow/ChatWindow';
 
+import Friends from './components/friendList/Friends';
+// import Chat from './components/chat/Chat';
 
 
 function App() {
@@ -18,6 +20,7 @@ function App() {
           <Routes>
             <Route exact path="/userlogin" element={<LoginPage />} />
             <Route exact path="/chat" element={<ChatWindow />} />
+            <Route exact path="/chat" element={<Friends />} />
           </Routes>
         </Router>
     );
