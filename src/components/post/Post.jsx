@@ -1,13 +1,11 @@
-import React from "react";
-
-import { PostStyles } from "./post.styles";
-import { PostHeader } from "./PostHeader/PostHeader";
-import { PostMedia } from "./PostMedia/PostMedia";
-import { PostBody } from "./PostBody/PostBody";
-import { PostAction } from "./postAction/PostAction";
-import { Box, Card, Stack } from "@mui/material";
-
-export const Post = ({
+import { Box, Card } from '@mui/material'
+import React from 'react'
+import { PostHeader } from './PostHeader/PostHeader'
+import { PostMedia } from './PostMedia/PostMedia'
+import { PostBody } from './PostBody/PostBody'
+import { PostAction } from './postAction/PostAction'
+import  {PostStyles} from './post.styles'
+const Post = ({
   avatarLetter,
   title,
   postDate,
@@ -17,11 +15,9 @@ export const Post = ({
   commentCount,
   cardStyles,
 }) => {
-  const { classes } = PostStyles(cardStyles);
-
+  const {classes} = PostStyles();
   return (
-    <Stack className={classes.flexContain}>
-      <Card >
+    <Card className={classes.card}>
         <PostHeader />
         <Box className={classes.container}>
           <PostMedia />
@@ -30,6 +26,7 @@ export const Post = ({
         <PostBody />
         <PostAction />
       </Card>
-    </Stack>
-  );
-};
+  )
+}
+
+export default Post;

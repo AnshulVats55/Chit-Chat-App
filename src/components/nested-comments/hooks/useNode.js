@@ -9,13 +9,12 @@ const useNode = () => {
 
       return tree;
     }
-
-    let latestNode = [];
-    latestNode = tree.items.map((ob) => {
+     // let latestNode = [];
+    tree.items.map((ob) => {
       return insertNode(ob, commentId, item);
     });
 
-    return { ...tree, items: latestNode };
+    return { ...tree };
   };
 
   const editNode = (tree, commentId, value) => {
