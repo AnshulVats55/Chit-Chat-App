@@ -35,7 +35,7 @@ const LoginPage = () => {
         let request = {
             method: "post",
             maxBodyLength: Infinity,
-            url: "http://192.168.1.34:8484/v1/login",
+            url: "http://192.168.1.39:8484/v1/login",
             headers: {
               "Content-Type": "application/json",
             },
@@ -63,7 +63,14 @@ const LoginPage = () => {
                 }
             })
             .catch((error) => {
-                console.log(error.message);
+                toast({
+                    title: "Error logging you in !",
+                    position:'top',
+                    description: "",
+                    status: 'error',
+                    duration: 2000,
+                    isClosable: true,
+                });
             });
         }
 

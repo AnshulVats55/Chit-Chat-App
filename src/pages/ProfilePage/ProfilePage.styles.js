@@ -14,15 +14,22 @@ export const getProfilePageStyles = makeStyles()((theme)=> ({
             justifyContent:'flex-start',
             alignItems:'center',
             marginTop:'30px',
+            '@media screen and (max-width: 599px)': {
+                justifyContent:'center',
+            },
         },
 
         userPostLabel: {
             background:theme.palette.primary.main,
             color:theme.palette.secondary.main,
             fontWeight:'bold',
-            padding:'5px 10px',
+            padding:'6px 10px',
             fontSize:'0.75rem',
             border:'none',
             borderRadius:'20px',
+        },
+
+        createPostBtnContStyles: {
+            margin:'0px 20px',
         },
     }));

@@ -39,6 +39,9 @@ const CreateAccount = () => {
   const [emailErrorMsg, setEmailErrorMsg] = useState({});
   const [passwordErrorMsg, setPasswordErrorMsg] = useState({});
   const { register, handleSubmit, formState: { errors }, } = useForm();
+
+  const [isProfilePicAttached, setIsProfilePicAttached] = useState(false);
+
   const navigate = useNavigate();
   const axios = require("axios");
   const toast = useToast();
@@ -46,11 +49,12 @@ const CreateAccount = () => {
   //method to create user account
   const onSubmit = (data) => {
       data.profilePic = profilePic;
+      console.log(data);
 
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: "http://192.168.1.34:8484/v1/signup",
+        url: "http://192.168.1.39:8484/v1/signup",
         headers: {
           "Content-Type": "application/json",
         },
@@ -268,6 +272,7 @@ const CreateAccount = () => {
                     {...register("profilePic")}
                     onChange={(e)=>{
                       getBase64(e.target.files[0]);
+                      setIsProfilePicAttached(true);
                     }}
                   />
                 </Grid>

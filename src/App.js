@@ -10,10 +10,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
     return (     
         <Router>
-          
           <Routes>
             <Route exact path="/" element={<LoginPage />} />
-            <Route exact path="signup" element={<CreateAccount />} />
+            <Route exact path="/signup" element={<CreateAccount />} />
             <Route exact path="/profile" element={<ProfilePage />} />
             <Route exact path="/feed" element={<Feed />} />
           </Routes>

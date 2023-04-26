@@ -58,5 +58,22 @@ export const getGridLayoutStyles = makeStyles()((theme)=>{
                 transform:'scale(0.99)',
             },
         },
+
+        postCaptionCont: {
+            width:'95%',
+            display:'flex',
+            justifyContent:'center',
+            alignItems:'center',
+            marginTop:'5px',
+        },
+
+        postCaption: {
+            fontSize:'0.8rem',
+            fontWeight:'bold',
+        },
+
+        readMore: {
+            display:'none',
+        },
     });
 });

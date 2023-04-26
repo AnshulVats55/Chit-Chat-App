@@ -15,20 +15,8 @@ export const getButtonStyles = makeStyles()((theme, buttonStyles)=>{
                     borderColor:  theme.palette.primary.main,
                     color: theme.palette.primary.main,
                 },
-                animation:'$floatImage 3s infinite',
                 ...buttonStyles
             },
-            '@keyframes floatImage': {
-                '0%':{
-                    transform: 'translateY(0px)',
-                },
-                '50%':{
-                    transform: 'translateY(50px)',
-                },
-                '100%':{
-                    transform: 'translateY(0px)',
-                },
-            }
         }
     );
 });

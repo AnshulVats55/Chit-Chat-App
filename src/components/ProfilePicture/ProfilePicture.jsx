@@ -6,11 +6,13 @@ const ProfilePicture = ({ src, picStyles }) => {
     const { classes } = getProfilePictuteStyles(picStyles);
 
     return (
+        <Box className={classes.userProfilePicContStyles}>
         <img 
             src={src}
             className={classes.userProfilePicStyles}
             alt="user profile picture"
         />
+        </Box>
     );
 }
 

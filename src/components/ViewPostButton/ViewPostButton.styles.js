@@ -5,11 +5,8 @@ export const getViewPostButtonStyles = makeStyles()((theme)=>{
         viewPostButtonStyles: {
             backgroundColor: theme.palette.primary.main,
             color: '#fff',
-            fontSize:'0.75rem',
-            fontWeight: 'bold',
             transition: '0.3s ease-in-out',
-            borderRadius: '20px',
-            padding:'7px 10px',
+            borderRadius: '30px',
             '&:hover': {
                 transform:'scale(1.05)',
                 backgroundColor: theme.palette.primary.main,
