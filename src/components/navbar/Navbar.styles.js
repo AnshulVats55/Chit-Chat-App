@@ -5,9 +5,9 @@ export const NavbarStyles = makeStyles()((theme) => {
     container: {
       background: "#fff",
       padding: "7px 0",
+      height: "10vh",
     },
     container1: {
-      // flexGrow: 1,
       display: "none",
       "@media screen and (max-width: 900px)": {
         display: "flex",
@@ -34,7 +34,6 @@ export const NavbarStyles = makeStyles()((theme) => {
       },
     },
     leftMain: {
-      // width: "90%",
       display: "none",
       alignItems: "center",
       justifyContent: "center",
@@ -59,14 +58,11 @@ export const NavbarStyles = makeStyles()((theme) => {
     icons: {
       color: "#363a91",
       margin: "0px 50px",
-      padding:"5px 10px",
-      '&:hover': {
-
-                        background:theme.palette.secondary.main,
-        
-                        borderRadius:'25px'
-        
-                    },
+      padding: "5px 10px",
+      "&:hover": {
+        background: theme.palette.secondary.main,
+        borderRadius: "25px",
+      },
     },
     imgContainer: {
       width: "16%",
@@ -78,7 +74,7 @@ export const NavbarStyles = makeStyles()((theme) => {
     h5: {
       color: "#363a91",
       fontWeight: "bold",
-      fontSize:"1.25rem",
+      fontSize: "1.25rem",
       "@media screen and (max-width: 350px)": {
         fontSize: "1rem",
       },
