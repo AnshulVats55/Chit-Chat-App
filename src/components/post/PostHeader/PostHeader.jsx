@@ -7,16 +7,18 @@ import { Dates } from "./Dates/Dates";
 import DeleteIcon from '@mui/icons-material/Delete';
 import PostContext from "../Posts";
 
-export const PostHeader = ({ avatarLetter, title, postDate, styles}) => {
+export const PostHeader = ({post,avatarLetter, title, postDate, styles}) => {
   const { classes } = PostHeaderStyles(styles);
-
- 
-  const value = useContext(PostContext)
+  const {handleDeletePost} = useContext(PostContext)
+  const handleDelete =()=>{
+    //  console.log(post.id)
+     handleDeletePost(post.id)
+  }
   return (
     <CardHeader
       avatar={<Avatar aria-label="recipe">{avatarLetter}</Avatar>}
       action={
-        <IconButton aria-label="settings" onClick={()=>{console.log(1);}}>
+        <IconButton aria-label="settings" onClick={handleDelete}>
           <DeleteIcon />
         </IconButton>
       }
