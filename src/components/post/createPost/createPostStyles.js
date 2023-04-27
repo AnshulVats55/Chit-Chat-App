@@ -2,11 +2,18 @@ import { makeStyles } from "tss-react/mui";
 
 export const getCreatePostStyles = makeStyles()((theme) => ({
   createPostContStyles: {
-    // background: "wheat",
+    background:'#f3f9ff',
     width: "50%",
-    margin: "1rem auto",
     display: "flex",
     flexDirection: "column",
+    position:'absolute',
+    top:'5vh',
+    '@media screen and (max-width: 900px)': {
+      width:'75%',
+    },
+    '@media screen and (max-width: 600px)': {
+      width:'100%',
+    },
   },
 
   createPostFormStyles: {
@@ -17,7 +24,7 @@ export const getCreatePostStyles = makeStyles()((theme) => ({
   },
 
   root: {
-    minWidth: "100%",
+    minWidth: "95%",
     background: theme.palette.secondary.main,
     borderRadius: "5px",
   },
@@ -32,12 +39,19 @@ export const getCreatePostStyles = makeStyles()((theme) => ({
     },
   },
 
-  uploadMediaStyles: {},
+  uploadMediaStyles: {
+
+  },
 
   uploadMediaCont: {
-    width: "100%",
+    width: "95%",
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     alignItems: "center",
+    margin:'1rem 0rem 0.5rem 0rem'
   },
+
+  createPostTopText: {
+    margin:'1rem 0rem',
+  }
 }));

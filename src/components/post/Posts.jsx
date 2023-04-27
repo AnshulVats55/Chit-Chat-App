@@ -1,15 +1,14 @@
 import React, { useEffect, useState, useRef, createContext, useContext } from "react";
-
-import { Box, Grid, Stack } from "@mui/material";
+import { Box, Grid, Stack, Container } from "@mui/material";
 import { PostStyles } from "./post.styles";
 import Post from "./Post";
-
 import CreatePost from "./createPost/CreatePost";
 import postOneImage from "../../assets/create-account.jpg";
 import postApi from "../../api/postApi";
-
+import birdImage from '../../../src/assets/bird.jpg';
 
 const PostContext = createContext();
+
 export const Posts = () => {
   const { classes } = PostStyles();
   const { getPosts, createPost,deletePost } = postApi();
@@ -42,9 +41,6 @@ export const Posts = () => {
 //     getAllPosts();
 //   }, []);
 
-
-
-
   const handleCreatePost = async (postData) => {
     console.log(postData);
     const response = await createPost(postData);
@@ -64,6 +60,15 @@ export const Posts = () => {
    }
    
 
+ posts[0] = {
+  body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
+ }
+ posts[1] = {
+    body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
+   }
+   posts[2] = {
+    body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
+   }
 
   return (
     <PostContext.Provider  value = {{handleDeletePost}} >    

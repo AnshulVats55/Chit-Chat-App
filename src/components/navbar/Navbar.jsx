@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { NavbarStyles } from './Navbar.styles';
 import { Typography, MenuItem,  Container, Menu, IconButton, Box, AppBar } from '@mui/material';
 import Logo from '../../assets/fiftyfive-logo.png';
@@ -10,10 +11,9 @@ import  GroupsIcon  from '@mui/icons-material/Groups';
 
 import UserProfileIcon from './UserProfileIcon';
 
-
 const pages = [
     {
-        to: '/',
+        to: '/feed',
         icon: <HomeIcon fontSize="large" ></HomeIcon>
     },
 
@@ -28,48 +28,42 @@ const pages = [
         icon: <GroupsIcon fontSize="large"></GroupsIcon>
     }
 ];
-const pagesScroll = [{
-    to: '/',
-    data: "Home"
-},
+const pagesScroll = [
+    {
+        to: '/feed',
+        data: "Home"
+    },
 
-{
-    to: '/chat',
-    data: "Chat"
-},
+    {
+        to: '/chat',
+        data: "Chat"
+    },
 
-{
-
-    to: '/groups',
-    data: "Groups"
-}];
-
+    {
+        to: '/groups',
+        data: "Groups"
+    }
+];
 
 function Navbar() {
-
     const { classes } = NavbarStyles();
 
     const [anchorElNav, setAnchorElNav] = useState(null);
+    const {url} = useParams();
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
-  
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
-    };
-
-   
+    }; 
 
     return (
-
         <AppBar className={classes.container} >
-
             <Container maxWidth="xl">
                 <Box className={classes.mainContainer}>
-
-                    <Box sx={{ flexGrow: 1, display: { sx: "flex", sm: 'flex', md: 'none', lg: 'none' } }}>
+                    <Box sx={{display: { sx: "flex", sm: 'flex', md: 'none', lg: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -77,7 +71,7 @@ function Navbar() {
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
                         >
-                            <MenuIcon className={classes.h5} />
+                        <MenuIcon className={classes.h5} />
                         </IconButton>
 
                         <Menu
@@ -110,12 +104,14 @@ function Navbar() {
 
                     <Box className={classes.left}  >
                         <Box className={classes.imgContainer}>
-                            <img className={classes.img} src={Logo} alt="logo" />
+                            <Link to="/profile">
+                                <img className={classes.img} src={Logo} alt="logo" />
+                            </Link>
                         </Box>
                         <Typography variant='h5' className={classes.h5}>Chit-Chat</Typography>
                     </Box>
 
-                    <Box className={classes.iconsContainer} sx={{ display: { xs: 'none', md: 'flex', lg: 'flex' } }}>
+                    <Box className={classes.iconsContainer}>
                         {pages.map((page) => (
                             <Link
                                 to={page.to}
@@ -132,7 +128,7 @@ function Navbar() {
                     {/* small devices */}
 
 
-                    <Box sx={{ flexGrow: 0.4, display: { xs: 'flex', md: 'none', lg: 'none' } }}>
+                    <Box sx={{display: { xs: 'flex', md: 'none', lg: 'none' }, justifyContent:'center', alignItems:'center' }}>
                         <Box className={classes.leftMain}>
                             <Box className={classes.imgContainer}>
                                 <img className={classes.img} src={Logo} alt=" logo" />

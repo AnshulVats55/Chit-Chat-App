@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Trial = ({ encodedUrl }) => {
+const Trial = ({ url }) => {
+    console.log(url);
     return (
-        <>
-        <div>Image preview</div>
-        <img src={encodedUrl} alt="" />
-        </>
-        
+        <div>
+            <h1>Hello</h1>
+            <img src={url} alt="" />
+        </div>
     );
 }
 

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { createContext } from "react";
-
-
 import {
   Box,
   Button,
@@ -15,9 +13,9 @@ import {
 import CommonButton from "../../Button/CommonButton";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { getCreatePostStyles } from "./createPostStyles";
-import Trial from '../../trial';
 
 const CreatePost = ({ createPost }) => {
+  
   const { classes } = getCreatePostStyles();
 
   const [postDesc, setPostDesc] = useState("");
@@ -52,12 +50,12 @@ const CreatePost = ({ createPost }) => {
         className={classes.createPostFormStyles}
         onSubmit={handleCreatePost}
       >
-        <Typography variant="h6">Create Post</Typography>
+        <Typography variant="h6" className={classes.createPostTopText}>Start writing something !</Typography>
 
         <TextField
           type="text"
           multiline
-          placeholder="Create a post..."
+          placeholder="What's on your mind today..."
           className={classes.root}
           InputProps={{ className: classes.input }}
           value={postDesc}
@@ -80,12 +78,11 @@ const CreatePost = ({ createPost }) => {
 
           <CommonButton
             type="submit"
-            children={"Post"}
-            buttonStyles={{ width: "25%", margin: "10px 0px" }}
+            children={"Create Post"}
+            buttonStyles={{padding:'0.5rem 1rem'}}
           />
         </Box>
       </form>
-      <Trial encodedUrl={encodedProfilePic} />
     </Box>
   );
 };
