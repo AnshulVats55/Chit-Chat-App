@@ -18,6 +18,7 @@ export const ListStyles = makeStyles()((theme) => ({
     outline: "none",
     padding: "0.5rem",
     fontSize: "1rem",
+    width:"90%",
   },
   icon: {
     padding: "10px",
@@ -33,9 +34,8 @@ export const ListStyles = makeStyles()((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
-    height: "80vh",
+    height: "92vh",
     width: "100%",
-    marginTop: "2rem",
     padding: "0 2rem",
   },
   friendContainer: {
