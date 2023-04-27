@@ -56,6 +56,7 @@ export const getUserProfileInfoBoxStyles = makeStyles()((theme)=>{
         socialAnalytics: {
             fontFamily:theme.typography.fontFamily[0],
             fontSize:'0.9rem',
+            fontWeight:'bold',
             textAlign:'center',
             background:theme.palette.secondary.main,
             color:theme.palette.primary.main,

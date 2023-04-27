@@ -7,7 +7,11 @@ export const getFeedPageStyles = makeStyles()((theme)=>{
             top:'10vh',
             left:'7%',
             width:'93%',
-            height:'90vh'
+            height:'90vh',
+            '@media screen and (max-width: 900px)': {
+                left:'0vw',
+                width:'100%',
+            },
         },
     });
 });

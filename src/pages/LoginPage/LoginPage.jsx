@@ -58,7 +58,7 @@ const LoginPage = () => {
                     });
                     localStorage.setItem("token", response.data.data);
                     setTimeout(()=>{
-                        navigate("/profile");
+                        navigate("/feed");
                     }, 2500);
                 }
             })
