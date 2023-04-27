@@ -17,57 +17,57 @@ const ChatWindow = () => {
     },
     {
       message:
-        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+        "hi therekkk hjshwj siwswijsksn ",
       time: "12:53",
-      author: "mohammed ishaq qqqqqq2222",
+      author: "mohammed ishaq",
     },
     {
       message:
-        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+        "hi therekkk hjshwj siwswijsksn ",
       time: "12:53",
-      author: "mohammed ishaq qqqqqq2222",
+      author: "mohammed ishaq",
     },
     {
       message:
-        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+        "hi therekkk hjshwj siwswijsksn ",
       time: "12:53",
-      author: "mohammed ishaq qqqqqq2222",
+      author: "mohammed ishaq",
     },
     {
       message:
-        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+        "hi therekkk hjshwj siwswijsksn ",
       time: "12:53",
-      author: "mohammed ishaq qqqqqq2222",
+      author: "mohammed ishaq",
     },
     {
       message:
-        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+        "hi therekkk hjshwj siwswijsksn ",
       time: "12:53",
-      author: "mohammed ishaq qqqqqq2222",
+      author: "mohammed ishaq",
     },
     {
       message:
-        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+        "hi therekkk hjshwj siwswijsksn ",
       time: "12:53",
-      author: "mohammed ishaq qqqqqq2222",
+      author: "mohammed ishaq",
     },
     {
       message:
-        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+        "hi therekkk hjshwj siwswijsksn ",
       time: "12:53",
-      author: "mohammed ishaq qqqqqq2222",
+      author: "mohammed ishaq",
     },
     {
       message:
-        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+        "hi therekkk hjshwj siwswijsksn ",
       time: "12:53",
-      author: "mohammed ishaq qqqqqq2222",
+      author: "mohammed ishaq",
     },
     {
       message:
-        "hi therekkk hjshwj siwswijsksn hswihswnskjn snwkjsw swsbws wsis",
+        "hi therekkk hjshwj siwswijsksn ",
       time: "12:53",
-      author: "mohammed ishaq qqqqqq2222",
+      author: "mohammed ishaq",
     },
   ];
 

@@ -86,7 +86,9 @@ export const ChatStyles = makeStyles()((theme) => {
       marginTop: "0.5rem",
     },
     messageMeta: {
+      width:"100%",
       display: "flex",
+      justifyContent:"space-between"
     },
 
     chatFooter: {
