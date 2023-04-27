@@ -20,31 +20,28 @@ const Bar = () => {
           <Link to="/feed" className={classes.link}>
               <HomeIcon fontSize='large' className={classes.itemIcon}/>
           </Link>
-          {/* <Link to="/feed" className={classes.link}>
+          <Link to="/feed" className={classes.link}>
               <Typography variant="body2" className={classes.itemText}>Home</Typography>
-          </Link> */}
+          </Link>
         </Box>
-      
-
      
         <Box className={classes.item}>
-          <Link to="/chat" className={classes.link}>
+          <Link to="/" className={classes.link}>
             <ChatBubbleIcon fontSize='large' className={classes.itemIcon}/> 
           </Link>
-          {/* <Link to="/chat" className={classes.link}>
+          <Link to="/" className={classes.link}>
             <Typography variant="body2" className={classes.itemText}>Chat</Typography>
-          </Link> */}
+          </Link>
         </Box>
-      
 
         
         <Box className={classes.item}>
           <Link to="/groups" className={classes.link}>
               <GroupsIcon fontSize='large' className={classes.itemIcon}/>
           </Link>
-          {/* <Link to="/groups" className={classes.link}>
+          <Link to="/groups" className={classes.link}>
               <Typography variant="body2" className={classes.itemText}>Group</Typography>
-          </Link> */}
+          </Link>
         </Box>
          
 
@@ -52,9 +49,9 @@ const Bar = () => {
           <Link to="/profile" className={classes.link}>
             <AccountBoxIcon fontSize='large' className={classes.itemIcon}/>
           </Link>
-          {/* <Link to="/profile" className={classes.link}>
+          <Link to="/profile" className={classes.link}>
               <Typography variant="body2" className={classes.itemText}>Profile</Typography>
-          </Link> */}
+          </Link>
         </Box>
 
     </Box>
@@ -65,9 +62,9 @@ const Bar = () => {
           <Link to="/userlogin" className={classes.link}>
             <LogoutIcon fontSize='large' className={classes.itemIcon}/>
           </Link>
-          {/* <Link to="/profile" className={classes.link}>
+          <Link to="/profile" className={classes.link}>
               <Typography variant="body2" className={classes.itemText}>Logout</Typography>
-          </Link> */}
+          </Link>
         </Box>
 
     </Box>

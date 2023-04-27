@@ -3,10 +3,12 @@ import { makeStyles } from "tss-react/mui";
 export const NavbarStyles =makeStyles()((theme)=>{
     return({
         container: {
-            background:'red',
-            padding:'7px 0px',
+            display:'flex',
+            background:'#FFF',
             boxShadow: 'rgba(0, 0, 0, 0.2) 0px 0px 25px',
             height:'10vh',
+            justifyContent:'center',
+            alignItems:'center'
         },
         
           mainContainer: {

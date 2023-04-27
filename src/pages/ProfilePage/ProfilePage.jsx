@@ -13,6 +13,7 @@ const ProfilePage = ({ children }) => {
     const { classes } = getProfilePageStyles();
 
     return (
+        <Box className={classes.profilePageTopContStyles}>
         <Container className={classes.profilePageContStyles} maxWidth="xl" >
             <UserProfileInfo />
             <Box className={classes.userPostLabelConStyles}>
@@ -25,6 +26,7 @@ const ProfilePage = ({ children }) => {
             </Box>
             <GridLayout />
         </Container>
+        </Box>
     );
 }
 

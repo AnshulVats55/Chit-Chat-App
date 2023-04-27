@@ -7,17 +7,19 @@ export const barStyle = makeStyles()((theme,styles)=>{
             display:"flex",
             flexDirection:"column",
             backgroundColor:"#363a91",
-            height:"100vh",
-            width:'100px',
+            height:"90vh",
+            width:'7%',
             alignItems:"center",
             justifyContent:"space-between",
             transition: "0.15s ease-in-out",
-            '@media screen and (max-width: 600px)': {
-                width:'70px',
-            },
-            '@media screen and (max-width: 300px)': {
+            position:'fixed',
+            top:'10vh',
+            '@media screen and (max-width: 900px)': {
                 display:'none',
-            }
+            },
+            // '@media screen and (max-width: 300px)': {
+            //     display:'none',
+            // }
         },
 
         containerOne:{
