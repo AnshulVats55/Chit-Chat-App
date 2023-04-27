@@ -1,50 +1,64 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef, createContext, useContext } from "react";
+
 import { Box, Grid, Stack } from "@mui/material";
 import { PostStyles } from "./post.styles";
 import Post from "./Post";
-import postApi from "../../api/postApi";
+
 import CreatePost from "./createPost/CreatePost";
 import postOneImage from "../../assets/create-account.jpg";
+import postApi from "../../api/postApi";
 
+
+const PostContext = createContext();
 export const Posts = () => {
-  const userData = [
-    {
-      postMedia: postOneImage,
-      postDesc: "Piyush Kumar",
-    },
-    {
-      postMedia: postOneImage,
-      postDesc: "Md Ishaq",
-    },
-    {
-      postMedia: postOneImage,
-      postDesc: "Piyush Kumar",
-    },
-    {
-      postMedia: postOneImage,
-      postDesc: "Md Ishaq",
-    },
-  ];
+  const { classes } = PostStyles();
+  const { getPosts, createPost,deletePost } = postApi();
+  const [posts, setPosts] = useState([]);
 
-  const [posts, setPosts] = useState(userData);
-  const handleCreatePost = (postData) => {
-    setPosts([...posts, postData]);
+
+
+  useEffect(() => {
+    let getAllPosts = async () => {
+      let response = await getPosts();
+      console.log(response)
+      setPosts(response);
+    };
+    getAllPosts();
+  }, []);
+
+
+
+  const handleCreatePost = async (postData) => {
+    console.log(postData);
+    const response = await createPost(postData);
+    console.log(response);
+    let newPosts = [response.data.data, ...posts];
+    setPosts(newPosts);
   };
 
-  const { classes } = PostStyles();
+ const handleDeletePost = async(id)=>{
+    const response = await deletePost(id);
+
+ }
+
+
 
   return (
-    <Box>
-      <CreatePost createPost={handleCreatePost} />
-      <Grid container spacing={2} className={classes.gridContainerStyles}>
-        {posts.map((gridItem) => {
-          return (
-            <Grid item lg={4} md={6} sm={12} xs={12}>
-              <Post image={gridItem.postMedia} content={gridItem.postDesc} />
-            </Grid>
-          );
-        })}
-      </Grid>
-    </Box>
+    <PostContext.Provider  value = {{posts,handleDeletePost}} >    
+      <Box>
+        <CreatePost createPost={handleCreatePost} />
+        <Grid container spacing={2} className={classes.gridContainerStyles}>
+          {posts?.map((gridItem) => {
+            return (
+              <Grid item lg={4} md={6} sm={12} xs={12}>
+                <Post image={gridItem.attachment} content={gridItem.body} />
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Box>
+    </PostContext.Provider>
   );
 };
+
+export default PostContext;

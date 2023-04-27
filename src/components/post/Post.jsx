@@ -5,8 +5,7 @@ import { PostMedia } from "./PostMedia/PostMedia";
 import { PostBody } from "./PostBody/PostBody";
 import { PostAction } from "./postAction/PostAction";
 import { PostStyles } from "./post.styles";
-import { useContext } from "react";
-import { PostContext } from "../../context/PostContext";
+
 import postOneImage from '../../assets/create-account.jpg';
 
 const Post = ({
@@ -18,6 +17,7 @@ const Post = ({
   likeCount,
   commentCount,
   cardStyles,
+  onDelete
 }) => {
 
   const { classes } = PostStyles();

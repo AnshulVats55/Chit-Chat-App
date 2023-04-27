@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { createContext } from "react";
 
+
 import {
   Box,
   Button,
@@ -14,6 +15,7 @@ import {
 import CommonButton from "../../Button/CommonButton";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { getCreatePostStyles } from "./createPostStyles";
+import Trial from '../../trial';
 
 const CreatePost = ({ createPost }) => {
   const { classes } = getCreatePostStyles();
@@ -25,13 +27,11 @@ const CreatePost = ({ createPost }) => {
   const postData = {
     postDesc: postDesc,
     postMedia: encodedProfilePic,
-    
   };
-
+ 
 
   const handleCreatePost = (e) => {
       e.preventDefault();
-      console.log(postData);
       createPost(postData);
   };
 
@@ -85,6 +85,7 @@ const CreatePost = ({ createPost }) => {
           />
         </Box>
       </form>
+      <Trial encodedUrl={encodedProfilePic} />
     </Box>
   );
 };
