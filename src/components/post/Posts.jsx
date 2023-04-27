@@ -1,21 +1,21 @@
 import React, { useEffect, useState, useRef, createContext, useContext } from "react";
-
-import { Box, Grid, Stack } from "@mui/material";
+import { Box, Grid, Stack, Container } from "@mui/material";
 import { PostStyles } from "./post.styles";
 import Post from "./Post";
-
 import CreatePost from "./createPost/CreatePost";
 import postOneImage from "../../assets/create-account.jpg";
 import postApi from "../../api/postApi";
-
+import birdImage from '../../../src/assets/bird.jpg';
 
 const PostContext = createContext();
+
 export const Posts = () => {
+
   const { classes } = PostStyles();
+
   const { getPosts, createPost,deletePost } = postApi();
-  const [posts, setPosts] = useState([]);
-
-
+  
+  let [posts, setPosts] = useState([]);
 
   useEffect(() => {
     let getAllPosts = async () => {
@@ -25,8 +25,6 @@ export const Posts = () => {
     };
     getAllPosts();
   }, []);
-
-
 
   const handleCreatePost = async (postData) => {
     console.log(postData);
@@ -38,25 +36,32 @@ export const Posts = () => {
 
  const handleDeletePost = async(id)=>{
     const response = await deletePost(id);
-
  }
 
+ posts[0] = {
+  body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
+ }
 
+ posts[1] = {
+  body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
+ }
 
   return (
-    <PostContext.Provider  value = {{posts,handleDeletePost}} >    
-      <Box>
-        <CreatePost createPost={handleCreatePost} />
-        <Grid container spacing={2} className={classes.gridContainerStyles}>
-          {posts?.map((gridItem) => {
-            return (
-              <Grid item lg={4} md={6} sm={12} xs={12}>
-                <Post image={gridItem.attachment} content={gridItem.body} />
-              </Grid>
-            );
-          })}
-        </Grid>
-      </Box>
+    <PostContext.Provider value={{posts, handleDeletePost}} >
+      <Container maxWidth="xl" className={classes.mainContainer}>
+        <Box className={classes.PostsTopContStyles}>
+          <CreatePost createPost={handleCreatePost} />
+          <Grid container className={classes.gridContainerStyles}>
+            {posts?.map((gridItem) => {
+              return (
+                <Grid item lg={12} md={12} sm={12} xs={12} className={classes.gridItemStyles}>
+                  <Post image={birdImage} content={gridItem.body} />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
+      </Container>
     </PostContext.Provider>
   );
 };

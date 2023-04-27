@@ -68,7 +68,7 @@ const GridLayout = ({ children }) => {
                                 <Typography variant="h6" className={classes.postCaption}>{gridItem.postCaption}</Typography>
                             </Box>
                             <Box className={classes.viewPostContStyles}>
-                                <Link to={`/post/:${gridItem.id}`}>
+                                <Link to="/post">
                                     <ViewPostButton children={<RemoveRedEyeIcon fontSize="small"/>}/>
                                 </Link>
                             </Box>

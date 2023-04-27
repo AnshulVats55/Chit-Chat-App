@@ -8,13 +8,9 @@ export const PostMedia = ({image}) => {
       <CardMedia
           component="img"
           image={image}
-          alt="first post"
+          alt=""
           className={classes.container}
       />
-    )
+    );
 }
-
-// PostMedia.defaultProps ={
-//     image:'https://picsum.photos/id/1/400/300'
-// }
 

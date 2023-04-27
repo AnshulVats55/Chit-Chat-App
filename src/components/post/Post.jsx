@@ -5,7 +5,6 @@ import { PostMedia } from "./PostMedia/PostMedia";
 import { PostBody } from "./PostBody/PostBody";
 import { PostAction } from "./postAction/PostAction";
 import { PostStyles } from "./post.styles";
-
 import postOneImage from '../../assets/create-account.jpg';
 
 const Post = ({
@@ -23,13 +22,12 @@ const Post = ({
   const { classes } = PostStyles();
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.cardContainer}>
       <PostHeader />
-      <Box className={classes.container}>
-        <PostMedia image={image} />
+      <Box className={classes.postMediaContainer}>
+        <PostMedia image={image} className={classes.postMedia}/>
       </Box>
-
-      <PostBody content={content}/>
+      <PostBody content={content} className={classes.postContent}/>
       <PostAction />
     </Card>
   );
