@@ -14,7 +14,7 @@ export const PostMedia = ({image}) => {
     )
 }
 
-PostMedia.defaultProps ={
-    image:'https://picsum.photos/id/1/400/300'
-}
+// PostMedia.defaultProps ={
+//     image:'https://picsum.photos/id/1/400/300'
+// }
 

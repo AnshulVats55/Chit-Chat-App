@@ -11,19 +11,30 @@ export const sidebarStyle = makeStyles()((theme,styles)=>{
       // },
       
       styleBox:{
-        '@media screen and (max-width:600px)':{
-            display:'none'
-        },
-        width: 200,
+        width:'100px',
         height: "100vh",
-        backgroundColor: 'transparent',
-       
+        backgroundColor: 'wheat',    
       },
 
-      styleTab:{
-        position: "absolute",
-         bottom: "70px" ,
-         left:"30px"
-      }
+      // styleTab:{
+      //   position: "absolute",
+      //    bottom: "70px" ,
+      //    left:"30px"
+      // }, 
+      
+      sidebarIconContStyles: {
+          display:'flex',
+          flexDirection:'column',
+          justifyContent:'center',
+          alignItems:'center',
+          background:'cyan',
+          margin:'10px 0px',
+          padding:'10px 0px',
+      },
+
+      sidebarLinkName: {
+          textDecoration:'none',
+          fontSize:'1rem',
+      },
     }
 })

@@ -19,14 +19,10 @@ const theme = createTheme({
         }
     },
 
-    typography: {
-        fontFamily: ['Poppins','sans-serif',]
-    },
+   typography: {
 
-    borderRadius: {
-        primary: '20px',
-        secondary:'10px'
-    }
+       fontFamily: ['Poppins','sans-serif',]
+    },
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

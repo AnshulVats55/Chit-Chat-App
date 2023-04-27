@@ -9,13 +9,13 @@ const FeedLayout = () => {
   const {classes}=feedStyle();
   return (
     <Box className={classes.container} sx={{overflowX:'hidden'}}>
-          <Box className={classes.box1}>
+          {/* <Box className={classes.box1}>
             <Navbar/>
           </Box>
 
           <Box className={classes.box2}>
             <Sidebar/>
-          </Box>
+          </Box> */}
   
           <Box className={classes.box3}>
                <Posts/>
