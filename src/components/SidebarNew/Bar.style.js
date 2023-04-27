@@ -8,7 +8,7 @@ export const barStyle = makeStyles()((theme,styles)=>{
             flexDirection:"column",
             backgroundColor:"#363a91",
             height:"100vh",
-            width:'100px',
+            width:'5%',
             alignItems:"center",
             justifyContent:"space-between",
             transition: "0.15s ease-in-out",

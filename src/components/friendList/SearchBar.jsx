@@ -15,7 +15,7 @@ const SearchBar = () => {
     <Paper
       component="form"
       onSubmit={onhandleSubmit}
-      className={classes.serachConatiner}
+      className={classes.searchConatiner}
     >
       <input
         className={classes.searchBar}
