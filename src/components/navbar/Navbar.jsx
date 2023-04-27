@@ -45,9 +45,7 @@ const pagesScroll = [
     }
 ];
 
-
 function Navbar() {
-
     const { classes } = NavbarStyles();
 
     const [anchorElNav, setAnchorElNav] = useState(null);
@@ -56,7 +54,6 @@ function Navbar() {
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
-  
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
@@ -74,7 +71,7 @@ function Navbar() {
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
                         >
-                            <MenuIcon className={classes.h5} />
+                        <MenuIcon className={classes.h5} />
                         </IconButton>
 
                         <Menu

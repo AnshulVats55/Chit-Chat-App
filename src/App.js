@@ -1,22 +1,23 @@
 import React from 'react';
-import CreateAccount from './pages/SignupPage/CreateAccount';
-import LoginPage from './pages/LoginPage/LoginPage';
-import ProfilePage from './pages/ProfilePage/ProfilePage';
+import FinalLayout from './pages/FinalLayout/FinalLayout';
+import CreateAccount from '../src/pages/SignupPage/CreateAccount';
+import LoginPage from '../src/pages/LoginPage/LoginPage';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Comments from './components/simple-comments/Comments'
-import FeedLayout from "./components/FeedLayout";
+import ProfilePage from './pages/ProfilePage/ProfilePage';
 
 function App() {
-    return (     
-        <Router>
-          <Routes>
-            <Route exact path="/" element={<LoginPage />} />
-            <Route exact path="/signup" element={<CreateAccount />} />
-            <Route exact path="/profile" element={<ProfilePage />} />
-            <Route exact path="/feed" element={<FeedLayout />} />
-          <Route exact path="/" element={<Comments />} />
-          </Routes>
-        </Router>
+    return (
+        <>
+            <Router>
+                <Routes>
+                    <Route exact path="/" element={<LoginPage />} />
+                    <Route exact path="/signup" element={<CreateAccount />} />
+                    <Route exact path="/profile" element={<FinalLayout component={<ProfilePage />}/>} />
+                    {/* <Route exact path="/feed" element={<FinalLayout  component={<Feed />}/>} > */}
+                    {/* </Route> */}
+                </Routes>    
+            </Router>
+        </>
     );
 }
 

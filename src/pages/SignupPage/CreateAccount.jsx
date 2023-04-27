@@ -19,6 +19,7 @@ import { useToast } from '@chakra-ui/react';
 
 import CommonButton from "../../components/Button/CommonButton";
 import BrandIdentity from '../../components/BrandIdentity/BrandIdentity';
+
 import { createAccountPageStyles } from "./CreateAccount.styles";
 import { emailValidator } from '../../validators/emailValidator';
 import { passwordCheck } from '../../validators/passwordValidtor';
@@ -48,7 +49,7 @@ const CreateAccount = () => {
   //method to create user account
   const onSubmit = (data) => {
       data.profilePic = profilePic;
-      console.log(data);
+      console.log(profilePic);
 
       let config = {
         method: "post",

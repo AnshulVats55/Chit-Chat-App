@@ -3,7 +3,6 @@ import { Link, useState} from 'react-router-dom';
 import { Box, Grid, Container, Typography} from '@mui/material';
 import GridLayout from '../../components/GridLayout/GridLayout';
 import { getProfilePageStyles } from './ProfilePage.styles';
-import Navbar from '../../components/navbar/Navbar';
 
 import AddIcon from '@mui/icons-material/Add';
 
@@ -15,7 +14,6 @@ const ProfilePage = ({ children }) => {
 
     return (
         <Container className={classes.profilePageContStyles} maxWidth="xl" >
-            <Navbar />
             <UserProfileInfo />
             <Box className={classes.userPostLabelConStyles}>
                 <Typography variant="h6" className={classes.userPostLabel}>

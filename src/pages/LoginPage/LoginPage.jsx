@@ -47,6 +47,7 @@ const LoginPage = () => {
             .request(request)
                 .then((response) => {
                 if(response.data.status === "success"){
+                    console.log(response.data.data);
                     toast({
                         title: "You're successfully logged in !",
                         position:'top',
