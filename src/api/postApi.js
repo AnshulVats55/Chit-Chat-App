@@ -16,8 +16,7 @@ const postApi = () => {
       maxBodyLength: Infinity,
       url: "http://192.168.1.50:8484/v1/post",
       headers: {
-        token:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbXNyaXZhc3RhQGZpZnR5Zml2ZXRlY2guaW8iLCJwYXNzd29yZCI6IjE2YXNhc2FDMjIxQCIsImlhdCI6MTY4MjUxNTYyOCwiZXhwIjoxNjgyNjAyMDI4fQ.NvDnXw88ouvnWC6GSitMA5X8JVPI9cGMwZgN2abmAhM",
+        token: localStorage.getItem("token"),
         "Content-Type": "application/json",
       },
       data: data,

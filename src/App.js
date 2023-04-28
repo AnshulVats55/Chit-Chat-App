@@ -20,7 +20,6 @@ function App() {
                     <Route exact path="/profile" element={<FinalLayout component={<ProfilePage />}/>} />
                     <Route exact path="/feedLayout" element={<FinalLayout component={<Posts />}/>} />
                     <Route exact path="/post" element={<FinalLayout component={<ViewPost />}/>} />
-                    {/* <Route exact path="/feedLayout" element={<FinalLayout component={<Posts />}/>} /> */}
                 </Routes>
             </Router>
         </>
