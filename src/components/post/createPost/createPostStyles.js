@@ -45,7 +45,28 @@ export const getCreatePostStyles = makeStyles()((theme) => ({
   },
 
   uploadMediaStyles: {
-
+      width: "100%",
+      '&::file-selector-button': {
+          height: "40px",
+          border: 'none',
+          background: theme.palette.primary.main,
+          padding: '0px 20px',
+          margin: '10px 0px 0px 0px',
+          borderRadius: '5px',
+          color: '#fff',
+          cursor: 'pointer',
+          transition: 'background 0.3s ease-in-out',
+          fontWeight: 'bold',
+          textAlign: 'center',
+          fontSize:'1rem'
+      },
+      '&::file-selector-button:hover': {
+          background: 'transparent',
+          borderWidth: '2px',
+          borderStyle: 'solid',
+          borderColor: theme.palette.primary.main,
+          color: theme.palette.primary.main,
+      },
   },
 
   uploadMediaCont: {

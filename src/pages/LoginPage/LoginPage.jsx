@@ -57,8 +57,9 @@ const LoginPage = () => {
                         isClosable: true,
                     });
                     localStorage.setItem("token", response.data.data.token);
+                    localStorage.setItem("userDetails", JSON.stringify(response.data));
                     setTimeout(()=>{
-                        navigate("/feed");
+                        navigate("/feedLayout");
                     }, 2500);
                 }
             })

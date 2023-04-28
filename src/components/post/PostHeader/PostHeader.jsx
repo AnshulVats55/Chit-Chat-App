@@ -7,12 +7,16 @@ import { Dates } from "./Dates/Dates";
 import DeleteIcon from '@mui/icons-material/Delete';
 import PostContext from "../Posts";
 
-export const PostHeader = ({post,avatarLetter, title, postDate, styles}) => {
+export const PostHeader = ({post, avatarLetter, title, postDate, styles}) => {
+
   const { classes } = PostHeaderStyles(styles);
+  // const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  // console.log(userDetails);
+
   const {handleDeletePost} = useContext(PostContext)
   const handleDelete =()=>{
-     console.log(post.id)
-     console.log(handleDeletePost)
+    //  console.log(post.id)
+    //  console.log(handleDeletePost)
      handleDeletePost(post.id)
   }
   return (

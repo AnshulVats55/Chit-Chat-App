@@ -1,81 +1,90 @@
 import React, { useEffect, useState, useRef, createContext, useContext } from "react";
-import { Box, Grid, Stack, Container } from "@mui/material";
+import { Box, Grid  } from "@mui/material";
 import { PostStyles } from "./post.styles";
+
 import Post from "./Post";
 import CreatePost from "./createPost/CreatePost";
-import postOneImage from "../../assets/create-account.jpg";
 import postApi from "../../api/postApi";
-
-import birdImage from '../../assets/bird.jpg';
-import Image2 from '../../assets/post2.jpg';
-import Image3 from '../../assets/post1.jpg';
+import { useToast } from '@chakra-ui/react';
 
 const PostContext = createContext();
 
 export const Posts = () => {
   const { classes } = PostStyles();
-  const { getPosts, createPost,deletePost } = postApi();
-  const [posts, setPosts] = useState([
-    // {
-    //     id: 1,
-    //     body:"firstpost", 
-    //     attachment:birdImage
-    // },
-    // {
-    //     id: 2,
-    //     body:   "2nd post Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
-    //     attachment:birdImage
-    // },
-    // {
-    //     id: 3,
-    //     body:   "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
-    //     attachment:birdImage
-    // },
-    // {
-    //     id: 4,
-    //     body: "4th post",
-    //     attachment:birdImage
-    // },
-    // {
-    //     id: 5,
-    //     body:   "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
-    //     attachment:''
-    // }
-  ]);
+  const { getPosts, createPost, deletePost } = postApi();
 
+  const toast = useToast();
+  const [posts, setPosts] = useState([]);
 
-
+  const [userName, setUserName] = useState("Hello");
+  
   useEffect(() => {
     let getAllPosts = async () => {
       let response = await getPosts();
-      console.log(response)
+      console.log(response);
       setPosts(response);
     };
     getAllPosts();
   }, []);
 
   const handleCreatePost = async (postData) => {
-    console.log(postData);
     const response = await createPost(postData);
     console.log(response);
-    let newPosts = [response.data.data, ...posts];
-    setPosts(newPosts);
+    if(response.data.status === "success"){
+      let newPosts = [response.data.data, ...posts];
+      setPosts(newPosts);
+      toast({
+          title: "Post created successfully !",
+          position:'top',
+          description: "",
+          status: 'success',
+          duration: 1000,
+          isClosable: true,
+      });
+    }
+    else{
+      toast({
+        title: "Error creating post !",
+        position:'top',
+        description: "",
+        status: 'error',
+        duration: 1000,
+        isClosable: true,
+    });
+    }
   };
 
- const handleDeletePost = async(id)=>{
-    const response = await deletePost(id);
-       const updatedPosts = posts.filter(post=> post.id!==id)
-       
-       setPosts(updatedPosts)
- }
-//    const handleDeletePost = (id)=>{
-//        const updatedPosts = posts.filter(post=> post.id!==id)
-//        setPosts(updatedPosts)
-//    }
-   
+  const handleDeletePost = async (id) => {
+
+      if(window.confirm("Do you really want to delete this post?") == true){
+        const response = await deletePost(id);
+        if(response.data.status == "success"){
+         let updatedPosts = posts.filter(post => post.id !== id);
+         setPosts(updatedPosts)
+          toast({
+            title: "Post deleted successfully !",
+            position:'top',
+            description: "",
+            status: 'success',
+            duration: 1000,
+            isClosable: true,
+        });
+        }
+      }
+    else{
+      toast({
+        title: "Post deletion revoked !",
+        position:'top',
+        description: "",
+        status: 'info',
+        duration: 1000,
+        isClosable: true,
+    });
+    }
+  }
 
   return (
-    <PostContext.Provider  value = {{handleDeletePost}} >    
+    <PostContext.Provider  value = {{handleDeletePost, userName}} > 
       <Box className={classes.PostsTopContStyles}>
         <CreatePost createPost={handleCreatePost} />
         <Grid container spacing={2} className={classes.gridContainerStyles}>

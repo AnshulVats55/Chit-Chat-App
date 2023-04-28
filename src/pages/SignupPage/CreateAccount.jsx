@@ -75,9 +75,9 @@ const CreateAccount = () => {
             isClosable: true,
           });
 
-          // setTimeout(()=>{
-          //   navigate("/");
-          // }, 2500);
+          setTimeout(()=>{
+            navigate("/");
+          }, 2500);
         })
         .catch((error) => {
           toast({
