@@ -19,6 +19,7 @@ import { useToast } from '@chakra-ui/react';
 
 import CommonButton from "../../components/Button/CommonButton";
 import BrandIdentity from '../../components/BrandIdentity/BrandIdentity';
+
 import { createAccountPageStyles } from "./CreateAccount.styles";
 import { emailValidator } from '../../validators/emailValidator';
 import { passwordCheck } from '../../validators/passwordValidtor';
@@ -34,7 +35,7 @@ const CreateAccount = () => {
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [profilePic, setProfilePic] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
   const [emailErrorMsg, setEmailErrorMsg] = useState({});
   const [passwordErrorMsg, setPasswordErrorMsg] = useState({});
   const { register, handleSubmit, formState: { errors }, } = useForm();
@@ -47,13 +48,13 @@ const CreateAccount = () => {
 
   //method to create user account
   const onSubmit = (data) => {
-      data.profilePic = profilePic;
+      data.profilePicture = profilePicture;
       console.log(data);
 
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: "http://192.168.1.39:8484/v1/signup",
+        url: "http://192.168.1.50:8484/v1/signup",
         headers: {
           "Content-Type": "application/json",
         },
@@ -74,9 +75,9 @@ const CreateAccount = () => {
             isClosable: true,
           });
 
-          setTimeout(()=>{
-            navigate("/");
-          }, 2500);
+          // setTimeout(()=>{
+          //   navigate("/");
+          // }, 2500);
         })
         .catch((error) => {
           toast({
@@ -97,7 +98,7 @@ const CreateAccount = () => {
     reader.readAsDataURL(file);
     reader.onload = function () {
       encodedFile = reader.result;
-      setProfilePic(encodedFile);
+      setProfilePicture(encodedFile);
       toast({
         title: 'Profile Picture attached successfully !',
         position:'top',
@@ -160,6 +161,7 @@ const CreateAccount = () => {
               alt="signup image"
               width={"100%"}
               id="loginPageImage"
+              className={classes.signupImage}
             />
           </div>
         </Grid>
@@ -268,7 +270,7 @@ const CreateAccount = () => {
                     type="file"
                     multiple={false}
                     className={classes.imageSelectorStyle}
-                    {...register("profilePic")}
+                    {...register("profilePicture")}
                     onChange={(e)=>{
                       getBase64(e.target.files[0]);
                       setIsProfilePicAttached(true);

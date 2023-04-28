@@ -28,6 +28,12 @@ export const getLoginPageStyles = makeStyles()((theme)=>{
             alignItems: "center",
         },
 
+        loginImage: {
+            '@media screen and (max-width: 900px)': {
+                display:'none',
+            },
+        },
+
         loginFormContStyles: {
             width:'60%',
             display: 'flex',

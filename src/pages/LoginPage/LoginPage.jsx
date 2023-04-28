@@ -34,7 +34,7 @@ const LoginPage = () => {
         let request = {
             method: "post",
             maxBodyLength: Infinity,
-            url: "http://192.168.1.39:8484/v1/login",
+            url: "http://192.168.1.50:8484/v1/login",
             headers: {
               "Content-Type": "application/json",
             },
@@ -47,6 +47,7 @@ const LoginPage = () => {
             .request(request)
                 .then((response) => {
                 if(response.data.status === "success"){
+                    console.log(response);
                     toast({
                         title: "You're successfully logged in !",
                         position:'top',
@@ -55,9 +56,9 @@ const LoginPage = () => {
                         duration: 2000,
                         isClosable: true,
                     });
-                    localStorage.setItem("token", response.data.data);
+                    localStorage.setItem("token", response.data.data.token);
                     setTimeout(()=>{
-                        navigate("/profile");
+                        navigate("/feed");
                     }, 2500);
                 }
             })
@@ -77,11 +78,11 @@ const LoginPage = () => {
         <Container
         maxWidth="xl"
         sx={{
-            display: "flex",
-            
+            display: "flex",  
             flexDirection:'column',
             alignItems: "center",
-            height: "100vh",}}
+            height: "100vh",
+        }}
         >
             <Box sx={{width:'100%', display:'flex', justifyContent:'flex-start', alignItems:'center', margin:'30px 0px'}}>
                 <BrandIdentity />
@@ -91,7 +92,7 @@ const LoginPage = () => {
             <Grid container>
                 <Grid item lg={5} md={5} sm={0} xs={0} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                     <Box style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-                        <img src={LoginPageImage} alt="login image" width={'100%'} id='loginPageImage'/>
+                        <img src={LoginPageImage} alt="login image" width={'100%'} id='loginPageImage' className={classes.loginImage}/>
                     </Box>
                 </Grid>
 

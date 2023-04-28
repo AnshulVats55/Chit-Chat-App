@@ -6,12 +6,11 @@ export const PostBody = ({content,styles}) => {
     const {classes}= PostBodyStyles(styles);
   return (
     <CardContent>
-        <Typography variant="body1" p={2}>{content}</Typography>
+        <Typography variant="body1" className={classes.cardContent}>{content}</Typography>
     </CardContent>
   )
 }
 
 PostBody.defaultProps ={
     content:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!'
-
 }

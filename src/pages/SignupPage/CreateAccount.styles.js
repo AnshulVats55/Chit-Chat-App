@@ -10,6 +10,12 @@ export const createAccountPageStyles = makeStyles()((theme)=>{
             alignItems: "center",
         },
 
+        signupImage: {
+            '@media screen and (max-width: 900px)': {
+                display:'none',
+            },
+        },
+
         signupFormContStyles: {
             width:'65%',
             display: 'flex',

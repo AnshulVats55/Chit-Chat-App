@@ -1,11 +1,24 @@
 import { makeStyles } from "tss-react/mui";
 
 export const getProfilePageStyles = makeStyles()((theme)=> ({
+        profilePageTopContStyles: {
+            display:'flex',
+            justifyContent:'center',
+            alignItems:'center',
+            width:'93%',
+            position:'absolute',
+            top:'10vh',
+            left:'7%',
+            '@media screen and (max-width: 900px)': {
+                left:'0vw',
+                width:'100%',
+            },
+        },
+
         profilePageContStyles: {
             display:'flex',
             flexDirection:'column',
             alignItems:'center',
-            height:'100vh',
         },
 
         userPostLabelConStyles: {
