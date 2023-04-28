@@ -11,7 +11,8 @@ export const PostHeader = ({post,avatarLetter, title, postDate, styles}) => {
   const { classes } = PostHeaderStyles(styles);
   const {handleDeletePost} = useContext(PostContext)
   const handleDelete =()=>{
-    //  console.log(post.id)
+     console.log(post.id)
+     console.log(handleDeletePost)
      handleDeletePost(post.id)
   }
   return (

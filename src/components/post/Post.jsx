@@ -28,9 +28,9 @@ const Post = ({
     <Card className={classes.cardContainer}>
       <PostHeader post={post} />
       <Box className={classes.postMediaContainer}>
-        <PostMedia image={image} className={classes.postMedia}/>
+        <PostMedia image={post.attachment} className={classes.postMedia}/>
       </Box>
-      <PostBody content={content} className={classes.postContent}/>
+      <PostBody content={post.body} className={classes.postContent}/>
       <PostAction />
     </Card>
   );

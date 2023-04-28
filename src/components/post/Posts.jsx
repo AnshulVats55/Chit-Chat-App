@@ -13,33 +13,43 @@ export const Posts = () => {
   const { classes } = PostStyles();
   const { getPosts, createPost,deletePost } = postApi();
   const [posts, setPosts] = useState([
-    {
-        id: 1,
-        body: '1st post',
-        attachment:''
-    },
-    {
-        id: 2,
-        body: '2nd post',
-        attachment:''
-    },
-    {
-        id: 3,
-        body: '3rd post',
-        attachment:''
-    }
+    // {
+    //     id: 1,
+    //     body:"firstpost", 
+    //     attachment:birdImage
+    // },
+    // {
+    //     id: 2,
+    //     body:   "2nd post Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
+    //     attachment:birdImage
+    // },
+    // {
+    //     id: 3,
+    //     body:   "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
+    //     attachment:birdImage
+    // },
+    // {
+    //     id: 4,
+    //     body: "4th post",
+    //     attachment:birdImage
+    // },
+    // {
+    //     id: 5,
+    //     body:   "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
+    //     attachment:''
+    // }
   ]);
 
 
 
-//   useEffect(() => {
-//     let getAllPosts = async () => {
-//       let response = await getPosts();
-//       console.log(response)
-//       setPosts(response);
-//     };
-//     getAllPosts();
-//   }, []);
+  useEffect(() => {
+    let getAllPosts = async () => {
+      let response = await getPosts();
+      console.log(response)
+      setPosts(response);
+    };
+    getAllPosts();
+  }, []);
 
   const handleCreatePost = async (postData) => {
     console.log(postData);
@@ -49,35 +59,26 @@ export const Posts = () => {
     setPosts(newPosts);
   };
 
-//  const handleDeletePost = async(id)=>{
-//     const response = await deletePost(id);
-    //    const updatedPosts = posts.filter(post=> post.id!==id)
-    //    setPosts(updatedPosts)
-//  }
-   const handleDeletePost = (id)=>{
+ const handleDeletePost = async(id)=>{
+    const response = await deletePost(id);
        const updatedPosts = posts.filter(post=> post.id!==id)
+       
        setPosts(updatedPosts)
-   }
-   
-
- posts[0] = {
-  body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
  }
- posts[1] = {
-    body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
-   }
-   posts[2] = {
-    body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
-   }
+//    const handleDeletePost = (id)=>{
+//        const updatedPosts = posts.filter(post=> post.id!==id)
+//        setPosts(updatedPosts)
+//    }
+   
 
   return (
     <PostContext.Provider  value = {{handleDeletePost}} >    
-      <Box>
+      <Box className={classes.PostsTopContStyles}>
         <CreatePost createPost={handleCreatePost} />
         <Grid container spacing={2} className={classes.gridContainerStyles}>
           {posts?.map((post) => {
             return (
-              <Grid item lg={4} md={6} sm={12} xs={12}>
+              <Grid className={classes.gridItemStyles} item lg={12} md={12} sm={12} xs={12}>
                 <Post key={post.id} post={post}/>
               </Grid>
             );
