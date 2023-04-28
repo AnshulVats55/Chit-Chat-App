@@ -13,12 +13,37 @@ import Image3 from '../../assets/post1.jpg';
 const PostContext = createContext();
 
 export const Posts = () => {
-
   const { classes } = PostStyles();
-
   const { getPosts, createPost,deletePost } = postApi();
-  
-  let [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([
+    // {
+    //     id: 1,
+    //     body:"firstpost", 
+    //     attachment:birdImage
+    // },
+    // {
+    //     id: 2,
+    //     body:   "2nd post Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
+    //     attachment:birdImage
+    // },
+    // {
+    //     id: 3,
+    //     body:   "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
+    //     attachment:birdImage
+    // },
+    // {
+    //     id: 4,
+    //     body: "4th post",
+    //     attachment:birdImage
+    // },
+    // {
+    //     id: 5,
+    //     body:   "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
+    //     attachment:''
+    // }
+  ]);
+
+
 
   useEffect(() => {
     let getAllPosts = async () => {
@@ -39,39 +64,30 @@ export const Posts = () => {
 
  const handleDeletePost = async(id)=>{
     const response = await deletePost(id);
+       const updatedPosts = posts.filter(post=> post.id!==id)
+       
+       setPosts(updatedPosts)
  }
-
-//  posts[0] = {
-//   body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
-//   attachment: birdImage,
-//  }
-
-//  posts[1] = {
-//   body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
-//   attachment: Image2,
-//  }
-
-//  posts[2] = {
-//   body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
-//   attachment: Image3,
-//  }
+//    const handleDeletePost = (id)=>{
+//        const updatedPosts = posts.filter(post=> post.id!==id)
+//        setPosts(updatedPosts)
+//    }
+   
 
   return (
-    <PostContext.Provider value={{posts, handleDeletePost}} >
-      <Container maxWidth="xl" className={classes.mainContainer}>
-        <Box className={classes.PostsTopContStyles}>
-          <CreatePost createPost={handleCreatePost} />
-          <Grid container className={classes.gridContainerStyles}>
-            {posts?.map((gridItem) => {
-              return (
-                <Grid item lg={12} md={12} sm={12} xs={12} className={classes.gridItemStyles}>
-                  <Post image={gridItem.attachment} content={gridItem.body} />
-                </Grid>
-              );
-            })}
-          </Grid>
-        </Box>
-      </Container>
+    <PostContext.Provider  value = {{handleDeletePost}} >    
+      <Box className={classes.PostsTopContStyles}>
+        <CreatePost createPost={handleCreatePost} />
+        <Grid container spacing={2} className={classes.gridContainerStyles}>
+          {posts?.map((post) => {
+            return (
+              <Grid className={classes.gridItemStyles} item lg={12} md={12} sm={12} xs={12}>
+                <Post key={post.id} post={post}/>
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Box>
     </PostContext.Provider>
   );
 };

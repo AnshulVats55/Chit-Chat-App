@@ -1,33 +1,36 @@
 import { Box, Card } from "@mui/material";
-import React from "react";
+import React,{useContext} from "react";
 import { PostHeader } from "./PostHeader/PostHeader";
 import { PostMedia } from "./PostMedia/PostMedia";
 import { PostBody } from "./PostBody/PostBody";
 import { PostAction } from "./postAction/PostAction";
 import { PostStyles } from "./post.styles";
 import postOneImage from '../../assets/create-account.jpg';
+import PostContext from "./Posts";
 
 const Post = ({
-  avatarLetter,
-  title,
-  postDate,
-  image,
-  content,
-  likeCount,
-  commentCount,
-  cardStyles,
-  onDelete
+ 
+  // avatarLetter,
+  // title,
+  // postDate,
+  // image,
+  // content,
+  // likeCount,
+  // commentCount,
+  // cardStyles,
+  id,
+  post
 }) => {
 
   const { classes } = PostStyles();
 
   return (
     <Card className={classes.cardContainer}>
-      <PostHeader />
+      <PostHeader post={post} />
       <Box className={classes.postMediaContainer}>
-        <PostMedia image={image} className={classes.postMedia}/>
+        <PostMedia image={post.attachment} className={classes.postMedia}/>
       </Box>
-      <PostBody content={content} className={classes.postContent}/>
+      <PostBody content={post.body} className={classes.postContent}/>
       <PostAction />
     </Card>
   );
