@@ -17,7 +17,7 @@ const ProfilePage = ({ children }) => {
         <Container className={classes.profilePageContStyles} maxWidth="xl" >
             <UserProfileInfo />
             <Box className={classes.userPostLabelConStyles}>
-                <Link to="/feed" className={classes.createPostBtnContStyles}>
+                <Link to="/feedLayout" className={classes.createPostBtnContStyles}>
                     <ViewPostButton children={<AddIcon fontSize="small" />} />
                 </Link>
             </Box>

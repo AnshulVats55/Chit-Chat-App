@@ -5,7 +5,10 @@ import Post from "./Post";
 import CreatePost from "./createPost/CreatePost";
 import postOneImage from "../../assets/create-account.jpg";
 import postApi from "../../api/postApi";
-import birdImage from '../../../src/assets/bird.jpg';
+
+import birdImage from '../../assets/bird.jpg';
+import Image2 from '../../assets/post2.jpg';
+import Image3 from '../../assets/post1.jpg';
 
 const PostContext = createContext();
 
@@ -40,10 +43,17 @@ export const Posts = () => {
 
  posts[0] = {
   body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
+  attachment: birdImage,
  }
 
  posts[1] = {
   body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
+  attachment: Image2,
+ }
+
+ posts[2] = {
+  body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
+  attachment: Image3,
  }
 
   return (
@@ -55,7 +65,7 @@ export const Posts = () => {
             {posts?.map((gridItem) => {
               return (
                 <Grid item lg={12} md={12} sm={12} xs={12} className={classes.gridItemStyles}>
-                  <Post image={birdImage} content={gridItem.body} />
+                  <Post image={gridItem.attachment} content={gridItem.body} />
                 </Grid>
               );
             })}

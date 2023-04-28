@@ -18,9 +18,9 @@ function App() {
                     <Route exact path="/" element={<LoginPage />} />
                     <Route exact path="/signup" element={<CreateAccount />} />
                     <Route exact path="/profile" element={<FinalLayout component={<ProfilePage />}/>} />
-                    <Route exact path="/feed" element={<FinalLayout component={<FeedPage />}/>} />
-                    <Route exact path="/post" element={<FinalLayout component={<ViewPost />}/>} />
                     <Route exact path="/feedLayout" element={<FinalLayout component={<Posts />}/>} />
+                    <Route exact path="/post" element={<FinalLayout component={<ViewPost />}/>} />
+                    {/* <Route exact path="/feedLayout" element={<FinalLayout component={<Posts />}/>} /> */}
                 </Routes>
             </Router>
         </>

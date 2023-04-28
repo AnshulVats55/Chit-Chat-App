@@ -45,7 +45,7 @@ const CreatePost = ({ createPost }) => {
 }
 
   return (
-    <Box className={classes.createPostContStyles}>
+    <Box id="createPost" className={classes.createPostContStyles}>
       <form
         className={classes.createPostFormStyles}
         onSubmit={handleCreatePost}
@@ -79,7 +79,20 @@ const CreatePost = ({ createPost }) => {
           <CommonButton
             type="submit"
             children={"Create Post"}
-            buttonStyles={{padding:'0.5rem 1rem'}}
+            buttonStyles={{
+              padding:'0.5rem 1rem',
+              '@media screen and (max-width: 981px)': {
+                  width:'100%',
+                  margin:'0.5rem',
+                },
+              '@media screen and (max-width: 900px)': {
+                  width:'35%'
+              },
+              '@media screen and (max-width: 434px)': {
+                width:'100%',
+                margin:'0.5rem',
+              },
+              }}
           />
         </Box>
       </form>

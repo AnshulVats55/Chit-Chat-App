@@ -25,7 +25,7 @@ export const getCreatePostStyles = makeStyles()((theme) => ({
 
   root: {
     minWidth: "95%",
-    background: theme.palette.secondary.main,
+    background: '#FFF',
     borderRadius: "5px",
   },
 
@@ -33,7 +33,12 @@ export const getCreatePostStyles = makeStyles()((theme) => ({
     border: "none",
     outline: "none",
     borderRadius: "5px",
-    "&:focus": {
+    '&:hover': {
+      outline:'none',
+      border:'none',
+    },
+
+    '&:focus': {
       outline: "none",
       border: "none",
     },
@@ -48,10 +53,20 @@ export const getCreatePostStyles = makeStyles()((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    margin:'1rem 0rem 0.5rem 0rem'
+    margin:'1rem 0rem 1rem 0rem',
+    '@media screen and (max-width: 981px)': {
+      flexDirection:'column',
+    },
+    '@media screen and (max-width: 900px)': {
+      flexDirection:'row',
+    },
+    '@media screen and (max-width: 434px)': {
+      flexDirection:'column',
+    },
   },
 
   createPostTopText: {
     margin:'1rem 0rem',
+    fontWeight:'bold',
   }
 }));
