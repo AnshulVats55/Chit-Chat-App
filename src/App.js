@@ -8,12 +8,12 @@ import FeedPage from '../src/pages/FeedPage/FeedPage';
 import ViewPost from './components/ViewPost/ViewPost';
 import FeedLayout from '../src/components/FeedLayout';
 import { Posts } from './components/post/Posts';
-
+import Comments from './components/simple-comments/Comments';
 function App() {
 
     return (
         <>
-            <Router>
+            {/* <Router>
                 <Routes>
                     {
                         localStorage.getItem("token")
@@ -29,6 +29,11 @@ function App() {
                             <Route exact path="/signup" element={<CreateAccount />} />
                         </>
                     }
+                </Routes>
+            </Router> */}
+            <Router>
+                <Routes>
+                    <Route exact path='/' element={<Comments/>}></Route>
                 </Routes>
             </Router>
         </>
