@@ -75,13 +75,11 @@ export const getGridLayoutStyles = makeStyles()((theme)=>{
 
         deletePostButtonStyles: {
             transition:'0.2s ease-in-out',
-            border:'none',
             borderRadius:'15px',
             fontSize:'1.75rem',
             cursor:'pointer',
             '&:hover': {
                 color:'#FF0000',
-                background:'#FFC9C9',
                 transform:'scale(1.20)',
             },
         },

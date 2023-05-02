@@ -13,7 +13,7 @@ function App() {
 
     return (
         <>
-            {/* <Router>
+            <Router>
                 <Routes>
                     {
                         localStorage.getItem("token")
@@ -22,6 +22,7 @@ function App() {
                             <Route exact path="/" element={<FinalLayout component={<Posts />} />} />
                             <Route exact path="/profile" element={<FinalLayout component={<ProfilePage />}/>} />
                             <Route exact path="/post" element={<FinalLayout component={<ViewPost />} />} />
+                            <Route exact path='/comment' element={<Comments />}></Route>
                         </>
                         :
                         <>
@@ -30,12 +31,12 @@ function App() {
                         </>
                     }
                 </Routes>
-            </Router> */}
-            <Router>
+            </Router>
+            {/* <Router>
                 <Routes>
                     <Route exact path='/' element={<Comments/>}></Route>
                 </Routes>
-            </Router>
+            </Router> */}
         </>
     );
 }

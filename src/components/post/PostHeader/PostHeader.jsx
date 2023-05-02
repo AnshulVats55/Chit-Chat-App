@@ -1,4 +1,4 @@
-import { Avatar, CardHeader, IconButton } from "@mui/material";
+import { Avatar, CardHeader, IconButton, Typography } from "@mui/material";
 import React,{useContext} from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { PostHeaderStyles } from "./postHead.styles";
@@ -25,7 +25,8 @@ export const PostHeader = ({ post, avatarLetter, title, postDate, styles, postCr
 
   const currentUserId = currentUserDetails.data.user.id,
         currentUserName = currentUserDetails.data.user.firstName + " " + currentUserDetails.data.user.lastName,
-        currentUserProfilePic = currentUserDetails.data.user.profilePicture;
+        currentUserProfilePic = currentUserDetails.data.user.profilePicture,
+        postCreationTime = currentUserDetails.data.user.createdAt;
 
   return (
     <CardHeader
@@ -41,8 +42,8 @@ export const PostHeader = ({ post, avatarLetter, title, postDate, styles, postCr
           }
         </IconButton>
       }
-      title={currentUserName}
-      subheader=""
+      title={<Typography variant="body1" fontWeight={'bold'}>{currentUserName}</Typography>}
+      subheader={postCreationTime.substring(0, 10).split("-").reverse().join("-")}
     />
   );
 };
