@@ -8,6 +8,16 @@ export const getGridLayoutStyles = makeStyles()((theme)=>{
             padding:'0px',
             borderRadius:'10px',
             gap:'1rem 0rem',
+            maxWidth:'35%',
+            '@media screen and (max-width: 900px)': {
+                maxWidth:'50%',
+            },
+            '@media screen and (max-width: 600px)': {
+                maxWidth:'65%',
+            },
+            '@media screen and (max-width: 400px)': {
+                maxWidth:'80%',
+            },
         },
 
         gridItemStyles: {
@@ -43,10 +53,37 @@ export const getGridLayoutStyles = makeStyles()((theme)=>{
         },
 
         viewPostContStyles: {
+            width:'75%',
             display:'flex',
-            justifyContent:'center',
+            justifyContent:'space-between',
             alignItems:'center',
             margin:'20px 0px',
+        },
+
+        viewPostButtonStyles: {
+            transition:'0.2s ease-in-out',
+            border:'none',
+            borderRadius:'15px',
+            fontSize:'1.75rem',
+            cursor:'pointer',
+            '&:hover': {
+                color:theme.palette.primary.main,
+                background:theme.palette.secondary.main,
+                transform:'scale(1.20)',
+            },
+        },
+
+        deletePostButtonStyles: {
+            transition:'0.2s ease-in-out',
+            border:'none',
+            borderRadius:'15px',
+            fontSize:'1.75rem',
+            cursor:'pointer',
+            '&:hover': {
+                color:'#FF0000',
+                background:'#FFC9C9',
+                transform:'scale(1.20)',
+            },
         },
 
         userPostStyles: {

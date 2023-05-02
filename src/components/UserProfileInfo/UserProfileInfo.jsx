@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import ProfilePicture from '../../components/ProfilePicture/ProfilePicture';
 import { getUserProfileInfoBoxStyles } from './UserProfileInfo.styles';
 
 import UserProfilePicture from '../../assets/login-page-image.jpg';
 
+// import { setUserData } from '../../';
+// import { useDispatch, useSelector } from 'react-redux';
+
 const UserProfileInfo = () => {
     const { classes } = getUserProfileInfoBoxStyles();
+    // const [userData, setUserData] = useState({});
+
+    // const dispatch = useDispatch();
+
+    // const userState = useSelector((state)=>{
+    //     console.log(state);
+    //     return state.userDataReducer;
+    // });
+
+    // let obj;
+    // useEffect(()=>{
+    //     obj = JSON.parse(localStorage.getItem("userDetails"));
+    //     setUserData(obj.data.user);
+    // }, []);
+
 
     return (
         <Grid container className={classes.userProfileInfoGrid}>
@@ -20,11 +38,11 @@ const UserProfileInfo = () => {
                     <Typography variant="h5" className={classes.userName}>Anshul Vats</Typography>
 
                     <Box className={classes.followerInfo}>
-                        <Typography variant="h6" className={classes.socialAnalytics}>1022 Posts</Typography>
+                        <Typography variant="h6" className={classes.socialAnalytics}>100 Posts</Typography>
 
-                        <Typography variant="h6" className={classes.socialAnalytics}>47.2K Followers</Typography>
+                        <Typography variant="h6" className={classes.socialAnalytics}>1000 Followers</Typography>
 
-                        <Typography variant="h6" className={classes.socialAnalytics}>652 Following</Typography>
+                        <Typography variant="h6" className={classes.socialAnalytics}>150 Following</Typography>
                     </Box>
                     
                     <Typography variant="body1" className={classes.userBio}>Spitting fire and weaving words into poetry. Indian rapper and lyricist, bringing you the beats of the streets.</Typography>

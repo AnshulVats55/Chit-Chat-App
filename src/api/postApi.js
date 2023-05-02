@@ -1,22 +1,25 @@
 import axios from "axios";
+import { useSelector } from "react-redux";
 
-// const axios = require('axios')
-const postApi = () => {
-  
-  const createPost = async (datapost) => {
+const PostApi = () => {
+
+  const currentUserId = useSelector((state)=>{
+    return state.userDataReducer[0].data.user.id;
+  });
+
+    const createPost = async (datapost) => {
 
     let data = JSON.stringify({
-      userId: "718f2c89-8465-4d42-9cfc-be8b0fe24e55",
+      userId: currentUserId,
       body: datapost.postDesc,
       attachment: datapost.postMedia,
     });
 
     
     let config = {
-
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://192.168.1.50:8484/v1/post",
+      url: "http://172.16.1.150:8484/v1/post",
       headers: {
         token: localStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -32,7 +35,7 @@ const postApi = () => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: "http://192.168.1.50:8484/v1/post/allPost",
+      url: "http://172.16.1.150:8484/v1/post/allPost",
       headers: {
         token: localStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -47,7 +50,7 @@ const postApi = () => {
     let config = {
        method: 'delete',
         maxBodyLength: Infinity,
-        url: `http://192.168.1.50:8484/v1/post/delete/${id}`,
+        url: `http://172.16.1.150:8484/v1/post/delete/${id}`,
         headers: {
          token: localStorage.getItem("token"),
         }
@@ -59,4 +62,4 @@ const postApi = () => {
   return { createPost, getPosts,deletePost };
 };
 
-export default postApi;
+export default PostApi;

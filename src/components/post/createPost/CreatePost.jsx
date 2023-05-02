@@ -12,7 +12,6 @@ import {
 import { useToast } from '@chakra-ui/react';
 
 import CommonButton from "../../Button/CommonButton";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { getCreatePostStyles } from "./createPostStyles";
 
 const CreatePost = ({ createPost }) => {
@@ -47,6 +46,7 @@ const CreatePost = ({ createPost }) => {
         createPost(postData);
         setPostDesc("");
         setPostMedia({});
+        setEncodedProfilePic("");
       }
   };
 
@@ -110,6 +110,15 @@ const CreatePost = ({ createPost }) => {
               },
               }}
           />
+        </Box>
+        <Box className={classes.postMediaPreviewCont}>
+          {
+            encodedProfilePic != ""
+            ?
+            <img src={encodedProfilePic} className={classes.postMediaPreview} />
+            :
+            <></>
+          }
         </Box>
       </form>
     </Box>

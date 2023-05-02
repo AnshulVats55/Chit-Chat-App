@@ -1,12 +1,13 @@
 import { makeStyles } from "tss-react/mui";
 
+// #f3f9ff
 export const getCreatePostStyles = makeStyles()((theme) => ({
   createPostContStyles: {
     background:'#f3f9ff',
-    width: "50%",
+    minWidth: "50%",
     display: "flex",
     flexDirection: "column",
-    position:'absolute',
+    position:'relative',
     top:'5vh',
     '@media screen and (max-width: 900px)': {
       width:'75%',
@@ -50,8 +51,8 @@ export const getCreatePostStyles = makeStyles()((theme) => ({
           height: "40px",
           border: 'none',
           background: theme.palette.primary.main,
-          padding: '0px 20px',
-          margin: '10px 0px 0px 0px',
+          padding: '0px 15px',
+          margin: '10px 15px 0px 0px',
           borderRadius: '5px',
           color: '#fff',
           cursor: 'pointer',
@@ -89,5 +90,16 @@ export const getCreatePostStyles = makeStyles()((theme) => ({
   createPostTopText: {
     margin:'1rem 0rem',
     fontWeight:'bold',
+  },
+
+  postMediaPreviewCont: {
+    paddingBottom:'1rem',
+  },
+
+  postMediaPreview:{
+    width:'300px',
+    height:'175px',
+    border:'none',
+    borderRadius:'5px',
   }
 }));

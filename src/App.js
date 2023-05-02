@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import FinalLayout from './pages/FinalLayout/FinalLayout';
 import CreateAccount from '../src/pages/SignupPage/CreateAccount';
 import LoginPage from '../src/pages/LoginPage/LoginPage';
@@ -15,11 +15,20 @@ function App() {
         <>
             <Router>
                 <Routes>
-                    <Route exact path="/" element={<LoginPage />} />
-                    <Route exact path="/signup" element={<CreateAccount />} />
-                    <Route exact path="/profile" element={<FinalLayout component={<ProfilePage />}/>} />
-                    <Route exact path="/feedLayout" element={<FinalLayout component={<Posts />}/>} />
-                    <Route exact path="/post" element={<FinalLayout component={<ViewPost />}/>} />
+                    {
+                        localStorage.getItem("token")
+                        ?
+                        <>
+                            <Route exact path="/" element={<FinalLayout component={<Posts />} />} />
+                            <Route exact path="/profile" element={<FinalLayout component={<ProfilePage />}/>} />
+                            <Route exact path="/post" element={<FinalLayout component={<ViewPost />} />} />
+                        </>
+                        :
+                        <>
+                            <Route exact path="/" element={<LoginPage />} />
+                            <Route exact path="/signup" element={<CreateAccount />} />
+                        </>
+                    }
                 </Routes>
             </Router>
         </>

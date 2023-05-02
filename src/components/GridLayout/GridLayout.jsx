@@ -3,6 +3,7 @@ import { Box, Grid, Typography, Button } from '@mui/material';
 import { getGridLayoutStyles } from './GridLayout.styles';
 
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import ViewPostButton from '../ViewPostButton/ViewPostButton';
 
@@ -60,7 +61,7 @@ const GridLayout = ({ children }) => {
             {
                 userPosts.map((gridItem)=>{
                     return(
-                        <Grid item lg={4} md={6} sm={6} xs={12} className={classes.gridItemStyles}>
+                        <Grid item lg={12} md={12} sm={12} xs={12} className={classes.gridItemStyles}>
                             <Box className={classes.userPostContStyles}>
                                 <img src={gridItem.postMedia} alt="" className={classes.userPostStyles}/>
                             </Box>
@@ -69,7 +70,10 @@ const GridLayout = ({ children }) => {
                             </Box>
                             <Box className={classes.viewPostContStyles}>
                                 <Link to="/post">
-                                    <ViewPostButton children={<RemoveRedEyeIcon fontSize="small"/>}/>
+                                    <RemoveRedEyeIcon className={classes.viewPostButtonStyles}/>
+                                </Link>
+                                <Link>
+                                    <DeleteIcon className={classes.deletePostButtonStyles} />
                                 </Link>
                             </Box>
                         </Grid>

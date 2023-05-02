@@ -7,6 +7,7 @@ import { PostAction } from "./postAction/PostAction";
 import { PostStyles } from "./post.styles";
 import postOneImage from '../../assets/create-account.jpg';
 import PostContext from "./Posts";
+import { useSelector } from "react-redux";
 
 const Post = ({
  
@@ -19,14 +20,15 @@ const Post = ({
   // commentCount,
   // cardStyles,
   id,
-  post
+  post,
+  postCreatorId
 }) => {
 
   const { classes } = PostStyles();
 
   return (
     <Card className={classes.cardContainer}>
-      <PostHeader post={post} />
+      <PostHeader post={post} postCreatorId={postCreatorId}/>
       <Box className={classes.postMediaContainer}>
         <PostMedia image={post.attachment} className={classes.postMedia}/>
       </Box>
