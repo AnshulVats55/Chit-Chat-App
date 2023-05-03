@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
+
 
 *{
     margin: 0;
@@ -14,6 +14,7 @@ body{
     font-family: 'Poppins', sans-serif;
 }
 
+/* Login Page CSS Starts */
 #login-button{
     transition: 0.2s ease-in-out;
 }
@@ -21,9 +22,37 @@ body{
 #login-button:hover{
     background: transparent;
     box-shadow: none;
-    color: #4a4096;
-    border: 2px solid #4a4096;
+    color: #3b8df3;
+    border: 2px solid #3b8df3;
 }
+
+/* Navbar CSS */
+
+
+.left,.left-main{
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+    
+}
+  .img-container{
+    width:16%;
+    margin-right: 10px;
+    
+}
+  .img-container img{
+    width: 100%;  
+}
+.left-main{
+    display: none;
+
+}
+
+
+
+
+
+
 
 
 /* Hiding image from medium devices */
@@ -31,4 +60,23 @@ body{
     #loginPageImage{
         display: none;
     }
+    .left{
+        display: none;
+    }
+   
+    .left-main{
+        display: flex;
+        font-size: 1rem ;
+
+    }
 }
+
+@media screen and (max-width: 600px){
+  .left-main{
+    margin-left: 20px;
+  }
+  .container{
+    padding: 0;
+  }
+}
+/* Signup page CSS Starts */
