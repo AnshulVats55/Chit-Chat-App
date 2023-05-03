@@ -1,24 +1,28 @@
 import React from 'react'
-import { DeleteOutlined } from '@mui/icons-material'
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Avatar, Card, CardContent, CardHeader, IconButton, Typography } from '@mui/material';
+import { commentStyles } from "../comment/comment.styles";
+import userImage from '../../../assets/bird.jpg';
 
 const CreateComment = ({ comment, onDelete }) => {
 
+  const { classes } = commentStyles();
+
   const handleDelete=()=>{
-      onDelete(comment.id)
-   } 
+      onDelete(comment.id);
+  }
 
   return (
-    <Card >
+    <Card className={classes.commentTopCardStyles}>
       <CardHeader
         avatar={
           <Avatar >
-          {comment.user.profilePic}
+          {userImage}
           </Avatar>
         }
         action={
           <IconButton onClick={handleDelete}>
-            <DeleteOutlined/>
+            <DeleteIcon className={classes.deleteIconStyles}/>
           </IconButton>
         }
         title={`${comment.user.firstName} ${comment.user.lastName}`}

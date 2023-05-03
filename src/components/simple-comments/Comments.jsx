@@ -4,10 +4,11 @@ import CommentField from "./CommentField";
 import { Box, Grid, Stack, stackClasses, Container } from "@mui/material";
 import CreateComment from './comment/CreateComment'
 import { commentStyles } from "./comment/comment.styles";
+import { useSelector } from "react-redux";
+
 const Comments = () => {
 
   const { classes } = commentStyles();
-
 
   const commentData = [
     {
@@ -78,25 +79,27 @@ const Comments = () => {
   const handleDelete=async(id)=>{
     const updatedComments = comments.filter(comments=>comments.id!==id)
     setComments(updatedComments)
-}
-  const addComment = async(text) => {
+  }
+  
+  // const addComment = async(text) => {
       
-  };
+  // };
+  const userCommentDetails = useSelector((state)=>{
+      return state.commentDataReducer;
+  });
+
+  console.log(userCommentDetails);
 
   return (
     <Box className={classes.commentTopContStyles}>
       <Container className={classes.commentContainer}>
         <Grid container className={classes.gridContainerStyles}>
 
-          <Grid item xs={12} className={classes.gridItemOneStyles}>
-            <CommentField handleSubmit={addComment} />
-          </Grid>
-
-          <Grid item xs={12} className={classes.gridItemTwoStyles}>
-            {comments?.map((comment) => {
+          <Grid item xs={12} className={classes.gridItemStyles}>
+            {userCommentDetails?.map((comment) => {
                 return (
-                  <CreateComment id={comment.id} comment={comment} onDelete={handleDelete} className={classes.commentCardStyles} />
-                )
+                  <CreateComment id={comment.id} comment={comment.body} onDelete={handleDelete} className={classes.commentCardStyles} />
+                );
             })}
           </Grid>
 

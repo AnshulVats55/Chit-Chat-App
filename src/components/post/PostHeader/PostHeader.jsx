@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PostContext from "../Posts";
 import { useSelector } from "react-redux";
 
-export const PostHeader = ({ post, avatarLetter, title, postDate, styles, postCreatorId }) => {
+export const PostHeader = ({ post, styles }) => {
 
   const { classes } = PostHeaderStyles(styles);
 
@@ -17,24 +17,19 @@ export const PostHeader = ({ post, avatarLetter, title, postDate, styles, postCr
     //  console.log(post.id)
     //  console.log(handleDeletePost)
      handleDeletePost(post.id)
-  }
+  };
 
-  const currentUserDetails = useSelector((state)=>{
-    return state.userDataReducer[0];
+  const currentUserId = useSelector((state)=>{
+      return state.userDataReducer[0].data.user.id;
   });
-
-  const currentUserId = currentUserDetails.data.user.id,
-        currentUserName = currentUserDetails.data.user.firstName + " " + currentUserDetails.data.user.lastName,
-        currentUserProfilePic = currentUserDetails.data.user.profilePicture,
-        postCreationTime = currentUserDetails.data.user.createdAt;
 
   return (
     <CardHeader
-      avatar={<Avatar aria-label="recipe" src={currentUserProfilePic}></Avatar>}
+      avatar={<Avatar aria-label="recipe" src={post["user.profilePicture"]}></Avatar>}
       action={
         <IconButton aria-label="settings" onClick={handleDelete}>
           {
-            currentUserId == postCreatorId
+            currentUserId == post.userId
             ?
             <DeleteIcon className={classes.deleteIconStyles}/>
             :
@@ -42,8 +37,8 @@ export const PostHeader = ({ post, avatarLetter, title, postDate, styles, postCr
           }
         </IconButton>
       }
-      title={<Typography variant="body1" fontWeight={'bold'}>{currentUserName}</Typography>}
-      subheader={postCreationTime.substring(0, 10).split("-").reverse().join("-")}
+      title={<Typography variant="body1" fontWeight={'bold'}>{post["user.firstName"] + " " + post["user.lastName"]}</Typography>}
+      subheader={post.createdAt.substring(0, 10).split("-").reverse().join("-")}
     />
   );
 };

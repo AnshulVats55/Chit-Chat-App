@@ -9,20 +9,7 @@ import postOneImage from '../../assets/create-account.jpg';
 import PostContext from "./Posts";
 import { useSelector } from "react-redux";
 
-const Post = ({
- 
-  // avatarLetter,
-  // title,
-  // postDate,
-  // image,
-  // content,
-  // likeCount,
-  // commentCount,
-  // cardStyles,
-  id,
-  post,
-  postCreatorId
-}) => {
+const Post = ({ id, post, postCreatorId }) => {
 
   const { classes } = PostStyles();
 
@@ -33,7 +20,7 @@ const Post = ({
         <PostMedia image={post.attachment} className={classes.postMedia}/>
       </Box>
       <PostBody content={post.body} className={classes.postContent}/>
-      <PostAction />
+      <PostAction post={post}/>
     </Card>
   );
 };

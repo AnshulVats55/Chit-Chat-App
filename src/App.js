@@ -9,6 +9,7 @@ import ViewPost from './components/ViewPost/ViewPost';
 import FeedLayout from '../src/components/FeedLayout';
 import { Posts } from './components/post/Posts';
 import Comments from './components/simple-comments/Comments';
+import CommentWindow from './components/simple-comments/ CommentWindow';
 function App() {
 
     return (
@@ -23,6 +24,7 @@ function App() {
                             <Route exact path="/profile" element={<FinalLayout component={<ProfilePage />}/>} />
                             <Route exact path="/post" element={<FinalLayout component={<ViewPost />} />} />
                             <Route exact path='/comment' element={<Comments />}></Route>
+                            <Route exact path='/commentWindow' element={<CommentWindow />}></Route>
                         </>
                         :
                         <>

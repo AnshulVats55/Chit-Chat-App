@@ -4,6 +4,7 @@ import postDataSlice from "./slices/PostDataSlice";
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
+import commentSlice from "./slices/CommentSlice";
 
 
 const persistConfig = {
@@ -16,6 +17,7 @@ const reducer = combineReducers(
     {
         userDataReducer: userDataSlice.reducer,
         postDataReducer: postDataSlice.reducer,
+        commentDataReducer: commentSlice.reducer,
     }
 );
 

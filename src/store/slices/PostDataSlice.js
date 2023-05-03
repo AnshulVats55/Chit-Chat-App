@@ -6,7 +6,7 @@ const postDataSlice = createSlice(
         initialState:[],
         reducers:{
             setPostData(state, action){
-                state.push(action.payload);
+                return state = action.payload;
             }
         }
     }

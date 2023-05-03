@@ -1,9 +1,11 @@
-import React, { useEffect, useState, useRef, createContext, useContext } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { Box, Grid, Container  } from "@mui/material";
+
 import { PostStyles } from "./post.styles";
 import Post from "./Post";
 import CreatePost from "./createPost/CreatePost";
 import postApi from "../../api/postApi";
+
 import { useToast } from '@chakra-ui/react';
 import { useDispatch } from "react-redux";
 import { setPostData } from '../../store/slices/PostDataSlice';
@@ -17,7 +19,7 @@ export const Posts = () => {
   const { getPosts, createPost, deletePost } = postApi();
   const toast = useToast();
   const [posts, setPosts] = useState([]);
-  const [userName, setUserName] = useState("Hello");
+  const [userName, setUserName] = useState("");
 
   const dispatch = useDispatch();
   
@@ -87,13 +89,12 @@ export const Posts = () => {
   }
 
   return (
-    <PostContext.Provider  value = {{handleDeletePost, userName}} > 
+    <PostContext.Provider value = {{handleDeletePost, userName}} > 
       <Box className={classes.PostsTopContStyles}>
         <Container maxWidth="xl" className={classes.postContStyles}>
           <CreatePost createPost={handleCreatePost} />
           <Grid container spacing={2} className={classes.gridContainerStyles}>
             {posts?.map((post) => {
-              console.log(post.userId);
               return (
                 <Grid className={classes.gridItemStyles} item lg={12} md={12} sm={12} xs={12}>
                   <Post key={post.id} post={post} postCreatorId={post.userId}/>

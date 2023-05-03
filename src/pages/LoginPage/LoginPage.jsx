@@ -38,7 +38,7 @@ const LoginPage = () => {
         let request = {
             method: "post",
             maxBodyLength: Infinity,
-            url: "https://five5chitchat.onrender.com/v1/login",
+            url: "http://172.16.1.150:8484/v1/login",
             headers: {
               "Content-Type": "application/json",
             },
@@ -50,6 +50,7 @@ const LoginPage = () => {
         axios
             .request(request)
                 .then((response) => {
+                    console.log(response);
                 if(response.data.status === "success"){
                     dispatch(setUserData(response.data));
                     localStorage.setItem("token", response.data.data.token);
