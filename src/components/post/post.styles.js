@@ -9,7 +9,7 @@ export const PostStyles =makeStyles()((theme,styles)=>{
       justifyContent:'center',
       alignItems:'center',
       width:'93%',
-      position:'absolute',
+      position:'relative',
       top:'10vh',
       left:'7%',
       '@media screen and (max-width: 900px)': {
@@ -18,9 +18,17 @@ export const PostStyles =makeStyles()((theme,styles)=>{
       },
     },
 
+    postContStyles: {
+      width:'100%',
+      display:'flex',
+      flexDirection:'column',
+      justifyContent:'center',
+      alignItems:'center',
+    },
+
     gridContainerStyles: {
-      position:'absolute',
-      top:'35vh',
+      position:'relative',
+      top:'5vh',
       width:'50%',
       justifyContent:'center',
       alignItems:'center',

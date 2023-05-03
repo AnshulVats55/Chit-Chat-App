@@ -84,6 +84,22 @@ export const NavbarStyles =makeStyles()((theme)=>{
             '@media screen and (max-width: 350px)': {
                 fontSize:'1rem',
             },
-        }
+        },
+
+        userProfileCont: {
+            display:'flex',
+            flexDirection:'row-reverse',
+            justifyContent:'center',
+            alignItems:'center',
+        },
+
+        userName: {
+            color:theme.palette.primary.main,
+            fontWeight:'bold',
+            fontSize:'0.9rem',
+            '@media screen and (max-width: 600px)': {
+                display:'none',
+            },
+        },
     });
 });

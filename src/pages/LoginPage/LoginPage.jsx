@@ -10,6 +10,8 @@ import { getLoginPageStyles } from './LoginPage.styles';
 import BrandIdentity from '../../components/BrandIdentity/BrandIdentity';
 
 import LoginPageImage from '../../assets/loginPageImage1.gif';
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../../store/slices/UserDataSlice';
 
 const LoginPage = () => {
 
@@ -28,13 +30,15 @@ const LoginPage = () => {
 
     const axios = require("axios");
 
+    const dispatch = useDispatch();
+
     const handleLogin = (event) => {
         event.preventDefault();
 
         let request = {
             method: "post",
             maxBodyLength: Infinity,
-            url: "http://192.168.1.50:8484/v1/login",
+            url: "http://172.16.1.150:8484/v1/login",
             headers: {
               "Content-Type": "application/json",
             },
@@ -46,20 +50,24 @@ const LoginPage = () => {
         axios
             .request(request)
                 .then((response) => {
-                if(response.data.status === "success"){
                     console.log(response);
-                    toast({
-                        title: "You're successfully logged in !",
-                        position:'top',
-                        description: "",
-                        status: 'success',
-                        duration: 2000,
-                        isClosable: true,
-                    });
+                if(response.data.status === "success"){
+                    dispatch(setUserData(response.data));
                     localStorage.setItem("token", response.data.data.token);
-                    setTimeout(()=>{
-                        navigate("/feed");
-                    }, 2500);
+                    let userToken = localStorage.getItem("token");
+                    if(userToken){
+                        toast({
+                            title: "You're successfully logged in !",
+                            position:'top',
+                            description: "",
+                            status: 'success',
+                            duration: 2000,
+                            isClosable: true,
+                        });
+                        setTimeout(()=>{
+                            window.location.reload();
+                        }, 2500);
+                    }
                 }
             })
             .catch((error) => {
@@ -73,6 +81,7 @@ const LoginPage = () => {
                 });
             });
         }
+
 
     return (
         <Container

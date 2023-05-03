@@ -4,6 +4,10 @@ import App from './App';
 import { createTheme } from "@mui/material";
 import { ChakraProvider } from '@chakra-ui/react'
 import { ThemeProvider } from '@emotion/react';
+import store from '../src/store/index';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
 
 const theme = createTheme({
     palette:{
@@ -20,16 +24,21 @@ const theme = createTheme({
     },
 
    typography: {
-
        fontFamily: ['Poppins','sans-serif',]
     },
 });
+
+let persistor = persistStore(store);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <ChakraProvider>
         <ThemeProvider theme={theme}>
-            <App />  
-        </ThemeProvider> 
+            <Provider store={store}>
+                <PersistGate persistor={persistor}>
+                    <App />
+                </PersistGate> 
+            </Provider>
+        </ThemeProvider>
     </ChakraProvider>
 );

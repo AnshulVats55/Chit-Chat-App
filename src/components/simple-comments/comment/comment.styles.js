@@ -1,44 +1,57 @@
 import { makeStyles } from "tss-react/mui";
-
-
-
-
 export const commentStyles = makeStyles()((theme, styles)=>{
     return(
-        {   
-            commentsContainer:{
+        {  
+            // commentTopContStyles: {
+            //     display:'flex',
+            //     justifyContent:'center',
+            //     alignItems:'center',
+            //     background:'pink',
+            //     width:'93%',
+            //     position:'absolute',
+            //     top:'10vh',
+            //     left:'7%',
+            // },
+
+            commentContainer: {
+                width:'100%',
                 display:'flex',
-                flexDirection:"column",
-                gap:'2rem'
-            },
-            container:{
-                margin:'2rem'
-            },
-            avatar:{
-                width:'40px',
-                height:'40px'
+                justifyContent:'center',
+                alignItems:'center',
             },
 
-            
-
-            textField:{
-                width:'70%',
-                height:'1rem',
-                '@media screen and (max-width:500px)':{
-                     width:'100%',
-                     
-                }
+            gridContainerStyles: {
+                width:'100%',
+                margin:'1rem 0rem',
             },
-            button:{
-                
-                '@media screen and (max-width:500px)':{
-                   
-                    
-               },
-                padding:'0.5rem',
-                margin:'0.1rem 1rem'
-            }
-            
+
+            gridItemStyles: {
+                width:'100%',
+            },
+
+            commentBoxStyles: {
+                width:'100%',
+                marginTop:'0.5rem',
+                marginBottom:'0rem',
+            },
+
+            commentCardStyles: {
+                margin:'1rem 0rem',
+            },
+
+            commentTopCardStyles:{
+                margin:'1rem 0rem',
+                '&:hover': {
+                    boxShadow: 'rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px',
+                },
+            },
+
+            deleteIconStyles: {
+                transition:'0.2s ease-in-out',
+                '&:hover': {
+                    color:'red',
+                },
+            },
         }
     )
 })

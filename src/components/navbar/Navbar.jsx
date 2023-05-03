@@ -1,36 +1,37 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { NavbarStyles } from './Navbar.styles';
 import { Typography, MenuItem,  Container, Menu, IconButton, Box, AppBar } from '@mui/material';
-import Logo from '../../assets/fiftyfive-logo.png';
+
 import { Link } from 'react-router-dom';
 import MenuIcon  from '@mui/icons-material/Menu';
 import  HomeIcon  from '@mui/icons-material/Home';
 import  ChatIcon  from '@mui/icons-material/Chat';
 import  GroupsIcon  from '@mui/icons-material/Groups';
-
 import UserProfileIcon from './UserProfileIcon';
 
-const pages = [
-    {
-        to: '/feed',
-        icon: <HomeIcon fontSize="large" ></HomeIcon>
-    },
+import Logo from '../../assets/fiftyfive-logo.png';
 
-    {
-        to: '/chat',
-        icon: <ChatIcon fontSize="large"></ChatIcon>
-    },
+// const pages = [
+//     {
+//         to: '/feedLayout',
+//         icon: <HomeIcon fontSize="large" ></HomeIcon>
+//     },
 
-    {
+//     {
+//         to: '/chat',
+//         icon: <ChatIcon fontSize="large"></ChatIcon>
+//     },
 
-        to: '/groups',
-        icon: <GroupsIcon fontSize="large"></GroupsIcon>
-    }
-];
+//     {
+
+//         to: '/groups',
+//         icon: <GroupsIcon fontSize="large"></GroupsIcon>
+//     }
+// ];
+
 const pagesScroll = [
     {
-        to: '/feed',
+        to: '/feedLayout',
         data: "Home"
     },
 
@@ -49,7 +50,6 @@ function Navbar() {
     const { classes } = NavbarStyles();
 
     const [anchorElNav, setAnchorElNav] = useState(null);
-    const {url} = useParams();
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -57,7 +57,7 @@ function Navbar() {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
-    }; 
+    };
 
     return (
         <AppBar className={classes.container} >
@@ -111,7 +111,7 @@ function Navbar() {
                         <Typography variant='h5' className={classes.h5}>Chit-Chat</Typography>
                     </Box>
 
-                    <Box className={classes.iconsContainer}>
+                    {/* <Box className={classes.iconsContainer}>
                         {pages.map((page) => (
                             <Link
                                 to={page.to}
@@ -122,11 +122,10 @@ function Navbar() {
                                 {page.icon}
                             </Link>
                         ))}
-                    </Box>
+                    </Box> */}
 
 
                     {/* small devices */}
-
 
                     <Box sx={{display: { xs: 'flex', md: 'none', lg: 'none' }, justifyContent:'center', alignItems:'center' }}>
                         <Box className={classes.leftMain}>
@@ -137,9 +136,7 @@ function Navbar() {
                         </Box>
                     </Box>
 
-
                     <UserProfileIcon classes={classes}/>
-
 
                 </Box>
             </Container>

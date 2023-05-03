@@ -1,60 +1,64 @@
 import axios from "axios";
-// const axios = require('axios')
-const postApi = () => {
-  const createPost = async (datapost) => {
+import { useSelector } from "react-redux";
 
-    let data = JSON.stringify({
-      userId: "6ff99443-43b9-4638-a015-230b04c7c051",
+const PostApi = () => {
 
-      body: datapost.postDesc,
+  const currentUserId = useSelector((state)=>{
+    return state.userDataReducer[0].data.user.id;
+  });
 
-      attachment: datapost.postMedia,
-    });
+    const createPost = async (datapost) => {
 
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: "http://192.168.1.50:8484/v1/post",
-      headers: {
-        token: localStorage.getItem("token"),
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-
-    const response = axios.request(config);
-    return response;
-  };
-
-  const getPosts = async () => {
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: "http://192.168.1.50:8484/v1/post/all?userId=6ff99443-43b9-4638-a015-230b04c7c051",
-      headers: {
-        token:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbXNyaXZhc3RhQGZpZnR5Zml2ZXRlY2guaW8iLCJwYXNzd29yZCI6IjE2YXNhc2FDMjIxQCIsImlhdCI6MTY4MjUxNDg1OCwiZXhwIjoxNjgyNjAxMjU4fQ.kNAbVWX1Fj3sIy9NWudrBtMlzPw3C9F_YG9ZkAIzDkg",
-        "Content-Type": "application/json",
-      },
-    };
-
-    let response = await axios.request(config);
-    return response.data.data;
-  };
-  const deletePost =async ()=>{
-    let config = {
-       method: 'delete',
+      let data = JSON.stringify({
+        userId: currentUserId,
+        body: datapost.postDesc,
+        attachment: datapost.postMedia,
+      });
+    
+      let config = {
+        method: "post",
         maxBodyLength: Infinity,
-        url: 'http://localhost:8484/v1/post/delete/b062e1b6-d93c-49f2-a12c-a320584bea5a',
+        url: "http://172.16.1.150:8484/v1/post/",
         headers: {
-         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbXNyaXZhc3RhQGZpZnR5Zml2ZXRlY2guaW8iLCJwYXNzd29yZCI6IjE2YXNhc2FDMjIxQCIsImlhdCI6MTY4MjQyNzgzOSwiZXhwIjoxNjgyNTE0MjM5fQ.hy220o_VXwTo5t0ZaZEoOR7sfgtYD4DjzyMZ1D23Mus'
-        }
-      }
-    let response = await axios.request(config)
-    return response;
-  }
+          token: localStorage.getItem("token"),
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
 
-  return { createPost, getPosts,deletePost };
+      const response = axios.request(config);
+      return response;
+    };
+
+    const getPosts = async () => {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: "http://172.16.1.150:8484/v1/post/allPost",
+        headers: {
+          token: localStorage.getItem("token"),
+          "Content-Type": "application/json",
+        },
+      };
+
+      let response = await axios.request(config);
+      return response.data.data;
+    };
+
+    const deletePost =async (id) => {
+      let config = {
+        method: 'delete',
+          maxBodyLength: Infinity,
+          url: `http://172.16.1.150:8484/v1/post/delete/${id}`,
+          headers: {
+          token: localStorage.getItem("token"),
+          }
+        }
+      let response = await axios.request(config);
+      return response;
+    }
+
+  return { createPost, getPosts, deletePost };
 };
 
-export default postApi;
+export default PostApi;
