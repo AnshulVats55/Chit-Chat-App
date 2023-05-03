@@ -1,8 +1,6 @@
-import React,{useState} from "react";
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import { NavbarStyles } from './Navbar.styles';
-
-
 import {
 
   MenuItem,
@@ -11,22 +9,19 @@ import {
   Menu,
   IconButton,
   Box,
+  Typography,
 } from "@mui/material";
 
-const settings = [{
-    to: '/userprofile',
-    data: "Profile"
-},
-
-{
-    to: '/userlogin',
-    data: "Logout"
-}];
+import { useToast } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
+import { setUserData } from '../../store/slices/UserDataSlice';
  
 const UserProfileIcon = () => {
 
     const [anchorElUser, setAnchorElUser] = useState(null);
-    const {classes} = NavbarStyles()
+
+    const { classes } = NavbarStyles();
+
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
@@ -34,14 +29,38 @@ const UserProfileIcon = () => {
         setAnchorElUser(null);
     };
 
+    const userDetails = useSelector((state)=>{
+      return state.userDataReducer[0];
+    });
+
+    const userProfilePicture = userDetails.data.user.profilePicture,
+          userFullName = userDetails.data.user.firstName + " " + userDetails.data.user.lastName;
+
+    const toast = useToast();
+
+    const navigate = useNavigate();
+    const handleLogout = () => {
+      localStorage.clear();
+      toast({
+          title: "You're successfully logged out !",
+          position:'top',
+          description: "",
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+      });
+      setTimeout(()=>{
+        window.location.reload();
+      }, 2500);
+    }
 
   return (
-    <Box>
+    <Box className={classes.userProfileCont}>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu}>
           <Avatar
             alt="Remy Sharp"
-            src="/static/images/avatar/2.jpg"
+            src={userProfilePicture}
             sx={{
               backgroundColor: "#363a91",
               '@media screen and (max-width: 350px)': {
@@ -69,14 +88,14 @@ const UserProfileIcon = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {settings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Link to={setting.to} className={classes.link}>
-              {setting.data}
-            </Link>
-          </MenuItem>
-        ))}
+        <MenuItem onClick={handleCloseUserMenu}>
+            <Link to="" className={classes.link}>Profile</Link>
+        </MenuItem>
+        <MenuItem onClick={handleCloseUserMenu}>
+            <Link className={classes.link} onClick={handleLogout}>Logout</Link>
+        </MenuItem>
       </Menu>
+      <Typography variant="body1" className={classes.userName}>{userFullName}</Typography>
     </Box>
   );
 };

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { createContext } from "react";
 import {
   Box,
   Button,
@@ -10,8 +9,9 @@ import {
   Typography,
 } from "@mui/material";
 
+import { useToast } from '@chakra-ui/react';
+
 import CommonButton from "../../Button/CommonButton";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { getCreatePostStyles } from "./createPostStyles";
 
 const CreatePost = ({ createPost }) => {
@@ -22,6 +22,8 @@ const CreatePost = ({ createPost }) => {
   const [postMedia, setPostMedia] = useState({});
   const [encodedProfilePic, setEncodedProfilePic] = useState("");
 
+  const toast = useToast();
+
   const postData = {
     postDesc: postDesc,
     postMedia: encodedProfilePic,
@@ -30,14 +32,28 @@ const CreatePost = ({ createPost }) => {
 
   const handleCreatePost = (e) => {
       e.preventDefault();
-      createPost(postData);
+      if(postDesc.length == 0){
+        toast({
+          title: "Post caption can't be empty !",
+          position:'top',
+          description: "",
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+      });
+      }
+      else{
+        createPost(postData);
+        setPostDesc("");
+        setPostMedia({});
+        setEncodedProfilePic("");
+      }
   };
 
   function getBase64(file) {
     let reader = new FileReader();
     let encodedFile = "";
     reader.readAsDataURL(file);
-
     reader.onload = function () { 
       encodedFile = reader.result;
       setEncodedProfilePic(encodedFile);
@@ -78,9 +94,9 @@ const CreatePost = ({ createPost }) => {
 
           <CommonButton
             type="submit"
-            children={"Create Post"}
+            children={"Post"}
             buttonStyles={{
-              padding:'0.5rem 1rem',
+              padding:'0.5rem 2rem',
               '@media screen and (max-width: 981px)': {
                   width:'100%',
                   margin:'0.5rem',
@@ -94,6 +110,15 @@ const CreatePost = ({ createPost }) => {
               },
               }}
           />
+        </Box>
+        <Box className={classes.postMediaPreviewCont}>
+          {
+            encodedProfilePic != ""
+            ?
+            <img src={encodedProfilePic} className={classes.postMediaPreview} />
+            :
+            <></>
+          }
         </Box>
       </form>
     </Box>

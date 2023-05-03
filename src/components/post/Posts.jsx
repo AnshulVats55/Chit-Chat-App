@@ -1,77 +1,109 @@
-import React, { useEffect, useState, useRef, createContext, useContext } from "react";
-import { Box, Grid, Stack, Container } from "@mui/material";
+import React, { useEffect, useState, createContext } from "react";
+import { Box, Grid, Container  } from "@mui/material";
+
 import { PostStyles } from "./post.styles";
 import Post from "./Post";
 import CreatePost from "./createPost/CreatePost";
-import postOneImage from "../../assets/create-account.jpg";
 import postApi from "../../api/postApi";
 
-import birdImage from '../../assets/bird.jpg';
-import Image2 from '../../assets/post2.jpg';
-import Image3 from '../../assets/post1.jpg';
+import { useToast } from '@chakra-ui/react';
+import { useDispatch } from "react-redux";
+import { setPostData } from '../../store/slices/PostDataSlice';
 
 const PostContext = createContext();
 
 export const Posts = () => {
 
   const { classes } = PostStyles();
-
-  const { getPosts, createPost,deletePost } = postApi();
   
-  let [posts, setPosts] = useState([]);
+  const { getPosts, createPost, deletePost } = postApi();
+  const toast = useToast();
+  const [posts, setPosts] = useState([]);
+  const [userName, setUserName] = useState("");
 
+  const dispatch = useDispatch();
+  
   useEffect(() => {
     let getAllPosts = async () => {
       let response = await getPosts();
-      console.log(response)
+      console.log(response);
       setPosts(response);
+      dispatch(setPostData(response));
     };
     getAllPosts();
   }, []);
 
   const handleCreatePost = async (postData) => {
-    console.log(postData);
     const response = await createPost(postData);
-    console.log(response);
-    let newPosts = [response.data.data, ...posts];
-    setPosts(newPosts);
+    if(response.data.status === "success"){
+      let newPosts = [response.data.data, ...posts];
+      setPosts(newPosts);
+      toast({
+          title: "Post created successfully !",
+          position:'top',
+          description: "",
+          status: 'success',
+          duration: 1000,
+          isClosable: true,
+      });
+    }
+    else{
+      toast({
+        title: "Error creating post !",
+        position:'top',
+        description: "",
+        status: 'error',
+        duration: 1000,
+        isClosable: true,
+    });
+    }
   };
 
- const handleDeletePost = async(id)=>{
-    const response = await deletePost(id);
- }
+  const handleDeletePost = async (id) => {
 
-//  posts[0] = {
-//   body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
-//   attachment: birdImage,
-//  }
-
-//  posts[1] = {
-//   body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
-//   attachment: Image2,
-//  }
-
-//  posts[2] = {
-//   body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem laboriosam voluptate sint, corrupti tempora ex unde praesentium impedit pariatur cupiditate ipsum nisi natus ab similique eveniet in, dicta sit voluptatem!",
-//   attachment: Image3,
-//  }
+      if(window.confirm("Do you really want to delete this post?") == true){
+        const response = await deletePost(id);
+        if(response.data.status == "success"){
+         let updatedPosts = posts.filter(post => post.id !== id);
+         setPosts(updatedPosts)
+          toast({
+            title: "Post deleted successfully !",
+            position:'top',
+            description: "",
+            status: 'success',
+            duration: 1000,
+            isClosable: true,
+        });
+        }
+      }
+    else{
+      toast({
+        title: "Post deletion revoked !",
+        position:'top',
+        description: "",
+        status: 'info',
+        duration: 1000,
+        isClosable: true,
+    });
+    }
+  }
 
   return (
-    <PostContext.Provider value={{posts, handleDeletePost}} >
-      <Container maxWidth="xl" className={classes.mainContainer}>
-        <Box className={classes.PostsTopContStyles}>
+    <PostContext.Provider value = {{handleDeletePost, userName}} > 
+      <Box className={classes.PostsTopContStyles}>
+        <Container maxWidth="xl" className={classes.postContStyles}>
           <CreatePost createPost={handleCreatePost} />
-          <Grid container className={classes.gridContainerStyles}>
-            {posts?.map((gridItem) => {
+          <Grid container spacing={2} className={classes.gridContainerStyles}>
+            {posts?.map((post) => {
               return (
-                <Grid item lg={12} md={12} sm={12} xs={12} className={classes.gridItemStyles}>
-                  <Post image={gridItem.attachment} content={gridItem.body} />
+                <Grid className={classes.gridItemStyles} item lg={12} md={12} sm={12} xs={12}>
+                  <Post key={post.id} post={post} postCreatorId={post.userId}/>
                 </Grid>
               );
             })}
-          </Grid>
-        </Box>
-      </Container>
+          </Grid>    
+        </Container>
+      </Box>
     </PostContext.Provider>
   );
 };

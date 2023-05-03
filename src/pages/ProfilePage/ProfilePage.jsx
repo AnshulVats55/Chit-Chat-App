@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useState} from 'react-router-dom';
 import { Box, Grid, Container, Typography} from '@mui/material';
 import GridLayout from '../../components/GridLayout/GridLayout';
@@ -17,7 +17,7 @@ const ProfilePage = ({ children }) => {
         <Container className={classes.profilePageContStyles} maxWidth="xl" >
             <UserProfileInfo />
             <Box className={classes.userPostLabelConStyles}>
-                <Link to="/feedLayout" className={classes.createPostBtnContStyles}>
+                <Link to="/" className={classes.createPostBtnContStyles}>
                     <ViewPostButton children={<AddIcon fontSize="small" />} />
                 </Link>
             </Box>
