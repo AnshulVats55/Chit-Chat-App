@@ -49,23 +49,20 @@ const CreateAccount = () => {
   //method to create user account
   const onSubmit = (data) => {
       data.profilePicture = profilePicture;
-      console.log(data);
 
       let config = {
-        method: "post",
+        method: 'post',  
         maxBodyLength: Infinity,
-        url: "http://172.16.1.150:8484/v1/signup",
+        url: 'http://172.16.1.135:8484/v1/signup',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
-        mode: "no-mode",
-        referrerPolicy: "no-referrer",
-        data: data,
-      };
+        data : data 
+        };
 
-      axios
-        .request(config)
+      axios.request(config)
         .then((response) => {
+          console.log(response);
           toast({
             title: 'Account created successfully !',
             position:'top',

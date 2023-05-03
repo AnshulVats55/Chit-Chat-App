@@ -9,57 +9,56 @@ const PostApi = () => {
 
     const createPost = async (datapost) => {
 
-    let data = JSON.stringify({
-      userId: currentUserId,
-      body: datapost.postDesc,
-      attachment: datapost.postMedia,
-    });
-
+      let data = JSON.stringify({
+        userId: currentUserId,
+        body: datapost.postDesc,
+        attachment: datapost.postMedia,
+      });
     
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: "http://172.16.1.150:8484/v1/post",
-      headers: {
-        token: localStorage.getItem("token"),
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-
-    const response = axios.request(config);
-    return response;
-  };
-
-  const getPosts = async () => {
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: "http://172.16.1.150:8484/v1/post/allPost",
-      headers: {
-        token: localStorage.getItem("token"),
-        "Content-Type": "application/json",
-      },
-    };
-
-    let response = await axios.request(config);
-    return response.data.data;
-  };
-
-  const deletePost =async (id) => {
-    let config = {
-       method: 'delete',
+      let config = {
+        method: "post",
         maxBodyLength: Infinity,
-        url: `http://172.16.1.150:8484/v1/post/delete/${id}`,
+        url: "https://five5chitchat.onrender.com/v1/post/",
         headers: {
-         token: localStorage.getItem("token"),
-        }
-      }
-    let response = await axios.request(config);
-    return response;
-  }
+          token: localStorage.getItem("token"),
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
 
-  return { createPost, getPosts,deletePost };
+      const response = axios.request(config);
+      return response;
+    };
+
+    const getPosts = async () => {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: "https://five5chitchat.onrender.com/v1/post/allPost",
+        headers: {
+          token: localStorage.getItem("token"),
+          "Content-Type": "application/json",
+        },
+      };
+
+      let response = await axios.request(config);
+      return response.data.data;
+    };
+
+    const deletePost =async (id) => {
+      let config = {
+        method: 'delete',
+          maxBodyLength: Infinity,
+          url: `https://five5chitchat.onrender.com/v1/post/delete/${id}`,
+          headers: {
+          token: localStorage.getItem("token"),
+          }
+        }
+      let response = await axios.request(config);
+      return response;
+    }
+
+  return { createPost, getPosts, deletePost };
 };
 
 export default PostApi;

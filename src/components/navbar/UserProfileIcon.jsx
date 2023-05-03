@@ -30,7 +30,6 @@ const UserProfileIcon = () => {
     };
 
     const userDetails = useSelector((state)=>{
-      console.log(state.userDataReducer)
       return state.userDataReducer[0];
     });
 

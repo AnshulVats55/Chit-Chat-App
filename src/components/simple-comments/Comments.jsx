@@ -1,10 +1,12 @@
 // import { AddComment } from '@mui/icons-material'\
 import React, { useState } from "react";
 import CommentField from "./CommentField";
-import { Grid, Stack, stackClasses } from "@mui/material";
-import createComment from './comment/createComment'
+import { Box, Grid, Stack, stackClasses, Container } from "@mui/material";
+import CreateComment from './comment/CreateComment'
 import { commentStyles } from "./comment/comment.styles";
 const Comments = () => {
+
+  const { classes } = commentStyles();
 
 
   const commentData = [
@@ -31,15 +33,47 @@ const Comments = () => {
         lastName: "Ryan",
         profilePic: "https://picsum.photos/id/1/200/300",
       },
-          },
-        ];
-
-
+    },
+    {
+      id: 3,
+      body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus consequuntur nam fugit nihil aliquam sed ipsam quis reiciendis, sunt, culpa maxime odio rem sint quaerat rerum nulla. Laudantium, corporis a!",
+      createdAt: new Date().toDateString(),
+      userId:'22',
+      user: {
       
+        firstName: "Jack",
+        lastName: "Ryan",
+        profilePic: "https://picsum.photos/id/1/200/300",
+      },
+    },
+    {
+      id: 4,
+      body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus consequuntur nam fugit nihil aliquam sed ipsam quis reiciendis, sunt, culpa maxime odio rem sint quaerat rerum nulla. Laudantium, corporis a!",
+      createdAt: new Date().toDateString(),
+      userId:'22',
+      user: {
+      
+        firstName: "Jack",
+        lastName: "Ryan",
+        profilePic: "https://picsum.photos/id/1/200/300",
+      },
+    },
+    {
+      id: 5,
+      body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus consequuntur nam fugit nihil aliquam sed ipsam quis reiciendis, sunt, culpa maxime odio rem sint quaerat rerum nulla. Laudantium, corporis a!",
+      createdAt: new Date().toDateString(),
+      userId:'22',
+      user: {
+      
+        firstName: "Jack",
+        lastName: "Ryan",
+        profilePic: "https://picsum.photos/id/1/200/300",
+      },
+    },
+        ];
 
   const [comments, setComments] = useState(commentData);
   const [showEdit, setShowEdit] = useState(false);
-  const { classes } = commentStyles();
 
   const handleDelete=async(id)=>{
     const updatedComments = comments.filter(comments=>comments.id!==id)
@@ -50,22 +84,25 @@ const Comments = () => {
   };
 
   return (
-    <Grid container >
-      <Grid item xs={12}>
-        <CommentField handleSubmit={addComment} />
-      </Grid>
-      <Grid item xs={12}>
-        <Grid container item>
-          {comments?.map((comment) => {
-            return (
-              <Grid item id={comment.id}>
-              <createComment comment={comment} onDelete={handleDelete}/>
-            </Grid>
-            )          
-          })}
+    <Box className={classes.commentTopContStyles}>
+      <Container className={classes.commentContainer}>
+        <Grid container className={classes.gridContainerStyles}>
+
+          <Grid item xs={12} className={classes.gridItemOneStyles}>
+            <CommentField handleSubmit={addComment} />
+          </Grid>
+
+          <Grid item xs={12} className={classes.gridItemTwoStyles}>
+            {comments?.map((comment) => {
+                return (
+                  <CreateComment id={comment.id} comment={comment} onDelete={handleDelete} className={classes.commentCardStyles} />
+                )
+            })}
+          </Grid>
+
         </Grid>
-      </Grid>
-    </Grid>
+      </Container>
+    </Box>
   );
 };
 
