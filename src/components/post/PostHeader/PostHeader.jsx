@@ -22,7 +22,7 @@ export const PostHeader = ({ post, styles }) => {
   const currentUserId = useSelector((state)=>{
       return state.userDataReducer[0].data.user.id;
   });
-
+//  console.log(post['user.first'])
   return (
     <CardHeader
       avatar={<Avatar aria-label="recipe" src={post["user.profilePicture"]}></Avatar>}

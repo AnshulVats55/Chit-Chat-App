@@ -19,16 +19,15 @@ import { AccountCircle, AccountCircleOutlined } from "@mui/icons-material";
 
 import { commentStyles } from "./comment/comment.styles";
 
-import { useDispatch } from 'react-redux';
-import { setUserComments } from '../../store/slices/CommentSlice';
+import { useDispatch } from "react-redux";
+import { setUserComments } from "../../store/slices/CommentSlice";
 
 const CommentField = ({ handleSubmit, post }) => {
-  
   const { classes } = commentStyles();
   const [input, setInput] = useState();
 
-  const currentUserId = useSelector((state)=>{
-      return state.userDataReducer[0].data.user.id;
+  const currentUserId = useSelector((state) => {
+    return state.userDataReducer[0].data.user.id;
   });
 
   const userToken = localStorage.getItem("token");
@@ -43,7 +42,6 @@ const CommentField = ({ handleSubmit, post }) => {
   });
 
   const handleSendComment = async () => {
-  
     let config = {
       method: "post",
       maxBodyLength: Infinity,
@@ -56,16 +54,15 @@ const CommentField = ({ handleSubmit, post }) => {
       referrerPolicy: "no-referrer",
       data: data,
     };
-  
-    try{
+
+    try {
       const response = await axios.request(config);
       console.log(response.data);
       dispatch(setUserComments(response.data));
-    }
-    catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const handleAddComment = (e) => {
     e.preventDefault();
