@@ -88,8 +88,6 @@ const Comments = () => {
       return state.commentDataReducer;
   });
 
-  console.log(userCommentDetails);
-
   return (
     <Box className={classes.commentTopContStyles}>
       <Container className={classes.commentContainer}>

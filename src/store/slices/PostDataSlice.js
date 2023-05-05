@@ -14,7 +14,7 @@ const postDataSlice = createSlice(
             },
             deletePostById(state,action){
                 const id = action.payload
-                return  state.filter((post)=>post.id !== id)
+                return state.filter((post)=>post.id !== id)
             }
         }
     }

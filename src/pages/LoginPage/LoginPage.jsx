@@ -10,6 +10,7 @@ import { getLoginPageStyles } from "./LoginPage.styles";
 import BrandIdentity from "../../components/BrandIdentity/BrandIdentity";
 
 import LoginPageImage from "../../assets/loginPageImage1.gif";
+import SuccessfullLoginImage from '../../assets/successfull login image.gif';
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../store/slices/UserDataSlice";
 
@@ -18,6 +19,7 @@ const LoginPage = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const userDetails = {
     //object to store user login details
@@ -52,6 +54,7 @@ const LoginPage = () => {
       .then((response) => {
         console.log(response);
         if (response.data.status === "success") {
+          setIsLoggedIn(true);
           dispatch(setUserData(response.data));
           localStorage.setItem("token", response.data.data.token);
           let userToken = localStorage.getItem("token");
@@ -125,13 +128,26 @@ const LoginPage = () => {
                 alignItems: "center",
               }}
             >
-              <img
+              {
+                !isLoggedIn
+                ?
+                <img
                 src={LoginPageImage}
                 alt="login image"
                 width={"100%"}
                 id="loginPageImage"
                 className={classes.loginImage}
               />
+              :
+              <img
+                src={SuccessfullLoginImage}
+                alt="login image"
+                width={"100%"}
+                id="loginPageImage"
+                className={classes.loginImage}
+              />
+              }
+              
             </Box>
           </Grid>
 
