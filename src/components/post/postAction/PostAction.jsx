@@ -162,7 +162,7 @@ export const PostAction = ({ commentCount, post }) => {
           :
           <></>
         }
-        <span className={classes.Hide}>10 comments</span>
+        <span className={classes.Hide}>{post.comments.length} comments</span>
       </Box>
     </CardActions>
   );
