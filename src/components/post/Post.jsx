@@ -20,7 +20,7 @@ const Post = ({ id, post, postCreatorId }) => {
         <PostMedia image={post.attachment} className={classes.postMedia}/>
       </Box>
       <PostBody content={post.body} className={classes.postContent}/>
-      <PostAction post={post}/>
+      <PostAction post={post} />
     </Card>
   );
 };

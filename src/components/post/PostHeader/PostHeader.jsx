@@ -7,6 +7,7 @@ import { Dates } from "./Dates/Dates";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PostContext from "../Posts";
 import { useSelector } from "react-redux";
+import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 
 export const PostHeader = ({ post, styles }) => {
   const user = useSelector((state) => {
@@ -38,12 +39,14 @@ export const PostHeader = ({ post, styles }) => {
         ></Avatar>
       }
       action={
-        <IconButton aria-label="settings" onClick={handleDelete}>
-          {currentUserId == post.userId ? (
-            <DeleteIcon className={classes.deleteIconStyles} />
-          ) : (
+        <IconButton aria-label="settings">
+          {
+            currentUserId == post.userId
+            ?
+            <DeleteModal id={post.id} />
+            :
             <></>
-          )}
+          }
         </IconButton>
       }
       title={

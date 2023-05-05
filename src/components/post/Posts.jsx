@@ -8,13 +8,8 @@ import postApi from "../../api/postApi";
 
 import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setPostData,
-  createPostByRedux,
-  deletePostById,
-} from "../../store/slices/PostDataSlice";
-import { Dialpad } from "@mui/icons-material";
-import { setUserComments } from "../../store/slices/CommentSlice";
+import { setPostData, createPostByRedux, deletePostById } from "../../store/slices/PostDataSlice";
+import { setPostCurrentLikes, resetInitialState } from '../../store/slices/LikeSlice';
 
 const PostContext = createContext();
 
@@ -23,10 +18,11 @@ export const Posts = () => {
 
   const { getPosts, createPost, deletePost } = postApi();
   const toast = useToast();
-  // const [posts, setPosts] = useState([]);
+
   const posts = useSelector((state) => {
     return state.postDataReducer;
   });
+
   const [userName, setUserName] = useState("");
 
   const dispatch = useDispatch();
@@ -35,12 +31,12 @@ export const Posts = () => {
     let getAllPosts = async () => {
       let response = await getPosts();
       console.log(response);
-      // setPosts(response);
       dispatch(setPostData(response));
-      response.map(post=>
-        dispatch(setUserComments({postId:response.id,comments:response.comments}))
-        
-        )
+      dispatch(resetInitialState());
+      response.map((post)=>{
+        console.log(post)
+        dispatch(setPostCurrentLikes({postId:post.id, currentLikesCount: post.likes.length, usersWhoLiked: post.likes}));
+      });
     };
     getAllPosts();
     
@@ -48,10 +44,9 @@ export const Posts = () => {
 
   const handleCreatePost = async (postData) => {
     const response = await createPost(postData);
-    console.log(response.data.data);
+    console.log(response.data);
     if (response.data.status === "success") {
-      // let newPosts = [response.data.data, ...posts];
-      // setPosts(newPosts);
+      console.log(response);
       dispatch(createPostByRedux(response.data.data));
       toast({
         title: "Post created successfully !",
@@ -74,11 +69,9 @@ export const Posts = () => {
   };
 
   const handleDeletePost = async (id) => {
-    if (window.confirm("Do you really want to delete this post?") == true) {
+    if (id !== ''){
       const response = await deletePost(id);
       if (response.data.status == "success") {
-        //  let updatedPosts = posts.filter(post => post.id !== id);
-        //  setPosts(updatedPosts)
         dispatch(deletePostById(id));
         toast({
           title: "Post deleted successfully !",
@@ -116,8 +109,9 @@ export const Posts = () => {
                   md={12}
                   sm={12}
                   xs={12}
+                  key={post.id}
                 >
-                  <Post key={post.id} post={post} postCreatorId={post.userId} />
+                  <Post post={post} postCreatorId={post.userId} />
                 </Grid>
               );
             })}
