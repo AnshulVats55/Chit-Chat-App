@@ -14,6 +14,7 @@ import {
   deletePostById,
 } from "../../store/slices/PostDataSlice";
 import { Dialpad } from "@mui/icons-material";
+import { setUserComments } from "../../store/slices/CommentSlice";
 
 const PostContext = createContext();
 
@@ -36,8 +37,13 @@ export const Posts = () => {
       console.log(response);
       // setPosts(response);
       dispatch(setPostData(response));
+      response.map(post=>
+        dispatch(setUserComments({postId:response.id,comments:response.comments}))
+        
+        )
     };
     getAllPosts();
+    
   }, []);
 
   const handleCreatePost = async (postData) => {

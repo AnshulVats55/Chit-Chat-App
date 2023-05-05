@@ -9,13 +9,14 @@ import Comments from './Comments';
 import CommentField from './CommentField';
 
 import { commentStyles } from "./comment/comment.styles";
+import { Provider } from './Context/CommentContext';
 
 const CommentWindow = ({ handleClose, open, scroll, descriptionElementRef, post }) => {
 
     const { classes } = commentStyles();
 
   return (
-    <div>
+     <Provider post={post}>
         <Dialog
         open={open}
         onClose={handleClose}
@@ -44,7 +45,7 @@ const CommentWindow = ({ handleClose, open, scroll, descriptionElementRef, post 
             </DialogActions>
 
         </Dialog>
-    </div>
+        </Provider>
     );
 }
 
