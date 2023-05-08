@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useState} from 'react-router-dom';
 import { Box, Grid, Container, Typography} from '@mui/material';
-import GridLayout from '../../components/GridLayout/GridLayout';
+import UserPosts from '../../components/UserPosts/UserPosts';
 import { getProfilePageStyles } from './ProfilePage.styles';
 
 import AddIcon from '@mui/icons-material/Add';
@@ -21,7 +21,7 @@ const ProfilePage = ({ children }) => {
                     <ViewPostButton children={<AddIcon fontSize="small" />} />
                 </Link>
             </Box>
-            <GridLayout />
+            <UserPosts />
         </Container>
         </Box>
     );

@@ -31,7 +31,7 @@ import Logo from '../../assets/fiftyfive-logo.png';
 
 const pagesScroll = [
     {
-        to: '/feedLayout',
+        to: '/',
         data: "Home"
     },
 
@@ -40,10 +40,7 @@ const pagesScroll = [
         data: "Chat"
     },
 
-    {
-        to: '/groups',
-        data: "Groups"
-    }
+    
 ];
 
 function Navbar() {

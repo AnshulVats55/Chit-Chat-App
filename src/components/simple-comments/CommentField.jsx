@@ -19,57 +19,35 @@ import { AccountCircle, AccountCircleOutlined } from "@mui/icons-material";
 
 import { commentStyles } from "./comment/comment.styles";
 
-import { useDispatch } from 'react-redux';
-import { setUserComments } from '../../store/slices/CommentSlice';
+import { useDispatch } from "react-redux";
+import { setUserComments } from "../../store/slices/CommentSlice";
+import useCommentsContext from "./hooks/use-comment-context";
+import { useNavigate } from "react-router-dom";
 
 const CommentField = ({ handleSubmit, post }) => {
-  
   const { classes } = commentStyles();
   const [input, setInput] = useState();
-
-  const currentUserId = useSelector((state)=>{
-      return state.userDataReducer[0].data.user.id;
+  const {createComment} = useCommentsContext()
+  const currentUserId = useSelector((state) => {
+    return state.userDataReducer[0].data.user.id;
   });
 
   const userToken = localStorage.getItem("token");
   const dispatch = useDispatch();
 
-  const axios = require("axios");
+ 
 
   let data = JSON.stringify({
     body: input,
     userId: currentUserId,
     postId: post.id,
   });
+ 
 
-  const handleSendComment = async () => {
-  
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: "http://172.16.1.135:8484/v1/comment",
-      headers: {
-        token: userToken,
-        "Content-Type": "application/json",
-      },
-      mode: "no-mode",
-      referrerPolicy: "no-referrer",
-      data: data,
-    };
-  
-    try{
-      const response = await axios.request(config);
-      console.log(response.data);
-      dispatch(setUserComments(response.data));
-    }
-    catch(error){
-      console.log(error);
-    }
-  }
-
-  const handleAddComment = (e) => {
+  const handleAddComment = async(e) => {
     e.preventDefault();
-    handleSendComment();
+    await createComment(data)
+
     setInput("");
   };
 
@@ -113,6 +91,7 @@ const CommentField = ({ handleSubmit, post }) => {
                 width: "100%",
                 margin: "0.5rem 0rem 1.5rem 0rem",
               }}
+              
             >
               Comment
             </CommonButton>

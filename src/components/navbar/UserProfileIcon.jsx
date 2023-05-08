@@ -88,9 +88,7 @@ const UserProfileIcon = () => {
         onClose={handleCloseUserMenu}
       >
         <MenuItem onClick={handleCloseUserMenu}>
-          <Link to="/profile" className={classes.link}>
-            Profile
-          </Link>
+            <Link to="/profile" className={classes.link}>Profile</Link>
         </MenuItem>
         <MenuItem onClick={handleCloseUserMenu}>
           <Link className={classes.link} onClick={handleLogout}>

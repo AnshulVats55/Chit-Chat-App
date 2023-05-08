@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import {Button, Grid} from '@mui/material';
+import React from 'react';
+import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Comments from './Comments';
-import CommentField from './CommentField';
+import { Grid } from '@mui/material';
+import ImageOne from '../../assets/post1.jpg';
+import { getUserPostStyles } from './UserPosts.styles';
 
-import { commentStyles } from "./comment/comment.styles";
-import { Provider } from './Context/CommentContext';
+const UserPostDialogWindow = ({ handleClose, open, scroll, descriptionElementRef, post }) => {
 
-const CommentWindow = ({ handleClose, open, scroll, descriptionElementRef, post }) => {
-
-    const { classes } = commentStyles();
+    const { classes } = getUserPostStyles();
 
   return (
-     <Provider post={post}>
-        <Dialog
+    <div>
+      <Dialog
         open={open}
         onClose={handleClose}
         scroll={scroll}
@@ -25,8 +23,8 @@ const CommentWindow = ({ handleClose, open, scroll, descriptionElementRef, post 
         aria-describedby="scroll-dialog-description"
         >
             <DialogTitle id="scroll-dialog-title">
-                <Grid item xs={12} className={classes.gridItemOneStyles}>
-                    <CommentField post={post} />
+                <Grid item xs={12} className={classes.userPostGridItemStyles}>
+                    <img src={post.attachment} alt="" className={classes.userPostStylesTwo}/>
                 </Grid>
             </DialogTitle>
 
@@ -36,7 +34,7 @@ const CommentWindow = ({ handleClose, open, scroll, descriptionElementRef, post 
                 ref={descriptionElementRef}
                 tabIndex={-1}
                 >
-                <Comments />
+                    {post.body}
                 </DialogContentText>
             </DialogContent>
 
@@ -45,8 +43,8 @@ const CommentWindow = ({ handleClose, open, scroll, descriptionElementRef, post 
             </DialogActions>
             
         </Dialog>
-        </Provider>
-    );
+    </div>
+  );
 }
 
-export default CommentWindow;
+export default UserPostDialogWindow;

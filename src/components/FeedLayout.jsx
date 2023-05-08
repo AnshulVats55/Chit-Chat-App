@@ -8,7 +8,7 @@ const FeedLayout = () => {
 
   return (
     <Container className={classes.container} maxWidth="xl">
-        <Posts/>
+        <Posts />
     </Container>
   )
 }
