@@ -11,24 +11,6 @@ import UserProfileIcon from './UserProfileIcon';
 
 import Logo from '../../assets/fiftyfive-logo.png';
 
-// const pages = [
-//     {
-//         to: '/feedLayout',
-//         icon: <HomeIcon fontSize="large" ></HomeIcon>
-//     },
-
-//     {
-//         to: '/chat',
-//         icon: <ChatIcon fontSize="large"></ChatIcon>
-//     },
-
-//     {
-
-//         to: '/groups',
-//         icon: <GroupsIcon fontSize="large"></GroupsIcon>
-//     }
-// ];
-
 const pagesScroll = [
     {
         to: '/',
@@ -39,12 +21,6 @@ const pagesScroll = [
         to: '/chat',
         data: "Chat"
     },
-    {
-        to : "/friend",
-        data:"Friend"
-    }
-
-    
 ];
 
 function Navbar() {

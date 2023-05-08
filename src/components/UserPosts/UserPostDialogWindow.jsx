@@ -9,7 +9,7 @@ import { Grid } from '@mui/material';
 import ImageOne from '../../assets/post1.jpg';
 import { getUserPostStyles } from './UserPosts.styles';
 
-const UserPostDialogWindow = ({ handleClose, open, scroll, descriptionElementRef, post }) => {
+const UserPostDialogWindow = ({ handleClose, open, scroll, descriptionElementRef, postAttachment, postBody }) => {
 
     const { classes } = getUserPostStyles();
 
@@ -24,7 +24,7 @@ const UserPostDialogWindow = ({ handleClose, open, scroll, descriptionElementRef
         >
             <DialogTitle id="scroll-dialog-title">
                 <Grid item xs={12} className={classes.userPostGridItemStyles}>
-                    <img src={post.attachment} alt="" className={classes.userPostStylesTwo}/>
+                    <img src={postAttachment} alt="" className={classes.userPostStylesTwo}/>
                 </Grid>
             </DialogTitle>
 
@@ -34,7 +34,7 @@ const UserPostDialogWindow = ({ handleClose, open, scroll, descriptionElementRef
                 ref={descriptionElementRef}
                 tabIndex={-1}
                 >
-                    {post.body}
+                    {postBody}
                 </DialogContentText>
             </DialogContent>
 

@@ -8,7 +8,7 @@ const commentSlice = createSlice(
             setUserComments(state, action){
                 state.push(action.payload);
             },
-            resetInitialState(state){
+            resetCommentInitialState(state){
                 return state = [];
             },
             increasePostComments(state, action){
@@ -29,5 +29,5 @@ const commentSlice = createSlice(
     }
 );
 
-export const { setUserComments, resetInitialState, increasePostComments, decreasePostComments } =  commentSlice.actions;
+export const { setUserComments, resetCommentInitialState, increasePostComments, decreasePostComments } =  commentSlice.actions;
 export default commentSlice;

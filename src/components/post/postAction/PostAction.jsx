@@ -11,7 +11,6 @@ import { PostActionStyles } from "./PostActionStyles";
 import CommentWindow from "../../../components/simple-comments/ CommentWindow";
 import { useDispatch, useSelector } from "react-redux";
 import { increasePostLikes, decreasePostLikes } from "../../../store/slices/LikeSlice";
-import { increasePostComments, decreasePostComments } from '../../../store/slices/CommentSlice';
 
 export const PostAction = ({ commentCount, post }) => {
   const { classes } = PostActionStyles();
@@ -21,15 +20,20 @@ export const PostAction = ({ commentCount, post }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeId, setLikeId] = useState("");
 
-  const currentUserId = useSelector((state) => {
-    return state.userDataReducer[0].data.user.id;
-  });
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
+    const currentUserId = useSelector((state) => {
+      return state.userDataReducer[0].data.user.id;
+    });
 
     const allPostDetails = useSelector((state)=>{
       return state.likeDataReducer;
     });
+
+    const allCommentDetails = useSelector((state)=>{
+      return state.commentDataReducer;
+    });
+    console.log(allCommentDetails);
 
     let totalLikes;
     const postId = post.id;
@@ -38,6 +42,13 @@ export const PostAction = ({ commentCount, post }) => {
         totalLikes = post.currentLikesCount;
       }
     });
+
+    let totalComments;
+    allCommentDetails.map((post)=>{
+        if(post.postId === postId){
+          totalComments = post.currentCommentsCount;
+        }
+    })
 
     useEffect(()=>{
       allPostDetails.map((post)=>{
@@ -53,7 +64,6 @@ export const PostAction = ({ commentCount, post }) => {
     const handleShowComments = (scrollType) => {
         setShowComments(!showComments);
         setScroll(scrollType);
-        dispatch(increasePostComments({postId: postId}));
     }
 
     const handleClose = () => {
@@ -157,7 +167,7 @@ export const PostAction = ({ commentCount, post }) => {
           :
           <></>
         }
-        <span className={classes.Hide}>{post?.comments?.length} comments</span>
+        <span className={classes.Hide}>{totalComments} comments</span>
       </Box>
     </CardActions>
   );

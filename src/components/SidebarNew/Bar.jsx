@@ -55,15 +55,6 @@ const Bar = () => {
           </Box>
         </Link>
       </Box>
-
-      <Box className={classes.itemCont}>
-        <Link to="/friend">
-          <Box className={classes.item}>
-              <GroupsIcon fontSize='large' className={classes.itemIcon}/>
-              <Typography variant="body2" className={classes.itemText}>Friend</Typography>
-          </Box>
-        </Link>
-      </Box>
          
       <Box className={classes.itemCont}>
         <Link to="/profile">

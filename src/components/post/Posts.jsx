@@ -1,16 +1,14 @@
 import React, { useEffect, useState, createContext } from "react";
 import { Box, Grid, Container } from "@mui/material";
-
 import { PostStyles } from "./post.styles";
 import Post from "./Post";
 import CreatePost from "./createPost/CreatePost";
 import postApi from "../../api/postApi";
-
 import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostData, createPostByRedux, deletePostById } from "../../store/slices/PostDataSlice";
 import { setPostCurrentLikes, resetInitialState } from '../../store/slices/LikeSlice';
-import { setUserComments } from '../../store/slices/CommentSlice';
+import { setUserComments, resetCommentInitialState } from '../../store/slices/CommentSlice';
 import { useNavigate } from "react-router-dom";
 import Request from "../addFriend/Request"
 
@@ -37,6 +35,7 @@ export const Posts = () => {
       console.log(response);
       dispatch(setPostData(response));
       dispatch(resetInitialState());
+      dispatch(resetCommentInitialState());
       response.map((post)=>{
         console.log(post)
         dispatch(setPostCurrentLikes({postId:post.id, currentLikesCount: post.likes.length, usersWhoLiked: post.likes}));

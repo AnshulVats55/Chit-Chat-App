@@ -1,11 +1,18 @@
 import { createContext, useState } from "react";
-import axios from "axios";
+import { increasePostComments, decreasePostComments } from '../../../store/slices/CommentSlice';
+import { useDispatch } from "react-redux";
+import { useToast } from "@chakra-ui/react";
 
 const CommentsContext = createContext();
 
 function Provider({ children, post }) {
+
   const userToken = localStorage.getItem("token");
   const [comments, setComments] = useState(post.comments);
+
+  const toast = useToast();
+
+  const dispatch = useDispatch();
 
   const axios = require("axios");
   const createComment = async (data) => {
@@ -24,10 +31,27 @@ function Provider({ children, post }) {
 
     try {
       const response = await axios.request(config);
-      console.log(response.data.data);
+      console.log(response);
       setComments([...comments, response.data.data]);
-    } catch (error) {
-      console.log(error);
+      dispatch(increasePostComments({postId: post.id}));
+      toast({
+        title: "Comment added successfully !",
+        position: "top",
+        description: "",
+        status: "success",
+        duration: 1000,
+        isClosable: true,
+      });
+    }
+    catch (error) {
+      toast({
+        title: "Error adding comment !",
+        position: "top",
+        description: "",
+        status: "error",
+        duration: 1000,
+        isClosable: true,
+      });
     }
   };
 
@@ -41,15 +65,33 @@ function Provider({ children, post }) {
       },
     };
 
-    await axios
-      .request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
+    try{
+      const response = await axios.request(config);
+      console.log(response);
+      if(response.data.status === "success"){
+        setComments(comments.filter((comment) => comment.id !== id));
+        dispatch(decreasePostComments({postId: post.id}));
+        toast({
+          title: "Comment deleted successfully !",
+          position: "top",
+          description: "",
+          status: "success",
+          duration: 1000,
+          isClosable: true,
+        });
+      }
+    }
+    catch(error){
+      console.log(error);
+      toast({
+        title: "Error deleting comment !",
+        position: "top",
+        description: "",
+        status: "error",
+        duration: 1000,
+        isClosable: true,
       });
-    setComments(comments.filter((comment) => comment.id !== id));
+    }
   };
 
   const valueToShare = {
