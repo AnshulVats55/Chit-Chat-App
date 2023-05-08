@@ -33,8 +33,8 @@ const UserProfileIcon = () => {
       return state.userDataReducer[0];
     });
 
-    const userProfilePicture = userDetails.data.user.profilePicture,
-          userFullName = userDetails.data.user.firstName + " " + userDetails.data.user.lastName;
+    const userProfilePicture = userDetails?.data.user.profilePicture,
+          userFullName = userDetails?.data.user.firstName + " " + userDetails?.data.user.lastName;
 
     const toast = useToast();
 

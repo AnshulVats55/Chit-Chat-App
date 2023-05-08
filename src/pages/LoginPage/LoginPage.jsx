@@ -10,7 +10,7 @@ import { getLoginPageStyles } from "./LoginPage.styles";
 import BrandIdentity from "../../components/BrandIdentity/BrandIdentity";
 
 import LoginPageImage from "../../assets/loginPageImage1.gif";
-import SuccessfullLoginImage from '../../assets/successfull login image.gif';
+import SuccessfullLoginImage from "../../assets/successfull login image.gif";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../store/slices/UserDataSlice";
 
@@ -128,26 +128,23 @@ const LoginPage = () => {
                 alignItems: "center",
               }}
             >
-              {
-                !isLoggedIn
-                ?
+              {!isLoggedIn ? (
                 <img
-                src={LoginPageImage}
-                alt="login image"
-                width={"100%"}
-                id="loginPageImage"
-                className={classes.loginImage}
-              />
-              :
-              <img
-                src={SuccessfullLoginImage}
-                alt="login image"
-                width={"100%"}
-                id="loginPageImage"
-                className={classes.loginImage}
-              />
-              }
-              
+                  src={LoginPageImage}
+                  alt="login image"
+                  width={"100%"}
+                  id="loginPageImage"
+                  className={classes.loginImage}
+                />
+              ) : (
+                <img
+                  src={SuccessfullLoginImage}
+                  alt="login image"
+                  width={"100%"}
+                  id="loginPageImage"
+                  className={classes.loginImage}
+                />
+              )}
             </Box>
           </Grid>
 

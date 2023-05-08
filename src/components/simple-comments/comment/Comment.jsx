@@ -36,7 +36,7 @@ const Comment = ({ comment }) => {
         title={`${
           comment?.user?.firstName ? comment?.user?.firstName : user.firstName
         } ${comment?.user?.lastName ? comment?.user?.lastName : user.lastName}`}
-        subheader={comment?.createdAt}
+        subheader={comment?.createdAt.substring(0, 10).split("-").reverse().join("-")}
       />
 
       <CardContent>

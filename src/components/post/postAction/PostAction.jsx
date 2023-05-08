@@ -1,31 +1,35 @@
-import { Box, CardActions, Checkbox, IconButton } from "@mui/material";
+import {
+  Box,
+  CardActions,
+  Checkbox,
+  IconButton,
+} from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
 import CommentIcon from "@mui/icons-material/Comment";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { PostActionStyles } from "./PostActionStyles";
-import CommentWindow from '../../../components/simple-comments/ CommentWindow';
+import CommentWindow from "../../../components/simple-comments/ CommentWindow";
 import { useDispatch, useSelector } from "react-redux";
-import { increasePostLikes, decreasePostLikes } from '../../../store/slices/LikeSlice';
+import { increasePostLikes, decreasePostLikes } from "../../../store/slices/LikeSlice";
+import { increasePostComments, decreasePostComments } from '../../../store/slices/CommentSlice';
 
-export const PostAction = ({ post }) => {
+export const PostAction = ({ commentCount, post }) => {
+  const { classes } = PostActionStyles();
 
-    const { classes } = PostActionStyles();
+  const [showComments, setShowComments] = useState(false);
+  const [scroll, setScroll] = useState("paper");
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeId, setLikeId] = useState("");
 
-    const [showComments, setShowComments] = useState(false);
-    const [scroll, setScroll] = useState('paper');
-    const [isLiked, setIsLiked] = useState(false);
-    const [likeId, setLikeId] = useState("");
+  const currentUserId = useSelector((state) => {
+    return state.userDataReducer[0].data.user.id;
+  });
 
     const dispatch = useDispatch();
-
-    const currentUserId = useSelector((state)=>{
-      return state.userDataReducer[0].data.user.id;
-    });
 
     const allPostDetails = useSelector((state)=>{
       return state.likeDataReducer;
     });
-    console.log(allPostDetails);
 
     let totalLikes;
     const postId = post.id;
@@ -44,11 +48,12 @@ export const PostAction = ({ post }) => {
           }
         });
       });
-    }, [likeId]);
+    }, []);
 
     const handleShowComments = (scrollType) => {
         setShowComments(!showComments);
         setScroll(scrollType);
+        dispatch(increasePostComments({postId: postId}));
     }
 
     const handleClose = () => {
@@ -71,48 +76,51 @@ export const PostAction = ({ post }) => {
       "postId": postId
     });
 
-    console.log(isLiked);
-    const handleLikes = async () => {
-      if(!isLiked){
-        let config = {
-          method: 'post',
-          maxBodyLength: Infinity,
-          url: 'http://172.16.1.135:8484/v1/like',
-          headers: {
-          'token': localStorage.getItem("token"),
-          'Content-Type': 'application/json'
-          },
-          mode: 'no-mode',
-          referrerPolicy: 'no-referrer',
-          data: data
-        };
+  const handleLikes = async () => {
+    if (!isLiked) {
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: "http://172.16.1.135:8484/v1/like",
+        headers: {
+          token: localStorage.getItem("token"),
+          "Content-Type": "application/json",
+        },
+        mode: "no-mode",
+        referrerPolicy: "no-referrer",
+        data: data,
+      };
 
-        const response = await axios.request(config);
-        if(response.data.status === "success"){
-            setLikeId(response.data.data.id);
-            setIsLiked(true);
-            dispatch(increasePostLikes({postId:postId}));
-        }
+      const response = await axios.request(config);
+      console.log(response);
+      if (response.data.status === "success") {
+        setIsLiked(true);
+        setLikeId(response.data.data.id);
+        dispatch(
+          increasePostLikes({ postId: postId, likeId: response.data.data.id })
+        );
       }
-      else{
-        let config = {
-            method: 'delete',
-            maxBodyLength: Infinity,
-            url: `http://172.16.1.135:8484/v1/like/${likeId}`,
-            headers: {
-            'token': localStorage.getItem("token"),
-            },
-            mode: 'no-mode',
-            referrerPolicy: 'no-referrer',
-          };
-          
-          const response = await axios.request(config);
-          if(response.data.status === "success"){
-            setIsLiked(false);
-            dispatch(decreasePostLikes({postId:postId}));
-          }
+    } else {
+      let config = {
+        method: "delete",
+        maxBodyLength: Infinity,
+        url: `http://172.16.1.135:8484/v1/like/${likeId}`,
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+        mode: "no-mode",
+        referrerPolicy: "no-referrer",
+      };
+
+      const response = await axios.request(config);
+      console.log(response);
+      if (response.data.status === "success") {
+        setIsLiked(false);
+        setLikeId("");
+        dispatch(decreasePostLikes({ postId: postId }));
       }
     }
+  };
 
   return (
     <CardActions className={classes.postActionCont}>
@@ -128,21 +136,23 @@ export const PostAction = ({ post }) => {
       </Box>
 
       <Box>
-        <IconButton aria-label="comment" onClick={()=>{handleShowComments('paper')}}>
-          <Checkbox
-              icon={<CommentIcon />}
-              checkedIcon={<CommentIcon />}
-            />
+        <IconButton
+          aria-label="comment"
+          onClick={() => {
+            handleShowComments("paper");
+          }}
+        >
+          <Checkbox icon={<CommentIcon />} checkedIcon={<CommentIcon />} />
         </IconButton>
         {
-          showComments
-          ?
+        showComments
+        ?
           <CommentWindow
-          handleClose={handleClose}
-          open={showComments}
-          scroll={scroll}
-          descriptionElementRef={descriptionElementRef}
-          post={post}
+            handleClose={handleClose}
+            open={showComments}
+            scroll={scroll}
+            descriptionElementRef={descriptionElementRef}
+            post={post}
           />
           :
           <></>

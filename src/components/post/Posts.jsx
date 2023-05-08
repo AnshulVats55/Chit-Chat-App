@@ -10,6 +10,7 @@ import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostData, createPostByRedux, deletePostById } from "../../store/slices/PostDataSlice";
 import { setPostCurrentLikes, resetInitialState } from '../../store/slices/LikeSlice';
+import { setUserComments } from '../../store/slices/CommentSlice';
 import { useNavigate } from "react-router-dom";
 
 const PostContext = createContext();
@@ -38,6 +39,7 @@ export const Posts = () => {
       response.map((post)=>{
         console.log(post)
         dispatch(setPostCurrentLikes({postId:post.id, currentLikesCount: post.likes.length, usersWhoLiked: post.likes}));
+        dispatch(setUserComments({postId: post.id, currentCommentsCount: post.comments.length, usersWhoCommented: post.comments}));
       });
     };
     getAllPosts();

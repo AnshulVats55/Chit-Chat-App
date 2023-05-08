@@ -22,6 +22,7 @@ import { commentStyles } from "./comment/comment.styles";
 import { useDispatch } from "react-redux";
 import { setUserComments } from "../../store/slices/CommentSlice";
 import useCommentsContext from "./hooks/use-comment-context";
+import { useNavigate } from "react-router-dom";
 
 const CommentField = ({ handleSubmit, post }) => {
   const { classes } = commentStyles();
@@ -46,6 +47,7 @@ const CommentField = ({ handleSubmit, post }) => {
   const handleAddComment = async(e) => {
     e.preventDefault();
     await createComment(data)
+
     setInput("");
   };
 

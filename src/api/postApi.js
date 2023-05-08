@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 const PostApi = () => {
   const currentUserId = useSelector((state) => {
-    return state.userDataReducer[0].data.user.id;
+    return state.userDataReducer[0]?.data?.user.id;
   });
 
   const createPost = async (datapost) => {
