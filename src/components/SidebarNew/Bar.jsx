@@ -55,15 +55,15 @@ const Bar = () => {
           </Box>
         </Link>
       </Box>
-{/* 
+
       <Box className={classes.itemCont}>
-        <Link to="/group">
+        <Link to="/friend">
           <Box className={classes.item}>
               <GroupsIcon fontSize='large' className={classes.itemIcon}/>
-              <Typography variant="body2" className={classes.itemText}>Group</Typography>
+              <Typography variant="body2" className={classes.itemText}>Friend</Typography>
           </Box>
         </Link>
-      </Box> */}
+      </Box>
          
       <Box className={classes.itemCont}>
         <Link to="/profile">

@@ -39,6 +39,10 @@ const pagesScroll = [
         to: '/chat',
         data: "Chat"
     },
+    {
+        to : "/friend",
+        data:"Friend"
+    }
 
     
 ];

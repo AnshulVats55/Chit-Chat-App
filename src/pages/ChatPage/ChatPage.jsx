@@ -90,7 +90,7 @@ const ChatPage = () => {
     <Box className={classes.profilePageTopContStyles}>
     <Box className={classes.container}>
       <Grid container spacing={3} className={classes.gridContainer}>
-        <Grid item xs={10} sm={5.75} md={4} lg={2.5} sx={{ backgroundColor: "" }}>
+        <Grid item xs={10} sm={4.5} md={3.5} lg={2.5} sx={{ backgroundColor: "" }}>
           <Friends
             className={classes.friendContainer}
             openChat={openChat}
@@ -104,10 +104,10 @@ const ChatPage = () => {
         <Grid
           item
           xs={12}
-          sm={6.25}
-          md={8}
+          sm={7.5}
+          md={8.5}
           lg={9.5}
-          sx={{ display: { xs: "block", sm: "block" }, padding: "0.5rem" }}
+          sx={{ padding: "0.5rem" }}
           className={classes.chatContainer}
         >
           <ChatWindow

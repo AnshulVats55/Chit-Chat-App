@@ -25,7 +25,8 @@ const AllRoutes = () => {
                         <Route exact path='/comment' element={<Comments />}></Route>
                         <Route exact path='/commentWindow' element={<CommentWindow />}></Route>
                         <Route exact path="/chat" element={<FinalLayout component={<ChatPage/>}/>} />
-                        <Route exact path="/friend" element={<Request/>} />
+                        <Route exact path="/friend" element={<FinalLayout component={<Request />}/>} />
+                        {/* <Route exact path="/friend" element={<Request/>} /> */}
                     </>
                     :
                     <>

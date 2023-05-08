@@ -75,7 +75,7 @@ const SearchFriend = () => {
   };
 
   return (
-    <Box sx={{ border: "2px solid red", minHeight: "50vh",width:"100%",overflowY:"scroll" }}>
+    <Box className={classes.friendRequest} sx={{  minHeight: "50vh",width:"100%",overflowY:"scroll", }}>
       <Typography sx={{marginBottom:"0.5rem"}}  variant="h5">Add New Friends</Typography>
       <Paper component="form" className={classes.searchContainer}>
         <input

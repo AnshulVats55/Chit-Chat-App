@@ -5,7 +5,7 @@ export const PostStyles =makeStyles()((theme,styles)=>{
 
     PostsTopContStyles: {
       display:'flex',
-      flexDirection:'column',
+      flexDirection:'row',
       justifyContent:'center',
       alignItems:'center',
       width:'93%',

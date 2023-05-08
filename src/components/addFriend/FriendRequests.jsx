@@ -41,7 +41,7 @@ const FriendRequests = () => {
   socket.on("followRequest", (data) => {
     console.log("data", data);
     if(data.follower){
-    setNewRequest([...newRequest, data]);
+    setNewRequest([ data]);
     }
   });
 
@@ -68,16 +68,16 @@ const FriendRequests = () => {
     <div
       style={{
         minHeight: "55%",
-        marginTop: "2rem",
-        border: "2px solid green",
+        marginTop: "5rem",
+        // border: "2px solid green",
         width: "100%",
-        overflowY:"scroll"
+        
       }}
     >
       <Typography sx={{ marginBottom: "0.5rem" }} variant="h5">
         Your Requests
       </Typography>
-      <div style={{ height: "100%" }} className={classes.friendContainer}>
+      <div style={{ height: "100%",overflowY:"scroll",scrollbarWidth:"none" }} className={classes.friendContainer}>
         {newRequest?.map((s, index) => {
           return (
             <Box className={classes.single} key={index}>
@@ -94,8 +94,8 @@ const FriendRequests = () => {
                   <IconButton
                     onClick={() =>
                       acceptRequest(
-                        s.id,
-                        userId
+                        s?.id?s?.id: s.newRelationship.followerUserId,
+                        userId?userId:s.newRelationship.followedUserId
                       )
                     }
                   >

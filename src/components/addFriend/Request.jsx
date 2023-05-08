@@ -19,7 +19,7 @@ const Request = () => {
   socket.emit("newUser", { id: userId, name: userFullName });
 
   return (
-    <div style={{width:"27%",textAlign:"center"}} className={classes.friendGrid}>
+    <div style={{width:"27%", textAlign:"center", margin:"auto", marginTop:"8rem", height:"100vh",overflow:"none"}} >
     <SearchFriend/>
 
     <FriendRequests/>

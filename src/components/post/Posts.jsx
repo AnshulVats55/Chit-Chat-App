@@ -12,6 +12,7 @@ import { setPostData, createPostByRedux, deletePostById } from "../../store/slic
 import { setPostCurrentLikes, resetInitialState } from '../../store/slices/LikeSlice';
 import { setUserComments } from '../../store/slices/CommentSlice';
 import { useNavigate } from "react-router-dom";
+import Request from "../addFriend/Request"
 
 const PostContext = createContext();
 
@@ -120,6 +121,7 @@ export const Posts = () => {
             })}
           </Grid>
         </Container>
+        {/* <Request/> */}
       </Box>
     </PostContext.Provider>
   );

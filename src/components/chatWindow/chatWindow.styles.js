@@ -7,6 +7,7 @@ export const ChatStyles = makeStyles()((theme) => {
       height: "100%",
       bordeRadius: "1rem",
       backgroundColor: "rgb(33, 108, 108)",
+    
     },
     ChatwindowNot:{
       display:"none"
@@ -29,14 +30,12 @@ export const ChatStyles = makeStyles()((theme) => {
     },
 
     avatar:{
-      backgroundColor: "#363a91",
+      // backgroundColor: "#363a91",
        marginRight: "1rem",
     },
 
     chatBody: {
       height: "60vh",
-      // backgroundColor: "#363a91",
-      // backgroundColor:"#f1f0fa",
     },
     messageContainer: {
       width: "100%",
@@ -94,8 +93,7 @@ export const ChatStyles = makeStyles()((theme) => {
       minHeight: "2rem",
       minWidth:"10%",
       maxWidth: "60%",
-      backgroundColor: "rgb(289, 241, 236)",
-      // backgroundColor: "#363a91",
+      backgroundColor: "#4c4ced",
       borderRadius: "0.5rem",
       color: "black",
       display: "flex",
