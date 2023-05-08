@@ -10,7 +10,7 @@ import { getLoginPageStyles } from "./LoginPage.styles";
 import BrandIdentity from "../../components/BrandIdentity/BrandIdentity";
 
 import LoginPageImage from "../../assets/loginPageImage1.gif";
-import SuccessfullLoginImage from '../../assets/successfull login image.gif';
+import SuccessfullLoginImage from "../../assets/successfull login image.gif";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../store/slices/UserDataSlice";
 
@@ -40,7 +40,7 @@ const LoginPage = () => {
     let request = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://172.16.1.150:8484/v1/login",
+      url: "http://172.16.1.135:8484/v1/login",
       headers: {
         "Content-Type": "application/json",
       },
@@ -128,26 +128,23 @@ const LoginPage = () => {
                 alignItems: "center",
               }}
             >
-              {
-                !isLoggedIn
-                ?
+              {!isLoggedIn ? (
                 <img
-                src={LoginPageImage}
-                alt="login image"
-                width={"100%"}
-                id="loginPageImage"
-                className={classes.loginImage}
-              />
-              :
-              <img
-                src={SuccessfullLoginImage}
-                alt="login image"
-                width={"100%"}
-                id="loginPageImage"
-                className={classes.loginImage}
-              />
-              }
-              
+                  src={LoginPageImage}
+                  alt="login image"
+                  width={"100%"}
+                  id="loginPageImage"
+                  className={classes.loginImage}
+                />
+              ) : (
+                <img
+                  src={SuccessfullLoginImage}
+                  alt="login image"
+                  width={"100%"}
+                  id="loginPageImage"
+                  className={classes.loginImage}
+                />
+              )}
             </Box>
           </Grid>
 

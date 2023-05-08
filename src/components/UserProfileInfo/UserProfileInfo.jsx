@@ -15,8 +15,8 @@ const UserProfileInfo = () => {
         return state.userDataReducer[0];
     });
 
-        const userName = userProfileDetails.data.user.firstName + " " + userProfileDetails.data.user.lastName,
-              userProfilePicture = userProfileDetails.data.user.profilePicture;
+        const userName = userProfileDetails?.data.user.firstName + " " + userProfileDetails?.data.user.lastName,
+              userProfilePicture = userProfileDetails?.data.user.profilePicture;
 
     return (
         <Grid container className={classes.userProfileInfoGrid}>

@@ -4,15 +4,15 @@ import axios from "axios";
 const CommentsContext = createContext();
 
 function Provider({ children, post }) {
-    const userToken = localStorage.getItem("token");
+  const userToken = localStorage.getItem("token");
   const [comments, setComments] = useState(post.comments);
-  
+
   const axios = require("axios");
   const createComment = async (data) => {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://172.16.1.150:8484/v1/comment",
+      url: "http://172.16.1.135:8484/v1/comment",
       headers: {
         token: userToken,
         "Content-Type": "application/json",
@@ -25,7 +25,7 @@ function Provider({ children, post }) {
     try {
       const response = await axios.request(config);
       console.log(response.data.data);
-      setComments([ ...comments,response.data.data]);
+      setComments([...comments, response.data.data]);
     } catch (error) {
       console.log(error);
     }
@@ -35,14 +35,13 @@ function Provider({ children, post }) {
     let config = {
       method: "delete",
       maxBodyLength: Infinity,
-      url: `http://172.16.1.150:8484/v1/comment/${id}`,
+      url: `http://172.16.1.135:8484/v1/comment/${id}`,
       headers: {
-        token:
-          userToken,
+        token: userToken,
       },
     };
 
-   await  axios
+    await axios
       .request(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
@@ -50,7 +49,7 @@ function Provider({ children, post }) {
       .catch((error) => {
         console.log(error);
       });
-    setComments(comments.filter((comment)=>comment.id!==id))
+    setComments(comments.filter((comment) => comment.id !== id));
   };
 
   const valueToShare = {
