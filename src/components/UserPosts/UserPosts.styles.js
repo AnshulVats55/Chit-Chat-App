@@ -119,7 +119,7 @@ export const getUserPostStyles = makeStyles()((theme)=>{
             display:'flex',
             justifyContent:'center',
             alignItems:'center',
-            marginTop:'5px',
+            margin:'20px 0px',
         },
 
         postCaption: {
