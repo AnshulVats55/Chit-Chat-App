@@ -40,7 +40,7 @@ const LoginPage = () => {
     let request = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://172.16.1.150:8484/v1/login",
+      url: "http://172.16.1.135:8484/v1/login",
       headers: {
         "Content-Type": "application/json",
       },

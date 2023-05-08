@@ -10,6 +10,7 @@ import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostData, createPostByRedux, deletePostById } from "../../store/slices/PostDataSlice";
 import { setPostCurrentLikes, resetInitialState } from '../../store/slices/LikeSlice';
+import { useNavigate } from "react-router-dom";
 
 const PostContext = createContext();
 
@@ -17,6 +18,7 @@ export const Posts = () => {
   const { classes } = PostStyles();
 
   const { getPosts, createPost, deletePost } = postApi();
+  const navigate = useNavigate();
   const toast = useToast();
 
   const posts = useSelector((state) => {
@@ -28,7 +30,7 @@ export const Posts = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let getAllPosts = async () => {
+      let getAllPosts = async () => {
       let response = await getPosts();
       console.log(response);
       dispatch(setPostData(response));
@@ -39,7 +41,6 @@ export const Posts = () => {
       });
     };
     getAllPosts();
-    
   }, []);
 
   const handleCreatePost = async (postData) => {

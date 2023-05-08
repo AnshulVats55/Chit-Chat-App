@@ -2,10 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import ProfilePicture from '../../components/ProfilePicture/ProfilePicture';
 import { getUserProfileInfoBoxStyles } from './UserProfileInfo.styles';
-
-// import UserProfilePicture from '../../assets/login-page-image.jpg';
-
-// import { setUserData } from '../../';
 import { useSelector } from 'react-redux';
 
 const UserProfileInfo = () => {
@@ -14,6 +10,8 @@ const UserProfileInfo = () => {
     const userProfileDetails = useSelector((state)=>{
         return state.userDataReducer[0];
     });
+
+    console.log(userProfileDetails);
 
         const userName = userProfileDetails.data.user.firstName + " " + userProfileDetails.data.user.lastName,
               userProfilePicture = userProfileDetails.data.user.profilePicture;
@@ -37,7 +35,7 @@ const UserProfileInfo = () => {
                         <Typography variant="h6" className={classes.socialAnalytics}>150 Following</Typography>
                     </Box>
                     
-                    <Typography variant="body1" className={classes.userBio}>Spitting fire and weaving words into poetry. Indian rapper and lyricist, bringing you the beats of the streets.</Typography>
+                    <Typography variant="body1" className={classes.userBio}>Spitting fire and weaving words into poetry. Indian Rapper and Lyricist, bringing you the beats of the streets.</Typography>
                 </Box>
             </Grid>
 

@@ -51,6 +51,7 @@ const UserProfileIcon = () => {
       });
       setTimeout(()=>{
         window.location.reload();
+        navigate("/");
       }, 2500);
     }
 
