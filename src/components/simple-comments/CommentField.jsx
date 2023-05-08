@@ -47,7 +47,7 @@ const CommentField = ({ handleSubmit, post }) => {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://172.16.1.150:8484/v1/comment",
+      url: "http://172.16.1.135:8484/v1/comment",
       headers: {
         token: userToken,
         "Content-Type": "application/json",

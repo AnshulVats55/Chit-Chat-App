@@ -43,7 +43,7 @@ export const PostAction = ({ likeCount, commentCount, post }) => {
             checkedIcon={<Favorite sx={{ color: "red" }} />}
           />
         </IconButton>
-        <span className={classes.Hide}>{post.likes.length} likes</span>
+        <span className={classes.Hide}>0 likes</span>
       </Box>
 
       <Box>
@@ -66,7 +66,7 @@ export const PostAction = ({ likeCount, commentCount, post }) => {
           :
           <></>
         }
-        <span className={classes.Hide}>{post.comments.length} comments</span>
+        <span className={classes.Hide}>10 comments</span>
       </Box>
     </CardActions>
   );

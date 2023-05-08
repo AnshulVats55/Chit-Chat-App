@@ -8,9 +8,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PostContext from "../Posts";
 import { useSelector } from "react-redux";
 
+
 export const PostHeader = ({ post, styles }) => {
 
   const { classes } = PostHeaderStyles(styles);
+  
 
   const {handleDeletePost} = useContext(PostContext)
   const handleDelete =()=>{
@@ -38,6 +40,7 @@ export const PostHeader = ({ post, styles }) => {
         </IconButton>
       }
       title={<Typography variant="body1" fontWeight={'bold'}>{post["user.firstName"] + " " + post["user.lastName"]}</Typography>}
+      titles={<Typography variant="body1" fontWeight={'bold'}>{post.userName}</Typography>}
       subheader={post.createdAt.substring(0, 10).split("-").reverse().join("-")}
     />
   );

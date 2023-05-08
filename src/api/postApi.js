@@ -18,7 +18,7 @@ const PostApi = () => {
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: "http://172.16.1.150:8484/v1/post/",
+        url: "http://172.16.1.135:8484/v1/post/",
         headers: {
           token: localStorage.getItem("token"),
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@ const PostApi = () => {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: "http://172.16.1.150:8484/v1/post/allPost",
+        url: "http://172.16.1.135:8484/v1/post/allPost",
         headers: {
           token: localStorage.getItem("token"),
           "Content-Type": "application/json",
@@ -49,7 +49,7 @@ const PostApi = () => {
       let config = {
         method: 'delete',
           maxBodyLength: Infinity,
-          url: `http://172.16.1.150:8484/v1/post/delete/${id}`,
+          url: `http://172.16.1.135:8484/v1/post/delete/${id}`,
           headers: {
           token: localStorage.getItem("token"),
           }
