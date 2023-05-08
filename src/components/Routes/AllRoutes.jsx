@@ -8,6 +8,8 @@ import ViewPost from '../../components/ViewPost/ViewPost';
 import { Posts } from '../../components/post/Posts';
 import Comments from '../../components/simple-comments/Comments';
 import CommentWindow from '../../components/simple-comments/ CommentWindow';
+import ChatPage from '../../pages/ChatPage';
+import Request from '../addFriend/Request';
 
 const AllRoutes = () => {
     return (
@@ -22,6 +24,8 @@ const AllRoutes = () => {
                         <Route exact path="/post" element={<FinalLayout component={<ViewPost />} />} />
                         <Route exact path='/comment' element={<Comments />}></Route>
                         <Route exact path='/commentWindow' element={<CommentWindow />}></Route>
+                        <Route exact path="/chat" element={<FinalLayout component={<ChatPage/>}/>} />
+                        <Route exact path="/friend" element={<Request/>} />
                     </>
                     :
                     <>

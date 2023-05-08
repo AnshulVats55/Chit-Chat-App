@@ -11,6 +11,7 @@ import DeleteModal from '../../../components/DeleteModal/DeleteModal';
 import MaleAvatar from '../../../assets/male avatar.jpg';
 import FemaleAvatar from '../../../assets/female avatar.jpg';
 
+
 export const PostHeader = ({ post, styles }) => {
 
   const { classes } = PostHeaderStyles(styles);
@@ -18,7 +19,6 @@ export const PostHeader = ({ post, styles }) => {
   const user = useSelector((state) => {
     return state.userDataReducer[0].data.user;
   });
-
   console.log(user);
 
   const { handleDeletePost } = useContext(PostContext);
