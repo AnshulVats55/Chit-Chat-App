@@ -7,9 +7,27 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Typography, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import { useToast } from '@chakra-ui/react';
 
 const Bar = () => {
   const {classes}= barStyle();
+
+  const toast = useToast();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    toast({
+        title: "You're successfully logged out !",
+        position:'top',
+        description: "",
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+    });
+    setTimeout(()=>{
+      window.location.reload();
+    }, 2500);
+  }
 
   return (
   <Box className={classes.mainContainer}>
@@ -56,7 +74,7 @@ const Bar = () => {
     <Box className={classes.containerOne}>
 
       <Box className={classes.itemCont}>
-        <Link>
+        <Link onClick={handleLogout}>
           <Box className={classes.item}>
               <LogoutIcon fontSize='large' className={classes.itemIcon}/>
               <Typography variant="body2" className={classes.itemText}>Logout</Typography>
