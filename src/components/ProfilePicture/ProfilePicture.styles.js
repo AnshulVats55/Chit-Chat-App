@@ -18,18 +18,6 @@ export const getProfilePictuteStyles = makeStyles()((theme, picStyles)=>{
             display:'flex',
             justifyContent:'center',
             alignItems:'center',
-            // animationName:'$ripple',
-            // animationDuration:'4s',
-            // animationIterationCount:'infinite',
-            // "@keyframes ripple": {
-            //     "0%": {
-            //         boxShadow: '0 0 0 0 rgba(#FFF, 0.3), 0 0 0 1px rgba(#FFF, 0.3), 0 0 0 3px rgba(#FFF, 0.3), 0 0 0 5px rgba(#FFF, 0.3)'
-            //     },
-
-            //     "100%": {
-            //         boxShadow: '0 0 0 0 rgba(#FFF, 0.3), 0 0 0 4px rgba(#FFF, 0.3), 0 0 0 20px rgba(#FFF, 0), 0 0 0 30px rgba(#FFF, 0)'
-            //     }
-            // }
         }
     });
 });

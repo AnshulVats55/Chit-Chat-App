@@ -3,7 +3,6 @@ import { Box, Grid, Typography } from '@mui/material';
 import ProfilePicture from '../../components/ProfilePicture/ProfilePicture';
 import { getUserProfileInfoBoxStyles } from './UserProfileInfo.styles';
 import { useSelector } from 'react-redux';
-
 import MaleAvatar from '../../assets/male avatar.jpg';
 import FemaleAvatar from '../../assets/female avatar.jpg';
 
