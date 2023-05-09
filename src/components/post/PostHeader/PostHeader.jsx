@@ -11,7 +11,7 @@ import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 
 export const PostHeader = ({ post, styles }) => {
   const user = useSelector((state) => {
-    return state.userDataReducer[0].data.user;
+    return state.userDataReducer[0]?.data.user;
   });
   const { classes } = PostHeaderStyles(styles);
 
@@ -23,7 +23,7 @@ export const PostHeader = ({ post, styles }) => {
   };
 
   const currentUserId = useSelector((state) => {
-    return state.userDataReducer[0].data.user.id;
+    return state.userDataReducer[0]?.data?.user.id;
   });
   //  console.log(post['user.first'])
   return (
@@ -34,7 +34,7 @@ export const PostHeader = ({ post, styles }) => {
           src={
             post["user.profilePicture"]
               ? post["user.profilePicture"]
-              : user.profilePicture
+              : user?.profilePicture
           }
         ></Avatar>
       }

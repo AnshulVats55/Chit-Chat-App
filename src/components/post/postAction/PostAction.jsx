@@ -1,17 +1,18 @@
-import {
-  Box,
-  CardActions,
-  Checkbox,
-  IconButton,
-} from "@mui/material";
+import { Box, CardActions, Checkbox, IconButton } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
 import CommentIcon from "@mui/icons-material/Comment";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { PostActionStyles } from "./PostActionStyles";
 import CommentWindow from "../../../components/simple-comments/ CommentWindow";
 import { useDispatch, useSelector } from "react-redux";
-import { increasePostLikes, decreasePostLikes } from "../../../store/slices/LikeSlice";
-import { increasePostComments, decreasePostComments } from '../../../store/slices/CommentSlice';
+import {
+  increasePostLikes,
+  decreasePostLikes,
+} from "../../../store/slices/LikeSlice";
+import {
+  increasePostComments,
+  decreasePostComments,
+} from "../../../store/slices/CommentSlice";
 
 export const PostAction = ({ commentCount, post }) => {
   const { classes } = PostActionStyles();
@@ -22,66 +23,66 @@ export const PostAction = ({ commentCount, post }) => {
   const [likeId, setLikeId] = useState("");
 
   const currentUserId = useSelector((state) => {
-    return state.userDataReducer[0].data.user.id;
+    return state?.userDataReducer[0]?.data?.user.id;
   });
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const allPostDetails = useSelector((state)=>{
-      return state.likeDataReducer;
-    });
+  const allPostDetails = useSelector((state) => {
+    return state.likeDataReducer;
+  });
 
-    let totalLikes;
-    const postId = post.id;
-    allPostDetails.map((post)=>{
-      if(post.postId == postId){
-        totalLikes = post.currentLikesCount;
-      }
-    });
-
-    useEffect(()=>{
-      allPostDetails.map((post)=>{
-        post.usersWhoLiked.map((like)=>{
-          if(currentUserId === like.user.id){
-            setLikeId(like.id);
-            setIsLiked(true);
-          }
-        });
-      });
-    }, []);
-
-    const handleShowComments = (scrollType) => {
-        setShowComments(!showComments);
-        setScroll(scrollType);
-        dispatch(increasePostComments({postId: postId}));
+  let totalLikes;
+  const postId = post.id;
+  allPostDetails.map((post) => {
+    if (post.postId == postId) {
+      totalLikes = post.currentLikesCount;
     }
+  });
 
-    const handleClose = () => {
-        setShowComments(!showComments);
-    };
-    
-    const descriptionElementRef = useRef(null);
-    useEffect(() => {
-        if (showComments) {
-        const { current: descriptionElement } = descriptionElementRef;
-        if (descriptionElement !== null) {
-            descriptionElement.focus();
-          }
+  useEffect(() => {
+    allPostDetails.map((post) => {
+      post.usersWhoLiked.map((like) => {
+        if (currentUserId === like.user.id) {
+          setLikeId(like.id);
+          setIsLiked(true);
         }
-    }, [showComments]);
-
-    const axios = require('axios');
-    let data = JSON.stringify({
-      "userId": currentUserId,
-      "postId": postId
+      });
     });
+  }, []);
+
+  const handleShowComments = (scrollType) => {
+    setShowComments(!showComments);
+    setScroll(scrollType);
+    dispatch(increasePostComments({ postId: postId }));
+  };
+
+  const handleClose = () => {
+    setShowComments(!showComments);
+  };
+
+  const descriptionElementRef = useRef(null);
+  useEffect(() => {
+    if (showComments) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [showComments]);
+
+  const axios = require("axios");
+  let data = JSON.stringify({
+    userId: currentUserId,
+    postId: postId,
+  });
 
   const handleLikes = async () => {
     if (!isLiked) {
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: "http://172.16.1.135:8484/v1/like",
+        url: "https://five5chitchat-knnx.onrender.com/v1/like",
         headers: {
           token: localStorage.getItem("token"),
           "Content-Type": "application/json",
@@ -104,7 +105,7 @@ export const PostAction = ({ commentCount, post }) => {
       let config = {
         method: "delete",
         maxBodyLength: Infinity,
-        url: `http://172.16.1.135:8484/v1/like/${likeId}`,
+        url: `https://five5chitchat-knnx.onrender.com/v1/like/${likeId}`,
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -125,13 +126,13 @@ export const PostAction = ({ commentCount, post }) => {
   return (
     <CardActions className={classes.postActionCont}>
       <Box>
-          <IconButton aria-label="add to favorites" onClick={handleLikes}>
-            <Checkbox
-              icon={<FavoriteBorder />}
-              checked={isLiked}
-              checkedIcon={<Favorite sx={{color: "red"}} />}
-            />
-          </IconButton>
+        <IconButton aria-label="add to favorites" onClick={handleLikes}>
+          <Checkbox
+            icon={<FavoriteBorder />}
+            checked={isLiked}
+            checkedIcon={<Favorite sx={{ color: "red" }} />}
+          />
+        </IconButton>
         <span className={classes.Hide}>{totalLikes} likes</span>
       </Box>
 
@@ -144,9 +145,7 @@ export const PostAction = ({ commentCount, post }) => {
         >
           <Checkbox icon={<CommentIcon />} checkedIcon={<CommentIcon />} />
         </IconButton>
-        {
-        showComments
-        ?
+        {showComments ? (
           <CommentWindow
             handleClose={handleClose}
             open={showComments}
@@ -154,9 +153,9 @@ export const PostAction = ({ commentCount, post }) => {
             descriptionElementRef={descriptionElementRef}
             post={post}
           />
-          :
+        ) : (
           <></>
-        }
+        )}
         <span className={classes.Hide}>{post?.comments?.length} comments</span>
       </Box>
     </CardActions>

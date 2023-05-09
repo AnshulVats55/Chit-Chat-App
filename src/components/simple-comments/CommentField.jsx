@@ -29,7 +29,7 @@ const CommentField = ({ handleSubmit, post }) => {
   const [input, setInput] = useState();
   const {createComment} = useCommentsContext()
   const currentUserId = useSelector((state) => {
-    return state.userDataReducer[0].data.user.id;
+    return state?.userDataReducer[0]?.data?.user.id;
   });
 
   const userToken = localStorage.getItem("token");
@@ -55,7 +55,7 @@ const CommentField = ({ handleSubmit, post }) => {
     return state.userDataReducer[0];
   });
 
-  const userProfilePicture = userDetails.data.user.profilePicture;
+  const userProfilePicture = userDetails?.data?.user.profilePicture;
 
   return (
     <Box className={classes.commentBoxStyles}>
