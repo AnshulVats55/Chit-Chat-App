@@ -13,8 +13,25 @@ export const ListStyles = makeStyles()((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     flexDirection:"row",
-    // border:"2px solid red",
   },
+
+  friendRequestContStyles:{
+    overflowY:"scroll",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+  },
+
+  searchFriendContStyles:{
+    minHeight: "30vh",
+    width:"100%",
+    overflowY:"scroll",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+    background:'#f3f9ff'
+  },
+
   searchBar: {
     border: "none",
     outline: "none",
@@ -23,37 +40,38 @@ export const ListStyles = makeStyles()((theme) => ({
     width:"95%",
     cursor:"pointer"
   },
+
   icon: {
     padding: "10px",
     color: "#363a91",
     textAlign: "right",
   },
+
   avatar: {
     backgroundColor: "#363a91",
     marginRight: "1rem",
   },
-  friendGrid: {
+
+  friendContStyles: {
+    position:'fixed',
+    top:'15vh',
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "space-between",
-    height: "77vh",
-    width: "100%",
-    // marginTop: "2rem",
-    // padding: "0 2rem",
-    // border:"2px solid red",
-    
+    maxWidth: "100%",
+    overflowY:'hidden',
+    height:'auto',
   },
+
   friendContainer: {
     overflowY: "scroll",
-    overflowX: "hidden",
     width: "100%",
-    
-    minHeight:"90%",
+    minHeight:"20vh",
     "&::-webkit-scrollbar": {
       display: "none",
     },
   },
+
   single: {
     display: "flex",
     borderRadius: "10px",
@@ -63,12 +81,11 @@ export const ListStyles = makeStyles()((theme) => ({
     width: "100%",
     overflowWrap: "break-word",
     wordBreak: "break-word",
-    // border: "1px solid blue",
     maxHeight: "20%",
-    // minHeight: "50%",
     overflow: "hidden",
     cursor:"pointer"
   },
+
   single1: {
     display: "flex",
     marginBottom: "10px",
@@ -76,12 +93,15 @@ export const ListStyles = makeStyles()((theme) => ({
     justifyContent: "flex-start",
     paddingTop: "0.5rem",
   },
+
   h6: {
     color: "grey",
   },
+
   time: {
     marginTop: "0.5rem",
     width: "10%",
     textAlign: "right",
   },
+
 }));

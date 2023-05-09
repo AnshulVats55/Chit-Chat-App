@@ -1,15 +1,15 @@
 import React from 'react';
 import SearchFriend from './SearchFriend';
 import FriendRequests from './FriendRequests';
-// import { socket } from "../chatWindow/ChatWindow";
 import { socket } from "../../pages/FinalLayout/FinalLayout";
 import { useSelector } from "react-redux";
 import { ListStyles } from "../friendList/FriendList.styles";
-
-
+import { Box } from '@mui/material';
 
 const Request = () => {
+  
   const { classes } = ListStyles();
+
   const userDetails = useSelector((state) => {
     return state.userDataReducer[0];
   });
@@ -19,13 +19,11 @@ const Request = () => {
   socket.emit("newUser", { id: userId, name: userFullName });
 
   return (
-    <div style={{width:"27%",textAlign:"center"}} className={classes.friendGrid}>
-    <SearchFriend/>
-
-    <FriendRequests/>
-   
-    </div>
+    <Box className={classes.friendContStyles}>
+      <SearchFriend/>
+      <FriendRequests/>
+    </Box>
   )
 }
 
-export default Request
+export default Request;

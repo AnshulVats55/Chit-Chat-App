@@ -15,6 +15,9 @@ import { useToast } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { setUserData } from "../../store/slices/UserDataSlice";
 
+import MaleAvatar from '../../assets/male avatar.jpg';
+import FemaleAvatar from '../../assets/female avatar.jpg';
+
 const UserProfileIcon = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -31,8 +34,11 @@ const UserProfileIcon = () => {
     return state.userDataReducer[0];
   });
 
+  console.log(userDetails);
+
   const userProfilePicture = userDetails.data.user.profilePicture,
-    userFullName =userDetails.data.user.firstName + " " + userDetails.data.user.lastName;
+    userFullName =userDetails.data.user.firstName + " " + userDetails.data.user.lastName,
+    userGender = userDetails.data.user.gender;
 
   const toast = useToast();
 
@@ -59,7 +65,7 @@ const UserProfileIcon = () => {
         <IconButton onClick={handleOpenUserMenu}>
           <Avatar
             alt="Remy Sharp"
-            src={userProfilePicture}
+            src={userProfilePicture ? userProfilePicture : userGender === "male" ? MaleAvatar : FemaleAvatar}
             sx={{
               backgroundColor: "#363a91",
               "@media screen and (max-width: 350px)": {

@@ -91,7 +91,7 @@ export const PostAction = ({ commentCount, post }) => {
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: "http://172.16.1.135:8484/v1/like",
+        url: "http://192.168.1.110:8484/v1/like",
         headers: {
           token: localStorage.getItem("token"),
           "Content-Type": "application/json",
@@ -110,11 +110,12 @@ export const PostAction = ({ commentCount, post }) => {
           increasePostLikes({ postId: postId, likeId: response.data.data.id })
         );
       }
-    } else {
+    }
+    else {
       let config = {
         method: "delete",
         maxBodyLength: Infinity,
-        url: `http://172.16.1.135:8484/v1/like/${likeId}`,
+        url: `http://192.168.1.110:8484/v1/like/${likeId}`,
         headers: {
           token: localStorage.getItem("token"),
         },

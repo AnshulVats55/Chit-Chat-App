@@ -21,7 +21,7 @@ const FriendRequests = () => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `http://172.16.1.135:8484/v1/relationship/request?id=${userId}`,
+      url: `http://192.168.1.110:8484/v1/relationship/request?id=${userId}`,
       headers: {
         token:localStorage.getItem("token"),
       },
@@ -69,12 +69,13 @@ const FriendRequests = () => {
       style={{
         minHeight: "55%",
         marginTop: "2rem",
-        border: "2px solid green",
         width: "100%",
-        overflowY:"scroll"
+        overflowY:"scroll",
+        background:'#f3f9ff',
       }}
+      className={classes.friendRequestContStyles}
     >
-      <Typography sx={{ marginBottom: "0.5rem" }} variant="h5">
+      <Typography sx={{ margin: "0.5rem 0rem", textAlign:'center'}} variant="h6">
         Your Requests
       </Typography>
       <div style={{ height: "100%" }} className={classes.friendContainer}>
@@ -94,8 +95,8 @@ const FriendRequests = () => {
                   <IconButton
                     onClick={() =>
                       acceptRequest(
-                        s.id,
-                        userId
+                        s?.id?s?.id: s.newRelationship.followerUserId,
+                        userId?userId:s.newRelationship.followedUserId
                       )
                     }
                   >
@@ -109,15 +110,8 @@ const FriendRequests = () => {
                       )
                     }>
                     <CloseIcon />
-                  </IconButton>
-  
-                  
-                </Box>
-                
-              
-              
-              
-             
+                  </IconButton>               
+                </Box>         
             </Box>
           );
         })}
