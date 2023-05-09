@@ -27,7 +27,7 @@ const ChatPage = () => {
 
       maxBodyLength: Infinity,
 
-      url: `http://172.16.1.135:8484/v1/relationship/all/${userId}`,
+      url: `http://192.168.1.110:8484/v1/relationship/all/${userId}`,
 
       headers: {
         token:localStorage.getItem("token"),
@@ -56,7 +56,7 @@ const ChatPage = () => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `http://172.16.1.135:8484/v1/chat?senderId=${userId}&receiverId=${id}`,
+      url: `http://192.168.1.110:8484/v1/chat?senderId=${userId}&receiverId=${id}`,
       // url: `https://five5chitchat.onrender.com/v1/chat?senderId=${userId}&receiverId=${id}`,
       headers: {
         token:localStorage.getItem("token"),

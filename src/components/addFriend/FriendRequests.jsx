@@ -6,8 +6,10 @@ import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton, Box, Avatar, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useToast } from "@chakra-ui/react";
 
 const FriendRequests = () => {
+  const toast = useToast();
   const { classes } = ListStyles();
   const [newRequest, setNewRequest] = useState([]);
   
@@ -21,7 +23,7 @@ const FriendRequests = () => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `http://172.16.1.135:8484/v1/relationship/request?id=${userId}`,
+      url: `http://192.168.1.110:8484/v1/relationship/request?id=${userId}`,
       headers: {
         token:localStorage.getItem("token"),
       },
@@ -53,6 +55,14 @@ const FriendRequests = () => {
       status: "Accepted",
     });
     setNewRequest([]);
+    toast({
+      title: "Friend Request accepted!",
+      position: "top",
+      description: "",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
   };
   const rejectRequest =(sender, receiver) => {
     console.log("hi", sender, receiver);
@@ -62,6 +72,14 @@ const FriendRequests = () => {
       status: "Failure",
     });
     setNewRequest([]);
+    toast({
+      title: "Friend request rejected !",
+      position: "top",
+      description: "",
+      status: "error",
+      duration: 2000,
+      isClosable: true,
+    });
   };
 
   return (

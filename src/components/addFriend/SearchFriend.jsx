@@ -7,8 +7,11 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useSelector } from "react-redux";
 // import { socket } from "../chatWindow/ChatWindow";
 import { socket } from "../../pages/FinalLayout/FinalLayout";
+import { useToast } from "@chakra-ui/react";
 
 const SearchFriend = () => {
+
+  const toast = useToast();
   const userDetails = useSelector((state) => {
     return state.userDataReducer[0];
   });
@@ -24,6 +27,14 @@ const SearchFriend = () => {
   const addFriend = (id) => {
     // console.log("hello","recieverId ==",id,"senderId==",userId)
     socket.emit("addFriend", { followerUserId: userId, followedUserId: id });
+    toast({
+      title: "Friend Request Sent Succesfully !",
+      position: "top",
+      description: "",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
   
     
   };
@@ -33,7 +44,7 @@ const SearchFriend = () => {
 
       maxBodyLength: Infinity,
 
-      url: `http://172.16.1.135:8484/v1/relationship/all/${userId}`,
+      url: `http://192.168.1.110:8484/v1/relationship/all/${userId}`,
 
       headers: {
         token: localStorage.getItem("token"),
@@ -57,7 +68,7 @@ const SearchFriend = () => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `http://172.16.1.135:8484/v1/user`,
+      url: `http://192.168.1.110:8484/v1/user`,
       headers: {
         token: localStorage.getItem("token"),
       },

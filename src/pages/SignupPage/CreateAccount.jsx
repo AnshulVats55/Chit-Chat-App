@@ -58,7 +58,7 @@ const CreateAccount = () => {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://172.16.1.135:8484/v1/signup",
+      url: "http://192.168.1.110:8484/v1/signup",
       headers: {
         "Content-Type": "application/json",
       },

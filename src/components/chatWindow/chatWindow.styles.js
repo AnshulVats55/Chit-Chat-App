@@ -7,10 +7,9 @@ export const ChatStyles = makeStyles()((theme) => {
       height: "100%",
       bordeRadius: "1rem",
       backgroundColor: "rgb(33, 108, 108)",
-    
     },
-    ChatwindowNot:{
-      display:"none"
+    ChatwindowNot: {
+      display: "none",
     },
 
     chatHeader: {
@@ -29,9 +28,9 @@ export const ChatStyles = makeStyles()((theme) => {
       fontWeight: "bolder",
     },
 
-    avatar:{
+    avatar: {
       // backgroundColor: "#363a91",
-       marginRight: "1rem",
+      marginRight: "1rem",
     },
 
     chatBody: {
@@ -58,13 +57,12 @@ export const ChatStyles = makeStyles()((theme) => {
       display: "flex",
       justifyContent: "flex-start",
       padding: "1rem",
-      
     },
     messageContent: {
       width: "auto",
       height: "auto",
       minHeight: "2rem",
-      minWidth:"10%",
+      minWidth: "10%",
       maxWidth: "60%",
       // backgroundColor: "rgb(289, 241, 236)",
       backgroundColor: "#363a91",
@@ -91,7 +89,7 @@ export const ChatStyles = makeStyles()((theme) => {
       width: "auto",
       height: "auto",
       minHeight: "2rem",
-      minWidth:"10%",
+      minWidth: "10%",
       maxWidth: "60%",
       backgroundColor: "#4c4ced",
       borderRadius: "0.5rem",
@@ -116,13 +114,11 @@ export const ChatStyles = makeStyles()((theme) => {
 
     msg: {
       color: "#fff",
-      
     },
     messageMeta: {
-      width:"100%",
+      width: "100%",
       display: "flex",
-      justifyContent:"space-between",
-      
+      justifyContent: "space-between",
     },
 
     chatFooter: {
@@ -130,17 +126,22 @@ export const ChatStyles = makeStyles()((theme) => {
       justifyContent: "space-between",
       height: "12%",
       width: "100%",
-      margin: "auto",
+      // margin: "auto",
+      // bordeRadius:"20px",
+      // "&:focus":{
+      //   border: " 0.5px solid #363a91",
+        
+      // }
     },
 
-    input: {
-      border: "none",
+    input: { 
       outline: "none",
       width: "95%",
       marginLeft: "0.5rem",
       padding: "0.7rem",
-
       fontSize: "1rem",
+      
+     
     },
     author: {
       marginRight: "2px",
@@ -152,15 +153,24 @@ export const ChatStyles = makeStyles()((theme) => {
       bordeRadius: "50%",
       "&:hover": {
         color: "green",
-        
       },
     },
-   
-    time:{
-       
-      color:"#fff",
-      fontSize:"0.8rem",
-      marginTop:"0.2rem"
-    }
+
+    time: {
+      color: "#fff",
+      fontSize: "0.8rem",
+      marginTop: "0.2rem",
+    },
+    picture: {
+      backgroundColor: "red",
+      display: "flex",
+      justifyContent: "center",
+      height: "50%",
+      backgroundColor: "#fff",
+    },
+
+    pic: {
+      width: "38rem",
+    },
   };
 });
