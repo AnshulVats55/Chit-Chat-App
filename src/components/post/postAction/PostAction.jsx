@@ -13,6 +13,7 @@ import {
   increasePostComments,
   decreasePostComments,
 } from "../../../store/slices/CommentSlice";
+import IP_ADDRESS from '../../../api/IPAddress'
 
 export const PostAction = ({ commentCount, post }) => {
   const { classes } = PostActionStyles();
