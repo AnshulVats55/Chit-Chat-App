@@ -11,6 +11,7 @@ import { PostActionStyles } from "./PostActionStyles";
 import CommentWindow from "../../../components/simple-comments/ CommentWindow";
 import { useDispatch, useSelector } from "react-redux";
 import { increasePostLikes, decreasePostLikes } from "../../../store/slices/LikeSlice";
+import IP_ADDRESS from "../../../api/IPAddress";
 
 export const PostAction = ({ commentCount, post }) => {
   const { classes } = PostActionStyles();
@@ -91,7 +92,7 @@ export const PostAction = ({ commentCount, post }) => {
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: "http://192.168.1.110:8484/v1/like",
+        url: `${IP_ADDRESS}/v1/like`,
         headers: {
           token: localStorage.getItem("token"),
           "Content-Type": "application/json",
@@ -115,7 +116,7 @@ export const PostAction = ({ commentCount, post }) => {
       let config = {
         method: "delete",
         maxBodyLength: Infinity,
-        url: `http://192.168.1.110:8484/v1/like/${likeId}`,
+        url: `${IP_ADDRESS}/v1/like/${likeId}`,
         headers: {
           token: localStorage.getItem("token"),
         },

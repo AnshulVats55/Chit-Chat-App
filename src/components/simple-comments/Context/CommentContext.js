@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 import { increasePostComments, decreasePostComments } from '../../../store/slices/CommentSlice';
 import { useDispatch } from "react-redux";
 import { useToast } from "@chakra-ui/react";
+import IP_ADDRESS from '../../../api/IPAddress';
 
 const CommentsContext = createContext();
 
@@ -19,7 +20,7 @@ function Provider({ children, post }) {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://192.168.1.110:8484/v1/comment",
+      url: `${IP_ADDRESS}/v1/comment`,
       headers: {
         token: userToken,
         "Content-Type": "application/json",
@@ -59,7 +60,7 @@ function Provider({ children, post }) {
     let config = {
       method: "delete",
       maxBodyLength: Infinity,
-      url: `http://192.168.1.110:8484/v1/comment/${id}`,
+      url: `${IP_ADDRESS}/v1/comment/${id}`,
       headers: {
         token: userToken,
       },

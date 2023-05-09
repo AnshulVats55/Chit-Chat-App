@@ -1,5 +1,5 @@
 import React, { useEffect, useState, createContext } from "react";
-import { Box, Grid, Container } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { PostStyles } from "./post.styles";
 import Post from "./Post";
 import CreatePost from "./createPost/CreatePost";
@@ -9,8 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPostData, createPostByRedux, deletePostById } from "../../store/slices/PostDataSlice";
 import { setPostCurrentLikes, resetInitialState } from '../../store/slices/LikeSlice';
 import { setUserComments, resetCommentInitialState } from '../../store/slices/CommentSlice';
-import { useNavigate } from "react-router-dom";
-import Request from "../addFriend/Request"
+import Request from "../addFriend/Request";
 
 const PostContext = createContext();
 
@@ -18,7 +17,6 @@ export const Posts = () => {
   const { classes } = PostStyles();
 
   const { getPosts, createPost, deletePost } = postApi();
-  const navigate = useNavigate();
   const toast = useToast();
 
   const posts = useSelector((state) => {

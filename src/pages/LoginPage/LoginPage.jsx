@@ -1,10 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import IP_ADDRESS from "../../api/IPAddress";
 
 import { Container, Box, Grid, TextField, Typography } from "@mui/material";
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 
 import CommonButton from "../../components/Button/CommonButton";
 import { getLoginPageStyles } from "./LoginPage.styles";
@@ -60,7 +59,7 @@ const LoginPage = () => {
     let request = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://192.168.1.110:8484/v1/login",
+      url: `${IP_ADDRESS}/v1/login`,
       headers: {
         "Content-Type": "application/json",
       },

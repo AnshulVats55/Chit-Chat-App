@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import IP_ADDRESS from '../../api/IPAddress';
 import {
   Container,
   TextField,
@@ -55,7 +56,7 @@ const CreateAccount = () => {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://192.168.1.110:8484/v1/signup",
+      url: `${IP_ADDRESS}/v1/signup`,
       headers: {
         "Content-Type": "application/json",
       },
