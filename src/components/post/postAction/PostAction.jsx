@@ -167,7 +167,7 @@ export const PostAction = ({ commentCount, post }) => {
     </CardActions>
   );
 };
-
+}
 // PostAction.defaultProps ={
 //     likeCount : '12',
 //     commentCount:'30'
