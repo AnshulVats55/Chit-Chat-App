@@ -11,27 +11,9 @@ import UserProfileIcon from './UserProfileIcon';
 
 import Logo from '../../assets/fiftyfive-logo.png';
 
-// const pages = [
-//     {
-//         to: '/feedLayout',
-//         icon: <HomeIcon fontSize="large" ></HomeIcon>
-//     },
-
-//     {
-//         to: '/chat',
-//         icon: <ChatIcon fontSize="large"></ChatIcon>
-//     },
-
-//     {
-
-//         to: '/groups',
-//         icon: <GroupsIcon fontSize="large"></GroupsIcon>
-//     }
-// ];
-
 const pagesScroll = [
     {
-        to: '/feedLayout',
+        to: '/',
         data: "Home"
     },
 
@@ -39,11 +21,6 @@ const pagesScroll = [
         to: '/chat',
         data: "Chat"
     },
-
-    {
-        to: '/groups',
-        data: "Groups"
-    }
 ];
 
 function Navbar() {
@@ -110,20 +87,6 @@ function Navbar() {
                         </Box>
                         <Typography variant='h5' className={classes.h5}>Chit-Chat</Typography>
                     </Box>
-
-                    {/* <Box className={classes.iconsContainer}>
-                        {pages.map((page) => (
-                            <Link
-                                to={page.to}
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                className={classes.icons}
-                            >
-                                {page.icon}
-                            </Link>
-                        ))}
-                    </Box> */}
-
 
                     {/* small devices */}
 

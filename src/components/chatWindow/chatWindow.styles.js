@@ -7,12 +7,9 @@ export const ChatStyles = makeStyles()((theme) => {
       height: "100%",
       bordeRadius: "1rem",
       backgroundColor: "rgb(33, 108, 108)",
-
-
     },
     ChatwindowNot: {
       display: "none",
-
     },
 
     chatHeader: {
@@ -60,7 +57,6 @@ export const ChatStyles = makeStyles()((theme) => {
       display: "flex",
       justifyContent: "flex-start",
       padding: "1rem",
-
     },
     messageContent: {
       width: "auto",
@@ -118,13 +114,11 @@ export const ChatStyles = makeStyles()((theme) => {
 
     msg: {
       color: "#fff",
-
     },
     messageMeta: {
       width: "100%",
       display: "flex",
       justifyContent: "space-between",
-
     },
 
     chatFooter: {
@@ -132,17 +126,22 @@ export const ChatStyles = makeStyles()((theme) => {
       justifyContent: "space-between",
       height: "12%",
       width: "100%",
-      margin: "auto",
+      // margin: "auto",
+      // bordeRadius:"20px",
+      // "&:focus":{
+      //   border: " 0.5px solid #363a91",
+        
+      // }
     },
 
-    input: {
-      border: "none",
+    input: { 
       outline: "none",
       width: "95%",
       marginLeft: "0.5rem",
       padding: "0.7rem",
-
       fontSize: "1rem",
+      
+     
     },
     author: {
       marginRight: "2px",
@@ -154,48 +153,24 @@ export const ChatStyles = makeStyles()((theme) => {
       bordeRadius: "50%",
       "&:hover": {
         color: "green",
-
       },
     },
 
     time: {
-
       color: "#fff",
       fontSize: "0.8rem",
-      marginTop: "0.2rem"
+      marginTop: "0.2rem",
     },
-
-
-
-    // picture:{
-    //     backgroundColor:"red",
-    //     display:"flex",
-    //     justifyContent:"center",
-    //     backgroundColor:"yellow",
-    //     height:"50%"
-    // },
-    // pic:{
-    //   width:'40rem',
-    //   backgroundColor:"red",
-    //   height:"50%",
-    //   "@media screen and (max-width: 960px)": {
-    //     width:"70rem",
-    //   },
-
-    // }
     picture: {
+      backgroundColor: "red",
       display: "flex",
       justifyContent: "center",
-      height: "100%",
-      width:"100%",
+      height: "50%",
       backgroundColor: "#fff",
-
     },
 
     pic: {
-
-      width: '50rem',
-
-    }
+      width: "38rem",
+    },
   };
 });

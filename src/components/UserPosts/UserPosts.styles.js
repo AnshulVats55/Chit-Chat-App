@@ -1,6 +1,6 @@
 import { makeStyles } from "tss-react/mui";
 
-export const getGridLayoutStyles = makeStyles()((theme)=>{
+export const getUserPostStyles = makeStyles()((theme)=>{
     return({
         gridContainerStyles:{
             margin:'20px 0px',
@@ -40,6 +40,16 @@ export const getGridLayoutStyles = makeStyles()((theme)=>{
                 filter:'blur(0px)',
                 boxShadow: 'rgba(0, 0, 0, 0.4) 0px 30px 90px',
             },
+        },
+
+        userPostGridItemStyles: {
+            display: 'flex',
+            flexDirection:'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius:'10px',
+            textAlign:'center',
+            transition:'0.3s ease-in-out',
         },
 
         userPostContStyles: {
@@ -84,10 +94,20 @@ export const getGridLayoutStyles = makeStyles()((theme)=>{
             },
         },
 
-        userPostStyles: {
+        userPostStylesOne: {
             maxWidth:'95%',
             backgroundSize:'cover',
-            borderRadius:'10px',
+            borderRadius:'5px',
+            transition:'0.3s ease-in-out',
+            '&:hover': {
+                transform:'scale(0.99)',
+            },
+        },
+
+        userPostStylesTwo:{
+            maxWidth:'95%',
+            backgroundSize:'cover',
+            borderRadius:'5px',
             transition:'0.3s ease-in-out',
             '&:hover': {
                 transform:'scale(0.99)',
@@ -99,7 +119,7 @@ export const getGridLayoutStyles = makeStyles()((theme)=>{
             display:'flex',
             justifyContent:'center',
             alignItems:'center',
-            marginTop:'5px',
+            margin:'20px 0px',
         },
 
         postCaption: {

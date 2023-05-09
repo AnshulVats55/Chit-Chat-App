@@ -6,8 +6,10 @@ import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton, Box, Avatar, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useToast } from "@chakra-ui/react";
 
 const FriendRequests = () => {
+  const toast = useToast();
   const { classes } = ListStyles();
   const [newRequest, setNewRequest] = useState([]);
   
@@ -53,6 +55,14 @@ const FriendRequests = () => {
       status: "Accepted",
     });
     setNewRequest([]);
+    toast({
+      title: "Friend Request accepted!",
+      position: "top",
+      description: "",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
   };
   const rejectRequest =(sender, receiver) => {
     console.log("hi", sender, receiver);
@@ -62,19 +72,28 @@ const FriendRequests = () => {
       status: "Failure",
     });
     setNewRequest([]);
+    toast({
+      title: "Friend request rejected !",
+      position: "top",
+      description: "",
+      status: "error",
+      duration: 2000,
+      isClosable: true,
+    });
   };
 
   return (
     <div
       style={{
         minHeight: "55%",
-        marginTop: "5rem",
-        // border: "2px solid green",
+        marginTop: "2rem",
         width: "100%",
-        
+        overflowY:"scroll",
+        background:'#f3f9ff',
       }}
+      className={classes.friendRequestContStyles}
     >
-      <Typography sx={{ marginBottom: "0.5rem" }} variant="h5">
+      <Typography sx={{ margin: "0.5rem 0rem", textAlign:'center'}} variant="h6">
         Your Requests
       </Typography>
       <div style={{ height: "100%",overflowY:"scroll",scrollbarWidth:"none" }} className={classes.friendContainer}>
@@ -109,15 +128,8 @@ const FriendRequests = () => {
                       )
                     }>
                     <CloseIcon />
-                  </IconButton>
-  
-                  
-                </Box>
-                
-              
-              
-              
-             
+                  </IconButton>               
+                </Box>         
             </Box>
           );
         })}

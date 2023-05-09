@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
+import IP_ADDRESS from './IPAddress';
 
 const PostApi = () => {
   const currentUserId = useSelector((state) => {
-    return state.userDataReducer[0].data.user.id;
+    return state.userDataReducer[0]?.data?.user.id;
   });
 
   const createPost = async (datapost) => {
@@ -16,7 +17,7 @@ const PostApi = () => {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://192.168.1.110:8484/v1/post/",
+      url: `${IP_ADDRESS}/v1/post/`,
       headers: {
         token: localStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -32,7 +33,7 @@ const PostApi = () => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: "http://192.168.1.110:8484/v1/post/allPost",
+      url: `${IP_ADDRESS}/v1/post/allPost`,
       headers: {
         token: localStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -47,7 +48,7 @@ const PostApi = () => {
     let config = {
       method: "delete",
       maxBodyLength: Infinity,
-      url: `http://192.168.1.110:8484/v1/post/delete/${id}`,
+      url: `${IP_ADDRESS}/v1/post/delete/${id}`,
       headers: {
         token: localStorage.getItem("token"),
       },

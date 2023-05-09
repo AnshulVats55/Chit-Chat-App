@@ -121,14 +121,10 @@ const ChatPage = () => {
           />
         </Grid>
         {/* <SearchFriend/> */}
-        
       </Grid>
     </Box>
-    
     </Box>
   );
 };
 
 export default ChatPage;
-
-

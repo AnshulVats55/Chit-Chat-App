@@ -13,7 +13,7 @@ export const chatStyle = makeStyles()((theme,styles)=>{
         top:'14vh',
         left:'7%',
         position:'fixed',
-   
+        
         '@media screen and (max-width: 900px)': {
             left:'0vw',
             width:'100%',
@@ -21,7 +21,7 @@ export const chatStyle = makeStyles()((theme,styles)=>{
       },
 
    container:{
-    //  backgroundColor:"#f1f0fa",
+    // backgroundColor:"#f1f0fa",
     marginTop:"2rem",
     height:"100vh",
     width:"100%",

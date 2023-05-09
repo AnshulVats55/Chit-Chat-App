@@ -1,84 +1,102 @@
-import { Box, CardActions, Checkbox, IconButton, Modal, Dialog, Button } from "@mui/material";
+import { Box, CardActions, Checkbox, IconButton } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
 import CommentIcon from "@mui/icons-material/Comment";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { PostActionStyles } from "./PostActionStyles";
-import CommentWindow from '../../../components/simple-comments/ CommentWindow';
+import CommentWindow from "../../../components/simple-comments/ CommentWindow";
 import { useDispatch, useSelector } from "react-redux";
-import { setPostCurrentLikes, increasePostLikes, decreasePostLikes } from '../../../store/slices/LikeSlice';
+import {
+  increasePostLikes,
+  decreasePostLikes,
+} from "../../../store/slices/LikeSlice";
+import {
+  increasePostComments,
+  decreasePostComments,
+} from "../../../store/slices/CommentSlice";
+import IP_ADDRESS from '../../../api/IPAddress'
 
 export const PostAction = ({ commentCount, post }) => {
+  const { classes } = PostActionStyles();
 
-    const { classes } = PostActionStyles();
+  const [showComments, setShowComments] = useState(false);
+  const [scroll, setScroll] = useState("paper");
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeId, setLikeId] = useState("");
 
-    const [showComments, setShowComments] = useState(false);
-    const [scroll, setScroll] = useState('paper');
-    const [isLiked, setIsLiked] = useState(false);
-    const [likeId, setLikeId] = useState("");
+  const currentUserId = useSelector((state) => {
+    return state?.userDataReducer[0]?.data?.user.id;
+  });
 
-    const currentUserId = useSelector((state)=>{
-      return state.userDataReducer[0].data.user.id;
+  const dispatch = useDispatch();
+
+  const allPostDetails = useSelector((state) => {
+    return state.likeDataReducer;
+  });
+
+    const allCommentDetails = useSelector((state)=>{
+      return state.commentDataReducer;
     });
-    
-    const postId = post.id;
-
-    const dispatch = useDispatch();
-
-    const allPostDetails = useSelector((state)=>{
-        return state.likeDataReducer;
-    });
-    console.log(allPostDetails);
+    console.log(allCommentDetails);
 
     let totalLikes;
+    const postId = post.id;
     allPostDetails.map((post)=>{
       if(post.postId == postId){
         totalLikes = post.currentLikesCount;
       }
     });
 
+    let totalComments;
+    allCommentDetails.map((post)=>{
+        if(post.postId === postId){
+          totalComments = post.currentCommentsCount;
+        }
+    })
+
     useEffect(()=>{
       allPostDetails.map((post)=>{
-        post.usersWhoLiked.map((user)=>{
-          if(currentUserId === user.user.id){
-            
+        post.usersWhoLiked.map((like)=>{
+          if(currentUserId === like.user.id){
+            setLikeId(like.id);
+            setIsLiked(true);
           }
-        })
+        });
       });
-    }, []);
-    console.log(isLiked);
+    },[]);
+  
 
-    const handleShowComments = (scrollType) => {
-        setShowComments(!showComments);
-        setScroll(scrollType);
+  const handleShowComments = (scrollType) => {
+    setShowComments(!showComments);
+    setScroll(scrollType);
+    dispatch(increasePostComments({ postId: postId }));
+  };
+
+  const handleClose = () => {
+    setShowComments(!showComments);
+  };
+
+  const descriptionElementRef = useRef(null);
+  useEffect(() => {
+    if (showComments) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
     }
+  }, [showComments]);
 
-    const handleClose = () => {
-        setShowComments(!showComments);
-    };
-    
-    const descriptionElementRef = useRef(null);
-    useEffect(() => {
-        if (showComments) {
-        const { current: descriptionElement } = descriptionElementRef;
-        if (descriptionElement !== null) {
-            descriptionElement.focus();
-          }
-        }
-    }, [showComments]);
-
-    //Likes functionality
-    const axios = require('axios');
-    let data = JSON.stringify({
-      "userId": currentUserId,
-      "postId": postId
-    });
+  const axios = require("axios");
+  let data = JSON.stringify({
+    userId: currentUserId,
+    postId: postId,
+  });
 
   const handleLikes = async () => {
     if (!isLiked) {
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: "http://192.168.1.110:8484/v1/like",
+        url: `${IP_ADDRESS}/v1/like`,
         headers: {
           token: localStorage.getItem("token"),
           "Content-Type": "application/json",
@@ -97,11 +115,12 @@ export const PostAction = ({ commentCount, post }) => {
           increasePostLikes({ postId: postId, likeId: response.data.data.id })
         );
       }
-    } else {
+    }
+    else {
       let config = {
         method: "delete",
         maxBodyLength: Infinity,
-        url: `http://192.168.1.110:8484/v1/like/${likeId}`,
+        url: `${IP_ADDRESS}/v1/like/${likeId}`,
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -117,58 +136,43 @@ export const PostAction = ({ commentCount, post }) => {
         dispatch(decreasePostLikes({ postId: postId }));
       }
     }
+  };
 
   return (
     <CardActions className={classes.postActionCont}>
       <Box>
-        {
-          isLiked
-          ?
-          <IconButton aria-label="add to favorites" onClick={handleLikes}>
-            <Checkbox
-              icon={<FavoriteBorder />}
-              checkedIcon={<Favorite sx={{color: "red"}} />}
-            />
-          </IconButton>
-          :
-          <IconButton aria-label="add to favorites" onClick={handleLikes}>
-            <Checkbox
-              icon={<FavoriteBorder />}
-              checkedIcon={<Favorite sx={{color: "red"}} />}
-            />
-          </IconButton>
-        }
-        
+        <IconButton aria-label="add to favorites" onClick={handleLikes}>
+          <Checkbox
+            icon={<FavoriteBorder />}
+            checked={isLiked}
+            checkedIcon={<Favorite sx={{ color: "red" }} />}
+          />
+        </IconButton>
         <span className={classes.Hide}>{totalLikes} likes</span>
       </Box>
 
       <Box>
-        <IconButton aria-label="comment" onClick={()=>{handleShowComments('paper')}}>
-          <Checkbox
-              icon={<CommentIcon />}
-              checkedIcon={<CommentIcon />}
-            />
+        <IconButton
+          aria-label="comment"
+          onClick={() => {
+            handleShowComments("paper");
+          }}
+        >
+          <Checkbox icon={<CommentIcon />} checkedIcon={<CommentIcon />} />
         </IconButton>
-        {
-          showComments
-          ?
+        {showComments ? (
           <CommentWindow
-          handleClose={handleClose}
-          open={showComments}
-          scroll={scroll}
-          descriptionElementRef={descriptionElementRef}
-          post={post}
+            handleClose={handleClose}
+            open={showComments}
+            scroll={scroll}
+            descriptionElementRef={descriptionElementRef}
+            post={post}
           />
-          :
+        ) : (
           <></>
-        }
-        <span className={classes.Hide}>{post.comments.length} comments</span>
+        )}
+        <span className={classes.Hide}>{post?.comments?.length} comments</span>
       </Box>
     </CardActions>
   );
 };
-}
-// PostAction.defaultProps ={
-//     likeCount : '12',
-//     commentCount:'30'
-// }

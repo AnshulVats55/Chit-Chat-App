@@ -7,23 +7,33 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useSelector } from "react-redux";
 // import { socket } from "../chatWindow/ChatWindow";
 import { socket } from "../../pages/FinalLayout/FinalLayout";
+import { useToast } from "@chakra-ui/react";
 
 const SearchFriend = () => {
+
+  const { classes } = ListStyles();
+
+  const toast = useToast();
   const userDetails = useSelector((state) => {
     return state.userDataReducer[0];
   });
 
   const userId = userDetails.data.user.id;
   const [friends, setFriends] = useState([]);
-
-  const { classes } = ListStyles();
   const [serchedUser, setSearchedUSer] = useState([]);
   const [search, setSearch] = useState("");
  
 
   const addFriend = (id) => {
-    // console.log("hello","recieverId ==",id,"senderId==",userId)
     socket.emit("addFriend", { followerUserId: userId, followedUserId: id });
+    toast({
+      title: "Friend Request Sent Succesfully !",
+      position: "top",
+      description: "",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
   
     
   };
@@ -75,8 +85,8 @@ const SearchFriend = () => {
   };
 
   return (
-    <Box className={classes.friendRequest} sx={{  minHeight: "50vh",width:"100%",overflowY:"scroll", }}>
-      <Typography sx={{marginBottom:"0.5rem"}}  variant="h5">Add New Friends</Typography>
+    <Box className={classes.searchFriendContStyles}>
+      <Typography variant="h6" sx={{margin: "0.5rem 0rem", textAlign:'center'}}>Add New Friends</Typography>
       <Paper component="form" className={classes.searchContainer}>
         <input
           className={classes.searchBar}

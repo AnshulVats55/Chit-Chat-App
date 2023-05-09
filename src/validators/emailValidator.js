@@ -1,7 +1,7 @@
 export const emailValidator = (email)=>{
     let message = { 
         text:"",
-        status:false,
+        status:true,
     }
     
     const checkAtTheRate = ()=> /@/.test(email)
@@ -10,10 +10,18 @@ export const emailValidator = (email)=>{
         message.text ="Email Id is correct";
         message.status = true;
     }
-    else{     
+    else if (!checkAtTheRate())    
+        
+         {
+        message.text = "Email Id must contain @"
+        message.status =false
+    }
+    else{
         message.text ="Email Id is invalid"
-        if(!checkAtTheRate()) message.text = "Email Id must contain @"
-        message.status ="false"
+        message.status =false
     }
     return message;
-}
+    
+    }
+    
+

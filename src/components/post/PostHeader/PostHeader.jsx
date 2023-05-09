@@ -7,36 +7,37 @@ import { Dates } from "./Dates/Dates";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PostContext from "../Posts";
 import { useSelector } from "react-redux";
-import DeleteModal from '../../../components/DeleteModal/DeleteModal'
+import DeleteModal from '../../../components/DeleteModal/DeleteModal';
+import MaleAvatar from '../../../assets/male avatar.jpg';
+import FemaleAvatar from '../../../assets/female avatar.jpg';
 
 export const PostHeader = ({ post, styles }) => {
-  const user = useSelector((state) => {
-    return state.userDataReducer[0].data.user;
-  });
+
   const { classes } = PostHeaderStyles(styles);
+  const { loading = false } = { post, styles };
+
+  const user = useSelector((state) => {
+    return state.userDataReducer[0]?.data.user;
+  });
+  console.log(user);
 
   const { handleDeletePost } = useContext(PostContext);
+
   const handleDelete = () => {
-    //  console.log(post.id)
-    //  console.log(handleDeletePost)
     handleDeletePost(post.id);
   };
 
   const currentUserId = useSelector((state) => {
-    return state.userDataReducer[0].data.user.id;
+    return state.userDataReducer[0]?.data?.user.id;
   });
-  //  console.log(post['user.first'])
+
+
   return (
     <CardHeader
       avatar={
         <Avatar
           aria-label="recipe"
-          src={
-            post["user.profilePicture"]
-              ? post["user.profilePicture"]
-              : user.profilePicture
-          }
-        ></Avatar>
+          src={post["user.profilePicture"] ? post["user.profilePicture"] : user.gender === "male" ? MaleAvatar : FemaleAvatar}></Avatar>
       }
       action={
         <IconButton aria-label="settings">
@@ -60,9 +61,3 @@ export const PostHeader = ({ post, styles }) => {
     />
   );
 };
-
-// PostHeader.defaultProps = {
-//   avatarLetter: "R",
-//   title: "Shrimp and Chorizo Paella",
-//   postDate: `${new Date()}`,
-// };

@@ -5,29 +5,34 @@ import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import GroupsIcon from '@mui/icons-material/Groups';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Typography, Box } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { useToast } from '@chakra-ui/react';
 
-const Bar = () => {
-  const {classes}= barStyle();
 
+const Bar = () => {
   const toast = useToast();
+  const navigate = useNavigate()
+  const {classes}= barStyle();
 
   const handleLogout = () => {
     localStorage.clear();
     toast({
-        title: "You're successfully logged out !",
-        position:'top',
-        description: "",
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
+      title: "You're successfully logged out !",
+      position: "top",
+      description: "",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
     });
-    setTimeout(()=>{
+    setTimeout(() => {
+      navigate("/")
       window.location.reload();
+      
     }, 2500);
-  }
+  };
+
+  
 
   return (
   <Box className={classes.mainContainer}>
@@ -47,15 +52,6 @@ const Bar = () => {
           <Box className={classes.item}>
               <ChatBubbleIcon fontSize='large' className={classes.itemIcon}/>
               <Typography variant="body2" className={classes.itemText}>Chat</Typography>
-          </Box>
-        </Link>
-      </Box>
-
-      <Box className={classes.itemCont}>
-        <Link to="/group">
-          <Box className={classes.item}>
-              <GroupsIcon fontSize='large' className={classes.itemIcon}/>
-              <Typography variant="body2" className={classes.itemText}>Group</Typography>
           </Box>
         </Link>
       </Box>

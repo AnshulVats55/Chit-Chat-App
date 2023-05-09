@@ -22,19 +22,26 @@ import { commentStyles } from "./comment/comment.styles";
 import { useDispatch } from "react-redux";
 import { setUserComments } from "../../store/slices/CommentSlice";
 import useCommentsContext from "./hooks/use-comment-context";
+import { useNavigate } from "react-router-dom";
+
+import MaleAvatar from '../../assets/male avatar.jpg';
+import FemaleAvatar from '../../assets/female avatar.jpg';
 
 const CommentField = ({ handleSubmit, post }) => {
   const { classes } = commentStyles();
   const [input, setInput] = useState();
-  const {createComment} = useCommentsContext()
+  const {createComment} = useCommentsContext();
+
   const currentUserId = useSelector((state) => {
-    return state.userDataReducer[0].data.user.id;
+    return state?.userDataReducer[0]?.data?.user.id;
+  });
+
+  const userInformation = useSelector((state)=>{
+      return state.userDataReducer[0];
   });
 
   const userToken = localStorage.getItem("token");
   const dispatch = useDispatch();
-
- 
 
   let data = JSON.stringify({
     body: input,
@@ -46,6 +53,7 @@ const CommentField = ({ handleSubmit, post }) => {
   const handleAddComment = async(e) => {
     e.preventDefault();
     await createComment(data)
+
     setInput("");
   };
 
@@ -53,7 +61,8 @@ const CommentField = ({ handleSubmit, post }) => {
     return state.userDataReducer[0];
   });
 
-  const userProfilePicture = userDetails.data.user.profilePicture;
+  const userProfilePicture = userDetails?.data?.user?.profilePicture,
+        userGender = userDetails?.data?.user?.gender;
 
   return (
     <Box className={classes.commentBoxStyles}>
@@ -74,7 +83,7 @@ const CommentField = ({ handleSubmit, post }) => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <Avatar src={userProfilePicture}></Avatar>
+                    <Avatar src={userProfilePicture ? userProfilePicture : userGender === "male" ? MaleAvatar : FemaleAvatar}></Avatar>
                   </InputAdornment>
                 ),
               }}

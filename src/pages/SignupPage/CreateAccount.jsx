@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import IP_ADDRESS from '../../api/IPAddress';
 import {
   Container,
   TextField,
@@ -11,13 +12,10 @@ import {
   Grid,
   FormControl,
   InputLabel,
-  Input,
-  FormHelperText,
-  Button,
   Select,
 } from "@mui/material";
 
-import { useToast } from "@chakra-ui/react";
+import { background, useToast } from "@chakra-ui/react";
 
 import CommonButton from "../../components/Button/CommonButton";
 import BrandIdentity from "../../components/BrandIdentity/BrandIdentity";
@@ -58,10 +56,12 @@ const CreateAccount = () => {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://192.168.1.110:8484/v1/signup",
+      url: `${IP_ADDRESS}/v1/signup`,
       headers: {
         "Content-Type": "application/json",
       },
+      mode:'no-mode',
+      referrerPolicy:'no-referrer',
       data: data,
     };
 
@@ -286,18 +286,47 @@ const CreateAccount = () => {
                       md={6}
                       sm={12}
                       xs={12}
-                      sx={{ display: "flex", justifyContent: "flex-end" }}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        position: "relative",
+                      }}
                     >
-                      <input
-                        type="file"
-                        multiple={false}
-                        className={classes.imageSelectorStyle}
-                        {...register("profilePicture")}
-                        onChange={(e) => {
-                          getBase64(e.target.files[0]);
-                          setIsProfilePicAttached(true);
+                      <CommonButton
+                        for="files"
+                        class="btn"
+                        buttonStyles={{
+                          borderRadius: "40px",
+                          padding: "0px 20px",
+                          "@media screen and (max-width:900px)": {
+                            padding: "0.5rem 0rem",
+                            minWidth: "50%",
+                          },
                         }}
-                      />
+                      >
+                        <label
+                          htmlFor="files"
+                          style={{ minWidth: "100%", fontSize: "0.8rem" }}
+                        >
+                          Choose Profile Pic
+                        </label>
+                        <input
+                          id="files"
+                          type="file"
+                          style={{
+                            visibility: "hidden",
+                            minWidth: "100%",
+                            position: "absolute",
+                          }}
+                          multiple={false}
+                          className={classes.imageSelectorStyle}
+                          {...register("profilePicture")}
+                          onChange={(e) => {
+                            getBase64(e.target.files[0]);
+                            setIsProfilePicAttached(true);
+                          }}
+                        />
+                      </CommonButton>
                     </Grid>
 
                     <Grid item lg={12} md={12} sm={12} xs={12}>
@@ -306,6 +335,7 @@ const CreateAccount = () => {
                         variant="standard"
                         type="email"
                         className={classes.root}
+                        color={!emailErrorMsg.status && "warning"}
                         required
                         InputProps={{ className: classes.input }}
                         {...register("email", { required: true })}
@@ -324,7 +354,16 @@ const CreateAccount = () => {
                           isClosable: true,
                         })
                       ) : (
-                        <p>{emailErrorMsg.text}</p>
+                        <Typography
+                          className={
+                            !emailErrorMsg.status
+                              ? classes.errorTextStyle
+                              : classes.successTextStyle
+                          }
+                          variant="caption"
+                        >
+                          {emailErrorMsg.text}
+                        </Typography>
                       )}
                     </Grid>
 
@@ -335,6 +374,7 @@ const CreateAccount = () => {
                         type="password"
                         required
                         className={classes.root}
+                        color={!passwordErrorMsg.status && "warning"}
                         InputProps={{ className: classes.input }}
                         {...register("password", {
                           required: true,
@@ -356,7 +396,16 @@ const CreateAccount = () => {
                           isClosable: true,
                         })
                       ) : (
-                        <p>{passwordErrorMsg.text}</p>
+                        <Typography
+                          className={
+                            !passwordErrorMsg.status
+                              ? classes.errorTextStyle
+                              : classes.successTextStyle
+                          }
+                          variant="caption"
+                        >
+                          {passwordErrorMsg.text}
+                        </Typography>
                       )}
                     </Grid>
                   </Grid>

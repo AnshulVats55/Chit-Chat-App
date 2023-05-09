@@ -1,46 +1,68 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import IP_ADDRESS from "../../api/IPAddress";
 
 import { Container, Box, Grid, TextField, Typography } from "@mui/material";
-import { useToast } from "@chakra-ui/react";
 
 import CommonButton from "../../components/Button/CommonButton";
 import { getLoginPageStyles } from "./LoginPage.styles";
 import BrandIdentity from "../../components/BrandIdentity/BrandIdentity";
 
+import { emailValidator } from "../../validators/emailValidator";
+import { passwordCheck } from "../../validators/passwordValidtor";
+
 import LoginPageImage from "../../assets/loginPageImage1.gif";
-import SuccessfullLoginImage from '../../assets/successfull login image.gif';
+import SuccessfullLoginImage from "../../assets/successfull login image.gif";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../store/slices/UserDataSlice";
 
+import { useToast } from "@chakra-ui/react";
+
+// const Alert = React.forwardRef(function Alert(props, ref) {
+//   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+// });
+
 const LoginPage = () => {
+
   const { classes } = getLoginPageStyles();
+  const toast = useToast();
+
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
+
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = (newState) => () => {
+      setState({ open: true, ...newState });
+  };
+
+  const handleClose = () => {
+      setState({ ...state, open: false });
+  };
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const userDetails = {
-    //object to store user login details
     email: email,
     password: password,
   };
-
-  const navigate = useNavigate(); //redirecting user to profile page after successfull login
-  const toast = useToast();
 
   const axios = require("axios");
 
   const dispatch = useDispatch();
 
-  const handleLogin = (event) => {
-    event.preventDefault();
+  const handleLogin = () => {
 
     let request = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://192.168.1.110:8484/v1/login",
+      url: `${IP_ADDRESS}/v1/login`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -52,15 +74,15 @@ const LoginPage = () => {
     axios
       .request(request)
       .then((response) => {
-        console.log(response);
         if (response.data.status === "success") {
           setIsLoggedIn(true);
           dispatch(setUserData(response.data));
           localStorage.setItem("token", response.data.data.token);
           let userToken = localStorage.getItem("token");
           if (userToken) {
+            // toastFunction(vertical, horizontal);
             toast({
-              title: "You're successfully logged in !",
+              title: "You've successfully logged in !",
               position: "top",
               description: "",
               status: "success",
@@ -74,6 +96,7 @@ const LoginPage = () => {
         }
       })
       .catch((error) => {
+        // toastFunction(vertical, horizontal);
         toast({
           title: "Error logging you in !",
           position: "top",
@@ -128,26 +151,33 @@ const LoginPage = () => {
                 alignItems: "center",
               }}
             >
-              {
-                !isLoggedIn
-                ?
+              {!isLoggedIn ? (
+                <>
                 <img
-                src={LoginPageImage}
-                alt="login image"
-                width={"100%"}
-                id="loginPageImage"
-                className={classes.loginImage}
-              />
-              :
-              <img
-                src={SuccessfullLoginImage}
-                alt="login image"
-                width={"100%"}
-                id="loginPageImage"
-                className={classes.loginImage}
-              />
-              }
-              
+                  src={LoginPageImage}
+                  alt="login image"
+                  width={"100%"}
+                  id="loginPageImage"
+                  className={classes.loginImage}
+                />
+                {/* <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical, horizontal }}>
+                  <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>Error logging you in !</Alert>
+                </Snackbar> */}
+                </>
+              ) : (
+                <>
+                <img
+                  src={SuccessfullLoginImage}
+                  alt="login image"
+                  width={"100%"}
+                  id="loginPageImage"
+                  className={classes.loginImage}
+                />
+                {/* <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical, horizontal }}>
+                  <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>You're successfully logged in !</Alert>
+                </Snackbar> */}
+                </>
+              )}
             </Box>
           </Grid>
 
@@ -184,7 +214,11 @@ const LoginPage = () => {
                   alignItems: "center",
                 }}
               >
-                <form onSubmit={handleLogin} className={classes.formStyles}>
+                <form onSubmit={(event)=>{
+                  event.preventDefault();
+                  handleLogin(handleClick({vertical: 'top', horizontal: 'center'}))}}
+                  className={classes.formStyles}>
+
                   <TextField
                     label="Enter your email"
                     variant="standard"
@@ -210,6 +244,8 @@ const LoginPage = () => {
                       setPassword(e.target.value);
                     }}
                     className={classes.root}
+                    
+
                     InputProps={{ className: classes.input }}
                   ></TextField>
 

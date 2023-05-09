@@ -2,6 +2,13 @@ import { makeStyles } from 'tss-react/mui';
 
 export const createAccountPageStyles = makeStyles()((theme)=>{
     return({
+        errorTextStyle:{
+            color:theme.palette.warning.main,
+
+        },
+        successTextStyle:{
+            color:theme.palette.success.main  
+        },
         signupPageContStyles: {
             width:'100%',
             display: "flex",
@@ -94,15 +101,16 @@ export const createAccountPageStyles = makeStyles()((theme)=>{
                 height: "40px",
                 border: 'none',
                 background: theme.palette.primary.main,
-                padding: '0px 20px',
-                margin: '10px 0px 0px 0px',
+                padding: '0px 12px',
+                margin: '10px 10px 0px 0px',
                 borderRadius: '30px',
                 color: '#fff',
                 cursor: 'pointer',
                 transition: 'background 0.3s ease-in-out',
                 fontWeight: 'bold',
                 textAlign: 'center',
-                fontSize:'1rem'
+                fontSize:'1rem',
+                marginRight:"1rem"
             },
             '&::file-selector-button:hover': {
                 background: 'transparent',

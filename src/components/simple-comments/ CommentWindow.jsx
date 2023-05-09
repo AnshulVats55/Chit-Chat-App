@@ -43,7 +43,7 @@ const CommentWindow = ({ handleClose, open, scroll, descriptionElementRef, post 
             <DialogActions>
                 <Button onClick={handleClose}>Cancel</Button>
             </DialogActions>
-
+            
         </Dialog>
         </Provider>
     );
