@@ -9,6 +9,9 @@ import CommonButton from "../../components/Button/CommonButton";
 import { getLoginPageStyles } from "./LoginPage.styles";
 import BrandIdentity from "../../components/BrandIdentity/BrandIdentity";
 
+import { emailValidator } from "../../validators/emailValidator";
+import { passwordCheck } from "../../validators/passwordValidtor";
+
 import LoginPageImage from "../../assets/loginPageImage1.gif";
 import SuccessfullLoginImage from "../../assets/successfull login image.gif";
 import { useDispatch } from "react-redux";
@@ -207,6 +210,8 @@ const LoginPage = () => {
                       setPassword(e.target.value);
                     }}
                     className={classes.root}
+                    
+
                     InputProps={{ className: classes.input }}
                   ></TextField>
 

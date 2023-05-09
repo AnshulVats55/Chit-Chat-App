@@ -304,7 +304,10 @@ const CreateAccount = () => {
                           },
                         }}
                       >
-                        <label htmlFor="files" style={{ minWidth: "100%" }}>
+                        <label
+                          htmlFor="files"
+                          style={{ minWidth: "100%", fontSize: "0.8rem" }}
+                        >
                           Choose Profile Pic
                         </label>
                         <input
@@ -351,7 +354,14 @@ const CreateAccount = () => {
                           isClosable: true,
                         })
                       ) : (
-                        <Typography color="#444" variant="caption">
+                        <Typography
+                          className={
+                            !emailErrorMsg.status
+                              ? classes.errorTextStyle
+                              : classes.successTextStyle
+                          }
+                          variant="caption"
+                        >
                           {emailErrorMsg.text}
                         </Typography>
                       )}
@@ -386,7 +396,14 @@ const CreateAccount = () => {
                           isClosable: true,
                         })
                       ) : (
-                        <Typography color="#444" variant="caption">
+                        <Typography
+                          className={
+                            !passwordErrorMsg.status
+                              ? classes.errorTextStyle
+                              : classes.successTextStyle
+                          }
+                          variant="caption"
+                        >
                           {passwordErrorMsg.text}
                         </Typography>
                       )}

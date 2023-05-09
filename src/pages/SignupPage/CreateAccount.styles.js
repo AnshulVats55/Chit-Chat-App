@@ -2,6 +2,13 @@ import { makeStyles } from 'tss-react/mui';
 
 export const createAccountPageStyles = makeStyles()((theme)=>{
     return({
+        errorTextStyle:{
+            color:theme.palette.warning.main,
+
+        },
+        successTextStyle:{
+            color:theme.palette.success.main  
+        },
         signupPageContStyles: {
             width:'100%',
             display: "flex",

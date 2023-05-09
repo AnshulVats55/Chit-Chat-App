@@ -20,6 +20,12 @@ const theme = createTheme({
         accent: {
             main:'#F0F7FF',
             light:'#f3f9ff',
+        },
+        warning:{
+            main:'#ef5350'
+        },
+        success:{
+            main:'#4caf50'
         }
     },
 
