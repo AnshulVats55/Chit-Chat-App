@@ -1,17 +1,18 @@
-import {
-  Box,
-  CardActions,
-  Checkbox,
-  IconButton,
-} from "@mui/material";
+import { Box, CardActions, Checkbox, IconButton } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
 import CommentIcon from "@mui/icons-material/Comment";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { PostActionStyles } from "./PostActionStyles";
 import CommentWindow from "../../../components/simple-comments/ CommentWindow";
 import { useDispatch, useSelector } from "react-redux";
-import { increasePostLikes, decreasePostLikes } from "../../../store/slices/LikeSlice";
-import IP_ADDRESS from "../../../api/IPAddress";
+import {
+  increasePostLikes,
+  decreasePostLikes,
+} from "../../../store/slices/LikeSlice";
+import {
+  increasePostComments,
+  decreasePostComments,
+} from "../../../store/slices/CommentSlice";
 
 export const PostAction = ({ commentCount, post }) => {
   const { classes } = PostActionStyles();
@@ -21,15 +22,15 @@ export const PostAction = ({ commentCount, post }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeId, setLikeId] = useState("");
 
+  const currentUserId = useSelector((state) => {
+    return state?.userDataReducer[0]?.data?.user.id;
+  });
+
   const dispatch = useDispatch();
 
-    const currentUserId = useSelector((state) => {
-      return state.userDataReducer[0].data.user.id;
-    });
-
-    const allPostDetails = useSelector((state)=>{
-      return state.likeDataReducer;
-    });
+  const allPostDetails = useSelector((state) => {
+    return state.likeDataReducer;
+  });
 
     const allCommentDetails = useSelector((state)=>{
       return state.commentDataReducer;
@@ -60,32 +61,34 @@ export const PostAction = ({ commentCount, post }) => {
           }
         });
       });
-    }, []);
+    },[]);
+  
 
-    const handleShowComments = (scrollType) => {
-        setShowComments(!showComments);
-        setScroll(scrollType);
+  const handleShowComments = (scrollType) => {
+    setShowComments(!showComments);
+    setScroll(scrollType);
+    dispatch(increasePostComments({ postId: postId }));
+  };
+
+  const handleClose = () => {
+    setShowComments(!showComments);
+  };
+
+  const descriptionElementRef = useRef(null);
+  useEffect(() => {
+    if (showComments) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
     }
+  }, [showComments]);
 
-    const handleClose = () => {
-        setShowComments(!showComments);
-    };
-    
-    const descriptionElementRef = useRef(null);
-    useEffect(() => {
-        if (showComments) {
-        const { current: descriptionElement } = descriptionElementRef;
-        if (descriptionElement !== null) {
-            descriptionElement.focus();
-          }
-        }
-    }, [showComments]);
-
-    const axios = require('axios');
-    let data = JSON.stringify({
-      "userId": currentUserId,
-      "postId": postId
-    });
+  const axios = require("axios");
+  let data = JSON.stringify({
+    userId: currentUserId,
+    postId: postId,
+  });
 
   const handleLikes = async () => {
     if (!isLiked) {
@@ -137,13 +140,13 @@ export const PostAction = ({ commentCount, post }) => {
   return (
     <CardActions className={classes.postActionCont}>
       <Box>
-          <IconButton aria-label="add to favorites" onClick={handleLikes}>
-            <Checkbox
-              icon={<FavoriteBorder />}
-              checked={isLiked}
-              checkedIcon={<Favorite sx={{color: "red"}} />}
-            />
-          </IconButton>
+        <IconButton aria-label="add to favorites" onClick={handleLikes}>
+          <Checkbox
+            icon={<FavoriteBorder />}
+            checked={isLiked}
+            checkedIcon={<Favorite sx={{ color: "red" }} />}
+          />
+        </IconButton>
         <span className={classes.Hide}>{totalLikes} likes</span>
       </Box>
 
@@ -156,9 +159,7 @@ export const PostAction = ({ commentCount, post }) => {
         >
           <Checkbox icon={<CommentIcon />} checkedIcon={<CommentIcon />} />
         </IconButton>
-        {
-        showComments
-        ?
+        {showComments ? (
           <CommentWindow
             handleClose={handleClose}
             open={showComments}
@@ -166,10 +167,10 @@ export const PostAction = ({ commentCount, post }) => {
             descriptionElementRef={descriptionElementRef}
             post={post}
           />
-          :
+        ) : (
           <></>
-        }
-        <span className={classes.Hide}>{totalComments} comments</span>
+        )}
+        <span className={classes.Hide}>{post?.comments?.length} comments</span>
       </Box>
     </CardActions>
   );

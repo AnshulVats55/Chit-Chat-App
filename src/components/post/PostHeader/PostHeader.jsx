@@ -17,7 +17,7 @@ export const PostHeader = ({ post, styles }) => {
   const { loading = false } = { post, styles };
 
   const user = useSelector((state) => {
-    return state.userDataReducer[0].data.user;
+    return state.userDataReducer[0]?.data.user;
   });
   console.log(user);
 
@@ -28,7 +28,7 @@ export const PostHeader = ({ post, styles }) => {
   };
 
   const currentUserId = useSelector((state) => {
-    return state.userDataReducer[0].data.user.id;
+    return state.userDataReducer[0]?.data?.user.id;
   });
 
 

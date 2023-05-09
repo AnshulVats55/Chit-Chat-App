@@ -33,7 +33,7 @@ const CommentField = ({ handleSubmit, post }) => {
   const {createComment} = useCommentsContext();
 
   const currentUserId = useSelector((state) => {
-    return state.userDataReducer[0].data.user.id;
+    return state?.userDataReducer[0]?.data?.user.id;
   });
 
   const userInformation = useSelector((state)=>{
