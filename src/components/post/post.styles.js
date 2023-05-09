@@ -3,15 +3,15 @@ import { makeStyles } from "tss-react/mui";
 export const PostStyles =makeStyles()((theme,styles)=>{
   return({
 
-    PostsTopContStyles: {
+   PostsTopContStyles: {
+      // background:'pink',
       display:'flex',
-      flexDirection:'column',
-      justifyContent:'center',
-      alignItems:'center',
+      flexDirection:'row',
       width:'93%',
       position:'relative',
       top:'10vh',
       left:'7%',
+      overflowY: 'hidden',
       '@media screen and (max-width: 900px)': {
           left:'0vw',
           width:'100%',
@@ -19,17 +19,29 @@ export const PostStyles =makeStyles()((theme,styles)=>{
     },
 
     postContStyles: {
-      width:'100%',
+      maxWidth:'75%',
       display:'flex',
       flexDirection:'column',
-      justifyContent:'center',
       alignItems:'center',
+      // background:'orange',
+      overflowY:'hidden',
+    },
+
+    friendReqGridStyles:{
+      maxWidth:'25%',
+      // background:'wheat',
+    },
+
+    friendReqGridItemStyles:{
+      maxWidth:'100%',
     },
 
     gridContainerStyles: {
+      // background:'red',
       position:'relative',
-      top:'5vh',
-      width:'50%',
+      top:'10vh',
+      margin:'0rem auto',
+      width:'75%',
       justifyContent:'center',
       alignItems:'center',
       '@media screen and (max-width: 900px)': {
@@ -67,24 +79,6 @@ export const PostStyles =makeStyles()((theme,styles)=>{
     postContent: {
       // background:'red',
     },
-
-    // flexContain:{
-    //     flexDirection:'column',
-    //     gap:'50px',
-    //     backgroundColor:'pink',
-        
-    //   '@media screen and (max-width:599px)':{
-    //     justifyContent:'center',
-    //     width:'70%',
-    //     position:'absolute',
-    //     right:'10vw'
-    //   },
-    //   '@media screen and (min-width:900px)':{
-    //     width:'60%',
-    //     position:'absolute',
-    //     right:'10vw'
-    //   }
-    // },
   });
 })
 

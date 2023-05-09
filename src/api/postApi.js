@@ -16,7 +16,7 @@ const PostApi = () => {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://five5chitchat-knnx.onrender.com/v1/post/",
+      url: "http://192.168.1.110:8484/v1/post/",
       headers: {
         token: localStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -32,7 +32,11 @@ const PostApi = () => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
+<<<<<<< HEAD
       url: "https://five5chitchat-knnx.onrender.com/v1/post/allPost",
+=======
+      url: "http://192.168.1.110:8484/v1/post/allPost",
+>>>>>>> fed19a4b4d539305ff5e4363d471f5d55f71d666
       headers: {
         token: localStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -47,7 +51,11 @@ const PostApi = () => {
     let config = {
       method: "delete",
       maxBodyLength: Infinity,
+<<<<<<< HEAD
       url: `https://five5chitchat-knnx.onrender.com/v1/post/delete/${id}`,
+=======
+      url: `http://192.168.1.110:8484/v1/post/delete/${id}`,
+>>>>>>> fed19a4b4d539305ff5e4363d471f5d55f71d666
       headers: {
         token: localStorage.getItem("token"),
       },

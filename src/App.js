@@ -2,6 +2,8 @@ import React from 'react';
 import AllRoutes from './components/Routes/AllRoutes';
 
 function App() {
+  
+  
 
     return (    
         <AllRoutes />          
@@ -9,3 +11,4 @@ function App() {
 }
 
 export default App;
+

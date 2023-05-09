@@ -109,7 +109,8 @@ export const createAccountPageStyles = makeStyles()((theme)=>{
                 transition: 'background 0.3s ease-in-out',
                 fontWeight: 'bold',
                 textAlign: 'center',
-                fontSize:'1rem'
+                fontSize:'1rem',
+                marginRight:"1rem"
             },
             '&::file-selector-button:hover': {
                 background: 'transparent',

@@ -3,6 +3,7 @@ import { Box, Grid, Container } from "@mui/material";
 import { PostStyles } from "./post.styles";
 import Post from "./Post";
 import CreatePost from "./createPost/CreatePost";
+import Request from '../../components/addFriend/Request';
 import postApi from "../../api/postApi";
 import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -99,26 +100,38 @@ export const Posts = () => {
   return (
     <PostContext.Provider value={{ handleDeletePost, userName }}>
       <Box className={classes.PostsTopContStyles}>
-        <Container maxWidth="xl" className={classes.postContStyles}>
-          <CreatePost createPost={handleCreatePost} />
-          <Grid container spacing={2} className={classes.gridContainerStyles}>
-            {posts?.map((post) => {
-              return (
-                <Grid
-                  className={classes.gridItemStyles}
-                  item
-                  lg={12}
-                  md={12}
-                  sm={12}
-                  xs={12}
-                  key={post.id}
-                >
-                  <Post post={post} postCreatorId={post.userId} />
-                </Grid>
-              );
-            })}
+
+        <Grid container className={classes.postContStyles}>
+          <Grid item lg={10} md={10} sm={10} xs={10}>
+            <CreatePost createPost={handleCreatePost} />
+            <Grid container spacing={2} className={classes.gridContainerStyles}>
+              {
+              posts?.map((post) => {
+                return (
+                  <>
+                  <Grid
+                    className={classes.gridItemStyles}
+                    item
+                    lg={12}
+                    md={12}
+                    sm={12}
+                    xs={12}
+                    key={post.id}
+                  >
+                    <Post post={post} postCreatorId={post.userId} />
+                  </Grid>
+                  </>
+                );
+              })}
+            </Grid>
           </Grid>
-        </Container>
+        </Grid>
+
+        <Grid container className={classes.friendReqGridStyles}>
+          <Grid item xs={12} className={classes.friendReqGridItemStyles}>
+            <Request />
+          </Grid>
+        </Grid>
       </Box>
     </PostContext.Provider>
   );

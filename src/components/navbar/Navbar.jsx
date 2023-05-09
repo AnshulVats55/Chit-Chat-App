@@ -88,20 +88,6 @@ function Navbar() {
                         <Typography variant='h5' className={classes.h5}>Chit-Chat</Typography>
                     </Box>
 
-                    {/* <Box className={classes.iconsContainer}>
-                        {pages.map((page) => (
-                            <Link
-                                to={page.to}
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                className={classes.icons}
-                            >
-                                {page.icon}
-                            </Link>
-                        ))}
-                    </Box> */}
-
-
                     {/* small devices */}
 
                     <Box sx={{display: { xs: 'flex', md: 'none', lg: 'none' }, justifyContent:'center', alignItems:'center' }}>

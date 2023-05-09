@@ -39,8 +39,8 @@ export default function Modal({ id }) {
         sx={{ Width: "100%" }}
       >
         {" "}
-        <DialogTitle className="classes.header" sx={{ color: "red" }}>
-          {"Delete Alert"}
+        <DialogTitle className="classes.header" sx={{ color: "#363a91", fontWeight:'bold' }}>
+          {"Delete Alert !"}
         </DialogTitle>
         {" "}
         <DialogContent>
@@ -53,8 +53,8 @@ export default function Modal({ id }) {
         {" "}
         <DialogActions>
           {" "}
-          <Button onClick={handleClose2}>No</Button>
-            <Button onClick={handleClose1}>Yes</Button>
+          <Button onClick={handleClose2} sx={{'&:hover':{background:'#363a91', color:'#FFF'}}}>No</Button>
+          <Button onClick={handleClose1} sx={{'&:hover':{background:'#ef5350', color:'#FFF'}}}>Yes</Button>
           {" "}
         </DialogActions>
         {" "}

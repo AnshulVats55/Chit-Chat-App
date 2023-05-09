@@ -19,7 +19,7 @@ function Provider({ children, post }) {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://five5chitchat-knnx.onrender.com/v1/comment",
+      url: "http://192.168.1.110:8484/v1/comment",
       headers: {
         token: userToken,
         "Content-Type": "application/json",
@@ -59,7 +59,7 @@ function Provider({ children, post }) {
     let config = {
       method: "delete",
       maxBodyLength: Infinity,
-      url: `https://five5chitchat-knnx.onrender.com/v1/comment/${id}`,
+      url: `http://192.168.1.110:8484/v1/comment/${id}`,
       headers: {
         token: userToken,
       },

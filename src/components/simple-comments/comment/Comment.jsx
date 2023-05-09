@@ -13,6 +13,9 @@ import { commentStyles } from "./comment.styles";
 import useCommentsContext from "../hooks/use-comment-context";
 import { useSelector } from "react-redux";
 
+import MaleAvatar from '../../../assets/male avatar.jpg';
+import FemaleAvatar from '../../../assets/female avatar.jpg';
+
 const Comment = ({ comment }) => {
 
   const user = useSelector((state) => {
@@ -30,7 +33,7 @@ const Comment = ({ comment }) => {
   return (
     <Card className={classes.commentTopCardStyles}>
       <CardHeader
-        avatar={<Avatar src={comment?.user.profilePicture}></Avatar>}
+        avatar={<Avatar src={comment?.user?.profilePicture ? comment?.user?.profilePicture : user.gender == "male" ? MaleAvatar : FemaleAvatar}></Avatar>}
         action={
           <IconButton onClick={handleDelete}>
             <DeleteIcon className={classes.deleteIconStyles} />

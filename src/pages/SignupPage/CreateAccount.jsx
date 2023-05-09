@@ -11,9 +11,6 @@ import {
   Grid,
   FormControl,
   InputLabel,
-  Input,
-  FormHelperText,
-  Button,
   Select,
 } from "@mui/material";
 
@@ -58,10 +55,12 @@ const CreateAccount = () => {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://five5chitchat-knnx.onrender.com/v1/signup",
+      url: "http://192.168.1.110:8484/v1/signup",
       headers: {
         "Content-Type": "application/json",
       },
+      mode:'no-mode',
+      referrerPolicy:'no-referrer',
       data: data,
     };
 
