@@ -8,7 +8,7 @@ export const ListStyles = makeStyles()((theme) => ({
     boxShadow: "none",
     textAlign: "center",
     width: "95%",
-    margin: "auto",
+    // margin: "auto",
     marginBottom: "2rem",
     display: "flex",
     justifyContent: "space-between",
@@ -37,7 +37,7 @@ export const ListStyles = makeStyles()((theme) => ({
     outline: "none",
     padding: "0.5rem",
     fontSize: "1rem",
-    width:"95%",
+    width:"100%",
     cursor:"pointer"
   },
 
@@ -48,7 +48,7 @@ export const ListStyles = makeStyles()((theme) => ({
   },
 
   avatar: {
-    backgroundColor: "#363a91",
+    // backgroundColor: "#363a91",
     marginRight: "1rem",
   },
 
@@ -103,5 +103,10 @@ export const ListStyles = makeStyles()((theme) => ({
     width: "10%",
     textAlign: "right",
   },
-
+  friendRequest:{
+   
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+  }
 }));

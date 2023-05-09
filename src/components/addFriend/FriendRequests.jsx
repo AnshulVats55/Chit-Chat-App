@@ -6,8 +6,10 @@ import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton, Box, Avatar, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useToast } from "@chakra-ui/react";
 
 const FriendRequests = () => {
+  const toast = useToast();
   const { classes } = ListStyles();
   const [newRequest, setNewRequest] = useState([]);
   
@@ -41,7 +43,7 @@ const FriendRequests = () => {
   socket.on("followRequest", (data) => {
     console.log("data", data);
     if(data.follower){
-    setNewRequest([...newRequest, data]);
+    setNewRequest([ data]);
     }
   });
 
@@ -53,6 +55,14 @@ const FriendRequests = () => {
       status: "Accepted",
     });
     setNewRequest([]);
+    toast({
+      title: "Friend Request accepted!",
+      position: "top",
+      description: "",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
   };
   const rejectRequest =(sender, receiver) => {
     console.log("hi", sender, receiver);
@@ -62,6 +72,14 @@ const FriendRequests = () => {
       status: "Failure",
     });
     setNewRequest([]);
+    toast({
+      title: "Friend request rejected !",
+      position: "top",
+      description: "",
+      status: "error",
+      duration: 2000,
+      isClosable: true,
+    });
   };
 
   return (
@@ -78,7 +96,7 @@ const FriendRequests = () => {
       <Typography sx={{ margin: "0.5rem 0rem", textAlign:'center'}} variant="h6">
         Your Requests
       </Typography>
-      <div style={{ height: "100%" }} className={classes.friendContainer}>
+      <div style={{ height: "100%",overflowY:"scroll",scrollbarWidth:"none" }} className={classes.friendContainer}>
         {newRequest?.map((s, index) => {
           return (
             <Box className={classes.single} key={index}>

@@ -6,12 +6,8 @@ import { ChatStyles } from "./chatWindow.styles";
 import { socket } from "../../pages/FinalLayout/FinalLayout";
 // import { io } from "socket.io-client";
 import { useSelector } from "react-redux";
-// const socket = io("http://172.16.1.135:8484");
 
-const ChatWindow = ({ selectedChat, displayChat, setDisplayChat,recUser}) => {
-
- 
-
+const ChatWindow = ({ selectedChat, displayChat, setDisplayChat, recUser }) => {
   const userDetails = useSelector((state) => {
     return state.userDataReducer[0];
   });
@@ -23,7 +19,6 @@ const ChatWindow = ({ selectedChat, displayChat, setDisplayChat,recUser}) => {
 
   const [currentMessage, setCurrentMessage] = useState("");
 
-
   // socket.emit("newUser", { id: userId, name: userFullName });
 
   const sendMessage = () => {
@@ -32,7 +27,7 @@ const ChatWindow = ({ selectedChat, displayChat, setDisplayChat,recUser}) => {
       ...displayChat,
       {
         senderId: userId,
-        receiverId:recUser.id,
+        receiverId: recUser.id,
         body: currentMessage,
         createdAt:
           today.getFullYear() +
@@ -55,18 +50,20 @@ const ChatWindow = ({ selectedChat, displayChat, setDisplayChat,recUser}) => {
     setCurrentMessage([]);
   };
   socket.on("receive", (chat) => {
-    if(recUser.id===chat.senderId){
-    setDisplayChat([...displayChat, chat]);
-  }else{
-
-    console.log(chat);
-  }
+    if (recUser.id === chat.senderId) {
+      setDisplayChat([...displayChat, chat]);
+    } else {
+      console.log(chat);
+    }
   });
   return (
     <Box className="containers">
-      <Paper
+
+      {
+        selectedChat ?(
+          <Paper
         elevation={3}
-        className={selectedChat ? classes.ChatWindow : classes.ChatwindowNot}
+        className={ classes.ChatWindow }
       >
         <Box className={classes.chatHeader}>
           <Box className={classes.userName}>
@@ -74,10 +71,10 @@ const ChatWindow = ({ selectedChat, displayChat, setDisplayChat,recUser}) => {
               className={classes.avatar}
               alt=""
               src={recUser.profilePicture}
-            >
-              
-            </Avatar>
-            <Typography sx={{fontWeight:"medium"}} variant="h5">{recUser.firstName +" "+ recUser.lastName}</Typography>
+            ></Avatar>
+            <Typography sx={{ fontWeight: "medium" }} variant="h5">
+              {recUser.firstName + " " + recUser.lastName}
+            </Typography>
           </Box>
         </Box>
         <Box className={classes.chatBody}>
@@ -92,7 +89,13 @@ const ChatWindow = ({ selectedChat, displayChat, setDisplayChat,recUser}) => {
                   }
                   key={msg.id}
                 >
-                  <Box className={userId === msg.senderId?classes.messageContent:classes.messageContent1}>
+                  <Box
+                    className={
+                      userId === msg.senderId
+                        ? classes.messageContent
+                        : classes.messageContent1
+                    }
+                  >
                     <Typography className={classes.msg}>{msg.body}</Typography>
 
                     <Typography className={classes.time}>
@@ -126,9 +129,15 @@ const ChatWindow = ({ selectedChat, displayChat, setDisplayChat,recUser}) => {
           </IconButton>
         </div>
       </Paper>
+        ):( <Box className={classes.picture}>
+          
+          <img src="https://chatkr.com/static/img/homepage_2.png" alt="" className={classes.pic} />
+        </Box>)
+      }
+     
+      
     </Box>
   );
 };
 
 export default ChatWindow;
-
