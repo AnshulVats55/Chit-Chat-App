@@ -62,51 +62,7 @@ const UserPosts = ({ children }) => {
                                 <img src={post.attachment} alt="" className={classes.userPostStylesOne}/>
                             </Box>
                             <Box className={classes.postCaptionCont}>
-                                <Typography variant="h6" className={classes.postCaption}>{post.body.length >= 100 ? post.body.substring(0,101) + " ..." : post.body}</Typography>
-                            </Box>
-                            <Box className={classes.viewPostContStyles}>
-                                <Link>
-                                    <RemoveRedEyeIcon fontSize="small" onClick={()=>{handleShowPost('paper')}}/>
-                                    {
-                                        showPost
-                                        ?
-                                        <>
-                                        <Dialog
-                                            open={open}
-                                            onClose={handleClose}
-                                            scroll={scroll}
-                                            aria-labelledby="scroll-dialog-title"
-                                            aria-describedby="scroll-dialog-description"
-                                            >
-                                                <DialogTitle id="scroll-dialog-title">
-                                                    <Grid item xs={12} className={classes.userPostGridItemStyles}>
-                                                        <img src={post.attachment} alt="" className={classes.userPostStylesTwo}/>
-                                                    </Grid>
-                                                </DialogTitle>
-
-                                                <DialogContent dividers={scroll === 'paper'}>
-                                                    <DialogContentText
-                                                    id="scroll-dialog-description"
-                                                    ref={descriptionElementRef}
-                                                    tabIndex={-1}
-                                                    >
-                                                        {post.body}
-                                                    </DialogContentText>
-                                                </DialogContent>
-
-                                                <DialogActions>
-                                                    <Button onClick={handleClose}>Cancel</Button>
-                                                </DialogActions>
-                                                
-                                            </Dialog>
-                                        </>
-                                        :
-                                        <></>
-                                    }
-                                </Link>
-                                <Link>
-                                    <DeleteIcon fontSize="small" />
-                                </Link>
+                                <Typography variant="h6" className={classes.postCaption}>{post.body}</Typography>
                             </Box>
                         </Grid>
                     );

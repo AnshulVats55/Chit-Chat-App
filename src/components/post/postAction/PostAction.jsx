@@ -32,24 +32,37 @@ export const PostAction = ({ commentCount, post }) => {
     return state.likeDataReducer;
   });
 
-  let totalLikes;
-  const postId = post.id;
-  allPostDetails.map((post) => {
-    if (post.postId == postId) {
-      totalLikes = post.currentLikesCount;
-    }
-  });
-
-  useEffect(() => {
-    allPostDetails.map((post) => {
-      post.usersWhoLiked.map((like) => {
-        if (currentUserId === like.user.id) {
-          setLikeId(like.id);
-          setIsLiked(true);
-        }
-      });
+    const allCommentDetails = useSelector((state)=>{
+      return state.commentDataReducer;
     });
-  }, []);
+    console.log(allCommentDetails);
+
+    let totalLikes;
+    const postId = post.id;
+    allPostDetails.map((post)=>{
+      if(post.postId == postId){
+        totalLikes = post.currentLikesCount;
+      }
+    });
+
+    let totalComments;
+    allCommentDetails.map((post)=>{
+        if(post.postId === postId){
+          totalComments = post.currentCommentsCount;
+        }
+    })
+
+    useEffect(()=>{
+      allPostDetails.map((post)=>{
+        post.usersWhoLiked.map((like)=>{
+          if(currentUserId === like.user.id){
+            setLikeId(like.id);
+            setIsLiked(true);
+          }
+        });
+      });
+    },[]);
+  
 
   const handleShowComments = (scrollType) => {
     setShowComments(!showComments);
