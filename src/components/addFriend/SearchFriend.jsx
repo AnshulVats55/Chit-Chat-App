@@ -11,6 +11,8 @@ import { useToast } from "@chakra-ui/react";
 
 const SearchFriend = () => {
 
+  const { classes } = ListStyles();
+
   const toast = useToast();
   const userDetails = useSelector((state) => {
     return state.userDataReducer[0];

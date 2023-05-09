@@ -3,7 +3,6 @@ import { Box, Grid, Container } from "@mui/material";
 import { PostStyles } from "./post.styles";
 import Post from "./Post";
 import CreatePost from "./createPost/CreatePost";
-import Request from '../../components/addFriend/Request';
 import postApi from "../../api/postApi";
 import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
