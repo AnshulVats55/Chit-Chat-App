@@ -73,48 +73,48 @@ export const PostAction = ({ commentCount, post }) => {
       "postId": postId
     });
 
-    const handleLikes = async () => {
-      if(!isLiked){
-        let config = {
-          method: 'post',
-          maxBodyLength: Infinity,
-          url: 'http://172.16.1.150:8484/v1/like',
-          headers: {
-          'token': localStorage.getItem("token"),
-          'Content-Type': 'application/json'
-          },
-          mode: 'no-mode',
-          referrerPolicy: 'no-referrer',
-          data: data
-        };
+  const handleLikes = async () => {
+    if (!isLiked) {
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: "http://192.168.1.110:8484/v1/like",
+        headers: {
+          token: localStorage.getItem("token"),
+          "Content-Type": "application/json",
+        },
+        mode: "no-mode",
+        referrerPolicy: "no-referrer",
+        data: data,
+      };
 
-        const response = await axios.request(config);
-        console.log(response);
-        if(response.data.status === "success"){
-            setIsLiked(true);
-            setLikeId(response.data.data.id);
-            dispatch(increasePostLikes({postId:postId, likeId:response.data.data.id}));
-        }
+      const response = await axios.request(config);
+      console.log(response);
+      if (response.data.status === "success") {
+        setIsLiked(true);
+        setLikeId(response.data.data.id);
+        dispatch(
+          increasePostLikes({ postId: postId, likeId: response.data.data.id })
+        );
       }
-      else{
-        let config = {
-            method: 'delete',
-            maxBodyLength: Infinity,
-            url: `http://172.16.1.150:8484/v1/like/${likeId}`,
-            headers: {
-            'token': localStorage.getItem("token"),
-            },
-            mode: 'no-mode',
-            referrerPolicy: 'no-referrer',
-          };
-          
-          const response = await axios.request(config);
-          console.log(response);
-          if(response.data.status === "success"){
-            setIsLiked(false);
-            setLikeId("");
-            dispatch(decreasePostLikes({postId:postId}));
-          }
+    } else {
+      let config = {
+        method: "delete",
+        maxBodyLength: Infinity,
+        url: `http://192.168.1.110:8484/v1/like/${likeId}`,
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+        mode: "no-mode",
+        referrerPolicy: "no-referrer",
+      };
+
+      const response = await axios.request(config);
+      console.log(response);
+      if (response.data.status === "success") {
+        setIsLiked(false);
+        setLikeId("");
+        dispatch(decreasePostLikes({ postId: postId }));
       }
     }
 
