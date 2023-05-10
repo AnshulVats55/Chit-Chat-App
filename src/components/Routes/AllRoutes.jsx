@@ -13,7 +13,7 @@ const AllRoutes = () => {
   return (
     <Router>
     
-        {localStorage.getItem("token") ? (
+        {localStorage.getItem("token") ? 
           <>
             <Navbar />
             <Bar />
@@ -35,12 +35,12 @@ const AllRoutes = () => {
               />
             </Routes>
           </>
-        ) : (
+         : 
           <Routes>
             <Route exact path="/" element={<LoginPage />} />
             <Route exact path="/signup" element={<CreateAccount />} />
           </Routes>
-        )}
+        }
 
     </Router>
   );
