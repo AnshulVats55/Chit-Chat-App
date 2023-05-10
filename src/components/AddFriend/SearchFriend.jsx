@@ -34,9 +34,8 @@ const SearchFriend = () => {
       duration: 2000,
       isClosable: true,
     });
-  
-    
   };
+
   useEffect(() => {
     let config = {
       method: "get",
@@ -49,11 +48,9 @@ const SearchFriend = () => {
 
     axios
       .request(config)
-
       .then((response) => {
         setFriends(response.data.data.followers);
       })
-
       .catch((error) => {
         console.log(error);
       });
@@ -81,11 +78,11 @@ const SearchFriend = () => {
 
   return (
     <Box className={classes.searchFriendContStyles}>
-      <Typography variant="h6" sx={{margin: "0.5rem 0rem", textAlign:'center'}}>Add New Friends</Typography>
+      <Typography variant="body1" sx={{margin: "0.5rem 0rem", textAlign:'center', fontWeight:'bold'}}>Add New Friends</Typography>
       <Paper component="form" className={classes.searchContainer}>
         <input
           className={classes.searchBar}
-          placeholder="Search your friends..."
+          placeholder="Start making friends..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onKeyUp={searchHandler}
@@ -99,7 +96,8 @@ const SearchFriend = () => {
           .filter((val) => {
             if (search === "") {
               return null;
-            } else if (
+            }
+            else if (
               (val.firstName.toLowerCase().startsWith(search.toLowerCase()) ||
                 val.lastName.toLowerCase().startsWith(search.toLowerCase())) &&
               val.id !== userId
@@ -110,7 +108,8 @@ const SearchFriend = () => {
 
               if (index === -1) return val;
               else return null;
-            } else {
+            }
+            else {
               return null;
             }
           })
@@ -124,13 +123,12 @@ const SearchFriend = () => {
                     alt=""
                     src={profilePicture}
                   ></Avatar>
-                  <Typography sx={{ marginTop: "6px" }} variant="h6">
+                  <Typography sx={{ marginTop: "6px" }} variant="body1">
                     {firstName + " " + lastName}
                   </Typography>
                   <IconButton  onClick={() => addFriend(id)}>
                     <PersonAddIcon />
                   </IconButton>
-
                   <Box></Box>
                 </Box>
               </Box>

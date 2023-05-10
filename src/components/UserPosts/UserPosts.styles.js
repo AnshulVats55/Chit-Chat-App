@@ -130,5 +130,26 @@ export const getUserPostStyles = makeStyles()((theme)=>{
         readMore: {
             display:'none',
         },
+
+        noPostsContStyles: {
+            display:'flex',
+            flexDirection:'column',
+            justifyContent:'center',
+            alignItems:'center',
+        },
+
+        noPostsTextMessage: {
+            margin:'1rem 0rem',
+            padding:'0.5rem 1rem',
+            background:theme.palette.primary.main,
+            color:'#FFF',
+            border:'none',
+            borderRadius:'1.25rem',
+            fontWeight:'bold',
+        },
+
+        noPostsImage: {
+            
+        },
     });
 });

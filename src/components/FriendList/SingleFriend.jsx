@@ -1,12 +1,9 @@
 import React, { useContext } from "react";
-import axios from "axios";
 import { Box, Typography } from "@mui/material";
 import { ListStyles } from "./FriendList.styles";
 import { Avatar } from "@mui/material";
 
-
 const SingleFriend = ({ detail,openChat}) => {
-  
   
   const { classes } = ListStyles();
   const {  id, firstName, lastName, profilePicture} = detail;
@@ -16,8 +13,7 @@ const SingleFriend = ({ detail,openChat}) => {
         <Avatar className={classes.avatar} alt="" src={profilePicture}>  
         </Avatar>
         <Box>
-          <Typography sx={{marginTop:"6px"}} variant="h6">{firstName + " " +lastName }</Typography>
-          
+          <Typography sx={{marginTop:"6px"}} variant="h6">{firstName + " " +lastName }</Typography>s
         </Box>
       </Box>
   

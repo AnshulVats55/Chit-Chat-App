@@ -45,4 +45,4 @@ export const getProfilePageStyles = makeStyles()((theme)=> ({
         createPostBtnContStyles: {
             margin:'0px 20px',
         },
-    }));
+}));

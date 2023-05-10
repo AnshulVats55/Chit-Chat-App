@@ -78,9 +78,8 @@ const FriendRequests = () => {
   };
 
   return (
-    <div
+    <Box
       style={{
-        minHeight: "55%",
         marginTop: "2rem",
         width: "100%",
         overflowY:"scroll",
@@ -88,21 +87,20 @@ const FriendRequests = () => {
       }}
       className={classes.friendRequestContStyles}
     >
-      <Typography sx={{ margin: "0.5rem 0rem", textAlign:'center'}} variant="h6">
+      <Typography sx={{ margin: "0.5rem 0rem", textAlign:'center', fontWeight:'bold'}} variant="body1">
         Your Requests
       </Typography>
       <div style={{ height: "100%",overflowY:"scroll",scrollbarWidth:"none" }} className={classes.friendContainer}>
         {newRequest?.map((s, index) => {
           return (
             <Box className={classes.single} key={index}>
-              
                   <Box className={classes.single1}>
                   <Avatar
                     className={classes.avatar}
                     alt=""
                     src={s.follower?.profilePicture ?s.follower?.profilePicture:s?.profilePicture}
                   ></Avatar>
-                  <Typography sx={{ marginTop: "6px" }} variant="h6">
+                  <Typography sx={{ marginTop: "6px" }} variant="body1">
                     {s.follower?.name?s.follower?.name:(s?.firstName + " " + s?.lastName)}
                   </Typography>
                   <IconButton
@@ -129,7 +127,7 @@ const FriendRequests = () => {
           );
         })}
       </div>
-    </div>
+    </Box>
   );
 };
 

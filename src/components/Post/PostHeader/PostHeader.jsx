@@ -16,6 +16,7 @@ export const PostHeader = ({ post, styles }) => {
   const user = useSelector((state) => {
     return state.userDataReducer[0]?.data?.user;
   });
+  console.log(user.id);
 
   console.log(post);
 

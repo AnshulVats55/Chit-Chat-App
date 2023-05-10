@@ -1,5 +1,5 @@
 import React, { useEffect, useState, createContext } from "react";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { PostStyles } from "./post.styles";
 import Post from "./Post";
 import CreatePost from "./createPost/CreatePost";
@@ -10,6 +10,7 @@ import { setPostData, createPostByRedux, deletePostById } from "../../store/slic
 import { setPostCurrentLikes, resetInitialState } from '../../store/slices/LikeSlice';
 import { setUserComments, resetCommentInitialState } from '../../store/slices/CommentSlice';
 import Request from "../AddFriend/Request";
+import NoPostsFound from '../../assets/undraw_not_found_re_bh2e.svg';
 
 const PostContext = createContext();
 
@@ -17,6 +18,7 @@ export const Posts = () => {
   const { classes } = PostStyles();
 
   const { getPosts, createPost, deletePost } = postApi();
+  const [arePostsAvailable, setArePostsAvailable] = useState(true);
   const toast = useToast();
 
   const posts = useSelector((state) => {
@@ -30,6 +32,10 @@ export const Posts = () => {
   useEffect(() => {
       let getAllPosts = async () => {
         let response = await getPosts();
+        console.log(response);
+        if(response.length === 0){
+          setArePostsAvailable(false);
+        }
         
         dispatch(setPostData(response));
         dispatch(resetInitialState());
@@ -42,7 +48,7 @@ export const Posts = () => {
       };
 
       getAllPosts();
-  }, []);
+  }, [arePostsAvailable]);
 
   const handleCreatePost = async (postData) => {
     const response = await createPost(postData);
@@ -101,28 +107,38 @@ export const Posts = () => {
       <Box className={classes.PostsTopContStyles}>
 
         <Grid container className={classes.postContStyles}>
-          <Grid item lg={12} md={12} sm={12} xs={12} className={classes.postContItemStyles}>
+              <Grid item xs={12} className={classes.postContItemStyles}>
+                <CreatePost createPost={handleCreatePost} />
+              </Grid>
 
-            <CreatePost createPost={handleCreatePost} />
-
-            <Grid container spacing={2} className={classes.gridContainerStyles}>
-              {
-              posts?.map((post) => {
-                return (
-                  <>
-                  <Grid
-                    className={classes.gridItemStyles}
-                    item
-                    xs={10}
-                    key={post.id}
-                  >
-                    <Post post={post} postCreatorId={post.userId} />
+              <Grid item xs={12} className={classes.postContItemStyles}>
+                {
+                  arePostsAvailable
+                  ?
+                  <Grid container spacing={2} className={classes.gridContainerStyles}>
+                  {
+                    posts?.map((post) => {
+                      return (
+                        <>
+                        <Grid
+                          className={classes.gridItemStyles}
+                          item
+                          xs={10}
+                          key={post.id}
+                        >
+                          <Post post={post} postCreatorId={post.userId} />
+                        </Grid>
+                        </>
+                      );
+                  })}
                   </Grid>
-                  </>
-                );
-              })}
-            </Grid>
-          </Grid>
+                  :
+                  <Box className={classes.noPostsFoundContStyles}>
+                    <Typography variant="body2" className={classes.noPostFoundTextStyles}>No posts found</Typography>
+                    <img src={NoPostsFound} alt="" className={classes.noPostsFoundImageStyles}/>
+                  </Box>
+                }
+              </Grid>
         </Grid>
 
         <Grid container className={classes.friendReqGridStyles}>

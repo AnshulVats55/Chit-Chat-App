@@ -1,34 +1,55 @@
 import { makeStyles } from "tss-react/mui";
 
 export const ListStyles = makeStyles()((theme) => ({
+  friendContStyles: {
+    position:'fixed',
+    top:'12vh',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    maxWidth: "100%",
+    overflowY:'hidden',
+    padding:'3vh 0vh'
+  },
+
   searchContainer: {
     borderRadius: "0.5rem",
-    border: "1px solid #363a91",
+    border: "1px solid #000",
     padding: " 0 1rem",
     boxShadow: "none",
     textAlign: "center",
     width: "95%",
-    marginBottom: "2rem",
+    margin: "1rem 0rem",
     display: "flex",
     justifyContent: "space-between",
     flexDirection:"row",
   },
 
-  friendRequestContStyles:{
-    overflowY:"scroll",
-    "&::-webkit-scrollbar": {
-      display: "none",
-    },
-  },
-
   searchFriendContStyles:{
-    minHeight: "30vh",
+    display:'flex',
+    flexDirection:'column',
+    justifyContent:'center',
+    alignItems:'center',
+    maxHeight:'35vh',
     width:"100%",
     overflowY:"scroll",
     "&::-webkit-scrollbar": {
       display: "none",
     },
-    background:'#f3f9ff'
+    border:'none',
+    borderRadius:'5px',
+    background:'#F3F9FF',
+  },
+
+  friendRequestContStyles:{
+    maxHeight:'25vh',
+    border:'none',
+    borderRadius:'5px',
+    background:'#F3F9FF',
+    overflowY:'scroll',
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
   },
 
   searchBar: {
@@ -37,7 +58,7 @@ export const ListStyles = makeStyles()((theme) => ({
     padding: "0.5rem",
     fontSize: "1rem",
     width:"100%",
-    cursor:"pointer"
+    cursor:"pointer",
   },
 
   icon: {
@@ -48,17 +69,6 @@ export const ListStyles = makeStyles()((theme) => ({
 
   avatar: {
     marginRight: "1rem",
-  },
-
-  friendContStyles: {
-    position:'fixed',
-    top:'15vh',
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    maxWidth: "100%",
-    overflowY:'hidden',
-    height:'auto',
   },
 
   friendContainer: {
@@ -72,16 +82,21 @@ export const ListStyles = makeStyles()((theme) => ({
 
   single: {
     display: "flex",
-    borderRadius: "10px",
-    marginBottom: "10px",
-    padding: "0 1rem",
     justifyContent: "center",
-    width: "100%",
+    alignItems:'center',
+    borderRadius: "5px",
+    marginBottom: "10px",
+    minWidth: "100%",
     overflowWrap: "break-word",
     wordBreak: "break-word",
-    maxHeight: "20%",
-    overflow: "hidden",
-    cursor:"pointer"
+    cursor:"pointer",
+    background:'#FFF',
+    transition:'0.2s ease-in-out',
+    borderBottom:'2px solid #363a91',
+      '&:hover': {
+        transform:'scale(0.95)',
+        boxShadow: 'rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px',
+      },
   },
 
   single1: {

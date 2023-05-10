@@ -2,7 +2,6 @@ import { makeStyles } from "tss-react/mui";
 
 export const PostStyles =makeStyles()((theme,styles)=>{
   return({
-
    PostsTopContStyles: {
       display:'flex',
       flexDirection:'row',
@@ -20,7 +19,6 @@ export const PostStyles =makeStyles()((theme,styles)=>{
     postContStyles: {
       maxWidth:'100%',
       display:'flex',
-      flexDirection:'column',
       alignItems:'center',
       overflowY:'hidden',
     },
@@ -34,12 +32,14 @@ export const PostStyles =makeStyles()((theme,styles)=>{
     },
 
     friendReqGridStyles:{
-      background:'blue',
       maxWidth:'25%',
     },
 
     friendReqGridItemStyles:{
       maxWidth:'100%',
+      display:'flex',
+      justifyContent:'center',
+      alignItems:'center',
     },
 
     gridContainerStyles: {
@@ -48,6 +48,7 @@ export const PostStyles =makeStyles()((theme,styles)=>{
       margin:'0rem auto',
       minWidth:'75%',
       maxWidth:'75%',
+      display:'flex',
       justifyContent:'center',
       alignItems:'center',
       '@media screen and (max-width: 900px)': {
@@ -56,14 +57,18 @@ export const PostStyles =makeStyles()((theme,styles)=>{
       '@media screen and (max-width: 600px)': {
         width:'100%',
       },
+      marginBottom:'5rem',
+      '@media screen and (max-width: 600px)': {
+        minWidth:'100%',
+        maxWidth:'100%',
+      },
     },
 
     gridItemStyles: {
       display:'flex',
       justifyContent:'center',
       alignItems:'center',
-      margin:'1rem 0rem',
-      padding:'0rem 0rem 1rem 0rem'
+      margin:'0.5rem 0rem',
     },
 
     cardContainer: {
@@ -72,6 +77,14 @@ export const PostStyles =makeStyles()((theme,styles)=>{
       transition:'0.2s ease-in-out',
       '&:hover': {
         boxShadow: 'rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px',
+      },
+      '@media screen and (max-width: 900px)': {
+        minWidth:'85%',
+        maxWidth:'85%',
+      },
+      '@media screen and (max-width: 681px)': {
+        minWidth:'100%',
+        maxWidth:'100%',
       },
     },
 
@@ -82,6 +95,29 @@ export const PostStyles =makeStyles()((theme,styles)=>{
     postMedia: {
       maxWidth:'100%',
       margin:'10px 0px'
+    },
+
+    noPostsFoundContStyles: {
+      display:'flex',
+      flexDirection:'column',
+      justifyContent:'center',
+      alignItems:'center',
+      margin:'3rem 0rem',
+    },
+
+    noPostFoundTextStyles: {
+      margin:'1rem 0rem',
+      padding:'0.5rem 1rem',
+      background:theme.palette.primary.main,
+      color:'#FFF',
+      border:'none',
+      borderRadius:'1.25rem',
+      fontWeight:'bold',
+    },
+
+    noPostsFoundImageStyles: {
+      maxWidth:'80%',
+      margin:'1rem 0rem',
     },
   });
 })
