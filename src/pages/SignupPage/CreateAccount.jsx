@@ -52,6 +52,7 @@ const CreateAccount = () => {
     data.profilePicture = profilePicture;
 
     const response = await handleUserSignup(data);
+    
     if(response.data.status === "success"){
       toast({
         title: "Account created successfully !",

@@ -15,10 +15,9 @@ function Provider({ children, post }) {
 
   const createComment = async (data) => {
       const response = await handleAddComments(data);
-
       if(response.data.status === "success"){
         setComments([...comments, response.data.data]);
-        dispatch(increasePostComments({postId: post.id}));
+        dispatch(increasePostComments(post.id));
         toast({
           title: "Comment added successfully !",
           position: "top",
@@ -45,7 +44,7 @@ function Provider({ children, post }) {
 
       if(response.data.status === "success"){
         setComments(comments.filter((comment) => comment.id !== id));
-        dispatch(decreasePostComments({postId: post.id}));
+        dispatch(decreasePostComments(post.id));
         toast({
           title: "Comment deleted successfully !",
           position: "top",

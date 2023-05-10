@@ -13,14 +13,14 @@ const likeSlice = createSlice(
             },
             increasePostLikes(state, action){
                 state.map((post)=>{
-                    if(post.postId == action.payload.postId){
+                    if(post.postId == action.payload){
                         post.currentLikesCount = post.currentLikesCount + 1;
                     }
                 });
             },
             decreasePostLikes(state, action){
                 state.map((post)=>{
-                    if(post.postId == action.payload.postId){
+                    if(post.postId == action.payload){
                         if(post.currentLikesCount > 0){
                             post.currentLikesCount = post.currentLikesCount - 1;
                         }

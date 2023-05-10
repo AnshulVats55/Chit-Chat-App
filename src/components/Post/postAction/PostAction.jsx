@@ -45,18 +45,16 @@ export const PostAction = ({ post }) => {
       if(post.postId === postId){
         totalComments = post.currentCommentsCount;
       }
-  })
+  });
 
   useEffect(()=>{
-    allPostDetails.map((post)=>{
-      post.usersWhoLiked.map((like)=>{
-        if(currentUserId === like.user.id){
-          setLikeId(like.id);
-          setIsLiked(true);
-        }
-      });
+    post.likes.map((like)=>{
+      if(currentUserId === like.user.id){
+        setIsLiked(true);
+        setLikeId(like.id);
+      }
     });
-  },[]);
+  }, []);
   
   const handleShowComments = (scrollType) => {
     setShowComments(!showComments);
@@ -78,7 +76,6 @@ export const PostAction = ({ post }) => {
     }
   }, [showComments]);
 
-
   let data = JSON.stringify({
     userId: currentUserId,
     postId: postId,
@@ -90,9 +87,7 @@ export const PostAction = ({ post }) => {
       if (response.data.status === "success") {
         setIsLiked(true);
         setLikeId(response.data.data.id);
-        dispatch(
-          increasePostLikes({ postId: postId, likeId: response.data.data.id })
-        );
+        dispatch(increasePostLikes(postId));
       }
     }
     else {
@@ -100,7 +95,7 @@ export const PostAction = ({ post }) => {
       if (response.data.status === "success") {
         setIsLiked(false);
         setLikeId("");
-        dispatch(decreasePostLikes({ postId: postId }));
+        dispatch(decreasePostLikes(postId));
       }
     }
   };
@@ -138,7 +133,7 @@ export const PostAction = ({ post }) => {
         ) : (
           <></>
         )}
-        <span className={classes.Hide}>{post?.comments?.length} comments</span>
+        <span className={classes.Hide}>{totalComments} comments</span>
       </Box>
     </CardActions>
   );

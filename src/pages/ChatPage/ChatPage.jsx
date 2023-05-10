@@ -4,7 +4,7 @@ import { chatStyle } from "./ChatPage.styles";
 import { Box, Grid } from "@mui/material";
 import ChatWindow from "../../components/ChatWindow/ChatWindow";
 import Friends from "../../components/FriendList/Friends";
-import IP_ADDRESS from '../../api/IPAddress';
+import BASE_URL from '../../api/services/BaseUrl';
 
 import { useSelector } from "react-redux";
 
@@ -28,7 +28,7 @@ const ChatPage = () => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `${IP_ADDRESS}/v1/relationship/all/${userId}`,
+      url: `${BASE_URL}/v1/relationship/all/${userId}`,
       headers: {
         token:localStorage.getItem("token"),
       },
@@ -48,7 +48,7 @@ const ChatPage = () => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `${IP_ADDRESS}/v1/chat?senderId=${userId}&receiverId=${id}`,
+      url: `${BASE_URL}/v1/chat?senderId=${userId}&receiverId=${id}`,
       headers: {
         token:localStorage.getItem("token"),
       },

@@ -3,7 +3,7 @@ import { Box, Grid } from "@mui/material";
 import { PostStyles } from "./post.styles";
 import Post from "./Post";
 import CreatePost from "./createPost/CreatePost";
-import postApi from "../../api/postApi";
+import postApi from "../../api/services/postApi";
 import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostData, createPostByRedux, deletePostById } from "../../store/slices/PostDataSlice";
@@ -34,6 +34,7 @@ export const Posts = () => {
         dispatch(setPostData(response));
         dispatch(resetInitialState());
         dispatch(resetCommentInitialState());
+        
         response.map((post)=>{
           dispatch(setPostCurrentLikes({postId:post.id, currentLikesCount: post.likes.length, usersWhoLiked: post.likes}));
           dispatch(setUserComments({postId: post.id, currentCommentsCount: post.comments.length, usersWhoCommented: post.comments}));
