@@ -6,9 +6,20 @@ import CreatePost from "./createPost/CreatePost";
 import postApi from "../../api/services/postApi";
 import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPostData, createPostByRedux, deletePostById } from "../../store/slices/PostDataSlice";
-import { setPostCurrentLikes, resetInitialState } from '../../store/slices/LikeSlice';
-import { setUserComments, resetCommentInitialState } from '../../store/slices/CommentSlice';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  getAllPosts,
+  createPostByRedux,
+  deletePostById,
+} from "../../store/slices/PostDataSlice";
+import {
+  setPostCurrentLikes,
+  resetInitialState,
+} from "../../store/slices/LikeSlice";
+import {
+  setUserComments,
+  resetCommentInitialState,
+} from "../../store/slices/CommentSlice";
 import Request from "../AddFriend/Request";
 
 const PostContext = createContext();
@@ -22,26 +33,15 @@ export const Posts = () => {
   const posts = useSelector((state) => {
     return state.postDataReducer;
   });
-
+  console.log(posts);
   const [userName, setUserName] = useState("");
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-      let getAllPosts = async () => {
-        let response = await getPosts();
-        
-        dispatch(setPostData(response));
-        dispatch(resetInitialState());
-        dispatch(resetCommentInitialState());
-        
-        response.map((post)=>{
-          dispatch(setPostCurrentLikes({postId:post.id, currentLikesCount: post.likes.length, usersWhoLiked: post.likes}));
-          dispatch(setUserComments({postId: post.id, currentCommentsCount: post.comments.length, usersWhoCommented: post.comments}));
-        });
-      };
-
-      getAllPosts();
+  useEffect(async () => {
+    try {
+      await getAllPosts();
+    } catch (e) {}
   }, []);
 
   const handleCreatePost = async (postData) => {
@@ -57,8 +57,7 @@ export const Posts = () => {
         duration: 1000,
         isClosable: true,
       });
-    }
-    else {
+    } else {
       toast({
         title: "Error creating post !",
         position: "top",
@@ -71,7 +70,7 @@ export const Posts = () => {
   };
 
   const handleDeletePost = async (id) => {
-    if (id !== ''){
+    if (id !== "") {
       const response = await deletePost(id);
       if (response.data.status == "success") {
         dispatch(deletePostById(id));
@@ -99,25 +98,29 @@ export const Posts = () => {
   return (
     <PostContext.Provider value={{ handleDeletePost, userName }}>
       <Box className={classes.PostsTopContStyles}>
-
         <Grid container className={classes.postContStyles}>
-          <Grid item lg={12} md={12} sm={12} xs={12} className={classes.postContItemStyles}>
-
+          <Grid
+            item
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
+            className={classes.postContItemStyles}
+          >
             <CreatePost createPost={handleCreatePost} />
 
             <Grid container spacing={2} className={classes.gridContainerStyles}>
-              {
-              posts?.map((post) => {
+              {posts?.map((post) => {
                 return (
                   <>
-                  <Grid
-                    className={classes.gridItemStyles}
-                    item
-                    xs={10}
-                    key={post.id}
-                  >
-                    <Post post={post} postCreatorId={post.userId} />
-                  </Grid>
+                    <Grid
+                      className={classes.gridItemStyles}
+                      item
+                      xs={10}
+                      key={post.id}
+                    >
+                      <Post post={post} postCreatorId={post.userId} />
+                    </Grid>
                   </>
                 );
               })}

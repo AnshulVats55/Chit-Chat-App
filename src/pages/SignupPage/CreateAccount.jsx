@@ -53,7 +53,7 @@ const CreateAccount = () => {
 
     const response = await handleUserSignup(data);
     
-    if(response.data.status === "success"){
+    if(response?.data?.status === "success"){
       toast({
         title: "Account created successfully !",
         position: "top",
