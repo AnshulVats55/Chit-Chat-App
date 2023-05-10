@@ -10,12 +10,16 @@ import FemaleAvatar from '../../../assets/female avatar.jpg';
 export const PostHeader = ({ post, styles }) => {
 
   const { classes } = PostHeaderStyles(styles);
+  
   const { loading = false } = { post, styles };
 
   const user = useSelector((state) => {
-    return state.userDataReducer[0]?.data.user;
+    return state.userDataReducer[0]?.data?.user;
   });
-  console.log(user);
+
+  console.log(post);
+
+  const userProfilePicture = post["user.profilePicture"] ? post["user.profilePicture"] : user.gender ? MaleAvatar : FemaleAvatar;
 
   const { handleDeletePost } = useContext(PostContext);
 
@@ -27,13 +31,12 @@ export const PostHeader = ({ post, styles }) => {
     return state.userDataReducer[0]?.data?.user.id;
   });
 
-
   return (
     <CardHeader
       avatar={
         <Avatar
           aria-label="recipe"
-          src={post["user.profilePicture"] ? post["user.profilePicture"] : user.gender === "male" ? MaleAvatar : FemaleAvatar}></Avatar>
+          src={userProfilePicture}></Avatar>
       }
       action={
         <IconButton aria-label="settings">

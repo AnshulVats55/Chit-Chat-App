@@ -44,3 +44,25 @@ export const DeleteRequest = async (method, endPoint, data, token,) => {
         console.log(error);
       }
 }
+
+export const RequestWithoutToken = async (method, endPoint, data) => {
+    let config = {
+      method: method,
+      maxBodyLength: Infinity,
+      url: `${BASE_URL}${endPoint}`,
+      headers: {
+          "Content-Type": "application/json",
+      },
+      mode:'no-mode',
+      referrerPolicy:'no-referrer',
+      data: data,
+    };
+
+    try{
+      const response = await axios.request(config);
+      return response;
+    }
+    catch(error){
+      console.log(error);
+    }
+}

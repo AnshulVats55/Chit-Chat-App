@@ -18,14 +18,23 @@ export const PostStyles =makeStyles()((theme,styles)=>{
     },
 
     postContStyles: {
-      maxWidth:'75%',
+      maxWidth:'100%',
       display:'flex',
       flexDirection:'column',
       alignItems:'center',
       overflowY:'hidden',
     },
 
+    postContItemStyles: {
+      minWidth:'100%',
+      display:'flex',
+      flexDirection:'column',
+      justifyContent:'center',
+      alignItems:'center',
+    },
+
     friendReqGridStyles:{
+      background:'blue',
       maxWidth:'25%',
     },
 
@@ -37,7 +46,8 @@ export const PostStyles =makeStyles()((theme,styles)=>{
       position:'relative',
       top:'10vh',
       margin:'0rem auto',
-      width:'75%',
+      minWidth:'75%',
+      maxWidth:'75%',
       justifyContent:'center',
       alignItems:'center',
       '@media screen and (max-width: 900px)': {
@@ -53,10 +63,12 @@ export const PostStyles =makeStyles()((theme,styles)=>{
       justifyContent:'center',
       alignItems:'center',
       margin:'1rem 0rem',
+      padding:'0rem 0rem 1rem 0rem'
     },
 
     cardContainer: {
-      width:'75%',
+      minWidth:'75%',
+      maxWidth:'75%',
       transition:'0.2s ease-in-out',
       '&:hover': {
         boxShadow: 'rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px',

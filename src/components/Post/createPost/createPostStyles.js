@@ -3,7 +3,7 @@ import { makeStyles } from "tss-react/mui";
 export const getCreatePostStyles = makeStyles()((theme) => ({
   createPostContStyles: {
     background:'#f3f9ff',
-    minWidth: "60%",
+    minWidth: '60%',
     display: "flex",
     flexDirection: "column",
     position:'relative',

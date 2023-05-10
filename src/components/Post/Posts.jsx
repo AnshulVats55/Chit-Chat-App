@@ -101,8 +101,10 @@ export const Posts = () => {
       <Box className={classes.PostsTopContStyles}>
 
         <Grid container className={classes.postContStyles}>
-          <Grid item lg={10} md={10} sm={10} xs={10}>
+          <Grid item lg={12} md={12} sm={12} xs={12} className={classes.postContItemStyles}>
+
             <CreatePost createPost={handleCreatePost} />
+
             <Grid container spacing={2} className={classes.gridContainerStyles}>
               {
               posts?.map((post) => {
@@ -111,10 +113,7 @@ export const Posts = () => {
                   <Grid
                     className={classes.gridItemStyles}
                     item
-                    lg={12}
-                    md={12}
-                    sm={12}
-                    xs={12}
+                    xs={10}
                     key={post.id}
                   >
                     <Post post={post} postCreatorId={post.userId} />

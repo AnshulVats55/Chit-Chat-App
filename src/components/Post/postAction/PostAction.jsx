@@ -19,7 +19,7 @@ export const PostAction = ({ post }) => {
   const [likeId, setLikeId] = useState("");
 
   const currentUserId = useSelector((state) => {
-    return state?.userDataReducer[0]?.data?.user.id;
+    return state?.userDataReducer[0]?.data?.user?.id;
   });
 
   const dispatch = useDispatch();
@@ -34,21 +34,21 @@ export const PostAction = ({ post }) => {
 
   let totalLikes;
   const postId = post.id;
-  allPostDetails.map((post)=>{
+  allPostDetails?.map((post)=>{
     if(post.postId == postId){
       totalLikes = post.currentLikesCount;
     }
   });
 
   let totalComments;
-  allCommentDetails.map((post)=>{
+  allCommentDetails?.map((post)=>{
       if(post.postId === postId){
         totalComments = post.currentCommentsCount;
       }
   });
 
   useEffect(()=>{
-    post.likes.map((like)=>{
+    post?.likes?.map((like)=>{
       if(currentUserId === like.user.id){
         setIsLiked(true);
         setLikeId(like.id);
