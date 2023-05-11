@@ -1,37 +1,43 @@
-import React from "react";
+import React,{useState} from "react";
 import { IconButton, Avatar, Paper, Box, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import { useState } from "react";
 import { ChatStyles } from "./chatWindow.styles";
 import { socket } from "../../pages/CommonLayout/CommonLayout";
 import { useSelector } from "react-redux";
 
+
 const ChatWindow = ({ selectedChat, displayChat, setDisplayChat, recUser }) => {
   const { classes } = ChatStyles();
+ console.log(displayChat);
 
   const userDetails = useSelector((state) => {
     return state.userDataReducer[0];
   });
 
+  const time = (t)=>{
+    const date = new Date(t * 1000);
+     const hours = date.getHours();
+     const minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+     const formattedTime = hours + ":" + minutes.toString().substring(-2) ;
+    return formattedTime;
+    }
+
   const userId = userDetails.data.user.id;
+  console.log(userId)
 
   const [currentMessage, setCurrentMessage] = useState("");
 
   const sendMessage = () => {
     const today = new Date();
+    console.log(currentMessage)
+    
     setDisplayChat([
       ...displayChat,
       {
         senderId: userId,
         receiverId: recUser.id,
         body: currentMessage,
-        createdAt:
-          today.getFullYear() +
-          ":" +
-          (today.getMonth() + 1) +
-          ":" +
-          today.getDate() +
-          ":" +
+        times:
           today.getHours() +
           ":" +
           today.getMinutes(),
@@ -45,13 +51,14 @@ const ChatWindow = ({ selectedChat, displayChat, setDisplayChat, recUser }) => {
     });
     setCurrentMessage([]);
   };
+
   socket.on("receive", (chat) => {
     if (recUser.id === chat.senderId) {
       setDisplayChat([...displayChat, chat]);
-    } else {
-      console.log(chat);
-    }
+    } 
   });
+
+
   return (
     <Box className="containers">
 
@@ -75,8 +82,13 @@ const ChatWindow = ({ selectedChat, displayChat, setDisplayChat, recUser }) => {
         </Box>
         <Box className={classes.chatBody}>
           <Box className={classes.messageContainer}>
-            {displayChat.map((msg) => {
+
+            {displayChat?.map((msg) => {
+             const timeStamp = time(msg.createdAt)
+
               return (
+                <>
+                
                 <Box
                   className={
                     userId === msg.senderId
@@ -93,14 +105,17 @@ const ChatWindow = ({ selectedChat, displayChat, setDisplayChat, recUser }) => {
                     }
                   >
                     <Typography className={classes.msg}>{msg.body}</Typography>
+                  
 
                     <Typography className={classes.time}>
-                      {msg.createdAt.split(":")[3] +
-                        ":" +
-                        msg.createdAt.split(":")[4]}
+                      {
+                        msg.times?msg.times :timeStamp
+                    }
+                        
                     </Typography>
                   </Box>
                 </Box>
+                </>
               );
             })}
           </Box>
@@ -126,7 +141,6 @@ const ChatWindow = ({ selectedChat, displayChat, setDisplayChat, recUser }) => {
         </div>
       </Paper>
         ):( <Box className={classes.picture}>
-          
           <img src="https://chatkr.com/static/img/homepage_2.png" alt="" className={classes.pic} />
         </Box>)
       }     

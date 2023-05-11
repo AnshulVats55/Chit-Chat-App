@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Paper, IconButton, Box, Avatar, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { ListStyles } from "../FriendList/FriendList.styles";
-import axios from "axios";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useSelector } from "react-redux";
 import { socket } from "../../pages/CommonLayout/CommonLayout";
 import { useToast } from "@chakra-ui/react";
+import { allUSers } from "../../api/services/FriendRequestApi";
 
 const SearchFriend = () => {
-
   const { classes } = ListStyles();
-
-  const [friends, setFriends] = useState([]);
   const [serchedUser, setSearchedUSer] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -22,6 +19,11 @@ const SearchFriend = () => {
     return state.userDataReducer[0];
   });
   const userId = userDetails.data.user.id;
+
+  const ff = useSelector((state) => {
+    return state.FriendsDataReducer;
+  });
+  
  
 
   const addFriend = (id) => {
@@ -35,50 +37,19 @@ const SearchFriend = () => {
       isClosable: true,
     });
   };
+ 
 
-  useEffect(() => {
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: `http://192.168.1.110:8484/v1/relationship/all/${userId}`,
-      headers: {
-        token: localStorage.getItem("token"),
-      },
-    };
+  const searchHandler = async () => {
 
-    axios
-      .request(config)
-      .then((response) => {
-        setFriends(response.data.data.followers);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [userId]);
-
-  const searchHandler = () => {
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: `http://192.168.1.110:8484/v1/user`,
-      headers: {
-        token: localStorage.getItem("token"),
-      },
-    };
-
-    axios
-      .request(config)
-      .then((response) => {
-        setSearchedUSer(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const users = await allUSers();
+    setSearchedUSer(users);
   };
 
   return (
     <Box className={classes.searchFriendContStyles}>
-      <Typography variant="body1" sx={{margin: "0.5rem 0rem", textAlign:'center', fontWeight:'bold'}}>Add New Friends</Typography>
+      <Typography variant="h6" className={classes.heading}>
+        Add New Friends
+      </Typography>
       <Paper component="form" className={classes.searchContainer}>
         <input
           className={classes.searchBar}
@@ -91,9 +62,9 @@ const SearchFriend = () => {
           <SearchIcon />
         </IconButton>
       </Paper>
-      <div style={{height:"100%"}}  className={classes.friendContainer}>
+      <Box className={classes.friendContainer}>
         {serchedUser
-          .filter((val) => {
+          ?.filter((val) => {
             if (search === "") {
               return null;
             }
@@ -102,7 +73,7 @@ const SearchFriend = () => {
                 val.lastName.toLowerCase().startsWith(search.toLowerCase())) &&
               val.id !== userId
             ) {
-              const index = friends.findIndex((element) => {
+              const index = ff.findIndex((element) => {
                 return element.id === val.id;
               });
 
@@ -126,15 +97,14 @@ const SearchFriend = () => {
                   <Typography sx={{ marginTop: "6px" }} variant="body1">
                     {firstName + " " + lastName}
                   </Typography>
-                  <IconButton  onClick={() => addFriend(id)}>
+                  <IconButton onClick={() => addFriend(id)}>
                     <PersonAddIcon />
                   </IconButton>
-                  <Box></Box>
                 </Box>
               </Box>
             );
           })}
-      </div>
+      </Box>
     </Box>
   );
 };
