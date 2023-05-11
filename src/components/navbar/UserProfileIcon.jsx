@@ -39,8 +39,6 @@ const UserProfileIcon = () => {
     userFullName =userDetails.data.user.firstName + " " + userDetails.data.user.lastName,
     userGender = userDetails.data.user.gender;
 
-  
-
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.clear();
@@ -64,7 +62,7 @@ const UserProfileIcon = () => {
         <IconButton onClick={handleOpenUserMenu}>
           <Avatar
             alt="Remy Sharp"
-            src={userProfilePicture ? userProfilePicture : userGender === "male" ? MaleAvatar : FemaleAvatar}
+            src={userProfilePicture}
             sx={{
               backgroundColor: "#363a91",
               "@media screen and (max-width: 350px)": {

@@ -61,7 +61,7 @@ const UserPosts = ({ children }) => {
                 })
                 :
                 <Box className={classes.noPostsContStyles}>
-                    <Typography className={classes.noPostsTextMessage} variant="body2">You don't have any posts</Typography>
+                    <Typography className={classes.noPostsTextMessage}>Your posts will appear here...</Typography>
                     <img src={NoPostSVG} className={classes.noPostsImage}/>
                 </Box>
             }

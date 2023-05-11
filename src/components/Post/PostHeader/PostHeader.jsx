@@ -16,11 +16,8 @@ export const PostHeader = ({ post, styles }) => {
   const user = useSelector((state) => {
     return state.userDataReducer[0]?.data?.user;
   });
-  console.log(user.id);
-
-  console.log(post);
-
-  const userProfilePicture = post["user.profilePicture"] ? post["user.profilePicture"] : user.gender ? MaleAvatar : FemaleAvatar;
+  
+  const userProfilePicture = post["user.profilePicture"] ? post["user.profilePicture"] : user.profilePicture;
 
   const { handleDeletePost } = useContext(PostContext);
 

@@ -33,13 +33,17 @@ export const Posts = () => {
       let getAllPosts = async () => {
         let response = await getPosts();
         console.log(response);
-        if(response.length === 0){
-          setArePostsAvailable(false);
-        }
         
         dispatch(setPostData(response));
         dispatch(resetInitialState());
         dispatch(resetCommentInitialState());
+
+        if(posts.length === 0){
+          setArePostsAvailable(false);
+        }
+        else{
+          setArePostsAvailable(true);
+        }
         
         response.map((post)=>{
           dispatch(setPostCurrentLikes({postId:post.id, currentLikesCount: post.likes.length, usersWhoLiked: post.likes}));
@@ -54,6 +58,9 @@ export const Posts = () => {
     const response = await createPost(postData);
 
     if (response.data.status === "success") {
+      if(posts.length === 0){
+        setArePostsAvailable(true);
+      }
       dispatch(createPostByRedux(response.data.data));
       toast({
         title: "Post created successfully !",
@@ -80,6 +87,9 @@ export const Posts = () => {
     if (id !== ''){
       const response = await deletePost(id);
       if (response.data.status == "success") {
+        if(posts.length === 1){
+          setArePostsAvailable(false);
+        }
         dispatch(deletePostById(id));
         toast({
           title: "Post deleted successfully !",
@@ -90,7 +100,8 @@ export const Posts = () => {
           isClosable: true,
         });
       }
-    } else {
+    }
+    else {
       toast({
         title: "Post deletion revoked !",
         position: "top",
@@ -134,7 +145,7 @@ export const Posts = () => {
                   </Grid>
                   :
                   <Box className={classes.noPostsFoundContStyles}>
-                    <Typography variant="body2" className={classes.noPostFoundTextStyles}>No posts found</Typography>
+                    <Typography variant="body2" className={classes.noPostFoundTextStyles}>OOPS ! There are no posts.</Typography>
                     <img src={NoPostsFound} alt="" className={classes.noPostsFoundImageStyles}/>
                   </Box>
                 }

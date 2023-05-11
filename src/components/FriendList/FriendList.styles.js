@@ -6,10 +6,12 @@ export const ListStyles = makeStyles()((theme) => ({
     top:'12vh',
     display: "flex",
     flexDirection: "column",
+    justifyContent:'space-between',
     alignItems: "center",
     maxWidth: "100%",
     overflowY:'hidden',
-    padding:'3vh 0vh'
+    height:'80%',
+    padding:'3vh 0vh',
   },
 
   searchContainer: {
@@ -30,7 +32,7 @@ export const ListStyles = makeStyles()((theme) => ({
     flexDirection:'column',
     justifyContent:'center',
     alignItems:'center',
-    maxHeight:'35vh',
+    minHeight:'50%',
     width:"100%",
     overflowY:"scroll",
     "&::-webkit-scrollbar": {
@@ -42,14 +44,19 @@ export const ListStyles = makeStyles()((theme) => ({
   },
 
   friendRequestContStyles:{
-    maxHeight:'25vh',
-    border:'none',
-    borderRadius:'5px',
-    background:'#F3F9FF',
-    overflowY:'scroll',
+    display:'flex',
+    flexDirection:'column',
+    justifyContent:'center',
+    alignItems:'center',
+    minHeight:'50%',
+    width:"100%",
+    overflowY:"scroll",
     "&::-webkit-scrollbar": {
       display: "none",
     },
+    border:'none',
+    borderRadius:'5px',
+    background:'#F3F9FF',
   },
 
   searchBar: {
@@ -116,10 +123,37 @@ export const ListStyles = makeStyles()((theme) => ({
     width: "10%",
     textAlign: "right",
   },
+  
   friendRequest:{
-   
     "&::-webkit-scrollbar": {
       display: "none",
     },
-  }
+  },
+
+  friendGrid: {
+    minWidth:'100%',
+    display:'flex',
+    flexDirection:'column',
+    alignItems:'center',
+    padding:'10px 0px',
+    height:'100%',
+    overflowY:'scroll',
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+  },
+
+  searchFriends: {
+    maxWidth:'100%',
+    minHeight:'3rem',
+    margin:'0px auto',
+    padding:'0rem 1rem',
+    border:'none',
+    borderRadius:'5px',
+    outline:'none',
+    background:'#F3F9FF',
+    '@media screen and (max-width: 600px)': {
+      maxWidth:'75%',
+    },
+  },
 }));
