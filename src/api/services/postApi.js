@@ -1,16 +1,11 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { Request, DeleteRequest } from '../services/Request';
+import { Request, DeleteRequest } from "../services/Request";
 
 const token = localStorage.getItem("token");
 
 const PostApi = () => {
-  
-  const currentUserId = useSelector((state) => {
-    return state.userDataReducer[0]?.data?.user.id;
-  });
-
-  const createPost = async (datapost) => {
+  const createPost = async (datapost, currentUserId) => {
     let data = JSON.stringify({
       userId: currentUserId,
       body: datapost.postDesc,
@@ -23,6 +18,7 @@ const PostApi = () => {
 
   const getPosts = async () => {
     const response = await Request("get", "/v1/post/allPost", "", token);
+    console.log("==================>", response);
     return response.data.data;
   };
 
