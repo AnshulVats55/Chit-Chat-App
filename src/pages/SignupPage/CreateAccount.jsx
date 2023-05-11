@@ -25,6 +25,8 @@ import { passwordCheck } from "../../validators/passwordValidtor";
 
 import LoginPageImage from "../../assets/loginPageImage1.gif";
 import { handleUserSignup } from '../../api/services/UserSignup';
+import MaleAvatar from '../../assets/male avatar.jpg';
+import FemaleAvatar from '../../assets/female avatar.jpg';
 
 import MaleAvatar from '../../assets/male avatar.jpg';
 import FemaleAvatar from '../../assets/female avatar.jpg';

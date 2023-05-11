@@ -10,7 +10,6 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-
 import { useToast } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 
@@ -19,6 +18,7 @@ import FemaleAvatar from '../../assets/female avatar.jpg';
 
 const UserProfileIcon = () => {
   
+  const navigate = useNavigate ();
   const { classes } = NavbarStyles();
 
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -36,10 +36,10 @@ const UserProfileIcon = () => {
   });
 
   const userProfilePicture = userDetails.data.user.profilePicture,
-    userFullName =userDetails.data.user.firstName + " " + userDetails.data.user.lastName,
+    userFullName =
+      userDetails.data.user.firstName + " " + userDetails.data.user.lastName,
     userGender = userDetails.data.user.gender;
 
-  const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.clear();
     toast({
@@ -51,7 +51,7 @@ const UserProfileIcon = () => {
       isClosable: true,
     });
     setTimeout(() => {
-      navigate('/');
+      navigate("/");
       window.location.reload();
     }, 2500);
   };
@@ -62,15 +62,14 @@ const UserProfileIcon = () => {
         <IconButton onClick={handleOpenUserMenu}>
           <Avatar
             alt="Remy Sharp"
-            src={userProfilePicture}
-            sx={{
-              backgroundColor: "#363a91",
-              "@media screen and (max-width: 350px)": {
-                width: "30px",
-                height: "30px",
-                fontSize: "1rem",
-              },
-            }}
+            src={
+              userProfilePicture
+                ? userProfilePicture
+                : userGender === "male"
+                ? MaleAvatar
+                : FemaleAvatar
+            }
+            className={classes.avatar}
           />
         </IconButton>
       </Tooltip>
@@ -91,7 +90,9 @@ const UserProfileIcon = () => {
         onClose={handleCloseUserMenu}
       >
         <MenuItem onClick={handleCloseUserMenu}>
-            <Link to="/profile" className={classes.link}>Profile</Link>
+          <Link to="/profile" className={classes.link}>
+            Profile
+          </Link>
         </MenuItem>
         <MenuItem onClick={handleCloseUserMenu}>
           <Link className={classes.link} onClick={handleLogout}>

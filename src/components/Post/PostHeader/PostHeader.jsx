@@ -4,8 +4,8 @@ import { PostHeaderStyles } from "./postHead.styles";
 import PostContext from "../Posts";
 import { useSelector } from "react-redux";
 import DeleteModal from '../../DeleteModal/DeleteModal';
-import MaleAvatar from '../../../assets/male avatar.jpg';
-import FemaleAvatar from '../../../assets/female avatar.jpg';
+// import MaleAvatar from '../../../assets/male avatar.jpg';
+// import FemaleAvatar from '../../../assets/female avatar.jpg';
 
 export const PostHeader = ({ post, styles }) => {
 
