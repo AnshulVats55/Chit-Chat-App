@@ -6,6 +6,7 @@ import { persistReducer } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
 import commentSlice from "./slices/CommentSlice";
 import likeSlice from "./slices/LikeSlice";
+import displayAlertSlice from "./slices/DisplayAlertSlice";
 
 
 const persistConfig = {
@@ -20,6 +21,7 @@ const reducer = combineReducers(
         postDataReducer: postDataSlice.reducer,
         commentDataReducer: commentSlice.reducer,
         likeDataReducer: likeSlice.reducer,
+        displayAlertReducer:displayAlertSlice.reducer,
     }
 );
 

@@ -13,13 +13,13 @@ const FinalLayout = ({ component }) => {
   });
 
   const userId = userDetails?.data.user.id;
-  const userFullName =userDetails?.data.user.firstName + " " + userDetails.data.user.lastName;
+  const userFullName =userDetails?.data?.user.firstName + " " + userDetails?.data?.user.lastName;
 
  socket.emit("newUser", { id: userId, name: userFullName });
     return (
         <>
-            <Navbar />
-            <Bar />
+           <Navbar/>
+            <Bar/>
             {component}
         </>
     );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Box,
   Button,
@@ -8,7 +8,9 @@ import {
   TextareaAutosize,
   Typography,
 } from "@mui/material";
-
+import DisplayAlert from "../../AlertBox/DisplayAlert";
+import {changeDisplayState} from "../../../store/slices/DisplayAlertSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "@chakra-ui/react";
 
 import CommonButton from "../../Button/CommonButton";
@@ -20,8 +22,25 @@ const CreatePost = ({ createPost }) => {
   const [postDesc, setPostDesc] = useState("");
   const [postMedia, setPostMedia] = useState({});
   const [encodedProfilePic, setEncodedProfilePic] = useState("");
-
   const toast = useToast();
+
+  const dispatch = useDispatch();
+  const alertData = useSelector((state) => {
+    return state.displayAlertReducer;
+  })
+   
+  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error |info"});
+  // console.log(showAlertToast)
+ 
+ useEffect(() => {
+    if (showAlertToast.visiblity === true) {
+      // console.log("under use effect-------------",showAlertToast)
+      dispatch((changeDisplayState(showAlertToast)))
+      setTimeout(()=>{
+        setshowAlertToast({visiblity: false, message: ""});
+      },2000);       
+    }
+}, [showAlertToast]);
 
   const postData = {
     postDesc: postDesc,
@@ -31,14 +50,15 @@ const CreatePost = ({ createPost }) => {
   const handleCreatePost = (e) => {
     e.preventDefault();
     if (postDesc.length == 0) {
-      toast({
-        title: "Post caption can't be empty !",
-        position: "top",
-        description: "",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
+      // toast({
+      //   title: "Post caption can't be empty !",
+      //   position: "top",
+      //   description: "",
+      //   status: "error",
+      //   duration: 2000,
+      //   isClosable: true,
+      // });
+      setshowAlertToast({visiblity: true, message: "Post caption can't be empty !", status:"info"}) 
     } else {
       createPost(postData);
       setPostDesc("");
@@ -59,6 +79,8 @@ const CreatePost = ({ createPost }) => {
 
   return (
     <Box id="createPost" className={classes.createPostContStyles}>
+        {showAlertToast?.visiblity &&  <DisplayAlert message={alertData.message} status={alertData.status}/>}
+
       <form
         className={classes.createPostFormStyles}
         onSubmit={handleCreatePost}

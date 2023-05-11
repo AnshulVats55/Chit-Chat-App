@@ -36,9 +36,9 @@ const UserProfileIcon = () => {
 
   console.log(userDetails);
 
-  const userProfilePicture = userDetails.data.user.profilePicture,
-    userFullName =userDetails.data.user.firstName + " " + userDetails.data.user.lastName,
-    userGender = userDetails.data.user.gender;
+  const userProfilePicture = userDetails?.data?.user.profilePicture,
+    userFullName =userDetails?.data?.user.firstName + " " + userDetails?.data?.user.lastName,
+    userGender = userDetails?.data?.user.gender;
 
   const toast = useToast();
 

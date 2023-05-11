@@ -11,6 +11,8 @@ import CommentWindow from '../../components/simple-comments/ CommentWindow';
 import ChatPage from '../../pages/ChatPage';
 import Request from '../addFriend/Request';
 import Toast from '../../components/NotificationToast/NotificationToast';
+import DisplayAlert from '../AlertBox/DisplayAlert';
+import ListOfFriend from '../ProfileFriendList/ListOfFriend'
 
 const AllRoutes = () => {
     return (
@@ -33,6 +35,8 @@ const AllRoutes = () => {
                         <Route exact path="/signup" element={<CreateAccount />} />
                     </>
                 }
+                <Route exact path="/alert" element={<DisplayAlert />} />
+                <Route exact path="/list" element={<ListOfFriend />} />
             </Routes>
         </Router>
     );

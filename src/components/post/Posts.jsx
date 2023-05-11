@@ -10,22 +10,41 @@ import { setPostData, createPostByRedux, deletePostById } from "../../store/slic
 import { setPostCurrentLikes, resetInitialState } from '../../store/slices/LikeSlice';
 import { setUserComments, resetCommentInitialState } from '../../store/slices/CommentSlice';
 import Request from "../addFriend/Request";
+import DisplayAlert from "../AlertBox/DisplayAlert";
+import {changeDisplayState} from "../../store/slices/DisplayAlertSlice";
 
 const PostContext = createContext();
 
 export const Posts = () => {
   const { classes } = PostStyles();
-
   const { getPosts, createPost, deletePost } = postApi();
   const toast = useToast();
+  
+  const [userName, setUserName] = useState("");
 
   const posts = useSelector((state) => {
     return state.postDataReducer;
   });
 
-  const [userName, setUserName] = useState("");
-
+  //access data
   const dispatch = useDispatch();
+  const alertData = useSelector((state) => {
+    console.log(state.displayAlertReducer)
+    return state.displayAlertReducer;
+  })
+   
+  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error |info"});
+  console.log(showAlertToast)
+ 
+ useEffect(() => {
+    if (showAlertToast.visiblity === true) {
+      console.log("under use effect-------------",showAlertToast)
+      dispatch((changeDisplayState(showAlertToast)))
+      setTimeout(()=>{
+        setshowAlertToast({visiblity: false, message: ""});
+      },1000);       
+    }
+}, [showAlertToast]);
 
   useEffect(() => {
       let getAllPosts = async () => {
@@ -49,54 +68,63 @@ export const Posts = () => {
     if (response.data.status === "success") {
       console.log(response);
       dispatch(createPostByRedux(response.data.data));
-      toast({
-        title: "Post created successfully !",
-        position: "top",
-        description: "",
-        status: "success",
-        duration: 1000,
-        isClosable: true,
-      });
+      // toast({
+      //   title: "Post created successfully !",
+      //   position: "top",
+      //   description: "",
+      //   status: "success",
+      //   duration: 1000,
+      //   isClosable: true,
+      // });
+      setshowAlertToast({visiblity: true, message:"Post Created  Successfully!", status:"success"}) 
     } else {
-      toast({
-        title: "Error creating post !",
-        position: "top",
-        description: "",
-        status: "error",
-        duration: 1000,
-        isClosable: true,
-      });
+      // toast({
+      //   title: "Error creating post !",
+      //   position: "top",
+      //   description: "",
+      //   status: "error",
+      //   duration: 1000,
+      //   isClosable: true,
+      // });
+      setshowAlertToast({visiblity: true, message:"Error Creating POst", status:"error"}) 
     }
   };
-
+ let deleteToast;
   const handleDeletePost = async (id) => {
     if (id !== ''){
       const response = await deletePost(id);
       if (response.data.status == "success") {
         dispatch(deletePostById(id));
-        toast({
-          title: "Post deleted successfully !",
-          position: "top",
-          description: "",
-          status: "success",
-          duration: 1000,
-          isClosable: true,
-        });
+        // toast({
+        //   title: "Post deleted successfully !",
+        //   position: "top",
+        //   description: "",
+        //   status: "success",
+        //   duration: 1000,
+        //   isClosable: true,
+        // });
+        setshowAlertToast({visiblity: true, message:"Deleted Successfully!", status:"success"})  
+
       }
     } else {
-      toast({
-        title: "Post deletion revoked !",
-        position: "top",
-        description: "",
-        status: "info",
-        duration: 1000,
-        isClosable: true,
-      });
+      // toast({
+      //   title: "Post deletion revoked !",
+      //   position: "top",
+      //   description: "",
+      //   status: "info",
+      //   duration: 1000,
+      //   isClosable: true,
+      // });
+      console.log("Post deletion revoked!");
+      setshowAlertToast({visiblity: true, message:"Deletion revoked!", status:"error"}) 
     }
   };
 
   return (
     <PostContext.Provider value={{ handleDeletePost, userName }}>
+  
+      {showAlertToast?.visiblity &&  <DisplayAlert message={alertData.message} status={alertData.status}/>}
+
       <Box className={classes.PostsTopContStyles}>
 
         <Grid container className={classes.postContStyles}>
