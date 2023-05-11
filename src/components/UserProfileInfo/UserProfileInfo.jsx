@@ -5,6 +5,11 @@ import { getUserProfileInfoBoxStyles } from './UserProfileInfo.styles';
 import { useSelector } from 'react-redux';
 import MaleAvatar from '../../assets/male avatar.jpg';
 import FemaleAvatar from '../../assets/female avatar.jpg';
+import BASE_URL from "../../api/services/BaseUrl";
+
+
+const axios = require("axios");
+const userToken = localStorage.getItem("token");
 
 const UserProfileInfo = () => {
     const { classes } = getUserProfileInfoBoxStyles();
@@ -34,9 +39,9 @@ const UserProfileInfo = () => {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `http://192.168.1.110:8484/v1/relationship/all/${currentUserId}`,
+                url: `${BASE_URL}/all/${currentUserId}`,
                 headers: {
-                'token': localStorage.getItem("token"),
+                authorization: `Bearer ${userToken}`,
                 }
             };
             const response = await axios.request(config);

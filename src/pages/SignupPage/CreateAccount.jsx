@@ -25,6 +25,8 @@ import { passwordCheck } from "../../validators/passwordValidtor";
 
 import LoginPageImage from "../../assets/loginPageImage1.gif";
 import { handleUserSignup } from '../../api/services/UserSignup';
+import MaleAvatar from '../../assets/male avatar.jpg';
+import FemaleAvatar from '../../assets/female avatar.jpg';
 
 const CreateAccount = () => {
   const { classes } = createAccountPageStyles();
@@ -49,7 +51,7 @@ const CreateAccount = () => {
   const toast = useToast();
 
   const onSubmit = async (data) => {
-    data.profilePicture = profilePicture;
+    data.profilePicture = profilePicture !== "" ? profilePicture : (gender === "male" ? MaleAvatar : FemaleAvatar);
 
     const response = await handleUserSignup(data);
     

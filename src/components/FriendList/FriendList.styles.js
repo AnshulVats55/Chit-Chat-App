@@ -22,7 +22,7 @@ export const ListStyles = makeStyles()((theme) => ({
     margin: "1rem 0rem",
     display: "flex",
     justifyContent: "space-between",
-    flexDirection:"row",
+    flexDirection: "row",
   },
 
   searchFriendContStyles:{
@@ -72,9 +72,11 @@ export const ListStyles = makeStyles()((theme) => ({
   },
 
   friendContainer: {
+    height: "300px",
+    scrollbarWidth: "none",
     overflowY: "scroll",
     width: "100%",
-    minHeight:"20vh",
+    minHeight: "20vh",
     "&::-webkit-scrollbar": {
       display: "none",
     },
@@ -116,10 +118,13 @@ export const ListStyles = makeStyles()((theme) => ({
     width: "10%",
     textAlign: "right",
   },
-  friendRequest:{
-   
+  friendRequest: {
     "&::-webkit-scrollbar": {
       display: "none",
     },
-  }
+  },
+  heading: {
+    margin: "0.5rem 0rem",
+    textAlign: "center",
+  },
 }));
