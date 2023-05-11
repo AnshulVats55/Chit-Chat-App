@@ -1,8 +1,7 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import IP_ADDRESS from '../../api/IPAddress';
 import {
   Container,
   TextField,
@@ -15,7 +14,7 @@ import {
   Select,
 } from "@mui/material";
 
-import { background, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 
 import CommonButton from "../../components/Button/CommonButton";
 import BrandIdentity from "../../components/BrandIdentity/BrandIdentity";
@@ -25,6 +24,7 @@ import { emailValidator } from "../../validators/emailValidator";
 import { passwordCheck } from "../../validators/passwordValidtor";
 
 import LoginPageImage from "../../assets/loginPageImage1.gif";
+import { handleUserSignup } from '../../api/services/UserSignup';
 
 const CreateAccount = () => {
   const { classes } = createAccountPageStyles();
@@ -46,52 +46,37 @@ const CreateAccount = () => {
   const [isProfilePicAttached, setIsProfilePicAttached] = useState(false);
 
   const navigate = useNavigate();
-  const axios = require("axios");
   const toast = useToast();
 
-  //method to create user account
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     data.profilePicture = profilePicture;
 
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: `${IP_ADDRESS}/v1/signup`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode:'no-mode',
-      referrerPolicy:'no-referrer',
-      data: data,
-    };
-
-    axios
-      .request(config)
-      .then((response) => {
-        console.log(response);
-        toast({
-          title: "Account created successfully !",
-          position: "top",
-          description: "",
-          status: "success",
-          duration: 2000,
-          isClosable: true,
-        });
-
-        setTimeout(() => {
-          navigate("/");
-        }, 2500);
-      })
-      .catch((error) => {
-        toast({
-          title: "Error Creating Account !",
-          position: "top",
-          description: "",
-          status: "error",
-          duration: 2000,
-          isClosable: true,
-        });
+    const response = await handleUserSignup(data);
+    
+    if(response.data.status === "success"){
+      toast({
+        title: "Account created successfully !",
+        position: "top",
+        description: "",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
       });
+
+      setTimeout(() => {
+        navigate("/");
+      }, 2500);
+    }
+    else{
+      toast({
+        title: "Error Creating Account !",
+        position: "top",
+        description: "",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
   };
 
   function getBase64(file) {

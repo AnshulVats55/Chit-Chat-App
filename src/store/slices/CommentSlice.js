@@ -13,14 +13,14 @@ const commentSlice = createSlice(
             },
             increasePostComments(state, action){
                 state.map((post)=>{
-                    if(post.postId == action.payload.postId){
+                    if(post.postId == action.payload){
                         post.currentCommentsCount = post.currentCommentsCount + 1;
                     }
                 });
             },
             decreasePostComments(state, action){
                 state.map((post)=>{
-                    if(post.postId == action.payload.postId){
+                    if(post.postId == action.payload){
                         post.currentCommentsCount = post.currentCommentsCount - 1;
                     }
                 });

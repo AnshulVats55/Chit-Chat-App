@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Link, useState} from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Box, Grid, Container, Typography} from '@mui/material';
 import UserPosts from '../../components/UserPosts/UserPosts';
 import { getProfilePageStyles } from './ProfilePage.styles';
@@ -18,7 +18,7 @@ const ProfilePage = ({ children }) => {
             <UserProfileInfo />
             <Box className={classes.userPostLabelConStyles}>
                 <Link to="/" className={classes.createPostBtnContStyles}>
-                    <ViewPostButton children={<AddIcon fontSize="small" />} />
+                    <ViewPostButton children={<AddIcon fontSize="small" />} className={classes.createPostBtnStyles} />
                 </Link>
             </Box>
             <UserPosts />

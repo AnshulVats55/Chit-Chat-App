@@ -9,7 +9,6 @@ const postDataSlice = createSlice(
                 return state = action.payload;
             },
             createPostByRedux(state,action){
-                // console.log(action.payload)
                 return [action.payload,...state]  
             },
             deletePostById(state,action){
@@ -20,5 +19,5 @@ const postDataSlice = createSlice(
     }
 );
 
-export const { setPostData,createPostByRedux,deletePostById } =  postDataSlice.actions;
+export const { setPostData, createPostByRedux, deletePostById } =  postDataSlice.actions;
 export default postDataSlice;

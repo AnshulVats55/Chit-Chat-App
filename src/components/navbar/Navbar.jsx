@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { NavbarStyles } from './Navbar.styles';
 import { Typography, MenuItem,  Container, Menu, IconButton, Box, AppBar } from '@mui/material';
-
 import { Link } from 'react-router-dom';
 import MenuIcon  from '@mui/icons-material/Menu';
-import  HomeIcon  from '@mui/icons-material/Home';
-import  ChatIcon  from '@mui/icons-material/Chat';
-import  GroupsIcon  from '@mui/icons-material/Groups';
 import UserProfileIcon from './UserProfileIcon';
 
 import Logo from '../../assets/fiftyfive-logo.png';
@@ -78,7 +74,6 @@ function Navbar() {
                     </Box>
 
                     {/* medium devices */}
-
                     <Box className={classes.left}  >
                         <Box className={classes.imgContainer}>
                             <Link to="/profile">
@@ -89,7 +84,6 @@ function Navbar() {
                     </Box>
 
                     {/* small devices */}
-
                     <Box sx={{display: { xs: 'flex', md: 'none', lg: 'none' }, justifyContent:'center', alignItems:'center' }}>
                         <Box className={classes.leftMain}>
                             <Box className={classes.imgContainer}>
@@ -100,7 +94,6 @@ function Navbar() {
                     </Box>
 
                     <UserProfileIcon classes={classes}/>
-
                 </Box>
             </Container>
         </AppBar>

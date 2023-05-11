@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { NavbarStyles } from "./Navbar.styles";
 import {
@@ -13,15 +13,16 @@ import {
 
 import { useToast } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import { setUserData } from "../../store/slices/UserDataSlice";
 
 import MaleAvatar from '../../assets/male avatar.jpg';
 import FemaleAvatar from '../../assets/female avatar.jpg';
 
 const UserProfileIcon = () => {
-  const [anchorElUser, setAnchorElUser] = useState(null);
-
+  
   const { classes } = NavbarStyles();
+
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const toast = useToast();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -40,7 +41,7 @@ const UserProfileIcon = () => {
     userFullName =userDetails?.data?.user.firstName + " " + userDetails?.data?.user.lastName,
     userGender = userDetails?.data?.user.gender;
 
-  const toast = useToast();
+  
 
   const navigate = useNavigate();
   const handleLogout = () => {
