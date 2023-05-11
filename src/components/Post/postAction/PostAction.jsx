@@ -14,21 +14,14 @@ export const PostAction = ({ post }) => {
   const [showComments, setShowComments] = useState(false);
   
   const currentPost = post;
+  console.log(currentPost)
   const currentUserId = useSelector((state) => {
     return state?.userDataReducer[0]?.data?.user?.id;
   });
   console.log('pppppppppp',currentPost)
   const dispatch = useDispatch();
 
-  // let alreadyLikedId;
-  // const alreadyLiked = post?.likes?.find(
-  //   (obj) => {
-
-  //    alreadyLikedId = obj.id
-  //    return  obj.user.id === currentUserId
-  //   } 
-  // );
-   let alreadyLiked ={
+   let alreadyLiked = {
      status :false,
      id:""
    }
@@ -49,15 +42,6 @@ export const PostAction = ({ post }) => {
     setShowComments(!showComments);
   };
 
-  const descriptionElementRef = useRef(null);
-  useEffect(() => {
-    if (showComments) {
-      const { current: descriptionElement } = descriptionElementRef;
-      if (descriptionElement !== null) {
-        descriptionElement.focus();
-      }
-    }
-  }, [showComments]);
 
 
   let data = JSON.stringify({
@@ -78,15 +62,8 @@ export const PostAction = ({ post }) => {
     <CardActions className={classes.postActionCont}>
       <Box>
         <IconButton aria-label="add to favorites" onClick={handlePostLikes}>
-           {/* <Checkbox
-            icon={<FavoriteBorder />}
-            checked={isLiked}
-            checkedIcon={<Favorite sx={{ color: "red" }} />}
-          />  */}
         {  
-
-        alreadyLiked.status?<Favorite sx={{color: "red" }}/>:<FavoriteBorder />
-        
+          alreadyLiked.status?<Favorite sx={{color: "red" }}/>:<FavoriteBorder /> 
         }
         </IconButton>
         <span className={classes.Hide}>{currentPost.likes?currentPost.likes.length:0} likes</span>
@@ -106,13 +83,12 @@ export const PostAction = ({ post }) => {
             handleClose={handleClose}
             open={showComments}
             scroll="paper"
-            descriptionElementRef={descriptionElementRef}
             post={post}
           />
         ) : (
           <></>
         )}
-        <span className={classes.Hide}> comments</span>
+        <span className={classes.Hide}>{currentPost.comments?currentPost.comments.length:0} comments</span>
       </Box>
     </CardActions>
   );
