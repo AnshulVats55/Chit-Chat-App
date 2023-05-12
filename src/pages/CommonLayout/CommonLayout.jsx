@@ -1,6 +1,5 @@
 import React from 'react';
-import Navbar from '../../components/navbar/Navbar';
-import Bar from '../../components/Sidebar/SideBar';
+
 import { io } from "socket.io-client";
 import { useSelector } from "react-redux";
 import BASE_URL from '../../api/services/BaseUrl';
@@ -20,8 +19,7 @@ const CommonLayout = ({ component }) => {
 
     return (
         <>
-            <Navbar />
-            <Bar />
+            
             {component}
         </>
     );

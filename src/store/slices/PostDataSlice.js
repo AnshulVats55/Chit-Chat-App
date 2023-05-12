@@ -13,7 +13,6 @@ const getAllPosts = createAsyncThunk("postData/getPosts", async (thunkAPI) => {
 const postDataSlice = createSlice({
   name: "postData",
   initialState: [],
-
   reducers: {
     setPostData(state, action) {
       return (state = action.payload);
