@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 import DisplayAlert from "../../AlertBox/DisplayAlert";
 import {changeDisplayState} from "../../../store/slices/DisplayAlertSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useToast } from "@chakra-ui/react";
 
 import CommonButton from "../../Button/CommonButton";
@@ -21,9 +21,7 @@ const CreatePost = ({ createPost }) => {
   const toast = useToast();
 
   const dispatch = useDispatch();
-  const alertData = useSelector((state) => {
-    return state.displayAlertReducer;
-  })
+
    
   const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error |info"});
   // console.log(showAlertToast)
@@ -46,7 +44,6 @@ const CreatePost = ({ createPost }) => {
   const handleCreatePost = (e) => {
     e.preventDefault();
     if (postDesc.length == 0) {
-<<<<<<< HEAD:src/components/post/createPost/CreatePost.jsx
       // toast({
       //   title: "Post caption can't be empty !",
       //   position: "top",
@@ -57,18 +54,6 @@ const CreatePost = ({ createPost }) => {
       // });
       setshowAlertToast({visiblity: true, message: "Post caption can't be empty !", status:"info"}) 
     } else {
-=======
-      toast({
-        title: "Post caption can't be empty !",
-        position: "top",
-        description: "",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
-    }
-    else {
->>>>>>> login:src/components/Post/createPost/CreatePost.jsx
       createPost(postData);
       setPostDesc("");
       setPostMedia({});
@@ -88,7 +73,7 @@ const CreatePost = ({ createPost }) => {
 
   return (
     <Box id="createPost" className={classes.createPostContStyles}>
-        {showAlertToast?.visiblity &&  <DisplayAlert message={alertData.message} status={alertData.status}/>}
+        {showAlertToast?.visiblity &&  <DisplayAlert />}
 
       <form
         className={classes.createPostFormStyles}

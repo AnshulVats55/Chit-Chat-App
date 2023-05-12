@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -28,6 +28,10 @@ import { handleUserSignup } from '../../api/services/UserSignup';
 import MaleAvatar from '../../assets/male avatar.jpg';
 import FemaleAvatar from '../../assets/female avatar.jpg';
 
+import DisplayAlert from "../../components/AlertBox/DisplayAlert";
+import {changeDisplayState} from "../../store/slices/DisplayAlertSlice";
+import { useDispatch } from "react-redux";
+
 const CreateAccount = () => {
   const { classes } = createAccountPageStyles();
 
@@ -44,40 +48,56 @@ const CreateAccount = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const dispatch = useDispatch();
   const [isProfilePicAttached, setIsProfilePicAttached] = useState(false);
 
   const navigate = useNavigate();
   const toast = useToast();
+  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error |info"});
+  // console.log(showAlertToast)
+ 
+ useEffect(() => {
+    if (showAlertToast.visiblity === true) {
+      console.log("under use effect-------------",showAlertToast)
+      dispatch((changeDisplayState(showAlertToast)))
+      setTimeout(()=>{
+        setshowAlertToast({visiblity: false, message: ""});
+      },1000);       
+    }
+}, [showAlertToast]);
 
   const onSubmit = async (data) => {
     data.profilePicture = profilePicture !== "" ? profilePicture : (gender === "male" ? MaleAvatar : FemaleAvatar);
 
     const response = await handleUserSignup(data);
+    console.log(response);
     
-    if(response.data.status === "success"){
-      toast({
-        title: "Account created successfully !",
-        position: "top",
-        description: "",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      });
+    if(response?.data?.status === "success"){
+      // toast({
+      //   title: "Account created successfully !",
+      //   position: "top",
+      //   description: "",
+      //   status: "success",
+      //   duration: 2000,
+      //   isClosable: true,
+      // });
+      setshowAlertToast({visiblity: true, message:"Account created successfully !", status:"success"}) 
 
       setTimeout(() => {
         navigate("/");
       }, 2500);
     }
-    else{
-      toast({
-        title: "Error Creating Account !",
-        position: "top",
-        description: "",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
+    else if(response?.response?.data?.status === 'failure'){
+      // toast({
+      //   title: "Error Creating Account !",
+      //   position: "top",
+      //   description: "",
+      //   status: "error",
+      //   duration: 2000,
+      //   isClosable: true,
+      // });
+      setshowAlertToast({visiblity: true, message:"Error Creating Account !", status:"error"}) 
+
     }
   };
 
@@ -88,24 +108,28 @@ const CreateAccount = () => {
     reader.onload = function () {
       encodedFile = reader.result;
       setProfilePicture(encodedFile);
-      toast({
-        title: "Profile Picture attached successfully !",
-        position: "top",
-        description: "",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      });
+      // toast({
+      //   title: "Profile Picture attached successfully !",
+      //   position: "top",
+      //   description: "",
+      //   status: "success",
+      //   duration: 2000,
+      //   isClosable: true,
+      // });
+      setshowAlertToast({visiblity: true, message:"Profile Picture attached successfully !", status:"success"}) 
+
     };
     reader.onerror = function (error) {
-      toast({
-        title: "Please try again !",
-        position: "top",
-        description: "",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
+      // toast({
+      //   title: "Please try again !",
+      //   position: "top",
+      //   description: "",
+      //   status: "error",
+      //   duration: 2000,
+      //   isClosable: true,
+      // });
+      setshowAlertToast({visiblity: true, message:"Please try again !", status:"error"}) 
+
     };
   }
 
@@ -119,6 +143,8 @@ const CreateAccount = () => {
         height: "100vh",
       }}
     >
+      {showAlertToast?.visiblity &&  <DisplayAlert />}
+
       <Box
         sx={{
           width: "100%",

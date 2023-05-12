@@ -14,9 +14,9 @@ const CommonLayout = ({ component }) => {
     return state.userDataReducer[0];
   });
 
-  const userId = userDetails?.data.user.id;
+  const userId = userDetails?.data?.user.id;
 
-  const userFullName =userDetails?.data.user.firstName + " " + userDetails.data.user.lastName;
+  const userFullName =userDetails?.data?.user.firstName + " " + userDetails?.data?.user.lastName;
   socket = io(`${BASE_URL}`)
   // socket = io(`${BASE_URL}`,{
   //   auth:{

@@ -8,7 +8,9 @@ import { useSelector } from "react-redux";
 import { useToast } from "@chakra-ui/react";
 import { allRequests } from "../../api/services/FriendRequestApi";
 
-
+import DisplayAlert from "../AlertBox/DisplayAlert";
+import {changeDisplayState} from "../../store/slices/DisplayAlertSlice";
+import { useDispatch } from "react-redux";
 
 const FriendRequests = () => {
   const { classes } = ListStyles();
@@ -16,8 +18,22 @@ const FriendRequests = () => {
   const [newRequest, setNewRequest] = useState([]);
   const toast = useToast();
 
+  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: ""});
+
+  const dispatch = useDispatch();
+ useEffect(() => {
+    if (showAlertToast.visiblity === true) {
+      //console.log("under use effect-------------",showAlertToast)
+      dispatch((changeDisplayState(showAlertToast)))
+      setTimeout(()=>{
+        setshowAlertToast({visiblity: false, message: ""});
+      },2000);       
+    }
+}, [showAlertToast]);
+
+
   const userId = useSelector((state) => {
-    return state.userDataReducer[0].data.user.id;
+    return state?.userDataReducer[0]?.data?.user.id;
   });
 
   useEffect(() => {
@@ -45,14 +61,16 @@ const FriendRequests = () => {
     });
     const h = newRequest.filter((r)=>r?.id ?r.id :r?.newRelationship.id !== id)
     setNewRequest(h);
-    toast({
-      title: "Friend Request accepted!",
-      position: "top",
-      description: "",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+    // toast({
+    //   title: "Friend Request accepted!",
+    //   position: "top",
+    //   description: "",
+    //   status: "success",
+    //   duration: 2000,
+    //   isClosable: true,
+    // });
+    setshowAlertToast({visiblity: true, message:"Friend Request accepted!", status:"success"}) 
+
   };
   const rejectRequest = (sender, receiver,id) => {
     socket.emit("requestAccepted", {
@@ -62,18 +80,21 @@ const FriendRequests = () => {
     });
     const h = newRequest.filter((r)=>r?.id ?r.id :r?.newRelationship.id !== id)
     setNewRequest(h);
-    toast({
-      title: "Friend request rejected !",
-      position: "top",
-      description: "",
-      status: "error",
-      duration: 2000,
-      isClosable: true,
-    });
+    // toast({
+    //   title: "Friend request rejected !",
+    //   position: "top",
+    //   description: "",
+    //   status: "error",
+    //   duration: 2000,
+    //   isClosable: true,
+    // });
+    setshowAlertToast({visiblity: true, message:"Friend request rejected !", status:"error"}) 
+
   };
 
   return (
     <Box className={classes.friendRequestContStyles}>
+      {showAlertToast?.visiblity &&  <DisplayAlert />}
       <Typography className={classes.heading} variant="h6">
         Your Requests
       </Typography>

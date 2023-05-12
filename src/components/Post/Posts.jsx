@@ -9,10 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPostData, createPostByRedux, deletePostById } from "../../store/slices/PostDataSlice";
 import { setPostCurrentLikes, resetInitialState } from '../../store/slices/LikeSlice';
 import { setUserComments, resetCommentInitialState } from '../../store/slices/CommentSlice';
-import Request from "../addFriend/Request";
+import Request from "../AddFriend/Request";
 import DisplayAlert from "../AlertBox/DisplayAlert";
 import {changeDisplayState} from "../../store/slices/DisplayAlertSlice";
-import Request from "../AddFriend/Request";
+
 import NoPostsFound from '../../assets/undraw_not_found_re_bh2e.svg';
 
 const PostContext = createContext();
@@ -31,13 +31,9 @@ export const Posts = () => {
 
   //access data
   const dispatch = useDispatch();
-  const alertData = useSelector((state) => {
-    console.log(state.displayAlertReducer)
-    return state.displayAlertReducer;
-  })
-   
+ 
   const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error |info"});
-  console.log(showAlertToast)
+
  
  useEffect(() => {
     if (showAlertToast.visiblity === true) {
@@ -73,7 +69,7 @@ export const Posts = () => {
   const handleCreatePost = async (postData) => {
     const response = await createPost(postData);
 
-    if (response.data.status === "success") {
+    if (response?.data?.status === "success") {
       dispatch(createPostByRedux(response.data.data));
       // toast({
       //   title: "Post created successfully !",
@@ -93,7 +89,7 @@ export const Posts = () => {
       //   duration: 1000,
       //   isClosable: true,
       // });
-      setshowAlertToast({visiblity: true, message:"Error Creating POst", status:"error"}) 
+      setshowAlertToast({visiblity: true, message:"Error CREATING POST", status:"error"}) 
     }
   };
  let deleteToast;
@@ -130,7 +126,7 @@ export const Posts = () => {
   return (
     <PostContext.Provider value={{ handleDeletePost, userName }}>
   
-      {showAlertToast?.visiblity &&  <DisplayAlert message={alertData.message} status={alertData.status}/>}
+      {showAlertToast?.visiblity &&  <DisplayAlert />}
 
       <Box className={classes.PostsTopContStyles}>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { NavbarStyles } from "./Navbar.styles";
 import {
@@ -16,13 +16,30 @@ import { useSelector } from "react-redux";
 import MaleAvatar from '../../assets/male avatar.jpg';
 import FemaleAvatar from '../../assets/female avatar.jpg';
 
+import DisplayAlert from "../AlertBox/DisplayAlert";
+import {changeDisplayState} from "../../store/slices/DisplayAlertSlice";
+import { useDispatch } from "react-redux";
+
 const UserProfileIcon = () => {
-  
+  const dispatch = useDispatch();
+
   const navigate = useNavigate ();
   const { classes } = NavbarStyles();
 
   const [anchorElUser, setAnchorElUser] = useState(null);
   const toast = useToast();
+  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error |info"});
+  // console.log(showAlertToast)
+ 
+ useEffect(() => {
+    if (showAlertToast.visiblity === true) {
+      // console.log("under use effect-------------",showAlertToast)
+      dispatch((changeDisplayState(showAlertToast)))
+      setTimeout(()=>{
+        setshowAlertToast({visiblity: false, message: ""});
+      },2000);       
+    }
+}, [showAlertToast]);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -45,14 +62,16 @@ const UserProfileIcon = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-    toast({
-      title: "You're successfully logged out !",
-      position: "top",
-      description: "",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+    // toast({
+    //   title: "You're successfully logged out !",
+    //   position: "top",
+    //   description: "",
+    //   status: "success",
+    //   duration: 2000,
+    //   isClosable: true,
+    // });
+    setshowAlertToast({visiblity: true, message: "You're successfully logged out !", status:"success"}) 
+
     setTimeout(() => {
       navigate("/");
       window.location.reload();
@@ -61,6 +80,7 @@ const UserProfileIcon = () => {
 
   return (
     <Box className={classes.userProfileCont}>
+       {showAlertToast?.visiblity &&  <DisplayAlert />}
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu}>
           <Avatar

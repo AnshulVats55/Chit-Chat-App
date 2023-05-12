@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import { Paper, IconButton, Box, Avatar, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { ListStyles } from "../FriendList/FriendList.styles";
@@ -7,6 +7,9 @@ import { useSelector } from "react-redux";
 import { socket } from "../../pages/CommonLayout/CommonLayout";
 import { useToast } from "@chakra-ui/react";
 import { allUSers } from "../../api/services/FriendRequestApi";
+import DisplayAlert from "../AlertBox/DisplayAlert";
+import {changeDisplayState} from "../../store/slices/DisplayAlertSlice";
+import { useDispatch } from "react-redux";
 
 const SearchFriend = () => {
   const { classes } = ListStyles();
@@ -14,11 +17,23 @@ const SearchFriend = () => {
   const [search, setSearch] = useState("");
 
   const toast = useToast();
+  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error |info"});
+  // console.log(showAlertToast)
+  const dispatch = useDispatch();
+ useEffect(() => {
+    if (showAlertToast.visiblity === true) {
+      //console.log("under use effect-------------",showAlertToast)
+      dispatch((changeDisplayState(showAlertToast)))
+      setTimeout(()=>{
+        setshowAlertToast({visiblity: false, message: ""});
+      },2000);       
+    }
+}, [showAlertToast]);
 
   const userDetails = useSelector((state) => {
     return state.userDataReducer[0];
   });
-  const userId = userDetails.data.user.id;
+  const userId = userDetails?.data?.user.id;
 
   const ff = useSelector((state) => {
     return state.FriendsDataReducer;
@@ -28,14 +43,16 @@ const SearchFriend = () => {
 
   const addFriend = (id) => {
     socket.emit("addFriend", { followerUserId: userId, followedUserId: id });
-    toast({
-      title: "Friend Request Sent Succesfully !",
-      position: "top",
-      description: "",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+    // toast({
+    //   title: "Friend Request Sent Succesfully !",
+    //   position: "top",
+    //   description: "",
+    //   status: "success",
+    //   duration: 2000,
+    //   isClosable: true,
+    // });
+    setshowAlertToast({visiblity: true, message:"Friend Request Sent Succesfully !", status:"success"}) 
+
   };
  
 
@@ -47,6 +64,8 @@ const SearchFriend = () => {
 
   return (
     <Box className={classes.searchFriendContStyles}>
+     {showAlertToast?.visiblity &&  <DisplayAlert />}
+
       <Typography variant="h6" className={classes.heading}>
         Add New Friends
       </Typography>

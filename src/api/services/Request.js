@@ -76,6 +76,7 @@ export const RequestWithoutToken = async (method, endPoint, data) => {
     const response = await axios.request(config);
     return response;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
+    return error;
   }
 };

@@ -3,8 +3,9 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import Slide from '@mui/material/Slide';
 import Alert from '@mui/material/Alert';
+import { useSelector } from "react-redux";
 
-const DisplayAlert = ({message, status}) => {
+const DisplayAlert = () => {
 
     const[open,setOpen]=useState(true);
     const handleClick=()=>{
@@ -16,6 +17,12 @@ const DisplayAlert = ({message, status}) => {
         }
         setOpen(false);
     }
+    const alertData = useSelector((state) => {
+        console.log(state.displayAlertReducer)
+        return state.displayAlertReducer;
+      })
+
+    let status = alertData.status;
 
     return (
     <>
@@ -33,11 +40,11 @@ const DisplayAlert = ({message, status}) => {
          >
             {(() => {
                 if(status=="success")
-                   return <Alert severity="success" variant='filled'>{message}</Alert>
+                   return <Alert severity="success" variant='filled'>{alertData.message}</Alert>
                 else if(status=="info")
-                   return  <Alert severity="info" variant='filled'>{message}</Alert>
+                   return  <Alert severity="info" variant='filled'>{alertData.message}</Alert>
                 else
-                    return <Alert severity="error" variant='filled'>{message}</Alert>
+                    return <Alert severity="error" variant='filled'>{alertData.message}</Alert>
             })()}
               
         </Snackbar>
