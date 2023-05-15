@@ -30,25 +30,26 @@ export const Posts = () => {
   });
 
   const currentUserId = useSelector((state) => {
-    console.log(state);
+  
     return state?.userDataReducer[0]?.data?.user.id;
   });
-
+ 
   const [userName, setUserName] = useState("");
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     let response = dispatch(getAllPosts());
-    console.log(response);
+    
     if (response.length === 0) {
       setArePostsAvailable(false);
     }
   }, []);
 
   const handleCreatePost = async (postData) => {
-    const response = await createPost(postData, currentUserId);
 
+    const response = await createPost(postData, currentUserId);
+    
     if (response.data.status === "success") {
       dispatch(createPostByRedux(response.data.data));
       toast({

@@ -19,6 +19,7 @@ function Provider({ children, post }) {
   } ,[comments])
 
   const createComment = async (data) => {
+    
       const response = await handleAddComments(data);
       if(response.data.status === "success"){
         setComments([...comments, response.data.data]);

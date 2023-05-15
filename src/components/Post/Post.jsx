@@ -7,7 +7,7 @@ import { PostAction } from "./postAction/PostAction";
 import { PostStyles } from "./post.styles";
 
 const Post = ({ post, postCreatorId }) => {
-  console.log(post);
+
   const { classes } = PostStyles();
 
   return (

@@ -5,36 +5,38 @@ import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { PostActionStyles } from "./PostActionStyles";
 import CommentWindow from "../../Comments/comment/CommentModal";
 import { useDispatch, useSelector } from "react-redux";
-import { handleAddLikes,handleDeleteLikes } from "../../../api/services/PostLikes";
+import {
+  handleAddLikes,
+  handleDeleteLikes,
+} from "../../../api/services/PostLikes";
 import { getAllPosts } from "../../../store/slices/PostDataSlice";
 
 export const PostAction = ({ post }) => {
   const { classes } = PostActionStyles();
 
   const [showComments, setShowComments] = useState(false);
-  
+
   const currentPost = post;
-  console.log(currentPost)
+
   const currentUserId = useSelector((state) => {
     return state?.userDataReducer[0]?.data?.user?.id;
   });
-  console.log('pppppppppp',currentPost)
+
   const dispatch = useDispatch();
 
-   let alreadyLiked = {
-     status :false,
-     id:""
-   }
-   
-  post?.likes?.forEach(like=>{
-    if(like.user.id === currentUserId)
-     {
-       alreadyLiked.status = true;
-       alreadyLiked.id = like.id
-     }
-  })
-   
-   const handleShowComments = (scrollType) => {
+  let alreadyLiked = {
+    status: false,
+    id: "",
+  };
+
+  post?.likes?.forEach((like) => {
+    if (like.user.id === currentUserId) {
+      alreadyLiked.status = true;
+      alreadyLiked.id = like.id;
+    }
+  });
+
+  const handleShowComments = (scrollType) => {
     setShowComments(!showComments);
   };
 
@@ -42,19 +44,17 @@ export const PostAction = ({ post }) => {
     setShowComments(!showComments);
   };
 
-
-
-  let data = JSON.stringify({
+  let data = {
     userId: currentUserId,
     postId: post.id,
-  });
+  };
 
   //handle likes
   const handlePostLikes = async () => {
     const response = alreadyLiked.status
       ? await handleDeleteLikes(alreadyLiked.id)
       : await handleAddLikes(data);
-    console.log('-----------------',response);
+    console.log("-----------------", response);
     dispatch(getAllPosts());
   };
 
@@ -62,11 +62,15 @@ export const PostAction = ({ post }) => {
     <CardActions className={classes.postActionCont}>
       <Box>
         <IconButton aria-label="add to favorites" onClick={handlePostLikes}>
-        {  
-          alreadyLiked.status?<Favorite sx={{color: "red" }}/>:<FavoriteBorder /> 
-        }
+          {alreadyLiked.status ? (
+            <Favorite sx={{ color: "red" }} />
+          ) : (
+            <FavoriteBorder />
+          )}
         </IconButton>
-        <span className={classes.Hide}>{currentPost.likes?currentPost.likes.length:0} likes</span>
+        <span className={classes.Hide}>
+          {currentPost.likes ? currentPost.likes.length : 0} likes
+        </span>
       </Box>
 
       <Box>
@@ -88,7 +92,9 @@ export const PostAction = ({ post }) => {
         ) : (
           <></>
         )}
-        <span className={classes.Hide}>{currentPost.comments?currentPost.comments.length:0} comments</span>
+        <span className={classes.Hide}>
+          {currentPost.comments ? currentPost.comments.length : 0} comments
+        </span>
       </Box>
     </CardActions>
   );
