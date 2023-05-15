@@ -13,7 +13,7 @@ import { allRequests } from "../../api/services/FriendRequestApi";
 const FriendRequests = () => {
   const { classes } = ListStyles();
 
-  const [newRequest, setNewRequest] = useState([]);
+  const [friendRequests, setFriendRequests] = useState([]);
   const toast = useToast();
 
   const userId = useSelector((state) => {
@@ -24,17 +24,13 @@ const FriendRequests = () => {
     const run = async()=>{
     const requests = await allRequests(userId);
     console.log(requests)
-    setNewRequest(requests);
+    setFriendRequests(requests);
     }
   run();
   }, [userId]);
 
   socket.on("followRequest", (data) => {
-    // if (data.follower) {
-    //   setNewRequest([data]);
-    //   console.log(data)
-    // }
-    setNewRequest([...newRequest,data]);
+    setFriendRequests([...friendRequests,data]);
   });
 
   const acceptRequest = (sender, receiver,id) => {
@@ -43,8 +39,8 @@ const FriendRequests = () => {
       followedUserId: receiver,
       status: "Accepted",
     });
-    const h = newRequest.filter((r)=>r?.id ?r.id :r?.newRelationship.id !== id)
-    setNewRequest(h);
+    const accept = friendRequests.filter((singleRequest)=>singleRequest?.id ?singleRequest.id :singleRequest?.newRelationship.id !== id)
+    setFriendRequests(accept);
     toast({
       title: "Friend Request accepted!",
       position: "top",
@@ -60,8 +56,8 @@ const FriendRequests = () => {
       followedUserId: receiver,
       status: "Failure",
     });
-    const h = newRequest.filter((r)=>r?.id ?r.id :r?.newRelationship.id !== id)
-    setNewRequest(h);
+    const reject = friendRequests.filter((singleRequest)=>singleRequest?.id ?singleRequest.id :singleRequest?.newRelationship.id !== id)
+    setFriendRequests(reject);
     toast({
       title: "Friend request rejected !",
       position: "top",
@@ -78,30 +74,30 @@ const FriendRequests = () => {
         Your Requests
       </Typography>
       <Box className={classes.friendContainer}>
-        {newRequest?.map((s) => {
+        {friendRequests?.map((friendRequest) => {
           return (
-            <Box className={classes.single} key={s.newRelationship?.id ? s.newRelationship.id:s?.id}>
+            <Box className={classes.single} key={friendRequest.newRelationship?.id ? friendRequest.newRelationship.id:friendRequest?.id}>
               <Box className={classes.single1}>
                 <Avatar
                   className={classes.avatar}
                   alt=""
                   src={
-                    s.follower?.profilePicture
-                      ? s.follower?.profilePicture
-                      : s?.profilePicture
+                    friendRequest.follower?.profilePicture
+                      ? friendRequest.follower?.profilePicture
+                      : friendRequest?.profilePicture
                   }
                 ></Avatar>
                 <Typography sx={{ marginTop: "6px" }} variant="h6">
-                  {s.follower?.name
-                    ? s.follower?.name
-                    : s?.firstName + " " + s?.lastName}
+                  {friendRequest.follower?.name
+                    ? friendRequest.follower?.name
+                    : friendRequest?.firstName + " " + friendRequest?.lastName}
                 </Typography>
                 <IconButton
                   onClick={() =>
                     acceptRequest(
-                      s?.id ? s?.id : s.newRelationship.followerUserId,
-                      userId ? userId : s.newRelationship.followedUserId,
-                      s.newRelationship?.id ? s.newRelationship.id:s?.id
+                      friendRequest?.id ? friendRequest?.id : friendRequest.newRelationship.followerUserId,
+                      userId ? userId : friendRequest.newRelationship.followedUserId,
+                      friendRequest.newRelationship?.id ? friendRequest.newRelationship.id:friendRequest?.id
                       
 
                     )
@@ -113,9 +109,9 @@ const FriendRequests = () => {
                 <IconButton
                   onClick={() =>
                     rejectRequest(
-                      s?.id ? s?.id : s.newRelationship.followerUserId,
-                      userId ? userId : s.newRelationship.followedUserId,
-                      s.newRelationship?.id ? s.newRelationship.id:s?.id
+                      friendRequest?.id ? friendRequest?.id : friendRequest.newRelationship.followerUserId,
+                      userId ? userId : friendRequest.newRelationship.followedUserId,
+                      friendRequest.newRelationship?.id ? friendRequest.newRelationship.id:friendRequest?.id
                     )
                   }
                 >

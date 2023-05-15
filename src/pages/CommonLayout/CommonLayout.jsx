@@ -17,19 +17,26 @@ const CommonLayout = ({ component }) => {
   const userId = userDetails?.data.user.id;
 
   const userFullName =userDetails?.data.user.firstName + " " + userDetails.data.user.lastName;
-  socket = io(`${BASE_URL}`)
+  // socket = io(`${BASE_URL}`)
+  socket = io(`${BASE_URL}`,{
+    auth:{
+      token:userToken
+  
+    },
+    query:{
+      id:userId
+    }
+  });
   // socket = io(`${BASE_URL}`,{
   //   auth:{
   //     token:userToken
   
   //   },
-  //   query:{
-  //     id:userId
-  //   }
   // });
 
 
-  socket.emit("newUser", { id: userId, name: userFullName });
+
+  // socket.emit("newUser", { id: userId, name: userFullName });
 
   return (
     <>
