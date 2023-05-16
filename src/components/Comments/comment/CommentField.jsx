@@ -1,37 +1,31 @@
-import {
-  Avatar,
-  Box,
-  Grid,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
+import { Avatar, Box, Grid, InputAdornment, TextField } from "@mui/material";
 
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import CommonButton from "../../Button/CommonButton";
 import { commentStyles } from "../comment.styles";
 import useCommentsContext from "../hooks/use-comment-context";
-import MaleAvatar from '../../../assets/male avatar.jpg';
-import FemaleAvatar from '../../../assets/female avatar.jpg';
+import MaleAvatar from "../../../assets/male avatar.jpg";
+import FemaleAvatar from "../../../assets/female avatar.jpg";
 
 const CommentField = ({ handleSubmit, post }) => {
   const { classes } = commentStyles();
   const [input, setInput] = useState();
-  const {createComment} = useCommentsContext();
+  const { createComment } = useCommentsContext();
 
   const currentUserId = useSelector((state) => {
     return state?.userDataReducer[0]?.data?.user.id;
   });
 
-  let data = JSON.stringify({
+  let data = {
     body: input,
     userId: currentUserId,
     postId: post.id,
-  });
- 
-  const handleAddComment = async(e) => {
+  };
+
+  const handleAddComment = async (e) => {
     e.preventDefault();
-    await createComment(data)
+    await createComment(data);
     setInput("");
   };
 
@@ -40,7 +34,7 @@ const CommentField = ({ handleSubmit, post }) => {
   });
 
   const userProfilePicture = userDetails?.data?.user?.profilePicture,
-        userGender = userDetails?.data?.user?.gender;
+    userGender = userDetails?.data?.user?.gender;
 
   return (
     <Box className={classes.commentBoxStyles}>
@@ -61,7 +55,15 @@ const CommentField = ({ handleSubmit, post }) => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <Avatar src={userProfilePicture ? userProfilePicture : userGender === "male" ? MaleAvatar : FemaleAvatar}></Avatar>
+                    <Avatar
+                      src={
+                        userProfilePicture
+                          ? userProfilePicture
+                          : userGender === "male"
+                          ? MaleAvatar
+                          : FemaleAvatar
+                      }
+                    ></Avatar>
                   </InputAdornment>
                 ),
               }}
@@ -75,7 +77,7 @@ const CommentField = ({ handleSubmit, post }) => {
               buttonStyles={{
                 width: "100%",
                 margin: "0.5rem 0rem 1.5rem 0rem",
-              }}      
+              }}
             >
               Comment
             </CommonButton>

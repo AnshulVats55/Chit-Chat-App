@@ -1,8 +1,8 @@
-import { createContext, useState } from "react";
-import { increasePostComments, decreasePostComments } from '../../../store/slices/CommentSlice';
+import { createContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useToast } from "@chakra-ui/react";
 import { handleAddComments, handleDeleteComments } from '../../../api/services/PostComments';
+import { getAllPosts } from "../../../store/slices/PostDataSlice";
 
 const CommentsContext = createContext();
 
@@ -12,12 +12,18 @@ function Provider({ children, post }) {
 
   const toast = useToast();
   const dispatch = useDispatch();
+  
+
+  useEffect(()=>{
+    dispatch(getAllPosts())
+  } ,[comments])
 
   const createComment = async (data) => {
+    
       const response = await handleAddComments(data);
       if(response.data.status === "success"){
         setComments([...comments, response.data.data]);
-        dispatch(increasePostComments(post.id));
+       
         toast({
           title: "Comment added successfully !",
           position: "top",
@@ -44,7 +50,7 @@ function Provider({ children, post }) {
 
       if(response.data.status === "success"){
         setComments(comments.filter((comment) => comment.id !== id));
-        dispatch(decreasePostComments(post.id));
+        // dispatch(decreasePostComments(post.id));
         toast({
           title: "Comment deleted successfully !",
           position: "top",

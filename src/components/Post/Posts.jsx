@@ -6,18 +6,22 @@ import CreatePost from "./createPost/CreatePost";
 import postApi from "../../api/services/postApi";
 import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPostData, createPostByRedux, deletePostById } from "../../store/slices/PostDataSlice";
-import { setPostCurrentLikes, resetInitialState } from '../../store/slices/LikeSlice';
-import { setUserComments, resetCommentInitialState } from '../../store/slices/CommentSlice';
+import {
+  getAllPosts,
+  setPostData,
+  createPostByRedux,
+  deletePostById,
+} from "../../store/slices/PostDataSlice";
+
 import Request from "../AddFriend/Request";
-import NoPostsFound from '../../assets/undraw_not_found_re_bh2e.svg';
+import NoPostsFound from "../../assets/undraw_not_found_re_bh2e.svg";
 
 const PostContext = createContext();
 
 export const Posts = () => {
   const { classes } = PostStyles();
 
-  const { getPosts, createPost, deletePost } = postApi();
+  const { createPost, deletePost } = postApi();
   const [arePostsAvailable, setArePostsAvailable] = useState(true);
   const toast = useToast();
 
@@ -25,38 +29,29 @@ export const Posts = () => {
     return state.postDataReducer;
   });
 
+  const currentUserId = useSelector((state) => {
+  
+    return state?.userDataReducer[0]?.data?.user.id;
+  });
+ 
   const [userName, setUserName] = useState("");
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-      let getAllPosts = async () => {
-        let response = await getPosts();
-        console.log(response);
-        
-        dispatch(setPostData(response));
-        dispatch(resetInitialState());
-        dispatch(resetCommentInitialState());
 
-        if(posts.length === 0){
-          setArePostsAvailable(false);
-        }
-        else{
-          setArePostsAvailable(true);
-        }
-        
-        response.map((post)=>{
-          dispatch(setPostCurrentLikes({postId:post.id, currentLikesCount: post.likes.length, usersWhoLiked: post.likes}));
-          dispatch(setUserComments({postId: post.id, currentCommentsCount: post.comments.length, usersWhoCommented: post.comments}));
-        });
-      };
+    let response = dispatch(getAllPosts());
+    
+    if (response.length === 0) {
+      setArePostsAvailable(false);
+    }
+  }, []);
 
-      getAllPosts();
-  }, [arePostsAvailable]);
 
   const handleCreatePost = async (postData) => {
-    const response = await createPost(postData);
 
+    const response = await createPost(postData, currentUserId);
+    
     if (response.data.status === "success") {
       if(posts.length === 0){
         setArePostsAvailable(true);
@@ -70,8 +65,7 @@ export const Posts = () => {
         duration: 1000,
         isClosable: true,
       });
-    }
-    else {
+    } else {
       toast({
         title: "Error creating post !",
         position: "top",
@@ -84,7 +78,7 @@ export const Posts = () => {
   };
 
   const handleDeletePost = async (id) => {
-    if (id !== ''){
+    if (id !== "") {
       const response = await deletePost(id);
       if (response.data.status == "success") {
         if(posts.length === 1){
@@ -116,11 +110,12 @@ export const Posts = () => {
   return (
     <PostContext.Provider value={{ handleDeletePost, userName }}>
       <Box className={classes.PostsTopContStyles}>
-
         <Grid container className={classes.postContStyles}>
-              <Grid item xs={12} className={classes.postContItemStyles}>
-                <CreatePost createPost={handleCreatePost} />
-              </Grid>
+          <Grid item xs={12} className={classes.postContItemStyles}>
+            <CreatePost createPost={handleCreatePost} />
+          </Grid>
+
+
 
               <Grid item xs={12} className={classes.postContItemStyles}>
                 {
@@ -149,7 +144,24 @@ export const Posts = () => {
                     <img src={NoPostsFound} alt="" className={classes.noPostsFoundImageStyles}/>
                   </Box>
                 }
+
               </Grid>
+            ) : (
+              <Box className={classes.noPostsFoundContStyles}>
+                <Typography
+                  variant="body2"
+                  className={classes.noPostFoundTextStyles}
+                >
+                  No posts found
+                </Typography>
+                <img
+                  src={NoPostsFound}
+                  alt=""
+                  className={classes.noPostsFoundImageStyles}
+                />
+              </Box>
+            )}
+          </Grid>
         </Grid>
 
         <Grid container className={classes.friendReqGridStyles}>
