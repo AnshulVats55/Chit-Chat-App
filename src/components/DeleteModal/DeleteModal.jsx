@@ -24,14 +24,14 @@ export default function Modal({ id }) {
 
   const handleClose2 = () => {
     setOpen(false);
-    console.log("clicked on no");
+    // console.log("clicked on no");
     handleDeletePost("");
   };
 
   return (
     <div style={{ Width: "80%" }}>
       <DeleteIcon onClick={handleClickOpen} />
-      {" "}
+    
       <Dialog
         open={open}
         onClose={handleClose2}
@@ -42,24 +42,20 @@ export default function Modal({ id }) {
         <DialogTitle className="classes.header" sx={{ color: "#363a91", fontWeight:'bold' }}>
           {"Delete Alert !"}
         </DialogTitle>
-        {" "}
         <DialogContent>
-        {" "}
-          <DialogContentText sx={{ color: "" }}>
-            Do you really want to delete this post?{" "}
+          <DialogContentText sx={{ paddingTop:"10px",  fontWeight:"20px" }}>
+            Do you really want to delete this post?
           </DialogContentText>
-          {" "}
+
         </DialogContent>
-        {" "}
         <DialogActions>
           {" "}
           <Button onClick={handleClose2} sx={{'&:hover':{background:'#363a91', color:'#FFF'}}}>No</Button>
           <Button onClick={handleClose1} sx={{'&:hover':{background:'#ef5350', color:'#FFF'}}}>Yes</Button>
           {" "}
         </DialogActions>
-        {" "}
+
       </Dialog>
-      {" "}
     </div>
   );
 }

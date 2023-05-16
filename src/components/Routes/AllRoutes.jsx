@@ -41,7 +41,6 @@ const AllRoutes = () => {
             <Route exact path="/signup" element={<CreateAccount />} />
           </Routes>
         }
-
     </Router>
   );
 };

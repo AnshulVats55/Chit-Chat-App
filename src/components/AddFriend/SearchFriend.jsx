@@ -1,24 +1,37 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import { Paper, IconButton, Box, Avatar, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { ListStyles } from "../FriendList/FriendList.styles";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useSelector } from "react-redux";
 import { socket } from "../../pages/CommonLayout/CommonLayout";
-import { useToast } from "@chakra-ui/react";
 import { allUSers } from "../../api/services/FriendRequestApi";
+import DisplayAlert from "../AlertBox/DisplayAlert";
+import {changeDisplayState} from "../../store/slices/DisplayAlertSlice";
+import { useDispatch } from "react-redux";
 
 const SearchFriend = () => {
+
   const { classes } = ListStyles();
   const [serchedUser, setSearchedUSer] = useState([]);
   const [search, setSearch] = useState("");
 
-  const toast = useToast();
+  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error |info"});
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+      if (showAlertToast.visiblity === true) {
+        dispatch((changeDisplayState(showAlertToast)))
+        setTimeout(()=>{
+          setshowAlertToast({visiblity: false, message: ""});
+        },2000);       
+      }
+  }, [showAlertToast]);
 
   const userDetails = useSelector((state) => {
     return state.userDataReducer[0];
   });
-  const userId = userDetails.data.user.id;
+  const userId = userDetails?.data?.user.id;
 
   const ff = useSelector((state) => {
     return state.FriendsDataReducer;
@@ -26,38 +39,33 @@ const SearchFriend = () => {
   
   const addFriend = (id) => {
     socket.emit("addFriend", { followerUserId: userId, followedUserId: id });
-    toast({
-      title: "Friend Request Sent Succesfully !",
-      position: "top",
-      description: "",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+    setshowAlertToast({visiblity: true, message:"Friend Request Sent Succesfully !", status:"success"}) 
   };
 
   const searchHandler = async () => {
-
     const users = await allUSers();
     setSearchedUSer(users);
   };
 
   return (
     <Box className={classes.searchFriendContStyles}>
-      <Typography sx={{margin: "0.5rem 0rem", textAlign:'center', fontWeight:'bold', background:'#363a91', color:'#FFF', padding:'0.25rem 1rem', borderRadius:'15px', fontSize:'0.9rem'}}>Add New Friends</Typography>
-        <Paper component="form" className={classes.searchContainer}>
-          <input
-            className={classes.searchBar}
-            placeholder="Start making friends..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onKeyUp={searchHandler}
-          />
-          <IconButton type="button" className={classes.icon} aria-label="search">
-            <SearchIcon />
-          </IconButton>
-        </Paper>
-      <Box style={{height:"100%"}}  className={classes.friendContainer}>
+     {showAlertToast?.visiblity &&  <DisplayAlert />}
+      <Typography variant="h6" className={classes.heading}>
+        Add New Friends
+      </Typography>
+      <Paper component="form" className={classes.searchContainer}>
+        <input
+          className={classes.searchBar}
+          placeholder="Start making friends..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onKeyUp={searchHandler}
+        />
+        <IconButton type="button" className={classes.icon} aria-label="search">
+          <SearchIcon />
+        </IconButton>
+      </Paper>
+      <Box className={classes.friendContainer}>
         {serchedUser
           ?.filter((val) => {
             if (search === "") {

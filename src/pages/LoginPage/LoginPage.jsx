@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { Link } from "react-router-dom";
 import { Container, Box, Grid, TextField, Typography } from "@mui/material";
 import CommonButton from "../../components/Button/CommonButton";
@@ -10,7 +10,8 @@ import SuccessfullLoginImage from "../../assets/successfull login image.gif";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../store/slices/UserDataSlice";
 import { handleUserLogin } from '../../api/services/UserLogin';
-
+import DisplayAlert from "../../components/AlertBox/DisplayAlert";
+import {changeDisplayState} from "./../../store/slices/DisplayAlertSlice";
 import { useToast } from "@chakra-ui/react";
 
 const LoginPage = () => {
@@ -21,8 +22,20 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const dispatch = useDispatch();
+ 
   const toast = useToast();
+  const dispatch = useDispatch();
+
+  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: ""});
+ 
+ useEffect(() => {
+    if (showAlertToast.visiblity === true) {
+      dispatch((changeDisplayState(showAlertToast)))
+      setTimeout(()=>{
+        setshowAlertToast({visiblity: false, message: ""});
+      },1000);       
+    }
+}, [showAlertToast]);
 
   const userDetails = {
     email: email,
@@ -35,36 +48,40 @@ const LoginPage = () => {
     const response = await handleUserLogin(userDetails);
     console.log(response);
 
-      if(response.data.status === "success") {
+      if(response?.data?.status === "success") {
         setIsLoggedIn(true);
         dispatch(setUserData(response.data));
         localStorage.setItem("token", response.data.data.token);
         let userToken = localStorage.getItem("token");
 
         if(userToken) {
-          toast({
-            title: "You've successfully logged in !",
-            position: "top",
-            description: "",
-            status: "success",
-            duration: 2000,
-            isClosable: true,
-          });
+          // toast({
+          //   title: "You've successfully logged in !",
+          //   position: "top",
+          //   description: "",
+          //   status: "success",
+          //   duration: 2000,
+          //   isClosable: true,
+          // });
           setTimeout(() => {
             window.location.reload();
           }, 2500);
+          setshowAlertToast({visiblity: true, message:"You've successfully logged in !", status:"success"}) 
+
       }
     }
 
-      else{
-        toast({
-          title: "Error logging you in !",
-          position: "top",
-          description: "",
-          status: "error",
-          duration: 2000,
-          isClosable: true,
-        });
+      else if(response?.response?.data?.status === 'failure'){
+        // toast({
+        //   title: "Error logging you in !",
+        //   position: "top",
+        //   description: "",
+        //   status: "error",
+        //   duration: 2000,
+        //   isClosable: true,
+        // });
+        setshowAlertToast({visiblity: true, message:"Error logging you in !", status:"error"}) 
+
       }
   };
 
@@ -78,6 +95,8 @@ const LoginPage = () => {
         height: "100vh",
       }}
     >
+      {showAlertToast?.visiblity &&  <DisplayAlert />}
+
       <Box
         sx={{
           width: "100%",

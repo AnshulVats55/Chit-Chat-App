@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -13,23 +13,18 @@ import {
   InputLabel,
   Select,
 } from "@mui/material";
-
-import { useToast } from "@chakra-ui/react";
-
 import CommonButton from "../../components/Button/CommonButton";
 import BrandIdentity from "../../components/BrandIdentity/BrandIdentity";
-
 import { createAccountPageStyles } from "./CreateAccount.styles";
 import { emailValidator } from "../../validators/emailValidator";
 import { passwordCheck } from "../../validators/passwordValidtor";
-
 import LoginPageImage from "../../assets/loginPageImage1.gif";
 import { handleUserSignup } from '../../api/services/UserSignup';
 import MaleAvatar from '../../assets/male avatar.jpg';
 import FemaleAvatar from '../../assets/female avatar.jpg';
-
-import MaleAvatar from '../../assets/male avatar.jpg';
-import FemaleAvatar from '../../assets/female avatar.jpg';
+import DisplayAlert from "../../components/AlertBox/DisplayAlert";
+import {changeDisplayState} from "../../store/slices/DisplayAlertSlice";
+import { useDispatch } from "react-redux";
 
 const CreateAccount = () => {
   const { classes } = createAccountPageStyles();
@@ -47,40 +42,35 @@ const CreateAccount = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const dispatch = useDispatch();
   const [isProfilePicAttached, setIsProfilePicAttached] = useState(false);
 
   const navigate = useNavigate();
-  const toast = useToast();
+  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error |info"});
+ 
+ useEffect(() => {
+    if (showAlertToast.visiblity === true) {
+      dispatch((changeDisplayState(showAlertToast)))
+      setTimeout(()=>{
+        setshowAlertToast({visiblity: false, message: ""});
+      },1000);       
+    }
+}, [showAlertToast]);
 
   const onSubmit = async (data) => {
     data.profilePicture = profilePicture !== "" ? profilePicture : (gender === "male" ? MaleAvatar : FemaleAvatar);
 
     const response = await handleUserSignup(data);
+    console.log(response);
     
     if(response?.data?.status === "success"){
-      toast({
-        title: "Account created successfully !",
-        position: "top",
-        description: "",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      });
-
+      setshowAlertToast({visiblity: true, message:"Account created successfully !", status:"success"});
       setTimeout(() => {
         navigate("/");
       }, 2500);
     }
-    else{
-      toast({
-        title: "Error Creating Account !",
-        position: "top",
-        description: "",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
+    else if(response?.response?.data?.status === 'failure'){
+      setshowAlertToast({visiblity: true, message:"Error creating account !", status:"error"});
     }
   };
 
@@ -91,24 +81,10 @@ const CreateAccount = () => {
     reader.onload = function () {
       encodedFile = reader.result;
       setProfilePicture(encodedFile);
-      toast({
-        title: "Profile Picture attached successfully !",
-        position: "top",
-        description: "",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      });
+      setshowAlertToast({visiblity: true, message:"Profile picture attached successfully !", status:"success"});
     };
     reader.onerror = function (error) {
-      toast({
-        title: "Please try again !",
-        position: "top",
-        description: "",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
+      setshowAlertToast({visiblity: true, message:"Error attaching profile picture  !", status:"error"});
     };
   }
 
@@ -122,6 +98,8 @@ const CreateAccount = () => {
         height: "100vh",
       }}
     >
+      {showAlertToast?.visiblity &&  <DisplayAlert />}
+
       <Box
         sx={{
           width: "100%",

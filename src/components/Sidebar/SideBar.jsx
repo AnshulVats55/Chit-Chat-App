@@ -7,12 +7,32 @@ import { Typography, Box } from '@mui/material';
 import { Link, useNavigate} from 'react-router-dom';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { useToast } from '@chakra-ui/react';
+import DisplayAlert from "../AlertBox/DisplayAlert";
+import {changeDisplayState} from "../../store/slices/DisplayAlertSlice";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+
 
 const SideBar = () => {
   const {classes}= barStyle();
 
   const toast = useToast();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+   
+  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: ""});
+  // console.log(showAlertToast)
+ 
+ useEffect(() => {
+    if (showAlertToast.visiblity === true) {
+      console.log("under use effect-------------",showAlertToast)
+      dispatch((changeDisplayState(showAlertToast)))
+      setTimeout(()=>{
+        setshowAlertToast({visiblity: false, message: ""});
+      },2000);       
+    }
+}, [showAlertToast]);
 
   const sideBarRoutes = [
     {
@@ -34,14 +54,17 @@ const SideBar = () => {
   
   const handleLogout = () => {
     localStorage.clear();
-    toast({
-      title: "You're successfully logged out !",
-      position: "top",
-      description: "",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+    // toast({
+    //   title: "You're successfully logged out !",
+    //   position: "top",
+    //   description: "",
+    //   status: "success",
+    //   duration: 2000,
+    //   isClosable: true,
+    // });
+    setshowAlertToast({visiblity: true, message: "You're successfully logged out !", status:"success"})  
+
+    
     setTimeout(() => {
       navigate("/")
       window.location.reload();
@@ -51,6 +74,7 @@ const SideBar = () => {
 
   return (
   <Box className={classes.mainContainer}>
+   {showAlertToast?.visiblity &&  <DisplayAlert />}
     <Box className={classes.containerOne}>
       {
         sideBarRoutes.map((route)=>{

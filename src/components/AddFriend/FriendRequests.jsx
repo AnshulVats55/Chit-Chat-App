@@ -5,23 +5,36 @@ import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton, Box, Avatar, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import { useToast } from "@chakra-ui/react";
 import { allRequests } from "../../api/services/FriendRequestApi";
+import DisplayAlert from "../AlertBox/DisplayAlert";
+import {changeDisplayState} from "../../store/slices/DisplayAlertSlice";
+import { useDispatch } from "react-redux";
 
 const FriendRequests = () => {
   const { classes } = ListStyles();
 
   const [friendRequests, setFriendRequests] = useState([]);
-  const toast = useToast();
+
+  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: ""});
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+      if (showAlertToast.visiblity === true) {
+        dispatch((changeDisplayState(showAlertToast)))
+        setTimeout(()=>{
+          setshowAlertToast({visiblity: false, message: ""});
+        },2000);       
+      }
+  }, [showAlertToast]);
+
 
   const userId = useSelector((state) => {
-    return state.userDataReducer[0].data.user.id;
+    return state?.userDataReducer[0]?.data?.user.id;
   });
 
   useEffect(() => {
     const run = async()=>{
     const requests = await allRequests(userId);
-    console.log(requests)
     setFriendRequests(requests);
     }
   run();
@@ -39,14 +52,9 @@ const FriendRequests = () => {
     });
     const accept = friendRequests.filter((singleRequest)=>singleRequest?.id ?singleRequest.id :singleRequest?.newRelationship.id !== id)
     setFriendRequests(accept);
-    toast({
-      title: "Friend Request accepted!",
-      position: "top",
-      description: "",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+    // const h = newRequest.filter((r)=>r?.id ?r.id :r?.newRelationship.id !== id)
+    // setNewRequest(h);
+    setshowAlertToast({visiblity: true, message:"Friend Request accepted!", status:"success"});
   };
 
   const rejectRequest = (sender, receiver,id) => {
@@ -57,19 +65,16 @@ const FriendRequests = () => {
     });
     const reject = friendRequests.filter((singleRequest)=>singleRequest?.id ?singleRequest.id :singleRequest?.newRelationship.id !== id)
     setFriendRequests(reject);
-    toast({
-      title: "Friend request rejected !",
-      position: "top",
-      description: "",
-      status: "error",
-      duration: 2000,
-      isClosable: true,
-    });
+    // const h = newRequest.filter((r)=>r?.id ?r.id :r?.newRelationship.id !== id)
+    // setNewRequest(h);
+    setshowAlertToast({visiblity: true, message:"Friend request rejected !", status:"error"});
   };
 
   return (
     <Box className={classes.friendRequestContStyles}>
-      <Typography sx={{ margin: "0.5rem 0rem", textAlign:'center', fontWeight:'bold', background:'#363a91', color:'#FFF', padding:'0.25rem 1rem', borderRadius:'15px', fontSize:'0.9rem'}}>
+      {/* <Typography sx={{ margin: "0.5rem 0rem", textAlign:'center', fontWeight:'bold', background:'#363a91', color:'#FFF', padding:'0.25rem 1rem', borderRadius:'15px', fontSize:'0.9rem'}}> */}
+      {showAlertToast?.visiblity &&  <DisplayAlert />}
+      <Typography className={classes.heading} variant="h6">
         Your Requests
       </Typography>
       <Box className={classes.friendContainer}>

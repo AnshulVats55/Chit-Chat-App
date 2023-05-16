@@ -11,17 +11,14 @@ const CommonLayout = ({ component }) => {
     return state.userDataReducer[0];
   });
 
-  const userId = userDetails?.data.user.id;
-
-  const userFullName = userDetails?.data.user.firstName + " " + userDetails.data.user.lastName;
+  const userId = userDetails?.data?.user.id;
   
   socket = io(`${BASE_URL}`,{
     auth:{
-      token:userToken
-  
+      token: userToken
     },
     query:{
-      id:userId
+      id: userId
     }
   });
 
