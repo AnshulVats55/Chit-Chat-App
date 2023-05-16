@@ -5,18 +5,18 @@ import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { PostActionStyles } from "./PostActionStyles";
 import CommentWindow from "../../Comments/comment/CommentModal";
 import { useDispatch, useSelector } from "react-redux";
-import { increasePostLikes, decreasePostLikes } from "../../../store/slices/LikeSlice";
-import { increasePostComments } from "../../../store/slices/CommentSlice";
-import  { handleAddLikes, handleDeleteLikes } from '../../../api/services/PostLikes';
+import {
+  handleAddLikes,
+  handleDeleteLikes,
+} from "../../../api/services/PostLikes";
+import { getAllPosts } from "../../../store/slices/PostDataSlice";
 
 export const PostAction = ({ post }) => {
-  
   const { classes } = PostActionStyles();
 
   const [showComments, setShowComments] = useState(false);
-  const [scroll, setScroll] = useState("paper");
-  const [isLiked, setIsLiked] = useState(false);
-  const [likeId, setLikeId] = useState("");
+
+  const currentPost = post;
 
   const currentUserId = useSelector((state) => {
     return state?.userDataReducer[0]?.data?.user?.id;
@@ -24,93 +24,53 @@ export const PostAction = ({ post }) => {
 
   const dispatch = useDispatch();
 
-  const allPostDetails = useSelector((state) => {
-    return state.likeDataReducer;
-  });
+  let alreadyLiked = {
+    status: false,
+    id: "",
+  };
 
-  const allCommentDetails = useSelector((state)=>{
-    return state.commentDataReducer;
-  });
-
-  let totalLikes;
-  const postId = post.id;
-  allPostDetails?.map((post)=>{
-    if(post.postId == postId){
-      totalLikes = post.currentLikesCount;
+  post?.likes?.forEach((like) => {
+    if (like.user.id === currentUserId) {
+      alreadyLiked.status = true;
+      alreadyLiked.id = like.id;
     }
   });
 
-  let totalComments;
-  allCommentDetails?.map((post)=>{
-      if(post.postId === postId){
-        totalComments = post.currentCommentsCount;
-      }
-  });
-
-  useEffect(()=>{
-    post?.likes?.map((like)=>{
-      if(currentUserId === like.user.id){
-        setIsLiked(true);
-        setLikeId(like.id);
-      }
-    });
-  }, []);
-  
   const handleShowComments = (scrollType) => {
     setShowComments(!showComments);
-    setScroll(scrollType);
-    dispatch(increasePostComments({ postId: postId }));
   };
 
   const handleClose = () => {
     setShowComments(!showComments);
   };
 
-  const descriptionElementRef = useRef(null);
-  useEffect(() => {
-    if (showComments) {
-      const { current: descriptionElement } = descriptionElementRef;
-      if (descriptionElement !== null) {
-        descriptionElement.focus();
-      }
-    }
-  }, [showComments]);
-
-  let data = JSON.stringify({
+  let data = {
     userId: currentUserId,
-    postId: postId,
-  });
+    postId: post.id,
+  };
 
+  //handle likes
   const handlePostLikes = async () => {
-    if (!isLiked) {  
-      const response = await handleAddLikes(data);
-      if (response.data.status === "success") {
-        setIsLiked(true);
-        setLikeId(response.data.data.id);
-        dispatch(increasePostLikes(postId));
-      }
-    }
-    else {
-      const response = await handleDeleteLikes(likeId);
-      if (response.data.status === "success") {
-        setIsLiked(false);
-        setLikeId("");
-        dispatch(decreasePostLikes(postId));
-      }
-    }
+    const response = alreadyLiked.status
+      ? await handleDeleteLikes(alreadyLiked.id)
+      : await handleAddLikes(data);
+    console.log("-----------------", response);
+    dispatch(getAllPosts());
   };
 
   return (
     <CardActions className={classes.postActionCont}>
       <Box>
         <IconButton aria-label="add to favorites" onClick={handlePostLikes}>
-          <Checkbox
-            icon={<FavoriteBorder />}
-            checked={isLiked}
-            checkedIcon={<Favorite sx={{ color: "red" }} />}
-          />
+          {alreadyLiked.status ? (
+            <Favorite sx={{ color: "red" }} />
+          ) : (
+            <FavoriteBorder />
+          )}
         </IconButton>
-        <span className={classes.Hide}>{totalLikes} likes</span>
+        <span className={classes.Hide}>
+          {currentPost.likes ? currentPost.likes.length : 0} likes
+        </span>
       </Box>
 
       <Box>
@@ -126,14 +86,15 @@ export const PostAction = ({ post }) => {
           <CommentWindow
             handleClose={handleClose}
             open={showComments}
-            scroll={scroll}
-            descriptionElementRef={descriptionElementRef}
+            scroll="paper"
             post={post}
           />
         ) : (
           <></>
         )}
-        <span className={classes.Hide}>{totalComments} comments</span>
+        <span className={classes.Hide}>
+          {currentPost.comments ? currentPost.comments.length : 0} comments
+        </span>
       </Box>
     </CardActions>
   );
