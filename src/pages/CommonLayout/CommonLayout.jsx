@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import BASE_URL from '../../api/services/BaseUrl';
 
 let socket;
+
 const CommonLayout = ({ component }) => {
 
   const userDetails = useSelector((state) => {
@@ -12,10 +13,17 @@ const CommonLayout = ({ component }) => {
 
   const userId = userDetails?.data.user.id;
 
-  const userFullName =userDetails?.data.user.firstName + " " + userDetails.data.user.lastName;
-  socket = io(`${BASE_URL}`)
-
-  socket.emit("newUser", { id: userId, name: userFullName });
+  const userFullName = userDetails?.data.user.firstName + " " + userDetails.data.user.lastName;
+  
+  socket = io(`${BASE_URL}`,{
+    auth:{
+      token:userToken
+  
+    },
+    query:{
+      id:userId
+    }
+  });
 
     return (
         <>
