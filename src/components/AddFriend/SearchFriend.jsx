@@ -78,19 +78,19 @@ const SearchFriend = () => {
 
   return (
     <Box className={classes.searchFriendContStyles}>
-      <Typography variant="body1" sx={{margin: "0.5rem 0rem", textAlign:'center', fontWeight:'bold'}}>Add New Friends</Typography>
-      <Paper component="form" className={classes.searchContainer}>
-        <input
-          className={classes.searchBar}
-          placeholder="Start making friends..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onKeyUp={searchHandler}
-        />
-        <IconButton type="button" className={classes.icon} aria-label="search">
-          <SearchIcon />
-        </IconButton>
-      </Paper>
+      <Typography sx={{margin: "0.5rem 0rem", textAlign:'center', fontWeight:'bold', background:'#363a91', color:'#FFF', padding:'0.25rem 1rem', borderRadius:'15px', fontSize:'0.9rem'}}>Add New Friends</Typography>
+        <Paper component="form" className={classes.searchContainer}>
+          <input
+            className={classes.searchBar}
+            placeholder="Start making friends..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyUp={searchHandler}
+          />
+          <IconButton type="button" className={classes.icon} aria-label="search">
+            <SearchIcon />
+          </IconButton>
+        </Paper>
       <div style={{height:"100%"}}  className={classes.friendContainer}>
         {serchedUser
           .filter((val) => {

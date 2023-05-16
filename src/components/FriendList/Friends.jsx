@@ -3,14 +3,13 @@ import { ListStyles } from "./FriendList.styles";
 import SingleFriend from "./SingleFriend";
 import SearchBar from "./SearchBar";
 
-const Friends = ({ openChat, friends,changeHandler ,setFriends,search}) => {
+const Friends = ({ openChat, friends, changeHandler, setFriends, search }) => {
 
   const { classes } = ListStyles();
 
   return (
     <div className={classes.friendGrid}>
-      <SearchBar changeHandler={changeHandler} setFriends={setFriends} friends={friends} />
-
+      <input type="search" placeholder="Search for friends..." changeHandler={changeHandler} setFriends={setFriends} friends={friends} className={classes.searchFriends} />
       <div className={classes.friendContainer}>
         {friends.followers?.filter((val) => {
                     if (search === "") {

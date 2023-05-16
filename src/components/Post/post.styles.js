@@ -33,6 +33,7 @@ export const PostStyles =makeStyles()((theme,styles)=>{
 
     friendReqGridStyles:{
       maxWidth:'25%',
+      minHeight:'100%',
     },
 
     friendReqGridItemStyles:{

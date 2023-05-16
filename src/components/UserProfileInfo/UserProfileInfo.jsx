@@ -17,8 +17,7 @@ const UserProfileInfo = () => {
 
     const userName = userProfileDetails.data.user.firstName + " " + userProfileDetails.data.user.lastName,
           userProfilePicture = userProfileDetails.data.user.profilePicture,
-          currentUserId = userProfileDetails.data.user.id,
-          userGender = userProfileDetails.data.user.gender;
+          currentUserId = userProfileDetails.data.user.id;
 
     let userAllPosts = [];
     useSelector((state)=>{
@@ -50,7 +49,7 @@ const UserProfileInfo = () => {
         <Grid container className={classes.userProfileInfoGrid}>
 
             <Grid item lg={3} md={3} sm={12} xs={12} className={classes.userProfileInfoGridItem}>
-                <ProfilePicture src={userProfilePicture ? userProfilePicture : userGender === "male" ? MaleAvatar : FemaleAvatar} picStyles={{}} />
+                <ProfilePicture src={userProfilePicture} picStyles={{}} />
             </Grid>
 
             <Grid item lg={9} md={9} sm={12} xs={12} className={classes.userSocialInfoCon}>

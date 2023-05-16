@@ -60,6 +60,7 @@ const FriendRequests = () => {
       isClosable: true,
     });
   };
+
   const rejectRequest =(sender, receiver) => {
     socket.emit("requestAccepted", {
       followerUserId: sender,
@@ -78,19 +79,11 @@ const FriendRequests = () => {
   };
 
   return (
-    <Box
-      style={{
-        marginTop: "2rem",
-        width: "100%",
-        overflowY:"scroll",
-        background:'#f3f9ff',
-      }}
-      className={classes.friendRequestContStyles}
-    >
-      <Typography sx={{ margin: "0.5rem 0rem", textAlign:'center', fontWeight:'bold'}} variant="body1">
+    <Box className={classes.friendRequestContStyles}>
+      <Typography sx={{ margin: "0.5rem 0rem", textAlign:'center', fontWeight:'bold', background:'#363a91', color:'#FFF', padding:'0.25rem 1rem', borderRadius:'15px', fontSize:'0.9rem'}}>
         Your Requests
       </Typography>
-      <div style={{ height: "100%",overflowY:"scroll",scrollbarWidth:"none" }} className={classes.friendContainer}>
+      <div style={{ height: "100%",overflowY:"scroll", scrollbarWidth:"none" }} className={classes.friendContainer}>
         {newRequest?.map((s, index) => {
           return (
             <Box className={classes.single} key={index}>

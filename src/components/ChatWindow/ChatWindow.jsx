@@ -54,7 +54,6 @@ const ChatWindow = ({ selectedChat, displayChat, setDisplayChat, recUser }) => {
   });
   return (
     <Box className="containers">
-
       {
         selectedChat ?(
           <Paper

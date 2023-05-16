@@ -23,9 +23,12 @@ export const PostHeader = ({ post, styles }) => {
     return state.userDataReducer[0]?.data?.user;
   });
 
+
   const userProfilePicture = post["user.profilePicture"]
     ? post["user.profilePicture"]
     : user.profilePicture;
+
+  
 
   const { handleDeletePost } = useContext(PostContext);
 

@@ -39,6 +39,7 @@ export const Posts = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+
     let response = dispatch(getAllPosts());
     
     if (response.length === 0) {
@@ -46,11 +47,15 @@ export const Posts = () => {
     }
   }, []);
 
+
   const handleCreatePost = async (postData) => {
 
     const response = await createPost(postData, currentUserId);
     
     if (response.data.status === "success") {
+      if(posts.length === 0){
+        setArePostsAvailable(true);
+      }
       dispatch(createPostByRedux(response.data.data));
       toast({
         title: "Post created successfully !",
@@ -76,6 +81,9 @@ export const Posts = () => {
     if (id !== "") {
       const response = await deletePost(id);
       if (response.data.status == "success") {
+        if(posts.length === 1){
+          setArePostsAvailable(false);
+        }
         dispatch(deletePostById(id));
         toast({
           title: "Post deleted successfully !",
@@ -86,7 +94,8 @@ export const Posts = () => {
           isClosable: true,
         });
       }
-    } else {
+    }
+    else {
       toast({
         title: "Post deletion revoked !",
         position: "top",
@@ -106,27 +115,36 @@ export const Posts = () => {
             <CreatePost createPost={handleCreatePost} />
           </Grid>
 
-          <Grid item xs={12} className={classes.postContItemStyles}>
-            {arePostsAvailable ? (
-              <Grid
-                container
-                spacing={2}
-                className={classes.gridContainerStyles}
-              >
-                {posts?.map((post) => {
-                  return (
-                    <>
-                      <Grid
-                        className={classes.gridItemStyles}
-                        item
-                        xs={10}
-                        key={post.id}
-                      >
-                        <Post post={post} postCreatorId={post.userId} />
-                      </Grid>
-                    </>
-                  );
-                })}
+
+
+              <Grid item xs={12} className={classes.postContItemStyles}>
+                {
+                  arePostsAvailable
+                  ?
+                  <Grid container spacing={2} className={classes.gridContainerStyles}>
+                  {
+                    posts?.map((post) => {
+                      return (
+                        <>
+                        <Grid
+                          className={classes.gridItemStyles}
+                          item
+                          xs={10}
+                          key={post.id}
+                        >
+                          <Post post={post} postCreatorId={post.userId} />
+                        </Grid>
+                        </>
+                      );
+                  })}
+                  </Grid>
+                  :
+                  <Box className={classes.noPostsFoundContStyles}>
+                    <Typography variant="body2" className={classes.noPostFoundTextStyles}>OOPS ! There are no posts.</Typography>
+                    <img src={NoPostsFound} alt="" className={classes.noPostsFoundImageStyles}/>
+                  </Box>
+                }
+
               </Grid>
             ) : (
               <Box className={classes.noPostsFoundContStyles}>
