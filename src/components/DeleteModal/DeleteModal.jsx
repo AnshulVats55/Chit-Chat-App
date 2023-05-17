@@ -18,13 +18,11 @@ export default function Modal({ id }) {
 
   const handleClose1 = () => {
     setOpen(false);
-    console.log("yes", id);
     handleDeletePost(id);
   };
 
   const handleClose2 = () => {
     setOpen(false);
-    // console.log("clicked on no");
     handleDeletePost("");
   };
 

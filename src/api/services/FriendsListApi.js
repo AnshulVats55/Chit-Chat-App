@@ -11,10 +11,12 @@ export const getFriends = async (userId) => {
       authorization: `Bearer ${userToken}`,
     },
   };
+
   try {
     const response = await axios.request(config);
     return response.data.data;
-  } catch (error) {
-    console.log(error);
+  }
+  catch (error) {
+    return error;
   }
 };

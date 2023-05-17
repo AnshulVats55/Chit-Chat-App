@@ -3,10 +3,7 @@ import { makeStyles } from "tss-react/mui";
 export const ChatStyles = makeStyles()((theme) => {
   return {
     chatWindow: {
-      width: "100%",
-      height: "100%",
-      bordeRadius: "1rem",
-      backgroundColor: "rgb(33, 108, 108)",
+      background: "#FFF",
     },
     
     ChatwindowNot: {
@@ -18,14 +15,14 @@ export const ChatStyles = makeStyles()((theme) => {
       borderBottom: "1px solid gray",
       padding: "1rem",
       overflow: "hidden",
-      backgroundColor: "#fff",
+      backgroundColor: "#f3f9ff",
       bordeRadius: "1rem",
     },
 
     userName: {
       display: "flex",
       alignItems: "center",
-      fontWeight: "bolder",
+
     },
 
     avatar: {
@@ -68,7 +65,6 @@ export const ChatStyles = makeStyles()((theme) => {
       maxWidth: "60%",
       backgroundColor: "#363a91",
       borderRadius: "0.5rem",
-      color: "black",
       display: "flex",
       flexDirection: "column",
       alignItems: "flex-start",
@@ -101,7 +97,7 @@ export const ChatStyles = makeStyles()((theme) => {
       alignItems: "flex-start",
       justifyContent: " center",
       margin: "0 0.5rem",
-      padding: "0.7rem",
+      padding: "0.5rem",
       overflowWrap: "break-word",
       wordBreak: "break-word",
       fontSize: "0.8rem",
@@ -116,6 +112,7 @@ export const ChatStyles = makeStyles()((theme) => {
 
     msg: {
       color: "#fff",
+      fontSize:'1rem'
     },
 
     messageMeta: {
@@ -155,8 +152,7 @@ export const ChatStyles = makeStyles()((theme) => {
 
     time: {
       color: "#fff",
-      fontSize: "0.8rem",
-      marginTop: "0.2rem",
+      fontSize: "0.7rem",
     },
 
     picture: {

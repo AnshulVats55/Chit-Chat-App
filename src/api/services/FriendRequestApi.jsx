@@ -15,8 +15,9 @@ export const allUSers = async () => {
   try {
     const response = await axios.request(config);
     return response.data.data;
-  } catch (error) {
-    console.log(error);
+  }
+  catch(error){
+    return error;
   }
 };
 
@@ -33,7 +34,8 @@ export const allRequests = async (userId) => {
   try {
     const response = await axios.request(config);
     return response.data.data.followers;
-  } catch (error) {
-    console.log(error);
+  }
+  catch(error){
+    return error;
   }
 };

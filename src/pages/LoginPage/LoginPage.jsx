@@ -12,7 +12,6 @@ import { setUserData } from "../../store/slices/UserDataSlice";
 import { handleUserLogin } from '../../api/services/UserLogin';
 import DisplayAlert from "../../components/AlertBox/DisplayAlert";
 import {changeDisplayState} from "./../../store/slices/DisplayAlertSlice";
-import { useToast } from "@chakra-ui/react";
 
 const LoginPage = () => {
 
@@ -22,20 +21,18 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
- 
-  const toast = useToast();
   const dispatch = useDispatch();
 
   const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: ""});
  
- useEffect(() => {
-    if (showAlertToast.visiblity === true) {
-      dispatch((changeDisplayState(showAlertToast)))
-      setTimeout(()=>{
-        setshowAlertToast({visiblity: false, message: ""});
-      },1000);       
-    }
-}, [showAlertToast]);
+  useEffect(() => {
+      if (showAlertToast.visiblity === true) {
+        dispatch((changeDisplayState(showAlertToast)))
+        setTimeout(()=>{
+          setshowAlertToast({visiblity: false, message: ""});
+        }, 3000);       
+      }
+  }, [showAlertToast]);
 
   const userDetails = {
     email: email,
@@ -46,7 +43,6 @@ const LoginPage = () => {
 
     event.preventDefault();
     const response = await handleUserLogin(userDetails);
-    console.log(response);
 
       if(response?.data?.status === "success") {
         setIsLoggedIn(true);
@@ -55,34 +51,15 @@ const LoginPage = () => {
         let userToken = localStorage.getItem("token");
 
         if(userToken) {
-          // toast({
-          //   title: "You've successfully logged in !",
-          //   position: "top",
-          //   description: "",
-          //   status: "success",
-          //   duration: 2000,
-          //   isClosable: true,
-          // });
           setTimeout(() => {
             window.location.reload();
           }, 2500);
           setshowAlertToast({visiblity: true, message:"You've successfully logged in !", status:"success"}) 
-
       }
     }
-
-      else if(response?.response?.data?.status === 'failure'){
-        // toast({
-        //   title: "Error logging you in !",
-        //   position: "top",
-        //   description: "",
-        //   status: "error",
-        //   duration: 2000,
-        //   isClosable: true,
-        // });
-        setshowAlertToast({visiblity: true, message:"Error logging you in !", status:"error"}) 
-
-      }
+    else{
+      setshowAlertToast({visiblity: true, message:response?.response?.data?.message, status:"error"});
+    }
   };
 
   return (
@@ -95,7 +72,7 @@ const LoginPage = () => {
         height: "100vh",
       }}
     >
-      {showAlertToast?.visiblity &&  <DisplayAlert />}
+      {showAlertToast?.visiblity && <DisplayAlert />}
 
       <Box
         sx={{
@@ -103,7 +80,7 @@ const LoginPage = () => {
           display: "flex",
           justifyContent: "flex-start",
           alignItems: "center",
-          margin: "30px 0px",
+          margin: "15px 0px 5px",
         }}
       >
         <BrandIdentity />

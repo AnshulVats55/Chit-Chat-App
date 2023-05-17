@@ -45,7 +45,7 @@ export const PostHeader = ({ post, styles }) => {
           
         </Typography>
       }
-      subheader={post.createdAt.substring(0, 10).split("-").reverse().join("-")}
+      subheader={post?.createdAt?.substring(0, 10).split("-").reverse().join("-")}
     />
   );
 };

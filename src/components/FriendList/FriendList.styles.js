@@ -24,7 +24,7 @@ export const ListStyles = makeStyles()((theme) => ({
     margin: "1rem 0rem",
     display: "flex",
     justifyContent: "space-between",
-    flexDirection: "row",
+    flexDirection:"row",
   },
 
   searchFriendContStyles:{
@@ -75,18 +75,26 @@ export const ListStyles = makeStyles()((theme) => ({
   },
 
   avatar: {
-    marginRight: "1rem",
+    margin: "0rem 0.5rem",
   },
 
   friendContainer: {
-    height: "300px",
-    scrollbarWidth: "none",
     overflowY: "scroll",
     width: "100%",
-    minHeight: "20vh",
+    minHeight:"20vh",
     "&::-webkit-scrollbar": {
       display: "none",
     },
+  },
+
+  allFriends: {
+    overflowY: "scroll",
+    width: "100%",
+    height:"85%",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+    margin:'1rem 0rem',
   },
 
   single: {
@@ -94,8 +102,8 @@ export const ListStyles = makeStyles()((theme) => ({
     justifyContent: "center",
     alignItems:'center',
     borderRadius: "5px",
-    marginBottom: "10px",
-    minWidth: "100%",
+    margin:'0 auto 0.75rem',
+    width: "95%",
     overflowWrap: "break-word",
     wordBreak: "break-word",
     cursor:"pointer",
@@ -125,7 +133,8 @@ export const ListStyles = makeStyles()((theme) => ({
     width: "10%",
     textAlign: "right",
   },
-  friendRequest: {
+  
+  friendRequest:{
     "&::-webkit-scrollbar": {
       display: "none",
     },
@@ -157,4 +166,15 @@ export const ListStyles = makeStyles()((theme) => ({
       maxWidth:'75%',
     },
   },
+
+  friendRequestText:{
+    margin: "0.5rem 0rem",
+    textAlign:'center',
+    fontWeight:'bold',
+    background:'#363a91',
+    color:'#FFF',
+    padding:'0.25rem 1rem',
+    borderRadius:'15px',
+    fontSize:'0.9rem'
+  }
 }));

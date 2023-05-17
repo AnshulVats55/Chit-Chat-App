@@ -1,12 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import PostApi from "../../api/services/postApi";
 
-const { createPost, deletePost, getPosts } = PostApi();
+const { getPosts } = PostApi();
 
 const getAllPosts = createAsyncThunk("postData/getPosts", async (thunkAPI) => {
- 
   const response = await getPosts();
-
   return response;
 });
 
@@ -29,7 +27,6 @@ const postDataSlice = createSlice({
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(getAllPosts.fulfilled, (state, action) => {
       // Add user to the state array
-     
       return state = action.payload;
     });
   },

@@ -6,7 +6,7 @@ const userDataSlice = createSlice(
         initialState:[],
         reducers:{
             setUserData(state, action){
-                state.push(action.payload);
+                return state = [action.payload];
             }
         }
     }

@@ -1,5 +1,4 @@
 import { Avatar, Box, Grid, InputAdornment, TextField } from "@mui/material";
-
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import CommonButton from "../../Button/CommonButton";
@@ -8,7 +7,7 @@ import useCommentsContext from "../hooks/use-comment-context";
 import MaleAvatar from "../../../assets/male avatar.jpg";
 import FemaleAvatar from "../../../assets/female avatar.jpg";
 
-const CommentField = ({ handleSubmit, post }) => {
+const CommentField = ({ post }) => {
   const { classes } = commentStyles();
   const [input, setInput] = useState();
   const { createComment } = useCommentsContext();
@@ -25,7 +24,7 @@ const CommentField = ({ handleSubmit, post }) => {
 
   const handleAddComment = async (e) => {
     e.preventDefault();
-    await createComment(data);
+    const response = await createComment(data);
     setInput("");
   };
 

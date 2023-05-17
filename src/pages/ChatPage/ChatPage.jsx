@@ -3,7 +3,6 @@ import { chatStyle } from "./ChatPage.styles";
 import { Box, Grid } from "@mui/material";
 import ChatWindow from "../../components/ChatWindow/ChatWindow";
 import Friends from "../../components/FriendList/Friends";
-
 import { getFriends } from "../../api/services/FriendsListApi";
 import { useDispatch } from "react-redux";
 import { setFriendsList } from "../../store/slices/FriedListSlice";
@@ -36,7 +35,7 @@ const ChatPage = () => {
       dispatch(setFriendsList(friends));
     };
     allFriends();
-  }, [dispatch,userId]);
+  }, [dispatch, userId]);
 
   const openChat = async (id, firstName, lastName, profilePicture) => {
     const chat = await getAllChat(id,userId);

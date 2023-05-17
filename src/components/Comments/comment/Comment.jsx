@@ -21,7 +21,6 @@ const Comment = ({ comment }) => {
   const user = useSelector((state) => {
     return state.userDataReducer[0].data.user;
   });
-  console.log(user);
   
   const { classes } = commentStyles();
   const { deleteCommentById } = useCommentsContext();

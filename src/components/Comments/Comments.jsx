@@ -16,9 +16,8 @@ const Comments = () => {
             {
             comments?.map((comment) => 
             {
-              console.log(comment);
               return (
-                <Comment 
+                <Comment
                   key ={comment.id}
                   comment={comment}
                   className={classes.commentCardStyles}

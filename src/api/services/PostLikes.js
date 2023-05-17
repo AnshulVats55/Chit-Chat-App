@@ -5,8 +5,8 @@ export const handleAddLikes = async (data) => {
     const response = await authorizedInstance.post("/like", data);
     return response;
   }
-  catch(err){
-    console.log(err)
+  catch(error){
+    return error;
   }
 };
 
@@ -15,7 +15,7 @@ export const handleDeleteLikes = async (id) => {
     const response = await authorizedInstance.delete(`/like/${id}`);
     return response;
   }
-  catch(err){
-    console.log(err)
+  catch(error){
+    return error;
   }
 };

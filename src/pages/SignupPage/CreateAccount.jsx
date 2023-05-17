@@ -1,5 +1,5 @@
 import React from "react";
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -19,12 +19,13 @@ import { createAccountPageStyles } from "./CreateAccount.styles";
 import { emailValidator } from "../../validators/emailValidator";
 import { passwordCheck } from "../../validators/passwordValidtor";
 import LoginPageImage from "../../assets/loginPageImage1.gif";
-import { handleUserSignup } from '../../api/services/UserSignup';
-import MaleAvatar from '../../assets/male avatar.jpg';
-import FemaleAvatar from '../../assets/female avatar.jpg';
+import { handleUserSignup } from "../../api/services/UserSignup";
+import MaleAvatar from "../../assets/male avatar.jpg";
+import FemaleAvatar from "../../assets/female avatar.jpg";
 import DisplayAlert from "../../components/AlertBox/DisplayAlert";
-import {changeDisplayState} from "../../store/slices/DisplayAlertSlice";
+import { changeDisplayState } from "../../store/slices/DisplayAlertSlice";
 import { useDispatch } from "react-redux";
+import { confirmPasswordCheck } from "../../validators/confirmPassword";
 
 const CreateAccount = () => {
   const { classes } = createAccountPageStyles();
@@ -37,6 +38,8 @@ const CreateAccount = () => {
   const [profilePicture, setProfilePicture] = useState("");
   const [emailErrorMsg, setEmailErrorMsg] = useState({});
   const [passwordErrorMsg, setPasswordErrorMsg] = useState({});
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPasswordErrorMsg, setConfirmPasswordErrorMsg] = useState({});
   const {
     register,
     handleSubmit,
@@ -46,31 +49,63 @@ const CreateAccount = () => {
   const [isProfilePicAttached, setIsProfilePicAttached] = useState(false);
 
   const navigate = useNavigate();
-  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error |info"});
- 
- useEffect(() => {
+  const [showAlertToast, setshowAlertToast] = useState({
+    visiblity: false,
+    message: "",
+    status: "Success | Error |info",
+  });
+
+  useEffect(() => {
     if (showAlertToast.visiblity === true) {
-      dispatch((changeDisplayState(showAlertToast)))
-      setTimeout(()=>{
-        setshowAlertToast({visiblity: false, message: ""});
-      },1000);       
+      dispatch(changeDisplayState(showAlertToast));
+      setTimeout(() => {
+        setshowAlertToast({ visiblity: false, message: "" });
+      }, 3000);
     }
-}, [showAlertToast]);
+  }, [showAlertToast]);
 
   const onSubmit = async (data) => {
-    data.profilePicture = profilePicture !== "" ? profilePicture : (gender === "male" ? MaleAvatar : FemaleAvatar);
+    data.profilePicture =
+      profilePicture !== ""
+        ? profilePicture
+        : gender === "male"
+        ? MaleAvatar
+        : FemaleAvatar;
 
-    const response = await handleUserSignup(data);
-    console.log(response);
-    
-    if(response?.data?.status === "success"){
-      setshowAlertToast({visiblity: true, message:"Account created successfully !", status:"success"});
-      setTimeout(() => {
-        navigate("/");
-      }, 2500);
+    if(password === confirmPassword){
+      const response = await handleUserSignup(data);
+
+      if (response?.data?.status === "success") {
+        setshowAlertToast({
+          visiblity: true,
+          message: "Account created successfully !",
+          status: "success",
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
+      }
+      else if (response?.response?.data?.status === "failure") {
+        setshowAlertToast({
+          visiblity: true,
+          message: response?.response?.data?.message,
+          status: "error",
+        });
+      }
+      else if (response?.response?.data === undefined) {
+        setshowAlertToast({
+          visiblity: true,
+          message: "Error creating account !",
+          status: "error",
+        });
+      }
     }
-    else if(response?.response?.data?.status === 'failure'){
-      setshowAlertToast({visiblity: true, message:"Error creating account !", status:"error"});
+    else{
+      setshowAlertToast({
+        visiblity: true,
+        message: "Password is not matching !",
+        status: "error",
+      });
     }
   };
 
@@ -81,11 +116,23 @@ const CreateAccount = () => {
     reader.onload = function () {
       encodedFile = reader.result;
       setProfilePicture(encodedFile);
-      setshowAlertToast({visiblity: true, message:"Profile picture attached successfully !", status:"success"});
+      setshowAlertToast({
+        visiblity: true,
+        message: "Profile picture attached successfully !",
+        status: "success",
+      });
     };
     reader.onerror = function (error) {
-      setshowAlertToast({visiblity: true, message:"Error attaching profile picture  !", status:"error"});
+      setshowAlertToast({
+        visiblity: true,
+        message: "Error attaching profile picture  !",
+        status: "error",
+      });
     };
+  }
+
+  function test(name) {
+    console.log(`${name} clicked this button`);
   }
 
   return (
@@ -98,7 +145,7 @@ const CreateAccount = () => {
         height: "100vh",
       }}
     >
-      {showAlertToast?.visiblity &&  <DisplayAlert />}
+      {showAlertToast?.visiblity && <DisplayAlert />}
 
       <Box
         sx={{
@@ -106,7 +153,7 @@ const CreateAccount = () => {
           display: "flex",
           justifyContent: "flex-start",
           alignItems: "center",
-          margin: "30px 0px",
+          margin: "15px 0px 0px",
         }}
       >
         <BrandIdentity />
@@ -313,13 +360,10 @@ const CreateAccount = () => {
                         }}
                       ></TextField>
                       {emailErrorMsg.status === "true" ? (
-                        toast({
-                          title: "Email Id is correct !",
-                          position: "top",
-                          description: "",
+                        setshowAlertToast({
+                          visiblity: true,
+                          message: "Email Id is correct !",
                           status: "success",
-                          duration: 2000,
-                          isClosable: true,
                         })
                       ) : (
                         <Typography
@@ -355,13 +399,10 @@ const CreateAccount = () => {
                         }}
                       ></TextField>
                       {passwordErrorMsg.status === "true" ? (
-                        toast({
-                          title: "Email Id is correct !",
-                          position: "top",
-                          description: "",
+                        setshowAlertToast({
+                          visiblity: true,
+                          message: "Password is correct !",
                           status: "success",
-                          duration: 2000,
-                          isClosable: true,
                         })
                       ) : (
                         <Typography
@@ -375,6 +416,45 @@ const CreateAccount = () => {
                           {passwordErrorMsg.text}
                         </Typography>
                       )}
+                    </Grid>
+
+                    <Grid item lg={12} md={12} sm={12} xs={12}>{" "}
+                      <TextField
+                        label="Confirm password"
+                        variant="standard"
+                        type="password"
+                        required
+                        className={classes.root}
+                        color={!confirmPasswordErrorMsg.status && "warning"}
+                        InputProps={{ className: classes.input }}
+                        {...register("confirmPassword", {
+                          required: true,
+                        })}
+                        onChange={(e) => {
+                          setConfirmPassword(e.target.value);
+                          setConfirmPasswordErrorMsg(
+                          confirmPasswordCheck(e.target.value, password));
+                        }}
+                      ></TextField>
+                      {confirmPasswordErrorMsg.status === "true"
+                      ?
+                      (
+                        <></>
+                      )
+                      :
+                      (
+                        <Typography
+                          className={
+                            !confirmPasswordErrorMsg.status
+                              ? classes.errorTextStyle
+                              : classes.successTextStyle
+                          }
+                          variant="caption"
+                        >{" "}
+                          {confirmPasswordErrorMsg.text}
+                        </Typography>
+                      )
+                      }
                     </Grid>
                   </Grid>
 

@@ -16,7 +16,7 @@ const SingleFriend = ({ detail,openChat}) => {
       <Box className={classes.single1}>
         <Avatar className={classes.avatar} alt="" src={profilePicture}></Avatar>
         <Box>
-          <Typography sx={{marginTop:"6px"}} variant="h6">{firstName + " " +lastName }</Typography>
+          <Typography sx={{marginTop:"6px", fontSize:'1rem'}} variant="h6">{firstName + " " +lastName }</Typography>
         </Box>
       </Box>
     </Box>

@@ -3,11 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const displayAlertSlice = createSlice(
     { 
         name:'displayAlert',
-        initialState:{},
+        initialState:{
+            visiblity: false,
+            message: "",
+            status: ""
+        },
         reducers:{
-            changeDisplayState(state,action){
-                console.log(action.payload);
-                return state=action.payload;
+            changeDisplayState(state, action){
+                return state = action.payload;
             }
         }
     }

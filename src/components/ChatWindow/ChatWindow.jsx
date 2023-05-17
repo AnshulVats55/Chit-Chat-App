@@ -58,14 +58,13 @@ const ChatWindow = ({ selectedChat, displayChat, setDisplayChat, recUser }) => {
     } 
   });
 
-
   return (
     <Box className="containers">
       {
         selectedChat ?(
           <Paper
         elevation={3}
-        className={ classes.ChatWindow }
+        className={classes.chatWindow}
       >
         <Box className={classes.chatHeader}>
           <Box className={classes.userName}>
@@ -74,7 +73,7 @@ const ChatWindow = ({ selectedChat, displayChat, setDisplayChat, recUser }) => {
               alt=""
               src={recUser.profilePicture}
             ></Avatar>
-            <Typography sx={{ fontWeight: "medium" }} variant="h5">
+            <Typography sx={{fontWeight: "bold", fontSize:'1.25rem' }} variant="h5">
               {recUser.firstName + " " + recUser.lastName}
             </Typography>
           </Box>
@@ -104,7 +103,6 @@ const ChatWindow = ({ selectedChat, displayChat, setDisplayChat, recUser }) => {
                     }
                   >
                     <Typography className={classes.msg}>{msg.body}</Typography>
-                  
 
                     <Typography className={classes.time}>
                       {

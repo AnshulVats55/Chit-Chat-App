@@ -1,26 +1,30 @@
 import React,{useState} from 'react';
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import Slide from '@mui/material/Slide';
 import Alert from '@mui/material/Alert';
 import { useSelector } from "react-redux";
+import { getDisplayAlertStyles } from './DisplayAlert.styles';
 
 const DisplayAlert = () => {
 
-    const[open,setOpen]=useState(true);
+    const { classes } = getDisplayAlertStyles();
+
+    const[open, setOpen] = useState(true);
+
     const handleClick=()=>{
         setOpen(true);
     }
-    const handleClose=(event,reason)=>{
+    
+    const handleClose=(reason)=>{
         if(reason === 'clickaway'){
             return;
         }
         setOpen(false);
     }
+
     const alertData = useSelector((state) => {
-        console.log(state.displayAlertReducer)
         return state.displayAlertReducer;
-      })
+    });
 
     let status = alertData.status;
 
@@ -39,14 +43,13 @@ const DisplayAlert = () => {
          }
          >
             {(() => {
-                if(status=="success")
-                   return <Alert severity="success" variant='filled'>{alertData.message}</Alert>
-                else if(status=="info")
-                   return  <Alert severity="info" variant='filled'>{alertData.message}</Alert>
+                if(status === "success")
+                   return <Alert severity="success" variant='filled' className={classes.otherAlertBoxStyles}>{alertData.message}</Alert>
+                else if(status === "info")
+                   return  <Alert severity="info" variant='filled' className={classes.infoAlertBoxStyles}>{alertData.message}</Alert>
                 else
-                    return <Alert severity="error" variant='filled'>{alertData.message}</Alert>
+                    return <Alert severity="error" variant='filled' className={classes.otherAlertBoxStyles}>{alertData.message}</Alert>
             })()}
-              
         </Snackbar>
     </>
   )

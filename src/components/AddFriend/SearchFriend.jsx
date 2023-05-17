@@ -1,4 +1,4 @@
-import React, { useState ,useEffect } from "react";
+import React, { useState } from "react";
 import { Paper, IconButton, Box, Avatar, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { ListStyles } from "../FriendList/FriendList.styles";
@@ -6,40 +6,25 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useSelector } from "react-redux";
 import { socket } from "../../pages/CommonLayout/CommonLayout";
 import { allUSers } from "../../api/services/FriendRequestApi";
-import DisplayAlert from "../AlertBox/DisplayAlert";
-import {changeDisplayState} from "../../store/slices/DisplayAlertSlice";
-import { useDispatch } from "react-redux";
 
-const SearchFriend = () => {
+const SearchFriend = ({ setshowAlertToast }) => {
 
   const { classes } = ListStyles();
   const [serchedUser, setSearchedUSer] = useState([]);
   const [search, setSearch] = useState("");
-
-  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error |info"});
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-      if (showAlertToast.visiblity === true) {
-        dispatch((changeDisplayState(showAlertToast)))
-        setTimeout(()=>{
-          setshowAlertToast({visiblity: false, message: ""});
-        },2000);       
-      }
-  }, [showAlertToast]);
 
   const userDetails = useSelector((state) => {
     return state.userDataReducer[0];
   });
   const userId = userDetails?.data?.user.id;
 
-  const ff = useSelector((state) => {
+  const allFriends = useSelector((state) => {
     return state.FriendsDataReducer;
   });
   
   const addFriend = (id) => {
     socket.emit("addFriend", { followerUserId: userId, followedUserId: id });
-    setshowAlertToast({visiblity: true, message:"Friend Request Sent Succesfully !", status:"success"}) 
+    setshowAlertToast({visiblity: true, message:"Friend Request Sent Succesfully !", status:"success"});
   };
 
   const searchHandler = async () => {
@@ -49,8 +34,7 @@ const SearchFriend = () => {
 
   return (
     <Box className={classes.searchFriendContStyles}>
-     {showAlertToast?.visiblity &&  <DisplayAlert />}
-      <Typography variant="h6" className={classes.heading}>
+      <Typography variant="h6" className={classes.friendRequestText}>
         Add New Friends
       </Typography>
       <Paper component="form" className={classes.searchContainer}>
@@ -76,7 +60,7 @@ const SearchFriend = () => {
                 val.lastName.toLowerCase().startsWith(search.toLowerCase())) &&
               val.id !== userId
             ) {
-              const index = ff.findIndex((element) => {
+              const index = allFriends[0]?.followers.findIndex((element) => {
                 return element.id === val.id;
               });
 

@@ -4,8 +4,6 @@ import SingleFriend from "./SingleFriend";
 import SearchBar from "./SearchBar";
 import { useSelector } from 'react-redux'
 
-const Friends = ({ openChat, friends, changeHandler, setFriends, search }) => {
-
 const Friends = ({ openChat}) => {
   const [search, setSearch] = useState("");
   const { classes } = ListStyles();
@@ -20,8 +18,8 @@ const Friends = ({ openChat}) => {
 
   return (
     <div className={classes.friendGrid}>
-      <input type="search" placeholder="Search for friends..." changeHandler={changeHandler} setFriends={setFriends} friends={friends} className={classes.searchFriends} />
-      <div className={classes.friendContainer}>
+      <input type="search" placeholder="Search for friends..." value={search} onChange={(e)=>{setSearch(e.target.value)}} className={classes.searchFriends} />
+      <div className={classes.allFriends}>
         {friendsList[0]?.followers.filter((val) => {
                     if (search === "") {
                       return val;

@@ -54,7 +54,6 @@ export const PostAction = ({ post }) => {
     const response = alreadyLiked.status
       ? await handleDeleteLikes(alreadyLiked.id)
       : await handleAddLikes(data);
-    console.log("-----------------", response);
     dispatch(getAllPosts());
   };
 

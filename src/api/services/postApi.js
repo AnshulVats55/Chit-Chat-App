@@ -8,20 +8,33 @@ const PostApi = () => {
       attachment: datapost.postMedia,
     };
 
-    const response = await authorizedInstance.post("/post/", data);
-    return response;
-
+    try{
+      const response = await authorizedInstance.post("/post/", data);
+      return response;
+    }
+    catch(error){
+      return error;
+    }
   };
 
   const getPosts = async () => {
-    const response = await authorizedInstance.get("/post/feedPost");
+    try{
+      const response = await authorizedInstance.get("/post/feedPost");
       return response.data.data;
-  
+    }
+    catch(error){
+      return error;
+    }
   };
 
   const deletePost = async (id) => {
-    const response = await authorizedInstance.delete(`/post/${id}`);
-    return response;
+    try{
+      const response = await authorizedInstance.delete(`/post/delete/${id}`);
+      return response;
+    }
+    catch(error){
+      return error;
+    }
   };
 
   return { createPost, getPosts, deletePost };

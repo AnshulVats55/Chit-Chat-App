@@ -4,7 +4,6 @@ import { PostStyles } from "./post.styles";
 import Post from "./Post";
 import CreatePost from "./createPost/CreatePost";
 import postApi from "../../api/services/postApi";
-import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllPosts,
@@ -21,9 +20,8 @@ const PostContext = createContext();
 
 export const Posts = () => {
   const { classes } = PostStyles();
-  const { getPosts, createPost, deletePost } = postApi();
+  const { createPost, deletePost } = postApi();
   const [arePostsAvailable, setArePostsAvailable] = useState(true);
-  const toast = useToast();
   
   const [userName, setUserName] = useState("");
 
@@ -36,14 +34,14 @@ export const Posts = () => {
   });
 
   const dispatch = useDispatch();
-  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error |info"});
+  const [showAlertToast, setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error |info"});
  
   useEffect(() => {
       if (showAlertToast.visiblity === true) {
         dispatch((changeDisplayState(showAlertToast)))
         setTimeout(()=>{
           setshowAlertToast({visiblity: false, message: ""});
-        },1000);       
+        }, 3000);
       }
   }, [showAlertToast]);
 
@@ -55,39 +53,36 @@ export const Posts = () => {
   }, []);
 
   const handleCreatePost = async (postData) => {
-
-    if (response?.data?.status === "success") {
+    const response = await createPost(postData, currentUserId);
+    if(response?.data?.status === "success") {
       dispatch(createPostByRedux(response.data.data));
-      setshowAlertToast({visiblity: true, message:"Post Created  Successfully !", status:"success"});
+      setshowAlertToast({visiblity: true, message:"Post created successfully !", status:"success"});
     }
-    else {
+    else{
       setshowAlertToast({visiblity: true, message:"Error creating post !", status:"error"});
     }
   };
 
- let deleteToast;
+  let deleteToast;
   const handleDeletePost = async (id) => {
     if (id !== "") {
       const response = await deletePost(id);
-      if (response.data.status == "success") {
+      if (response?.data?.status == "success") {
         if(posts.length === 1){
           setArePostsAvailable(false);
         }
         dispatch(deletePostById(id));
-        setshowAlertToast({visiblity: true, message:"Deleted Successfully!", status:"success"});
-
+        setshowAlertToast({visiblity: true, message:"Post deleted successfully !", status:"success"});
       }
     }
     else {
-      setshowAlertToast({visiblity: true, message:"Deletion revoked!", status:"error"}) 
+      setshowAlertToast({visiblity: true, message:"Post deletion revoked !", status:"info"});
     }
   };
 
   return (
     <PostContext.Provider value={{ handleDeletePost, userName }}>
-  
       {showAlertToast?.visiblity &&  <DisplayAlert />}
-
       <Box className={classes.PostsTopContStyles}>
         <Grid container className={classes.postContStyles}>
           <Grid item xs={12} className={classes.postContItemStyles}>
@@ -136,7 +131,7 @@ export const Posts = () => {
 
         <Grid container className={classes.friendReqGridStyles}>
           <Grid item xs={12} className={classes.friendReqGridItemStyles}>
-            <Request />
+            <Request setshowAlertToast={setshowAlertToast}/>
           </Grid>
         </Grid>
       </Box>

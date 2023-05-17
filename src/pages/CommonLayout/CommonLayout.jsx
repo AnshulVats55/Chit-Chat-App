@@ -7,6 +7,8 @@ let socket;
 
 const CommonLayout = ({ component }) => {
 
+  const userToken = localStorage.getItem("token");
+
   const userDetails = useSelector((state) => {
     return state.userDataReducer[0];
   });
