@@ -1,21 +1,29 @@
-import authorizedInstance from "./Interceptors";
+import Instance from "./Interceptors";
 
-export const handleAddLikes = async (data) => {
-  try{
-    const response = await authorizedInstance.post("/like", data);
+const handleAddLikes = async (data) => {
+  try {
+    const response = await Instance({
+      url: "/like",
+      data,
+      method: "POST",
+    });
     return response;
-  }
-  catch(error){
-    return error;
+  } catch (err) {
+    return err
   }
 };
 
-export const handleDeleteLikes = async (id) => {
-  try{
-    const response = await authorizedInstance.delete(`/like/${id}`);
+ const handleDeleteLikes = async (id) => {
+  try {
+    const response = await Instance({
+      url: `/like/${id}`,
+      method: "DELETE",
+    });
+
     return response;
-  }
-  catch(error){
-    return error;
+  } catch (err) {
+    return err
   }
 };
+
+export{handleAddLikes,handleDeleteLikes}

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState , useEffect} from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Container, Box, Grid, TextField, Typography } from "@mui/material";
 import CommonButton from "../../components/Button/CommonButton";
@@ -9,12 +9,11 @@ import LoginPageImage from "../../assets/loginPageImage1.gif";
 import SuccessfullLoginImage from "../../assets/successfull login image.gif";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../store/slices/UserDataSlice";
-import { handleUserLogin } from '../../api/services/UserLogin';
-import DisplayAlert from "../../components/AlertBox/DisplayAlert";
-import {changeDisplayState} from "./../../store/slices/DisplayAlertSlice";
+import handleUserLogin from "../../api/services/UserLogin";
+import { setSnackbar } from "../../store/slices/SnackBarSlice";
+
 
 const LoginPage = () => {
-
   const { classes } = getLoginPageStyles();
 
   const [email, setEmail] = useState("");
@@ -22,17 +21,7 @@ const LoginPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const dispatch = useDispatch();
-
-  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: ""});
  
-  useEffect(() => {
-      if (showAlertToast.visiblity === true) {
-        dispatch((changeDisplayState(showAlertToast)))
-        setTimeout(()=>{
-          setshowAlertToast({visiblity: false, message: ""});
-        }, 3000);       
-      }
-  }, [showAlertToast]);
 
   const userDetails = {
     email: email,
@@ -40,25 +29,37 @@ const LoginPage = () => {
   };
 
   const handleLogin = async (event) => {
-
     event.preventDefault();
     const response = await handleUserLogin(userDetails);
 
-      if(response?.data?.status === "success") {
-        setIsLoggedIn(true);
-        dispatch(setUserData(response.data));
-        localStorage.setItem("token", response.data.data.token);
-        let userToken = localStorage.getItem("token");
+    if (response?.data?.status === "success") {
+      setIsLoggedIn(true);
+     
+      dispatch(setUserData(response.data));
+      localStorage.setItem("token", response.data.data.token);
+      let userToken = localStorage.getItem("token");
 
-        if(userToken) {
-          setTimeout(() => {
-            window.location.reload();
-          }, 2500);
-          setshowAlertToast({visiblity: true, message:"You've successfully logged in !", status:"success"}) 
+      if (userToken) {
+        dispatch(
+          setSnackbar({
+            snackbarOpen:true,
+            snackbarType:"success",
+            snackbarMessage:"You've successfully logged in !"
+          })
+        );
+        setTimeout(() => {
+          window.location.reload();
+        }, 2500);
       }
-    }
-    else{
-      setshowAlertToast({visiblity: true, message:response?.response?.data?.message, status:"error"});
+    } else if(response?.response?.data?.status ==='failure') {
+    
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "error",
+          snackbarMessage: "Error logging you in !",
+        })
+      );
     }
   };
 
@@ -72,7 +73,7 @@ const LoginPage = () => {
         height: "100vh",
       }}
     >
-      {showAlertToast?.visiblity && <DisplayAlert />}
+
 
       <Box
         sx={{
@@ -107,20 +108,18 @@ const LoginPage = () => {
                 alignItems: "center",
               }}
             >
-              {
-              !isLoggedIn ? (
+              {!isLoggedIn ? (
                 <img
                   src={LoginPageImage}
-                  alt="login image"
+                  alt=""
                   width={"100%"}
                   id="loginPageImage"
                   className={classes.loginImage}
                 />
               ) : (
-
                 <img
                   src={SuccessfullLoginImage}
-                  alt="login image"
+                  alt=""
                   width={"100%"}
                   id="loginPageImage"
                   className={classes.loginImage}
@@ -162,9 +161,7 @@ const LoginPage = () => {
                   alignItems: "center",
                 }}
               >
-                <form onSubmit={handleLogin}
-                  className={classes.formStyles}>
-
+                <form onSubmit={handleLogin} className={classes.formStyles}>
                   <TextField
                     label="Enter your email"
                     variant="standard"
@@ -190,8 +187,6 @@ const LoginPage = () => {
                       setPassword(e.target.value);
                     }}
                     className={classes.root}
-                    
-
                     InputProps={{ className: classes.input }}
                   ></TextField>
 

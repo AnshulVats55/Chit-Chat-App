@@ -2,48 +2,69 @@ import { createContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { handleAddComments, handleDeleteComments } from '../../../api/services/PostComments';
 import { getAllPosts } from "../../../store/slices/PostDataSlice";
-import {changeDisplayState} from "../../../store/slices/DisplayAlertSlice";
-import DisplayAlert from "../../AlertBox/DisplayAlert";
-
+import { setSnackbar } from "../../../store/slices/SnackBarSlice";
+import message from '../../../Constants'
 const CommentsContext = createContext();
 function Provider({ children, post }) {
 
   const [comments, setComments] = useState(post.comments);
-
   const dispatch = useDispatch();
-  const [showAlertToast, setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error | info"});
 
   useEffect(()=>{
     dispatch(getAllPosts());
-    if (showAlertToast.visiblity === true) {
-      dispatch((changeDisplayState(showAlertToast)));
-      setTimeout(()=>{
-        setshowAlertToast({visiblity: false, message: "", status:""});
-      }, 3000);
-    }
-  } ,[comments]);
+  
+  } ,[comments,dispatch]);
 
   const createComment = async (data) => {
       const response = await handleAddComments(data);
-
-      if(response?.data?.status === "success"){
+      if(response.data.status === message.SUCCESS){
         setComments([...comments, response.data.data]);
-        setshowAlertToast({visiblity: true, message:"Comment added successfully !", status:"success"});
+       
+       
+        dispatch(
+          setSnackbar({
+            snackbarOpen: true,
+            snackbarType: message.SUCCESS,
+            snackbarMessage: message.COMMENT_CREATED_SUCCESS,
+          })
+        )
       }
-      else if(response?.response?.data?.status === 'failure'){
-        setshowAlertToast({visiblity: true, message:"Error adding comment !", status:"error"});
+      else{
+       
+        dispatch(
+          setSnackbar({
+            snackbarOpen: true,
+            snackbarType: message.ERROR,
+            snackbarMessage:message.COMMENT_CREATED_ERROR,
+          })
+        )
+        
       }
   };
 
   const deleteCommentById = async (id) => {
     const response = await handleDeleteComments(id);
 
-      if(response?.data?.status === "success"){
+      if(response.data.status === message.SUCCESS){
         setComments(comments.filter((comment) => comment.id !== id));
-        setshowAlertToast({visiblity: true, message:"Comment deleted successfully !", status:"success"});
+        dispatch(
+          setSnackbar({
+            snackbarOpen: true,
+            snackbarType: message.SUCCESS,
+            snackbarMessage: message.COMMENT_DELETED_SUCCESS,
+          })
+        )
+
+        
       }
-      else if(response?.response?.data?.status === 'failure'){
-        setshowAlertToast({visiblity: true, message:"Error deleting comment !", status:"error"});
+      else{
+        dispatch(
+          setSnackbar({
+            snackbarOpen: true,
+            snackbarType: message.ERROR,
+            snackbarMessage:message.COMMENT_DELETED_ERROR,
+          })
+        )
       }
   };
 
@@ -57,7 +78,6 @@ function Provider({ children, post }) {
   return (
     <CommentsContext.Provider value={valueToShare}>
       {children}
-      {showAlertToast?.visiblity &&  <DisplayAlert />}
     </CommentsContext.Provider>
   );
 }

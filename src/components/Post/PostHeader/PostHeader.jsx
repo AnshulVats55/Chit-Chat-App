@@ -5,6 +5,8 @@ import PostContext from "../Posts";
 import { useSelector } from "react-redux";
 import DeleteModal from "../../DeleteModal/DeleteModal";
 
+
+
 export const PostHeader = ({ post, styles }) => {
   const { classes } = PostHeaderStyles(styles);
 
@@ -16,11 +18,7 @@ export const PostHeader = ({ post, styles }) => {
   
   const userProfilePicture = post["user.profilePicture"] ? post["user.profilePicture"] : user.profilePicture;
 
-  const { handleDeletePost } = useContext(PostContext);
-
-  const handleDelete = () => {
-    handleDeletePost(post.id);
-  };
+ 
 
   const currentUserId = useSelector((state) => {
     return state.userDataReducer[0]?.data?.user.id;
@@ -32,7 +30,7 @@ export const PostHeader = ({ post, styles }) => {
       action={
         <IconButton aria-label="settings">
           
-          {currentUserId == post.userId ? <DeleteModal id={post.id} /> : <></>}
+          {currentUserId === post.userId ? <DeleteModal id={post.id} /> : <></>}
         
         </IconButton>
       }

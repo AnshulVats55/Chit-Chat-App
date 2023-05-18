@@ -1,11 +1,17 @@
-import AuthorizedInstance from "./Interceptors";
 
-export const handleUserLogin = async (data) => {
+import Instance from "./Interceptors";
+ const handleUserLogin = async (data) => {
   try{
-    const response = await AuthorizedInstance.post("/login",data)
+    const response = await Instance({
+      url:'/login',
+      data,
+      method:'POST'
+    })
     return response;
   }
-  catch(error){
-    return error;
+  catch(err){
+   return err
   }
-}
+  
+};
+export default handleUserLogin;

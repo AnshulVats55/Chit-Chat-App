@@ -1,4 +1,4 @@
-import authorizedInstance from "./Interceptors";
+import Instance from "./Interceptors";
 
 const PostApi = () => {
   const createPost = async (datapost, currentUserId) => {
@@ -8,32 +8,42 @@ const PostApi = () => {
       attachment: datapost.postMedia,
     };
 
-    try{
-      const response = await authorizedInstance.post("/post/", data);
+    try {
+      const response = await Instance({
+        url: "/post/",
+        method: "POST",
+        data: data,
+      });
       return response;
-    }
-    catch(error){
-      return error;
+    } 
+    catch (err) {
+      return err
     }
   };
 
   const getPosts = async () => {
-    try{
-      const response = await authorizedInstance.get("/post/feedPost");
+    try {
+      const response = await Instance({
+        url: "/post/feedPost",
+        method: "GET",
+      });
       return response.data.data;
-    }
-    catch(error){
-      return error;
+    } 
+    catch (err) {
+      return err
     }
   };
 
   const deletePost = async (id) => {
-    try{
-      const response = await authorizedInstance.delete(`/post/delete/${id}`);
+    try {
+      const response = await Instance({
+        url: `/post/delete/${id}`,
+        method: "DELETE",
+      });
       return response;
-    }
-    catch(error){
-      return error;
+    } 
+    catch (err) {
+      return err
     }
   };
 
