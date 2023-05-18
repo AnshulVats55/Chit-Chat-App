@@ -9,12 +9,11 @@ import LoginPageImage from "../../assets/loginPageImage1.gif";
 import SuccessfullLoginImage from "../../assets/successfull login image.gif";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../store/slices/UserDataSlice";
-import { handleUserLogin } from '../../api/services/UserLogin';
+import handleUserLogin from "../../api/services/UserLogin";
+import { setSnackbar } from "../../store/slices/SnackBarSlice";
 
-import { useToast } from "@chakra-ui/react";
 
 const LoginPage = () => {
-
   const { classes } = getLoginPageStyles();
 
   const [email, setEmail] = useState("");
@@ -22,7 +21,7 @@ const LoginPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const dispatch = useDispatch();
-  const toast = useToast();
+ 
 
   const userDetails = {
     email: email,
@@ -30,42 +29,39 @@ const LoginPage = () => {
   };
 
   const handleLogin = async (event) => {
-
     event.preventDefault();
     const response = await handleUserLogin(userDetails);
     console.log(response);
 
-      if(response.data.status === "success") {
-        setIsLoggedIn(true);
-        dispatch(setUserData(response.data));
-        localStorage.setItem("token", response.data.data.token);
-        let userToken = localStorage.getItem("token");
+    if (response?.data?.status === "success") {
+      setIsLoggedIn(true);
+     
+      dispatch(setUserData(response.data));
+      localStorage.setItem("token", response.data.data.token);
+      let userToken = localStorage.getItem("token");
 
-        if(userToken) {
-          toast({
-            title: "You've successfully logged in !",
-            position: "top",
-            description: "",
-            status: "success",
-            duration: 2000,
-            isClosable: true,
-          });
-          setTimeout(() => {
-            window.location.reload();
-          }, 2500);
+      if (userToken) {
+        dispatch(
+          setSnackbar({
+            snackbarOpen:true,
+            snackbarType:"success",
+            snackbarMessage:"You've successfully logged in !"
+          })
+        );
+        setTimeout(() => {
+          window.location.reload();
+        }, 2500);
       }
+    } else if(response?.response?.data?.status ==='failure') {
+    
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "error",
+          snackbarMessage: "Error logging you in !",
+        })
+      );
     }
-
-      else{
-        toast({
-          title: "Error logging you in !",
-          position: "top",
-          description: "",
-          status: "error",
-          duration: 2000,
-          isClosable: true,
-        });
-      }
   };
 
   return (
@@ -111,8 +107,7 @@ const LoginPage = () => {
                 alignItems: "center",
               }}
             >
-              {
-              !isLoggedIn ? (
+              {!isLoggedIn ? (
                 <img
                   src={LoginPageImage}
                   alt="login image"
@@ -121,7 +116,6 @@ const LoginPage = () => {
                   className={classes.loginImage}
                 />
               ) : (
-
                 <img
                   src={SuccessfullLoginImage}
                   alt="login image"
@@ -166,9 +160,7 @@ const LoginPage = () => {
                   alignItems: "center",
                 }}
               >
-                <form onSubmit={handleLogin}
-                  className={classes.formStyles}>
-
+                <form onSubmit={handleLogin} className={classes.formStyles}>
                   <TextField
                     label="Enter your email"
                     variant="standard"
@@ -194,8 +186,6 @@ const LoginPage = () => {
                       setPassword(e.target.value);
                     }}
                     className={classes.root}
-                    
-
                     InputProps={{ className: classes.input }}
                   ></TextField>
 

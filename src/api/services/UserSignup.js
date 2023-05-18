@@ -1,8 +1,18 @@
-import AuthorizedInstance from './Interceptors';
-// import { RequestWithoutToken } from './Request';
+import Instance from "./Interceptors";
 
-export const handleUserSignup = async (data) => {
-    // const response = await RequestWithoutToken("post", "/signup", data);
-    const response = await AuthorizedInstance.post("/signup",data)
+ const handleUserSignup = async (data) => {
+  try{
+    const response = await Instance({
+      url:"/signup",
+      data,
+      method:'POST'
+    })
     return response;
-}
+  }
+  catch(err){
+   console.log(err);
+  }
+ 
+};
+
+export default handleUserSignup;

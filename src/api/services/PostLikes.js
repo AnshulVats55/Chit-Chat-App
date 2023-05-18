@@ -1,28 +1,29 @@
-// import{ Request } from '../services/Request';
-// import { DeleteRequest } from '../services/Request'
-import authorizedInstance from "./Interceptors";
-// const token = localStorage.getItem("token");
+import Instance from "./Interceptors";
 
-export const handleAddLikes = async (data) => {
-  // const response = await Request("post", "/like", data, token);
-  try{
-    const response = await authorizedInstance.post("/like", data);
-  return response;
-  }
-  catch(err){
-    console.log(err)
-  }
-  
-};
-
-export const handleDeleteLikes = async (id) => {
-  // const response = await DeleteRequest("delete", "/like/", likeId, token);
-  try{
-    const response = await authorizedInstance.delete(`/like/${id}`);
+const handleAddLikes = async (data) => {
+  try {
+    const response = await Instance({
+      url: "/like",
+      data,
+      method: "POST",
+    });
     return response;
+  } catch (err) {
+    console.log(err);
   }
-  catch(err){
-    console.log(err)
-  }
-  
 };
+
+ const handleDeleteLikes = async (id) => {
+  try {
+    const response = await Instance({
+      url: `/like/${id}`,
+      method: "DELETE",
+    });
+
+    return response;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export{handleAddLikes,handleDeleteLikes}

@@ -1,16 +1,13 @@
 import { createContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useToast } from "@chakra-ui/react";
 import { handleAddComments, handleDeleteComments } from '../../../api/services/PostComments';
 import { getAllPosts } from "../../../store/slices/PostDataSlice";
-
+import { setSnackbar } from "../../../store/slices/SnackBarSlice";
 const CommentsContext = createContext();
 
 function Provider({ children, post }) {
 
   const [comments, setComments] = useState(post.comments);
-
-  const toast = useToast();
   const dispatch = useDispatch();
   
 
@@ -24,24 +21,25 @@ function Provider({ children, post }) {
       if(response.data.status === "success"){
         setComments([...comments, response.data.data]);
        
-        toast({
-          title: "Comment added successfully !",
-          position: "top",
-          description: "",
-          status: "success",
-          duration: 1000,
-          isClosable: true,
-        });
+       
+        dispatch(
+          setSnackbar({
+            snackbarOpen: true,
+            snackbarType: "success",
+            snackbarMessage: "Comment added successfully !",
+          })
+        )
       }
       else{
-        toast({
-          title: "Error adding your comment !",
-          position: "top",
-          description: "",
-          status: "error",
-          duration: 1000,
-          isClosable: true,
-        });
+       
+        dispatch(
+          setSnackbar({
+            snackbarOpen: true,
+            snackbarType: "warning",
+            snackbarMessage: "Error adding your comment !",
+          })
+        )
+        
       }
   };
 
@@ -50,25 +48,24 @@ function Provider({ children, post }) {
 
       if(response.data.status === "success"){
         setComments(comments.filter((comment) => comment.id !== id));
-        // dispatch(decreasePostComments(post.id));
-        toast({
-          title: "Comment deleted successfully !",
-          position: "top",
-          description: "",
-          status: "success",
-          duration: 1000,
-          isClosable: true,
-        });
+        dispatch(
+          setSnackbar({
+            snackbarOpen: true,
+            snackbarType: "success",
+            snackbarMessage: "Comment deleted successfully !",
+          })
+        )
+
+        
       }
       else{
-        toast({
-          title: "Error deleting your comment !",
-          position: "top",
-          description: "",
-          status: "error",
-          duration: 1000,
-          isClosable: true,
-        });
+        dispatch(
+          setSnackbar({
+            snackbarOpen: true,
+            snackbarType: "warning",
+            snackbarMessage:"Error deleting your comment !",
+          })
+        )
       }
   };
 

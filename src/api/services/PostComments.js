@@ -1,22 +1,27 @@
-// import { Request, DeleteRequest } from '../services/Request';
-import authorizedInstance from "./Interceptors";
-const token = localStorage.getItem("token");
+import Instance from "./Interceptors";
 
-export const handleAddComments = async (data) => {
-  console.log(data)
-  // const response = await Request("post", "/comment", data, token);
-  try{
-    const response = await authorizedInstance.post("/comment", data);
+const handleAddComments = async (data) => {
+  try {
+    const response = await Instance({
+      url: "/comment",
+      data,
+      method: "POST",
+    });
     return response;
+  } catch (err) {
+    console.log(err);
   }
-  catch(err){
-    console.log(err)
-  }   
- 
+};
+const handleDeleteComments = async (id) => {
+  try {
+    const response = await Instance({
+      url: `/comment/${id}`,
+      method: "DELETE",
+    });
+    return response;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-export const handleDeleteComments = async (id) => {
-  //   const response = await DeleteRequest("delete", "/comment/", id, token);
-  const response = await authorizedInstance.delete(`/comment/${id}`);
-  return response;
-};
+export { handleAddComments, handleDeleteComments };

@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userDataSlice from './slices/UserDataSlice';
 import postDataSlice from "./slices/PostDataSlice";
+import snackbarSlice from "./slices/SnackBarSlice";
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
@@ -17,7 +18,8 @@ const persistConfig = {
 const reducer = combineReducers(
     {
         userDataReducer: userDataSlice.reducer,
-        postDataReducer: postDataSlice.reducer,     
+        postDataReducer: postDataSlice.reducer,
+        snackbar: snackbarSlice.reducer    
     }
 );
 

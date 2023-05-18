@@ -24,7 +24,7 @@ import { emailValidator } from "../../validators/emailValidator";
 import { passwordCheck } from "../../validators/passwordValidtor";
 
 import LoginPageImage from "../../assets/loginPageImage1.gif";
-import { handleUserSignup } from '../../api/services/UserSignup';
+import handleUserSignup  from '../../api/services/UserSignup';
 
 const CreateAccount = () => {
   const { classes } = createAccountPageStyles();
@@ -62,7 +62,7 @@ const CreateAccount = () => {
         duration: 2000,
         isClosable: true,
       });
-
+       
       setTimeout(() => {
         navigate("/");
       }, 2500);

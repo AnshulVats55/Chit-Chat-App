@@ -4,7 +4,6 @@ import { PostStyles } from "./post.styles";
 import Post from "./Post";
 import CreatePost from "./createPost/CreatePost";
 import postApi from "../../api/services/postApi";
-import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllPosts,
@@ -15,7 +14,7 @@ import {
 
 import Request from "../AddFriend/Request";
 import NoPostsFound from "../../assets/undraw_not_found_re_bh2e.svg";
-
+import { setSnackbar } from "../../store/slices/SnackBarSlice";
 const PostContext = createContext();
 
 export const Posts = () => {
@@ -23,78 +22,82 @@ export const Posts = () => {
 
   const { createPost, deletePost } = postApi();
   const [arePostsAvailable, setArePostsAvailable] = useState(true);
-  const toast = useToast();
 
   const posts = useSelector((state) => {
     return state.postDataReducer;
   });
 
   const currentUserId = useSelector((state) => {
-  
     return state?.userDataReducer[0]?.data?.user.id;
   });
- 
+
   const [userName, setUserName] = useState("");
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     let response = dispatch(getAllPosts());
-    
+
     if (response.length === 0) {
       setArePostsAvailable(false);
     }
   }, []);
 
   const handleCreatePost = async (postData) => {
-
     const response = await createPost(postData, currentUserId);
-    
+
     if (response.data.status === "success") {
       dispatch(createPostByRedux(response.data.data));
-      toast({
-        title: "Post created successfully !",
-        position: "top",
-        description: "",
-        status: "success",
-        duration: 1000,
-        isClosable: true,
-      });
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "success",
+          snackbarMessage: "Post created successfully !",
+        })
+      )
+     
     } else {
-      toast({
-        title: "Error creating post !",
-        position: "top",
-        description: "",
-        status: "error",
-        duration: 1000,
-        isClosable: true,
-      });
+      // toast({
+      //   title: "Error creating post !",
+      //   position: "top",
+      //   description: "",
+      //   status: "error",
+      //   duration: 1000,
+      //   isClosable: true,
+      // });
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "error",
+          snackbarMessage: "Error creating post !",
+        })
+      )
+      
     }
   };
 
   const handleDeletePost = async (id) => {
     if (id !== "") {
+      console.log("----------");
       const response = await deletePost(id);
       if (response.data.status == "success") {
         dispatch(deletePostById(id));
-        toast({
-          title: "Post deleted successfully !",
-          position: "top",
-          description: "",
-          status: "success",
-          duration: 1000,
-          isClosable: true,
-        });
+        dispatch(
+          setSnackbar({
+            snackbarOpen: true,
+            snackbarType:"success",
+            snackbarMessage:"Post deleted successfully !" ,
+          })
+        )
       }
     } else {
-      toast({
-        title: "Post deletion revoked !",
-        position: "top",
-        description: "",
-        status: "info",
-        duration: 1000,
-        isClosable: true,
-      });
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType:"info",
+          snackbarMessage: "Post deletion revoked !",
+        })
+      )
     }
   };
 

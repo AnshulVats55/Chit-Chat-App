@@ -14,15 +14,15 @@ import {
 import { useToast } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 
-import MaleAvatar from '../../assets/male avatar.jpg';
-import FemaleAvatar from '../../assets/female avatar.jpg';
-
+import MaleAvatar from "../../assets/male avatar.jpg";
+import FemaleAvatar from "../../assets/female avatar.jpg";
+import { setSnackbar } from "../../store/slices/SnackBarSlice";
+import { useDispatch } from "react-redux";
 const UserProfileIcon = () => {
-  
   const { classes } = NavbarStyles();
-
+  const dispatch = useDispatch();
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const toast = useToast();
+  
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -36,24 +36,25 @@ const UserProfileIcon = () => {
   });
 
   const userProfilePicture = userDetails.data.user.profilePicture,
-    userFullName =userDetails.data.user.firstName + " " + userDetails.data.user.lastName,
+    userFullName =
+      userDetails.data.user.firstName + " " + userDetails.data.user.lastName,
     userGender = userDetails.data.user.gender;
-
-  
 
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.clear();
-    toast({
-      title: "You're successfully logged out !",
-      position: "top",
-      description: "",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+    console.log(false)
+    dispatch(
+      setSnackbar({
+        snackbarOpen: true,
+        snackbarType: "success",
+        snackbarMessage: "Logged out successfully!",
+      })
+    )
+    
+   
     setTimeout(() => {
-      navigate('/');
+      navigate("/");
       window.location.reload();
     }, 2500);
   };
@@ -64,7 +65,13 @@ const UserProfileIcon = () => {
         <IconButton onClick={handleOpenUserMenu}>
           <Avatar
             alt="Remy Sharp"
-            src={userProfilePicture ? userProfilePicture : userGender === "male" ? MaleAvatar : FemaleAvatar}
+            src={
+              userProfilePicture
+                ? userProfilePicture
+                : userGender === "male"
+                ? MaleAvatar
+                : FemaleAvatar
+            }
             sx={{
               backgroundColor: "#363a91",
               "@media screen and (max-width: 350px)": {
@@ -93,7 +100,9 @@ const UserProfileIcon = () => {
         onClose={handleCloseUserMenu}
       >
         <MenuItem onClick={handleCloseUserMenu}>
-            <Link to="/profile" className={classes.link}>Profile</Link>
+          <Link to="/profile" className={classes.link}>
+            Profile
+          </Link>
         </MenuItem>
         <MenuItem onClick={handleCloseUserMenu}>
           <Link className={classes.link} onClick={handleLogout}>
