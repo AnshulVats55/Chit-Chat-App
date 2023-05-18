@@ -11,9 +11,8 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useToast } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-
+import message from '../../Constants'
 import MaleAvatar from "../../assets/male avatar.jpg";
 import FemaleAvatar from "../../assets/female avatar.jpg";
 import { setSnackbar } from "../../store/slices/SnackBarSlice";
@@ -47,8 +46,8 @@ const UserProfileIcon = () => {
     dispatch(
       setSnackbar({
         snackbarOpen: true,
-        snackbarType: "success",
-        snackbarMessage: "Logged out successfully!",
+        snackbarType: message.SUCCESS,
+        snackbarMessage: message.LOGOUT_SUCCESSFULLY,
       })
     )
     

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { handleAddComments, handleDeleteComments } from '../../../api/services/PostComments';
 import { getAllPosts } from "../../../store/slices/PostDataSlice";
 import { setSnackbar } from "../../../store/slices/SnackBarSlice";
+import message from '../../../Constants'
 const CommentsContext = createContext();
 
 function Provider({ children, post }) {
@@ -18,15 +19,15 @@ function Provider({ children, post }) {
   const createComment = async (data) => {
     
       const response = await handleAddComments(data);
-      if(response.data.status === "success"){
+      if(response.data.status === message.SUCCESS){
         setComments([...comments, response.data.data]);
        
        
         dispatch(
           setSnackbar({
             snackbarOpen: true,
-            snackbarType: "success",
-            snackbarMessage: "Comment added successfully !",
+            snackbarType: message.SUCCESS,
+            snackbarMessage: message.COMMENT_CREATED_SUCCESS,
           })
         )
       }
@@ -35,8 +36,8 @@ function Provider({ children, post }) {
         dispatch(
           setSnackbar({
             snackbarOpen: true,
-            snackbarType: "warning",
-            snackbarMessage: "Error adding your comment !",
+            snackbarType: message.ERROR,
+            snackbarMessage:message.COMMENT_CREATED_ERROR,
           })
         )
         
@@ -46,13 +47,13 @@ function Provider({ children, post }) {
   const deleteCommentById = async (id) => {
     const response = await handleDeleteComments(id);
 
-      if(response.data.status === "success"){
+      if(response.data.status === message.SUCCESS){
         setComments(comments.filter((comment) => comment.id !== id));
         dispatch(
           setSnackbar({
             snackbarOpen: true,
-            snackbarType: "success",
-            snackbarMessage: "Comment deleted successfully !",
+            snackbarType: message.SUCCESS,
+            snackbarMessage: message.COMMENT_DELETED_SUCCESS,
           })
         )
 
@@ -62,8 +63,8 @@ function Provider({ children, post }) {
         dispatch(
           setSnackbar({
             snackbarOpen: true,
-            snackbarType: "warning",
-            snackbarMessage:"Error deleting your comment !",
+            snackbarType: message.ERROR,
+            snackbarMessage:message.COMMENT_DELETED_ERROR,
           })
         )
       }

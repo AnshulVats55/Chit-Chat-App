@@ -11,7 +11,7 @@ import {
   createPostByRedux,
   deletePostById,
 } from "../../store/slices/PostDataSlice";
-
+import message from "../../Constants";
 import Request from "../AddFriend/Request";
 import NoPostsFound from "../../assets/undraw_not_found_re_bh2e.svg";
 import { setSnackbar } from "../../store/slices/SnackBarSlice";
@@ -46,30 +46,22 @@ export const Posts = () => {
   const handleCreatePost = async (postData) => {
     const response = await createPost(postData, currentUserId);
 
-    if (response.data.status === "success") {
+    if (response.data.status === message.SUCCESS) {
       dispatch(createPostByRedux(response.data.data));
       dispatch(
         setSnackbar({
           snackbarOpen: true,
-          snackbarType: "success",
-          snackbarMessage: "Post created successfully !",
+          snackbarType: message.SUCCESS,
+          snackbarMessage: message.COMMENT_CREATED_SUCCESS
         })
       )
      
     } else {
-      // toast({
-      //   title: "Error creating post !",
-      //   position: "top",
-      //   description: "",
-      //   status: "error",
-      //   duration: 1000,
-      //   isClosable: true,
-      // });
       dispatch(
         setSnackbar({
           snackbarOpen: true,
-          snackbarType: "error",
-          snackbarMessage: "Error creating post !",
+          snackbarType: message.ERROR,
+          snackbarMessage: message.POST_CREATED_ERROR ,
         })
       )
       
@@ -80,13 +72,13 @@ export const Posts = () => {
     if (id !== "") {
       console.log("----------");
       const response = await deletePost(id);
-      if (response.data.status == "success") {
+      if (response.data.status == message.SUCCESS) {
         dispatch(deletePostById(id));
         dispatch(
           setSnackbar({
             snackbarOpen: true,
-            snackbarType:"success",
-            snackbarMessage:"Post deleted successfully !" ,
+            snackbarType:message.SUCCESS,
+            snackbarMessage: message.POST_DELETED_SUCCESS,
           })
         )
       }
@@ -94,8 +86,8 @@ export const Posts = () => {
       dispatch(
         setSnackbar({
           snackbarOpen: true,
-          snackbarType:"info",
-          snackbarMessage: "Post deletion revoked !",
+          snackbarType:message.INFO,
+          snackbarMessage:message.POST_DELETE_REVOKED,
         })
       )
     }

@@ -11,11 +11,8 @@ const snackbarSlice = createSlice({
 
     reducers:{
         setSnackbar(state,action){
-            console.log('----------------snack')
             const {snackbarOpen,snackbarType,snackbarMessage} = action.payload
-            console.log(state)
-
-            return {
+           return {
                 ...state,
                 snackbarOpen,
                 snackbarType,

@@ -14,7 +14,7 @@ import {
   Select,
 } from "@mui/material";
 
-import { useToast } from "@chakra-ui/react";
+
 
 import CommonButton from "../../components/Button/CommonButton";
 import BrandIdentity from "../../components/BrandIdentity/BrandIdentity";
@@ -22,7 +22,9 @@ import BrandIdentity from "../../components/BrandIdentity/BrandIdentity";
 import { createAccountPageStyles } from "./CreateAccount.styles";
 import { emailValidator } from "../../validators/emailValidator";
 import { passwordCheck } from "../../validators/passwordValidtor";
-
+import { useDispatch } from "react-redux";
+import { setSnackbar } from "../../store/slices/SnackBarSlice";
+import message from '../../Constants'
 import LoginPageImage from "../../assets/loginPageImage1.gif";
 import handleUserSignup  from '../../api/services/UserSignup';
 
@@ -44,38 +46,37 @@ const CreateAccount = () => {
   } = useForm();
 
   const [isProfilePicAttached, setIsProfilePicAttached] = useState(false);
-
+  const dispatch  = useDispatch();
   const navigate = useNavigate();
-  const toast = useToast();
+
 
   const onSubmit = async (data) => {
     data.profilePicture = profilePicture;
 
     const response = await handleUserSignup(data);
     
-    if(response?.data?.status === "success"){
-      toast({
-        title: "Account created successfully !",
-        position: "top",
-        description: "",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      });
-       
+    if(response?.data?.status === message.SUCCESS){
+      
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: message.SUCCESS,
+          snackbarMessage: message.SIGNUP_SUCCESSFULLY,
+        })
+      )
       setTimeout(() => {
         navigate("/");
       }, 2500);
     }
     else{
-      toast({
-        title: "Error Creating Account !",
-        position: "top",
-        description: "",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
+      console.log(response.data);
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: message.ERROR,
+          snackbarMessage: message.LOGOUT_SUCCESSFULLY,
+        })
+      )
     }
   };
 
@@ -86,24 +87,23 @@ const CreateAccount = () => {
     reader.onload = function () {
       encodedFile = reader.result;
       setProfilePicture(encodedFile);
-      toast({
-        title: "Profile Picture attached successfully !",
-        position: "top",
-        description: "",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      });
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: message.SUCCESS,
+          snackbarMessage: message.PROFILE_PICTURE_ATTACHED,
+        })
+      )
     };
     reader.onerror = function (error) {
-      toast({
-        title: "Please try again !",
-        position: "top",
-        description: "",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
+    
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: message.ERROR,
+          snackbarMessage: message.PLEASE_TRY_AGAIN,
+        })
+      )
     };
   }
 
@@ -330,14 +330,13 @@ const CreateAccount = () => {
                         }}
                       ></TextField>
                       {emailErrorMsg.status === "true" ? (
-                        toast({
-                          title: "Email Id is correct !",
-                          position: "top",
-                          description: "",
-                          status: "success",
-                          duration: 2000,
-                          isClosable: true,
-                        })
+                         dispatch(
+                          setSnackbar({
+                            snackbarOpen: true,
+                            snackbarType: message.SUCCESS,
+                            snackbarMessage: message.CORRECT_EMAILID,
+                          })
+                        )
                       ) : (
                         <Typography
                           className={
@@ -372,14 +371,13 @@ const CreateAccount = () => {
                         }}
                       ></TextField>
                       {passwordErrorMsg.status === "true" ? (
-                        toast({
-                          title: "Email Id is correct !",
-                          position: "top",
-                          description: "",
-                          status: "success",
-                          duration: 2000,
-                          isClosable: true,
-                        })
+                        dispatch(
+                          setSnackbar({
+                            snackbarOpen: true,
+                            snackbarType: message.SUCCESS,
+                            snackbarMessage: message.CORRECT_EMAILID,
+                          })
+                        )
                       ) : (
                         <Typography
                           className={

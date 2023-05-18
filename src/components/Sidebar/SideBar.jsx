@@ -6,12 +6,12 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Typography, Box } from '@mui/material';
 import { Link, useNavigate} from 'react-router-dom';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import { useToast } from '@chakra-ui/react';
-
+import { setSnackbar } from '../../store/slices/SnackBarSlice';
+import { useDispatch } from 'react-redux';
+import message from  '../../Constants'
 const SideBar = () => {
+  const dispatch = useDispatch()
   const {classes}= barStyle();
-
-  const toast = useToast();
   const navigate = useNavigate();
 
   const sideBarRoutes = [
@@ -34,14 +34,13 @@ const SideBar = () => {
   
   const handleLogout = () => {
     localStorage.clear();
-    toast({
-      title: "You're successfully logged out !",
-      position: "top",
-      description: "",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+    dispatch(
+      setSnackbar({
+        snackbarOpen: true,
+        snackbarType: message.SUCCESS,
+        snackbarMessage: message.LOGOUT_SUCCESSFULLY,
+      })
+    )
     setTimeout(() => {
       navigate("/")
       window.location.reload();
