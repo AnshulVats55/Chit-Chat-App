@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { NavbarStyles } from "./Navbar.styles";
 import {
@@ -11,12 +11,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-
+import message from '../../Constants'
 import MaleAvatar from "../../assets/male avatar.jpg";
 import FemaleAvatar from "../../assets/female avatar.jpg";
-
-import DisplayAlert from "../AlertBox/DisplayAlert";
-import { changeDisplayState } from "../../store/slices/DisplayAlertSlice";
+import { setSnackbar } from "../../store/services/SnackBarSlice";
 import { useDispatch } from "react-redux";
 
 const UserProfileIcon = () => {
@@ -26,20 +24,7 @@ const UserProfileIcon = () => {
   const { classes } = NavbarStyles();
 
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [showAlertToast, setshowAlertToast] = useState({
-    visiblity: false,
-    message: "",
-    status: "Success | Error |info",
-  });
 
-  useEffect(() => {
-    if (showAlertToast.visiblity === true) {
-      dispatch(changeDisplayState(showAlertToast));
-      setTimeout(() => {
-        setshowAlertToast({ visiblity: false, message: "" });
-      }, 2000);
-    }
-  }, [showAlertToast, dispatch]);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -61,11 +46,13 @@ const UserProfileIcon = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-    setshowAlertToast({
-      visiblity: true,
-      message: "You're successfully logged out !",
-      status: "success",
-    });
+    dispatch(
+      setSnackbar({
+        snackbarOpen: true,
+        snackbarType: message.SUCCESS,
+        snackbarMessage: message.LOGOUT_SUCCESSFULLY,
+      })
+    )
     setTimeout(() => {
       navigate("/");
       window.location.reload();
@@ -74,7 +61,6 @@ const UserProfileIcon = () => {
 
   return (
     <Box className={classes.userProfileCont}>
-      {showAlertToast?.visiblity && <DisplayAlert />}
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu}>
           <Avatar
