@@ -5,7 +5,6 @@ export const ChatStyles = makeStyles()((theme) => {
     chatWindow: {
       background: "#FFF",
     },
-    
     ChatwindowNot: {
       display: "none",
     },
@@ -22,7 +21,6 @@ export const ChatStyles = makeStyles()((theme) => {
     userName: {
       display: "flex",
       alignItems: "center",
-
     },
 
     avatar: {
@@ -112,7 +110,7 @@ export const ChatStyles = makeStyles()((theme) => {
 
     msg: {
       color: "#fff",
-      fontSize:'1rem'
+      fontSize: "1rem",
     },
 
     messageMeta: {
@@ -128,7 +126,7 @@ export const ChatStyles = makeStyles()((theme) => {
       width: "100%",
     },
 
-    input: { 
+    input: {
       outline: "none",
       width: "95%",
       marginLeft: "0.5rem",
@@ -156,7 +154,6 @@ export const ChatStyles = makeStyles()((theme) => {
     },
 
     picture: {
-      backgroundColor: "red",
       display: "flex",
       justifyContent: "center",
       height: "50%",
@@ -166,6 +163,5 @@ export const ChatStyles = makeStyles()((theme) => {
     pic: {
       width: "38rem",
     },
-
   };
 });
