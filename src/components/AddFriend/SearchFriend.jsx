@@ -8,7 +8,6 @@ import { socket } from "../../pages/CommonLayout/CommonLayout";
 import { allUSers } from "../../api/services/FriendRequestApi";
 
 const SearchFriend = ({ setshowAlertToast }) => {
-
   const { classes } = ListStyles();
   const [serchedUser, setSearchedUSer] = useState([]);
   const [search, setSearch] = useState("");
@@ -21,10 +20,14 @@ const SearchFriend = ({ setshowAlertToast }) => {
   const allFriends = useSelector((state) => {
     return state.FriendsDataReducer;
   });
-  
+
   const addFriend = (id) => {
     socket.emit("addFriend", { followerUserId: userId, followedUserId: id });
-    setshowAlertToast({visiblity: true, message:"Friend Request Sent Succesfully !", status:"success"});
+    setshowAlertToast({
+      visiblity: true,
+      message: "Friend Request Sent Succesfully !",
+      status: "success",
+    });
   };
 
   const searchHandler = async () => {
@@ -54,8 +57,7 @@ const SearchFriend = ({ setshowAlertToast }) => {
           ?.filter((val) => {
             if (search === "") {
               return null;
-            }
-            else if (
+            } else if (
               (val.firstName.toLowerCase().startsWith(search.toLowerCase()) ||
                 val.lastName.toLowerCase().startsWith(search.toLowerCase())) &&
               val.id !== userId
@@ -66,8 +68,7 @@ const SearchFriend = ({ setshowAlertToast }) => {
 
               if (index === -1) return val;
               else return null;
-            }
-            else {
+            } else {
               return null;
             }
           })

@@ -17,37 +17,53 @@ const FriendRequests = ({ setshowAlertToast }) => {
   });
 
   useEffect(() => {
-    const run = async()=>{
-    const requests = await allRequests(userId);
-    setFriendRequests(requests);
-    }
-  run();
+    const run = async () => {
+      const requests = await allRequests(userId);
+      setFriendRequests(requests);
+    };
+    run();
   }, [userId]);
 
   socket.on("followRequest", (data) => {
-    setFriendRequests([...friendRequests,data]);
+    setFriendRequests([...friendRequests, data]);
   });
 
-  const acceptRequest = (sender, receiver,id) => {
+  const acceptRequest = (sender, receiver, id) => {
     socket.emit("requestAccepted", {
       followerUserId: sender,
       followedUserId: receiver,
       status: "Accepted",
     });
-    const accept = friendRequests.filter((singleRequest)=>singleRequest?.id ?singleRequest.id :singleRequest?.newRelationship.id !== id)
+    const accept = friendRequests.filter((singleRequest) =>
+      singleRequest?.id
+        ? singleRequest.id
+        : singleRequest?.newRelationship.id !== id
+    );
     setFriendRequests(accept);
-    setshowAlertToast({visiblity: true, message:"Friend request accepted !", status:"success"});
+    setshowAlertToast({
+      visiblity: true,
+      message: "Friend request accepted !",
+      status: "success",
+    });
   };
 
-  const rejectRequest = (sender, receiver,id) => {
+  const rejectRequest = (sender, receiver, id) => {
     socket.emit("requestAccepted", {
       followerUserId: sender,
       followedUserId: receiver,
       status: "Failure",
     });
-    const reject = friendRequests.filter((singleRequest)=>singleRequest?.id ?singleRequest.id :singleRequest?.newRelationship.id !== id)
+    const reject = friendRequests.filter((singleRequest) =>
+      singleRequest?.id
+        ? singleRequest.id
+        : singleRequest?.newRelationship.id !== id
+    );
     setFriendRequests(reject);
-    setshowAlertToast({visiblity: true, message:"Friend request rejected !", status:"error"});
+    setshowAlertToast({
+      visiblity: true,
+      message: "Friend request rejected !",
+      status: "error",
+    });
   };
 
   return (
@@ -58,7 +74,14 @@ const FriendRequests = ({ setshowAlertToast }) => {
       <Box className={classes.friendContainer}>
         {friendRequests?.map((friendRequest) => {
           return (
-            <Box className={classes.single} key={friendRequest.newRelationship?.id ? friendRequest.newRelationship.id:friendRequest?.id}>
+            <Box
+              className={classes.single}
+              key={
+                friendRequest.newRelationship?.id
+                  ? friendRequest.newRelationship.id
+                  : friendRequest?.id
+              }
+            >
               <Box className={classes.single1}>
                 <Avatar
                   className={classes.avatar}
@@ -77,9 +100,15 @@ const FriendRequests = ({ setshowAlertToast }) => {
                 <IconButton
                   onClick={() =>
                     acceptRequest(
-                      friendRequest?.id ? friendRequest?.id : friendRequest.newRelationship.followerUserId,
-                      userId ? userId : friendRequest.newRelationship.followedUserId,
-                      friendRequest.newRelationship?.id ? friendRequest.newRelationship.id:friendRequest?.id
+                      friendRequest?.id
+                        ? friendRequest?.id
+                        : friendRequest.newRelationship.followerUserId,
+                      userId
+                        ? userId
+                        : friendRequest.newRelationship.followedUserId,
+                      friendRequest.newRelationship?.id
+                        ? friendRequest.newRelationship.id
+                        : friendRequest?.id
                     )
                   }
                 >
@@ -88,9 +117,15 @@ const FriendRequests = ({ setshowAlertToast }) => {
                 <IconButton
                   onClick={() =>
                     rejectRequest(
-                      friendRequest?.id ? friendRequest?.id : friendRequest.newRelationship.followerUserId,
-                      userId ? userId : friendRequest.newRelationship.followedUserId,
-                      friendRequest.newRelationship?.id ? friendRequest.newRelationship.id:friendRequest?.id
+                      friendRequest?.id
+                        ? friendRequest?.id
+                        : friendRequest.newRelationship.followerUserId,
+                      userId
+                        ? userId
+                        : friendRequest.newRelationship.followedUserId,
+                      friendRequest.newRelationship?.id
+                        ? friendRequest.newRelationship.id
+                        : friendRequest?.id
                     )
                   }
                 >
