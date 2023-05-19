@@ -28,17 +28,17 @@ const CHAT_FETCH_FAILED = "Failed to fetch chat";
 
 const COMMENT_CREATED_SUCCESS = "Comment created successfully";
 
-const COMMENT_CREATED_ERROR ="Error creating comment"
+const COMMENT_CREATED_ERROR = "Error creating comment";
 
 const COMMENT_DELETED_SUCCESS = "Comment deleted successfully";
 
-const COMMENT_DELETED_ERROR ="Error deleting comment";
+const COMMENT_DELETED_ERROR = "Error deleting comment";
 
 const LIKE_CREATED_SUCCESS = "Like created successfully";
 
 const LIKE_DELETED_SUCCESS = "Like deleted successfully";
 
-export default {
+const message = {
   SUCCESS,
   INFO,
   ERROR,
@@ -83,3 +83,4 @@ export default {
 
   LIKE_DELETED_SUCCESS,
 };
+export default message;
