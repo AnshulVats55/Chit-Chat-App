@@ -22,10 +22,11 @@ import LoginPageImage from "../../assets/loginPageImage1.gif";
 import { handleUserSignup } from "../../api/services/UserSignup";
 import MaleAvatar from "../../assets/male avatar.jpg";
 import FemaleAvatar from "../../assets/female avatar.jpg";
-import DisplayAlert from "../../components/AlertBox/DisplayAlert";
 import { changeDisplayState } from "../../store/slices/DisplayAlertSlice";
 import { useDispatch } from "react-redux";
 import { confirmPasswordCheck } from "../../validators/confirmPassword";
+import { setSnackbar } from "../../store/slices/SnackBarSlice";
+import message from "../../Constants"
 
 const CreateAccount = () => {
   const { classes } = createAccountPageStyles();
@@ -49,20 +50,20 @@ const CreateAccount = () => {
   const [isProfilePicAttached, setIsProfilePicAttached] = useState(false);
 
   const navigate = useNavigate();
-  const [showAlertToast, setshowAlertToast] = useState({
-    visiblity: false,
-    message: "",
-    status: "Success | Error |info",
-  });
+  // const [showAlertToast, setshowAlertToast] = useState({
+  //   visiblity: false,
+  //   message: "",
+  //   status: "Success | Error |info",
+  // });
 
-  useEffect(() => {
-    if (showAlertToast.visiblity === true) {
-      dispatch(changeDisplayState(showAlertToast));
-      setTimeout(() => {
-        setshowAlertToast({ visiblity: false, message: "" });
-      }, 3000);
-    }
-  }, [showAlertToast]);
+  // useEffect(() => {
+  //   if (showAlertToast.visiblity === true) {
+  //     dispatch(changeDisplayState(showAlertToast));
+  //     setTimeout(() => {
+  //       setshowAlertToast({ visiblity: false, message: "" });
+  //     }, 3000);
+  //   }
+  // }, [showAlertToast]);
 
   const onSubmit = async (data) => {
     data.profilePicture =
@@ -76,36 +77,49 @@ const CreateAccount = () => {
       const response = await handleUserSignup(data);
 
       if (response?.data?.status === "success") {
-        setshowAlertToast({
-          visiblity: true,
-          message: "Account created successfully !",
-          status: "success",
-        });
+       
+        dispatch(
+          setSnackbar({
+            snackbarOpen: true,
+            snackbarType: message.SUCCESS,
+            snackbarMessage: message.SIGNUP_SUCCESSFULLY
+          })
+        )
+   
         setTimeout(() => {
           navigate("/");
         }, 3000);
       }
       else if (response?.response?.data?.status === "failure") {
-        setshowAlertToast({
-          visiblity: true,
-          message: response?.response?.data?.message,
-          status: "error",
-        });
+      
+        dispatch(
+          setSnackbar({
+            snackbarOpen: true,
+            snackbarType: message.ERROR,
+            snackbarMessage: message.SIGNUP_FAILURE
+          })
+        )
       }
       else if (response?.response?.data === undefined) {
-        setshowAlertToast({
-          visiblity: true,
-          message: "Error creating account !",
-          status: "error",
-        });
+ 
+        dispatch(
+          setSnackbar({
+            snackbarOpen: true,
+            snackbarType: message.ERROR,
+            snackbarMessage: message.SIGNUP_FAILURE
+          })
+        )
       }
     }
     else{
-      setshowAlertToast({
-        visiblity: true,
-        message: "Password is not matching !",
-        status: "error",
-      });
+     
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: message.ERROR,
+          snackbarMessage: "Password is not matching !"
+        })
+      )
     }
   };
 
@@ -116,18 +130,24 @@ const CreateAccount = () => {
     reader.onload = function () {
       encodedFile = reader.result;
       setProfilePicture(encodedFile);
-      setshowAlertToast({
-        visiblity: true,
-        message: "Profile picture attached successfully !",
-        status: "success",
-      });
+    
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: message.SUCCESS,
+          snackbarMessage: message.PROFILE_PICTURE_ATTACHED
+        })
+      )
     };
     reader.onerror = function (error) {
-      setshowAlertToast({
-        visiblity: true,
-        message: "Error attaching profile picture  !",
-        status: "error",
-      });
+    
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: message.ERROR,
+          snackbarMessage: "Error attaching profile picture  !"
+        })
+      )
     };
   }
 
@@ -145,7 +165,7 @@ const CreateAccount = () => {
         height: "100vh",
       }}
     >
-      {showAlertToast?.visiblity && <DisplayAlert />}
+      
 
       <Box
         sx={{
@@ -360,11 +380,19 @@ const CreateAccount = () => {
                         }}
                       ></TextField>
                       {emailErrorMsg.status === "true" ? (
-                        setshowAlertToast({
-                          visiblity: true,
-                          message: "Email Id is correct !",
-                          status: "success",
-                        })
+                        // setshowAlertToast({
+                        //   visiblity: true,
+                        //   message: "Email Id is correct !",
+                        //   status: "success",
+                        // })
+                        dispatch(
+                          setSnackbar({
+                            snackbarOpen: true,
+                            snackbarType: message.SUCCESS,
+                            snackbarMessage: message.CORRECT_EMAILID
+                          })
+                        )
+                   
                       ) : (
                         <Typography
                           className={
@@ -399,11 +427,19 @@ const CreateAccount = () => {
                         }}
                       ></TextField>
                       {passwordErrorMsg.status === "true" ? (
-                        setshowAlertToast({
-                          visiblity: true,
-                          message: "Password is correct !",
-                          status: "success",
-                        })
+                        // setshowAlertToast({
+                        //   visiblity: true,
+                        //   message: "Password is correct !",
+                        //   status: "success",
+                        // })
+                        dispatch(
+                          setSnackbar({
+                            snackbarOpen: true,
+                            snackbarType: message.SUCCESS,
+                            snackbarMessage: "Password is correct !",
+                          })
+                        )
+                        
                       ) : (
                         <Typography
                           className={

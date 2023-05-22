@@ -3,14 +3,14 @@ import BASE_URL from "./BaseUrl";
 
 const token = localStorage.getItem("token");
 
-const AuthorizedInstance = axios.create({
+const Instance = axios.create({
   baseURL: BASE_URL,
   maxBodyLength: Infinity,
   mode: "no-mode",
   referrerPolicy: "no-referrer",
 });
 
-AuthorizedInstance.interceptors.request.use(
+Instance.interceptors.request.use(
   (config) => {
     if (token !== null) {
       config.headers.authorization = `Bearer ${token}`;
@@ -20,4 +20,4 @@ AuthorizedInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-export default AuthorizedInstance;
+export default Instance;

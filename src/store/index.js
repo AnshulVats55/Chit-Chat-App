@@ -7,9 +7,9 @@ import { combineReducers } from "@reduxjs/toolkit";
 import commentSlice from "./slices/CommentSlice";
 import likeSlice from "./slices/LikeSlice";
 import displayAlertSlice from "./slices/DisplayAlertSlice";
-import FriendSlice from "./slices/FriedListSlice";
+import FriendSlice from "./slices/FriendListSlice";
 import ChatSlice from "./slices/ChatSlice";
-
+import snackbarSlice from "./slices/SnackBarSlice";
 
 const persistConfig = {
     key:'root',
@@ -25,7 +25,8 @@ const reducer = combineReducers(
         likeDataReducer: likeSlice.reducer,
         displayAlertReducer:displayAlertSlice.reducer,
         FriendsDataReducer: FriendSlice.reducer,
-        ChatReducer:ChatSlice.reducer
+        ChatReducer:ChatSlice.reducer,
+        snackbar:snackbarSlice.reducer
     }
 );
 

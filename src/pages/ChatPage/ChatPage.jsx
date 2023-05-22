@@ -5,10 +5,10 @@ import ChatWindow from "../../components/ChatWindow/ChatWindow";
 import Friends from "../../components/FriendList/Friends";
 import { getFriends } from "../../api/services/FriendsListApi";
 import { useDispatch } from "react-redux";
-import { setFriendsList } from "../../store/slices/FriedListSlice";
+import { setFriendsList } from "../../store/slices/FriendListSlice";
 import { getAllChat } from "../../api/services/ChatApi";
 
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";  
 
 const ChatPage = () => {
   const { classes } = chatStyle();
@@ -33,6 +33,7 @@ const ChatPage = () => {
     const allFriends = async () => {
       const friends = await getFriends(userId);
       dispatch(setFriendsList(friends));
+      console.log(friends)
     };
     allFriends();
   }, [dispatch, userId]);

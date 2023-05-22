@@ -1,8 +1,12 @@
-import AuthorizedInstance from './Interceptors';
+import Instance from './Interceptors';
 
 export const handleUserSignup = async (data) => {
     try{
-        const response = await AuthorizedInstance.post("/signup",data)
+        const response = await Instance({
+            method:"POST",
+            data,
+            url:'/signup'
+          })
         return response;
     }
     catch(error){

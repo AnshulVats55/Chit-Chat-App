@@ -1,20 +1,15 @@
-import BASE_URL from './BaseUrl';
-import axios from 'axios';
-const token = localStorage.getItem("token");
+import Instance from "./Interceptors";
 
-export const getAllChat = async (id, userId) => {
-  let config = {
-    method: "get",
-    maxBodyLength: Infinity,
-    url: `${BASE_URL}/chat?senderId=${userId}&receiverId=${id}`,
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  };
-  try {
-    const response = await axios.request(config);
+ const getAllChat = async (id, userId) => {
+  try{
+    const response = await Instance({
+      url:`/chat?senderId=${userId}&receiverId=${id}`,
+      method:"GET"
+    })
     return response.data.data;
-  } catch (error) {
-    console.log(error);
+  }
+  catch(error){
+    return error;
   }
 };
+export {getAllChat}

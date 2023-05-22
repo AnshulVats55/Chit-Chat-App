@@ -7,20 +7,23 @@ import { useSelector } from 'react-redux'
 const Friends = ({ openChat}) => {
   const [search, setSearch] = useState("");
   const { classes } = ListStyles();
-  const changeHandler = (e) => {
+  const changeHandler = (e) => 
+  {
     setSearch(e.target.value);
   };
 
   const friendsList = useSelector((state) => {
     return state.FriendsDataReducer;
   });
-  console.log(friendsList)
+  console.log('11111111',friendsList)
 
   return (
     <div className={classes.friendGrid}>
       <input type="search" placeholder="Search for friends..." value={search} onChange={(e)=>{setSearch(e.target.value)}} className={classes.searchFriends} />
-      <div className={classes.allFriends}>
-        {friendsList[0]?.followers.filter((val) => {
+      <div className={classes?.allFriends}>
+        {
+       
+        friendsList[0]?.followers?.filter((val) => {
                     if (search === "") {
                       return val;
                     } else if (

@@ -38,7 +38,7 @@ const UserProfileInfo = () => {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `${BASE_URL}/all/${currentUserId}`,
+                url: `${BASE_URL}/post/usersPost?userId=${currentUserId}`,
                 headers: {
                 authorization: `Bearer ${userToken}`,
                 }

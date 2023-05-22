@@ -6,13 +6,17 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useSelector } from "react-redux";
 import { socket } from "../../pages/CommonLayout/CommonLayout";
 import { allUSers } from "../../api/services/FriendRequestApi";
+import { setSnackbar } from "../../store/slices/SnackBarSlice";
+import message from "../../Constants"
+import { useDispatch } from "react-redux";
+
 
 const SearchFriend = ({ setshowAlertToast }) => {
 
   const { classes } = ListStyles();
   const [serchedUser, setSearchedUSer] = useState([]);
   const [search, setSearch] = useState("");
-
+  const dispatch = useDispatch();
   const userDetails = useSelector((state) => {
     return state.userDataReducer[0];
   });
@@ -24,7 +28,16 @@ const SearchFriend = ({ setshowAlertToast }) => {
   
   const addFriend = (id) => {
     socket.emit("addFriend", { followerUserId: userId, followedUserId: id });
-    setshowAlertToast({visiblity: true, message:"Friend Request Sent Succesfully !", status:"success"});
+    //setshowAlertToast({visiblity: true, message:"Friend Request Sent Succesfully !", status:"success"});
+    dispatch(
+      setSnackbar({
+        snackbarOpen: true,
+        snackbarType: message.SUCCESS,
+        snackbarMessage: "Friend Request Sent Succesfully !"
+      })
+    )
+
+  
   };
 
   const searchHandler = async () => {

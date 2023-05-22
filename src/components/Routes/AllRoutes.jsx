@@ -8,11 +8,12 @@ import LoginPage from "../../pages/LoginPage/LoginPage";
 import ProfilePage from "../../pages/ProfilePage/ProfilePage";
 import { Posts } from "../../components/Post/Posts";
 import ChatPage from "../../pages/ChatPage";
+import CustomizedSnackBars from "../SnackBar/CustomizedSnackBars";
 
 const AllRoutes = () => {
   return (
     <Router>
-    
+      <CustomizedSnackBars/>
         {localStorage.getItem("token") ? 
           <>
             <Navbar />

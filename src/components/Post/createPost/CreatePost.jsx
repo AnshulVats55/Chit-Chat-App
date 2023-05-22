@@ -1,12 +1,14 @@
 import React, { useState,useEffect } from "react";
 import { Box, TextField, Typography } from "@mui/material";
-import DisplayAlert from "../../AlertBox/DisplayAlert";
 import {changeDisplayState} from "../../../store/slices/DisplayAlertSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CommonButton from "../../Button/CommonButton";
 import { getCreatePostStyles } from "./createPostStyles";
+import { setSnackbar } from "../../../store/slices/SnackBarSlice";
+import message from "../../../Constants"
 
-const CreatePost = ({ createPost }) => {
+const CreatePost = ({createPost}) => {
+
   const { classes } = getCreatePostStyles();
 
   const currentUserId = useSelector((state)=>{
@@ -19,16 +21,16 @@ const CreatePost = ({ createPost }) => {
 
   const dispatch = useDispatch();
 
-  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error |info"});
+  // const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: "Success | Error |info"});
  
-  useEffect(() => {
-      if (showAlertToast.visiblity === true) {
-        dispatch((changeDisplayState(showAlertToast)));
-        setTimeout(()=>{
-          setshowAlertToast({visiblity: false, message: ""});
-        }, 3000);
-      }
-  }, [showAlertToast]);
+  // useEffect(() => {
+  //     if (showAlertToast.visiblity === true) {
+  //       dispatch((changeDisplayState(showAlertToast)));
+  //       setTimeout(()=>{
+  //         setshowAlertToast({visiblity: false, message: ""});
+  //       }, 3000);
+  //     }
+  // }, [showAlertToast]);
 
   const postData = {
     postDesc: postDesc,
@@ -38,23 +40,29 @@ const CreatePost = ({ createPost }) => {
   const handleCreatePost = async (e) => {
     e.preventDefault();
     if (postDesc.length === 0) {
-      setshowAlertToast({visiblity: true, message: "Post caption can't be empty !", status:"info"});
+      //setshowAlertToast({visiblity: true, message: "Post caption can't be empty !", status:"info"});
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: message.INFO,
+          snackbarMessage: "Post caption can't be empty !"
+        })
+      )
+ 
     }
     else if(encodedProfilePic === ""){
-      setshowAlertToast({visiblity: true, message: "Post media can't be empty !", status:"info"});
+      //setshowAlertToast({visiblity: true, message: "Post media can't be empty !", status:"info"});
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: message.INFO,
+          snackbarMessage: "Post Media can't be empty !"
+        })
+      )
     }
     else {
-      const response = await createPost(postData, currentUserId);
-      
-      if(response?.data?.status === "success"){
-        setshowAlertToast({visiblity: true, message: "Post created successfully !", status:"success"});
-      }
-      else if(response?.response?.data?.status === "failure"){
-        setshowAlertToast({visiblity: true, message: "Error creating post !", status:"error"});
-      }
-      else if(response?.response?.data === undefined){
-        setshowAlertToast({visiblity: true, message: "Error creating post !", status:"error"});
-      }
+      const response = await createPost(postData);
+      console.log(response)
       setPostDesc("");
       setPostMedia({});
       setEncodedProfilePic("");
@@ -73,8 +81,6 @@ const CreatePost = ({ createPost }) => {
 
   return (
     <Box id="createPost" className={classes.createPostContStyles}>
-      {showAlertToast?.visiblity &&  <DisplayAlert />}
-
       <form
         className={classes.createPostFormStyles}
         onSubmit={handleCreatePost}

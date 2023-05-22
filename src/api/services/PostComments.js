@@ -1,8 +1,12 @@
-import authorizedInstance from "./Interceptors";
+import Instance from "./Interceptors";
 
 export const handleAddComments = async (data) => {
   try{
-    const response = await authorizedInstance.post("/comment", data);
+    const response = await Instance({
+      url:'/comment',
+      data,
+      method:"POST"
+    })
     return response;
   }
   catch(error){
@@ -12,7 +16,10 @@ export const handleAddComments = async (data) => {
 
 export const handleDeleteComments = async (id) => {
   try{
-    const response = await authorizedInstance.delete(`/comment/${id}`);
+    const response = await Instance({
+      url:`/comment/${id}`,
+      method:"DELETE"
+    })
     return response;
   }
   catch(error){

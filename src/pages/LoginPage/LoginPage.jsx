@@ -10,8 +10,9 @@ import SuccessfullLoginImage from "../../assets/successfull login image.gif";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../store/slices/UserDataSlice";
 import { handleUserLogin } from '../../api/services/UserLogin';
-import DisplayAlert from "../../components/AlertBox/DisplayAlert";
 import {changeDisplayState} from "./../../store/slices/DisplayAlertSlice";
+import { setSnackbar } from "../../store/slices/SnackBarSlice";
+import message from "../../Constants"
 
 const LoginPage = () => {
 
@@ -22,17 +23,6 @@ const LoginPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const dispatch = useDispatch();
-
-  const [showAlertToast,setshowAlertToast] = useState({visiblity: false, message: "", status: ""});
- 
-  useEffect(() => {
-      if (showAlertToast.visiblity === true) {
-        dispatch((changeDisplayState(showAlertToast)))
-        setTimeout(()=>{
-          setshowAlertToast({visiblity: false, message: ""});
-        }, 3000);       
-      }
-  }, [showAlertToast]);
 
   const userDetails = {
     email: email,
@@ -54,11 +44,26 @@ const LoginPage = () => {
           setTimeout(() => {
             window.location.reload();
           }, 2500);
-          setshowAlertToast({visiblity: true, message:"You've successfully logged in !", status:"success"}) 
+         // setshowAlertToast({visiblity: true, message:"You've successfully logged in !", status:"success"}) 
+         dispatch(
+          setSnackbar({
+            snackbarOpen: true,
+            snackbarType: message.SUCCESS,
+            snackbarMessage: message.LOGIN_SUCCESSFULLY
+          })
+        )
+   
       }
     }
     else{
-      setshowAlertToast({visiblity: true, message:response?.response?.data?.message, status:"error"});
+      //setshowAlertToast({visiblity: true, message:response?.response?.data?.message, status:"error"});
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: message.ERROR,
+          snackbarMessage: message.PLEASE_TRY_AGAIN
+        })
+      )
     }
   };
 
@@ -72,8 +77,7 @@ const LoginPage = () => {
         height: "100vh",
       }}
     >
-      {showAlertToast?.visiblity && <DisplayAlert />}
-
+      
       <Box
         sx={{
           width: "100%",

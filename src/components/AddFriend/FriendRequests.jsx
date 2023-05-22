@@ -6,10 +6,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import { IconButton, Box, Avatar, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { allRequests } from "../../api/services/FriendRequestApi";
+import { setSnackbar } from "../../store/slices/SnackBarSlice";
+import message from "../../Constants";
+import { useDispatch} from "react-redux";
 
-const FriendRequests = ({ setshowAlertToast }) => {
+const FriendRequests = () => {
   const { classes } = ListStyles();
-
+  const dispatch = useDispatch();
   const [friendRequests, setFriendRequests] = useState([]);
 
   const userId = useSelector((state) => {
@@ -36,7 +39,15 @@ const FriendRequests = ({ setshowAlertToast }) => {
     });
     const accept = friendRequests.filter((singleRequest)=>singleRequest?.id ?singleRequest.id :singleRequest?.newRelationship.id !== id)
     setFriendRequests(accept);
-    setshowAlertToast({visiblity: true, message:"Friend request accepted !", status:"success"});
+   // setshowAlertToast({visiblity: true, message:"Friend request accepted !", status:"success"});
+   dispatch(
+    setSnackbar({
+      snackbarOpen: true,
+      snackbarType: message.SUCCESS,
+      snackbarMessage: "Friend request accepted !"
+    })
+  )
+
   };
 
   const rejectRequest = (sender, receiver,id) => {
@@ -47,7 +58,15 @@ const FriendRequests = ({ setshowAlertToast }) => {
     });
     const reject = friendRequests.filter((singleRequest)=>singleRequest?.id ?singleRequest.id :singleRequest?.newRelationship.id !== id)
     setFriendRequests(reject);
-    setshowAlertToast({visiblity: true, message:"Friend request rejected !", status:"error"});
+   // setshowAlertToast({visiblity: true, message:"Friend request rejected !", status:"error"});
+   dispatch(
+    setSnackbar({
+      snackbarOpen: true,
+      snackbarType: message.ERROR,
+      snackbarMessage: "Friend request rejected !",
+    })
+  )
+
   };
 
   return (
@@ -64,14 +83,14 @@ const FriendRequests = ({ setshowAlertToast }) => {
                   className={classes.avatar}
                   alt=""
                   src={
-                    friendRequest.follower?.profilePicture
-                      ? friendRequest.follower?.profilePicture
+                    friendRequest?.follower?.profilePicture
+                      ? friendRequest?.follower?.profilePicture
                       : friendRequest?.profilePicture
                   }
                 ></Avatar>
                 <Typography sx={{ marginTop: "6px" }} variant="h6">
-                  {friendRequest.follower?.name
-                    ? friendRequest.follower?.name
+                  {friendRequest?.follower?.name
+                    ? friendRequest?.follower?.name
                     : friendRequest?.firstName + " " + friendRequest?.lastName}
                 </Typography>
                 <IconButton
@@ -99,7 +118,7 @@ const FriendRequests = ({ setshowAlertToast }) => {
               </Box>
             </Box>
           );
-        })}
+        })} 
       </Box>
     </Box>
   );
