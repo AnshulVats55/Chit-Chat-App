@@ -7,12 +7,10 @@ import { useSelector } from "react-redux";
 import { socket } from "../../pages/CommonLayout/CommonLayout";
 import { allUSers } from "../../api/services/FriendRequestApi";
 import { setSnackbar } from "../../store/slices/SnackBarSlice";
-import message from "../../Constants"
+import message from "../../Constants";
 import { useDispatch } from "react-redux";
 
-
 const SearchFriend = ({ setshowAlertToast }) => {
-
   const { classes } = ListStyles();
   const [serchedUser, setSearchedUSer] = useState([]);
   const [search, setSearch] = useState("");
@@ -25,7 +23,7 @@ const SearchFriend = ({ setshowAlertToast }) => {
   const allFriends = useSelector((state) => {
     return state.FriendsDataReducer;
   });
-  
+
   const addFriend = (id) => {
     socket.emit("addFriend", { followerUserId: userId, followedUserId: id });
     //setshowAlertToast({visiblity: true, message:"Friend Request Sent Succesfully !", status:"success"});
@@ -33,11 +31,9 @@ const SearchFriend = ({ setshowAlertToast }) => {
       setSnackbar({
         snackbarOpen: true,
         snackbarType: message.SUCCESS,
-        snackbarMessage: "Friend Request Sent Succesfully !"
+        snackbarMessage: "Friend Request Sent Succesfully !",
       })
-    )
-
-  
+    );
   };
 
   const searchHandler = async () => {
@@ -67,21 +63,24 @@ const SearchFriend = ({ setshowAlertToast }) => {
           ?.filter((val) => {
             if (search === "") {
               return null;
-            }
-            else if (
+            } else if (
               (val.firstName.toLowerCase().startsWith(search.toLowerCase()) ||
                 val.lastName.toLowerCase().startsWith(search.toLowerCase())) &&
               val.id !== userId
             ) {
-              const index = allFriends[0]?.followers.findIndex((element) => {
-                return element.id === val.id;
-              });
+              if (allFriends[0]?.followers.length > 0) {
+                const index = allFriends[0]?.followers.findIndex((element) => {
+                  console.log("insisde");
+                  return element.id === val.id;
+                });
 
-              if (index === -1) return val;
-              else return null;
-            }
-            else {
-              return null;
+                if (index === -1) {
+                  return val;
+                }
+              } else {
+                console.log("outside");
+                return val;
+              }
             }
           })
           .map((s) => {

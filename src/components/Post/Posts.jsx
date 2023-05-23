@@ -13,13 +13,9 @@ import postApi from "../../api/services/postApi";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-
-    getAllPosts,
-
-    createPostByRedux,
-
-    deletePostById,
-
+  getAllPosts,
+  createPostByRedux,
+  deletePostById,
 } from "../../store/slices/PostDataSlice";
 
 import message from "../../Constants";
@@ -33,264 +29,155 @@ import { setSnackbar } from "../../store/slices/SnackBarSlice";
 const PostContext = createContext();
 
 export const Posts = () => {
+  const { classes } = PostStyles();
+  const { createPost, deletePost } = postApi();
+  const [arePostsAvailable, setArePostsAvailable] = useState(true);
+  const posts = useSelector((state) => {
+    return state.postDataReducer;
+  });
 
-    const { classes } = PostStyles();
-    const { createPost, deletePost } = postApi();
-    const [arePostsAvailable, setArePostsAvailable] = useState(true);
-    const posts = useSelector((state) => {
+  const currentUserId = useSelector((state) => {
+    return state?.userDataReducer[0]?.data?.user.id;
+  });
+  const [userName, setUserName] = useState("");
+  const dispatch = useDispatch();
+  useEffect(() => {
+    let response = dispatch(getAllPosts());
 
-        return state.postDataReducer;
+    if (response.length === 0) {
+      setArePostsAvailable(false);
+    }
+  }, []);
 
-    });
+  const handleCreatePost = async (postData) => {
+    console.log("ussssssssssssssssssssse", currentUserId);
+    const response = await createPost(postData, currentUserId);
 
-    const currentUserId = useSelector((state) => {
-        return state?.userDataReducer[0]?.data?.user.id;
+    console.log("postssss,", response);
 
-    });
-    const [userName, setUserName] = useState("");
-    const dispatch = useDispatch();
-    useEffect(() => {
+    if (response?.data?.status === "success") {
+      dispatch(createPostByRedux(response.data.data));
 
-        let response = dispatch(getAllPosts());
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
 
+          snackbarType: message.SUCCESS,
 
+          snackbarMessage: message.POST_CREATED_SUCCESS,
+        })
+      );
+    } else {
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
 
-        if (response.length === 0) {
+          snackbarType: message.ERROR,
 
-            setArePostsAvailable(false);
+          snackbarMessage: message.POST_CREATED_ERROR,
+        })
+      );
+    }
+  };
 
-        }
-
-    }, []);
-
-
-
-
-    const handleCreatePost = async (postData) => {
-        console.log('ussssssssssssssssssssse', currentUserId)
-        const response = await createPost(postData, currentUserId);
-
-
-        console.log('postssss,', response)
-
-        if (response?.data?.status === "success") {
-
-        dispatch(createPostByRedux(response.data.data));
+  const handleDeletePost = async (id) => {
+    
+    if (!id) {
+      console.log('recokkkk',id);
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+  
+          snackbarType: message.INFO,
+  
+          snackbarMessage: message.POST_DELETE_REVOKED,
+        })
+      )
+     
+    } else {
+      const response = await deletePost(id);
+      if (response?.data?.status == message.SUCCESS) {
+        dispatch(deletePostById(id));
 
         dispatch(
+          setSnackbar({
+            snackbarOpen: true,
 
-            setSnackbar({
+            snackbarType: message.SUCCESS,
 
-                snackbarOpen: true,
-
-                snackbarType: message.SUCCESS,
-
-                snackbarMessage: message.POST_CREATED_SUCCESS
-
-            })
-
-        )
-
-
-
-    }
-   else {
-
-    dispatch(
-
-        setSnackbar({
-
+            snackbarMessage: message.POST_DELETED_SUCCESS,
+          })
+        );
+      } else {
+        dispatch(
+          setSnackbar({
             snackbarOpen: true,
 
             snackbarType: message.ERROR,
 
-            snackbarMessage: message.POST_CREATED_ERROR,
-
-        })
-
-    )
-
-
-
-}
-
-    };
-
-
-
-
-const handleDeletePost = async (id) => {
-
-        const response = await deletePost(id);
-        if(id === ""){
-            setSnackbar({
-
-                snackbarOpen: true,
-
-                snackbarType: message.INFO,
-
-                snackbarMessage: message.POST_DELETE_REVOKED,
-
-            })
-        }
-    
-        else if (response?.data?.status == message.SUCCESS) {
-
-            dispatch(deletePostById(id));
-
-            dispatch(
-
-                setSnackbar({
-
-                    snackbarOpen: true,
-
-                    snackbarType: message.SUCCESS,
-
-                    snackbarMessage: message.POST_DELETED_SUCCESS,
-
-                })
-
-            )
-
-        }
-
-      else {
-
-        dispatch(
-
-            setSnackbar({
-
-                snackbarOpen: true,
-
-                snackbarType: message.ERROR,
-
-                snackbarMessage: message.POST_DELETE_ERROR,
-
-            })
-
-        )
-
+            snackbarMessage: message.POST_DELETE_ERROR,
+          })
+        );
+      }
     }
+  };
 
-      
-}
-
-
-
-return (
-
+  return (
     <PostContext.Provider value={{ handleDeletePost, userName }}>
+      <Box className={classes.PostsTopContStyles}>
+        <Grid container className={classes.postContStyles}>
+          <Grid item xs={12} className={classes.postContItemStyles}>
+            <CreatePost createPost={handleCreatePost} />
+          </Grid>
 
-        <Box className={classes.PostsTopContStyles}>
+          <Grid item xs={12} className={classes.postContItemStyles}>
+            {arePostsAvailable ? (
+              <Grid
+                container
+                spacing={2}
+                className={classes.gridContainerStyles}
+              >
+                {posts?.map((post) => {
+                  return (
+                    <>
+                      <Grid
+                        className={classes.gridItemStyles}
+                        item
+                        xs={10}
+                        key={post.id}
+                      >
+                        <Post post={post} postCreatorId={post.userId} />
+                      </Grid>
+                    </>
+                  );
+                })}
+              </Grid>
+            ) : (
+              <Box className={classes.noPostsFoundContStyles}>
+                <Typography
+                  variant="body2"
+                  className={classes.noPostFoundTextStyles}
+                >
+                  No posts found
+                </Typography>
 
-            <Grid container className={classes.postContStyles}>
+                <img
+                  src={NoPostsFound}
+                  alt=""
+                  className={classes.noPostsFoundImageStyles}
+                />
+              </Box>
+            )}
+          </Grid>
+        </Grid>
 
-                <Grid item xs={12} className={classes.postContItemStyles}>
-
-                    <CreatePost createPost={handleCreatePost} />
-
-                </Grid>
-
-
-
-
-                <Grid item xs={12} className={classes.postContItemStyles}>
-
-                    {arePostsAvailable ? (
-
-                        <Grid
-
-                            container
-
-                            spacing={2}
-
-                            className={classes.gridContainerStyles}
-
-                        >
-
-                            {
-
-                                posts?.map((post) => {
-
-                                    return (
-
-                                        <>
-
-                                            <Grid
-
-                                                className={classes.gridItemStyles}
-
-                                                item
-
-                                                xs={10}
-
-                                                key={post.id}
-
-                                            >
-
-                                                <Post post={post} postCreatorId={post.userId} />
-
-                                            </Grid>
-
-                                        </>
-
-                                    );
-
-                                })}
-
-                        </Grid>
-
-                    ) : (
-
-                        <Box className={classes.noPostsFoundContStyles}>
-
-                            <Typography
-
-                                variant="body2"
-
-                                className={classes.noPostFoundTextStyles}
-
-                            >
-
-                                No posts found
-
-                            </Typography>
-
-                            <img
-
-                                src={NoPostsFound}
-
-                                alt=""
-
-                                className={classes.noPostsFoundImageStyles}
-
-                            />
-
-                        </Box>
-
-                    )}
-
-                </Grid>
-
-            </Grid>
-
-
-
-
-            <Grid container className={classes.friendReqGridStyles}>
-
-                <Grid item xs={12} className={classes.friendReqGridItemStyles}>
-
-                    <Request />
-
-                </Grid>
-
-            </Grid>
-
-        </Box>
-
+        <Grid container className={classes.friendReqGridStyles}>
+          <Grid item xs={12} className={classes.friendReqGridItemStyles}>
+            <Request />
+          </Grid>
+        </Grid>
+      </Box>
     </PostContext.Provider>
-
-);
-}
+  );
+};
 export default PostContext;

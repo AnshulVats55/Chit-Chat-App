@@ -23,7 +23,7 @@ export default function Modal({ id }) {
 
   const handleClose2 = () => {
     setOpen(false);
-    handleDeletePost("");
+    handleDeletePost()
   };
 
   return (
